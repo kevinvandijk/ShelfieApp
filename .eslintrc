@@ -5,6 +5,9 @@
       "react"
   ],
   "rules": {
-    "comma-dangle": 0
+    "comma-dangle": 0,
+    "react/jsx-curly-spacing": [2, "always", {"spacing": {
+        "objectLiterals": "never"
+    }}]
   }
 }
