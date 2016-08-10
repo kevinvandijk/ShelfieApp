@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import { View, StatusBar } from 'react-native';
 import { Provider } from 'react-redux';
-import HugeButton from './components/HugeButton';
+import Router from './router';
 
 export default class App extends Component {
   static propTypes = {
@@ -15,10 +14,7 @@ export default class App extends Component {
   render() {
     return (
       <Provider store={ this.props.store }>
-        <View>
-          <StatusBar />
-          <HugeButton>Start</HugeButton>
-        </View>
+        <Router />
       </Provider>
     );
   }
