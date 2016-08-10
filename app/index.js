@@ -7,8 +7,9 @@ export default class App extends Component {
   static propTypes = {
     store: PropTypes.object.isRequired
   }
+
   componentWillMount() {
-    console.log('App boot');
+    console.tron('App boot'); //eslint-disable-line
   }
 
   render() {
