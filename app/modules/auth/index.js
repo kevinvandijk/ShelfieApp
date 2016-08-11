@@ -1,10 +1,10 @@
-const defaultState = {
-  authenticated: false
-};
+import Immutable from 'seamless-immutable';
+import { createReducer } from 'reduxsauce';
 
-export default function authReducer(state = defaultState, action) {
-  switch (action.type) {
-    default:
-      return state;
-  }
-}
+const INITIAL_STATE = Immutable.from({
+  authenticated: false
+});
+
+export default createReducer(INITIAL_STATE, {
+
+});

@@ -1,24 +1,21 @@
+import Immutable from 'seamless-immutable';
 import { combineReducers } from 'redux';
+import { createReducer } from 'reduxsauce';
 import { ActionConst } from 'react-native-router-flux';
 
 import auth from './modules/auth';
 
-const initialRouterState = {
+const initialRouterState = Immutable.from({
   scene: {}
-};
+});
 
-function routerReducer(state = initialRouterState, action = {}) {
-  switch (action.type) {
-    // Provide redux with information when scene is focussed:
-    case ActionConst.FOCUS:
-      return {
-        ...state,
-        scene: action.scene
-      };
-    default:
-      return state;
-  }
-}
+const routerReducer = createReducer(initialRouterState, {
+  [ActionConst.FOCUS]: (state = initialRouterState, action) => (
+    state.merge({
+      scene: action.scene
+    })
+  )
+});
 
 export default combineReducers({
   router: routerReducer,
