@@ -8,7 +8,7 @@ import configureStore from './app/store/configure-store';
 Reactotron.connect({
   name: 'Shelfie',
   userAgent: Platform.OS,
-  enabled: __DEV__ // eslint-disable-line
+  enabled: __DEV__
 });
 
 if (__DEV__) { //eslint-disable-line
