@@ -1,5 +1,6 @@
 {
   "storage": {
+    "enabled": false,
     "engineKey": "app"
   }
 }
