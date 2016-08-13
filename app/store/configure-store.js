@@ -12,10 +12,7 @@ import combinedReducer from '../reducer';
 import sagas from '../sagas';
 import { SAVE_STATE_REQUEST } from '../services/storage';
 
-const reducer = (config.get('storage.enabled')
-  ? createStorageReducer(combinedReducer)
-  : combinedReducer
-);
+let reducer = combinedReducer;
 
 const middlewares = [];
 
@@ -25,13 +22,18 @@ if (config.get('storage.enabled')) {
   const whitelist = config.get('storage.autosave') ? [] : [SAVE_STATE_REQUEST];
   const storageMiddleware = createStorageMiddleware(storage.engine, [], whitelist);
   middlewares.push(storageMiddleware);
+
+  reducer = createStorageReducer(combinedReducer);
 }
 
 const sagaMiddleware = createSagaMiddleware();
 middlewares.push(sagaMiddleware);
 
 // Logger and Reactotron must be the last middleware in chain
-const logger = createLogger();
+const logger = createLogger({
+  // Remove seamless immutable stuff for nicer logging:
+  stateTransformer: (state) => state.asMutable({ deep: true })
+});
 middlewares.push(logger);
 
 if (__DEV__) middlewares.push(Reactotron.reduxMiddleware);

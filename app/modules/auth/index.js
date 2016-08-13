@@ -1,9 +1,8 @@
-import Immutable from 'seamless-immutable';
 import { createReducer } from 'reduxsauce';
 
-const INITIAL_STATE = Immutable.from({
+const INITIAL_STATE = {
   authenticated: false
-});
+};
 
 export default createReducer(INITIAL_STATE, {
 
