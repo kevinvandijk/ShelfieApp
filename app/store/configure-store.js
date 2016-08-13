@@ -2,17 +2,15 @@ import config from '../../config';
 import { applyMiddleware, createStore } from 'redux';
 import {
   reducer as createStorageReducer,
-  createMiddleware as createStorageMiddleware,
-  createLoader as createStorageLoader
+  createMiddleware as createStorageMiddleware
 } from 'redux-storage';
-import createStorageEngine from 'redux-storage-engine-reactnativeasyncstorage';
-
 import createSagaMiddleware from 'redux-saga';
 import createLogger from 'redux-logger';
 import Reactotron from 'reactotron';
 
 import combinedReducer from '../reducer';
 import sagas from '../sagas';
+import { SAVE_STATE_REQUEST } from '../services/storage';
 
 const reducer = (config.get('storage.enabled')
   ? createStorageReducer(combinedReducer)
@@ -21,10 +19,11 @@ const reducer = (config.get('storage.enabled')
 
 const middlewares = [];
 
-let storageEngine;
+let storage;
 if (config.get('storage.enabled')) {
-  storageEngine = createStorageEngine(config.get('storage.engineKey'));
-  const storageMiddleware = createStorageMiddleware(storageEngine);
+  storage = require('./storage-engine'); // eslint-disable-line global-require
+  const whitelist = config.get('storage.autosave') ? [] : [SAVE_STATE_REQUEST];
+  const storageMiddleware = createStorageMiddleware(storage.engine, [], whitelist);
   middlewares.push(storageMiddleware);
 }
 
@@ -43,13 +42,8 @@ export default function configureStore() {
     applyMiddleware(...middlewares)
   );
 
+  if (storage) storage.addStore(store);
   if (__DEV__) Reactotron.addReduxStore(store); //eslint-disable-line
-
-  if (config.get('storage.enabled')) {
-    createStorageLoader(storageEngine)(store)
-      .then((state) => console.log('Loaded state:', state)) //eslint-disable-line
-      .catch(() => console.log('Failed to load previous state')); //eslint-disable-line
-  }
 
   sagaMiddleware.run(sagas);
 

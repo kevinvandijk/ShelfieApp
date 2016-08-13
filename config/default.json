@@ -1,6 +1,8 @@
 {
   "storage": {
-    "enabled": false,
+    "enabled": true,
+    "autosave": false,
+    "debounce": 5000,
     "engineKey": "app"
   }
 }
