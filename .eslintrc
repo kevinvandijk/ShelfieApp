@@ -6,7 +6,7 @@
   ],
   "rules": {
     "comma-dangle": 0,
-    "arrow-body-style": [2, "as-needed", { "requireReturnForObjectLiteral": true }],
+    "arrow-body-style": 0,
     "react/jsx-curly-spacing": [2, "always", {"spacing": {
         "objectLiterals": "never"
     }}]
