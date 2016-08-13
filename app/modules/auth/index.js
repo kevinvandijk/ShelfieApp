@@ -1,6 +1,6 @@
 import { createReducer } from 'reduxsauce';
 
-const INITIAL_STATE = {
+export const INITIAL_STATE = {
   authenticated: false
 };
 

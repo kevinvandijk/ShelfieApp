@@ -4,7 +4,23 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "reactotron": "node_modules/.bin/reactotron"
+    "test": "node_modules/.bin/ava",
+    "test:watch": "node_modules/.bin/ava --watch",
+    "coverage": "node_modules/.bin/nyc ava",
+    "tron": "node_modules/.bin/reactotron"
+  },
+  "ava": {
+    "babel": "inherit",
+    "files": [
+      "tests/**/*.js",
+      "!tests/setup.js"
+    ],
+    "require": [
+      "babel-register",
+      "babel-polyfill",
+      "react-native-mock/mock",
+      "./tests/setup.js"
+    ]
   },
   "dependencies": {
     "apisauce": "^0.3.0",
@@ -24,13 +40,18 @@
     "seamless-immutable": "^6.1.1"
   },
   "devDependencies": {
+    "ava": "^0.16.0",
     "babel-eslint": "^6.1.2",
+    "enzyme": "^2.4.1",
     "eslint": "^2.10.2",
     "eslint-config-airbnb": "^9.0.1",
     "eslint-loader": "^1.4.1",
     "eslint-plugin-import": "^1.10.3",
     "eslint-plugin-jsx-a11y": "^1.2.0",
     "eslint-plugin-react": "^5.2.2",
+    "mockery": "^1.7.0",
+    "react-addons-test-utils": "^15.2.1",
+    "react-dom": "^15.2.1",
     "reactotron": "^0.9.0"
   }
 }
