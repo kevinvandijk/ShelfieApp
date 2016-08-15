@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#DDD'
   },
   navBarTitle: {
+    fontFamily: 'Lato-Black',
     color: '#333'
   }
 });
