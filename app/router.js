@@ -14,7 +14,7 @@ export default () => (
       navigationBarStyle={ styles.navBar }
       titleStyle={ styles.navBarTitle }
     >
-      <Scene initial key="auth" component={ AuthContainer } title="Authentication" />
+      <Scene initial key="auth-login" component={ AuthContainer } title="Authentication" />
     </Scene>
   </ReduxRouter>
 );
