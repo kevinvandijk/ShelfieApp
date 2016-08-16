@@ -15,5 +15,11 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     margin: pxToDpi(30)
+  },
+
+  loginLogo: {
+    flex: 1,
+    alignSelf: 'center',
+    top: pxToDpi(40)
   }
 });

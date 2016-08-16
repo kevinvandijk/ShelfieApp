@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import styles from '../styles';
 import TabView from '../../components/TabView';
+import ShelfieLogo from '../../images/shelfie-logo.svg';
+import { pxToDpi } from '../../helpers/styles';
 
 export default class AuthContainer extends Component {
   onTabPress(key) {
@@ -20,7 +22,9 @@ export default class AuthContainer extends Component {
     return (
       <View style={ [styles.containerView, styles.containerViewAuth] }>
         <TabView tabs={ tabs } onPress={ this.onTabPress } active="login" />
-        <View style={ styles.authDialogContainer } />
+        <View style={ styles.authDialogContainer }>
+          <ShelfieLogo size={ pxToDpi(248) } style={ styles.loginLogo } />
+        </View>
       </View>
     );
   }

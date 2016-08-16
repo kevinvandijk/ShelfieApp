@@ -19,7 +19,7 @@ export default StyleSheet.create({
 
   tabActive: {
     borderBottomWidth: pxToDpi(6),
-    borderBottomColor: '#E24546'
+    borderBottomColor: '#E24741'
   },
 
   text: {
