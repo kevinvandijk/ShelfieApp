@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import styles from '../styles';
 import TabView from '../../components/TabView';
-import ShelfieLogo from '../../images/shelfie-logo.svg';
+import ShelfieLogo from '../../components/ShelfieLogo';
 import { pxToDpi } from '../../helpers/styles';
 
 export default class AuthContainer extends Component {

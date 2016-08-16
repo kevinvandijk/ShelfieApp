@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import Svg, { G, Path } from 'react-native-svg';
-import { pxToDpi } from '../helpers/styles';
+import { pxToDpi } from '../../helpers/styles';
 const { number, object, string, oneOfType, bool } = PropTypes;
 
 const styles = StyleSheet.create({
