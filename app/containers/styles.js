@@ -18,7 +18,6 @@ export default StyleSheet.create({
   },
 
   loginLogo: {
-    flex: 1,
     alignSelf: 'center',
     top: pxToDpi(40)
   }

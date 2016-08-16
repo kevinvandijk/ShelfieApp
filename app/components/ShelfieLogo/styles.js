@@ -7,6 +7,7 @@ export default StyleSheet.create({
     fontSize: pxToDpi(62),
     color: '#303030',
     textAlign: 'center',
-    paddingTop: pxToDpi(20)
+    marginTop: pxToDpi(20),
+    marginBottom: pxToDpi(24),
   }
 });
