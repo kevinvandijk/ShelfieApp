@@ -42,6 +42,7 @@
     "react-native-fabric": "^0.3.0",
     "react-native-i18n": "0.0.8",
     "react-native-router-flux": "^3.34.0",
+    "react-native-svg": "^4.1.1",
     "react-native-vector-icons": "^2.0.3",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",
