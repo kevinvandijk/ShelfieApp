@@ -1,18 +1,8 @@
 import React, { PropTypes } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { View, Text } from 'react-native';
 import Svg, { G, Path } from 'react-native-svg';
-import { pxToDpi } from '../../helpers/styles';
+import styles from './styles';
 const { number, object, string, oneOfType, bool } = PropTypes;
-
-const styles = StyleSheet.create({
-  text: {
-    fontFamily: 'Lato-Black',
-    fontSize: pxToDpi(62),
-    color: '#303030',
-    textAlign: 'center',
-    paddingTop: pxToDpi(20)
-  }
-});
 
 const ShelfieLogo = (props) => {
   const width = props.size || props.width;
