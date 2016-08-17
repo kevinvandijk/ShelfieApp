@@ -3,7 +3,6 @@ package com.shelfieapp;
 import com.facebook.react.ReactActivity;
 import com.horcrux.svg.RNSvgPackage;
 import com.smixx.fabric.FabricPackage;
-import com.i18n.reactnativei18n.ReactNativeI18n;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.oblador.vectoricons.VectorIconsPackage;
 
