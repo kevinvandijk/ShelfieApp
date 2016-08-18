@@ -7,7 +7,8 @@ export default StyleSheet.create({
     fontSize: pxToDpi(62),
     color: '#303030',
     textAlign: 'center',
-    marginTop: pxToDpi(20),
-    marginBottom: pxToDpi(24),
+    marginTop: pxToDpi(21),
+    lineHeight: pxToDpi(70),
+    backgroundColor: 'transparent'
   }
 });
