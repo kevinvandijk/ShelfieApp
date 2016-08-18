@@ -8,17 +8,25 @@ export default StyleSheet.create({
 
   containerViewAuth: {
     flex: 1,
-    backgroundColor: '#eee'
+    backgroundColor: '#eee',
+    paddingBottom: pxToDpi(30)
   },
 
   authDialogContainer: {
-    flex: 1,
     backgroundColor: '#fff',
     margin: pxToDpi(30)
   },
 
   loginLogo: {
     alignSelf: 'center',
-    top: pxToDpi(40)
+    marginTop: pxToDpi(41),
+    marginBottom: pxToDpi(21)
+  },
+
+  loginText: {
+    textAlign: 'center',
+    marginLeft: pxToDpi(78),
+    marginRight: pxToDpi(78),
+    color: '#9B9B9B'
   }
 });
