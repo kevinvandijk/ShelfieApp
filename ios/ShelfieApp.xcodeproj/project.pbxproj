@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -14,7 +15,8 @@
 		00E356F31AD99517003FC87E /* ShelfieAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ShelfieAppTests.m */; };
 		0A0884AA1D5FE001007877DA /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A0884A81D5FE001007877DA /* Fabric.framework */; };
 		0A0884AB1D5FE001007877DA /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A0884A91D5FE001007877DA /* Crashlytics.framework */; };
-		0A7123121D612D30004CEF2A /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0A7123111D612D2D004CEF2A /* Lato-Black.ttf */; };
+		0A86F5F41D653F2A00C38A06 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0A86F5F31D653F2A00C38A06 /* Lato-Regular.ttf */; };
+		0A86F5F61D653F5000C38A06 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0A86F5F51D653F5000C38A06 /* Lato-Black.ttf */; };
 		0BE7DCEF93B149D4B00CE236 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E37B1A0F0180435F8F66652E /* FontAwesome.ttf */; };
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
@@ -160,7 +162,8 @@
 		08A4F9B68F7046199153C895 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		0A0884A81D5FE001007877DA /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		0A0884A91D5FE001007877DA /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
-		0A7123111D612D2D004CEF2A /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
+		0A86F5F31D653F2A00C38A06 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-Regular.ttf"; path = "../fonts/Lato-Regular.ttf"; sourceTree = "<group>"; };
+		0A86F5F51D653F5000C38A06 /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Lato-Black.ttf"; path = "../fonts/Lato-Black.ttf"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* ShelfieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShelfieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -421,10 +424,11 @@
 				E37B1A0F0180435F8F66652E /* FontAwesome.ttf */,
 				3A657CAB48A04D97A8759B8F /* Foundation.ttf */,
 				555C0687BE424551A699D095 /* Ionicons.ttf */,
+				0A86F5F51D653F5000C38A06 /* Lato-Black.ttf */,
 				527883773B0D453DA7B6749E /* MaterialIcons.ttf */,
+				0A86F5F31D653F2A00C38A06 /* Lato-Regular.ttf */,
 				4E5005681F644702B1A9686F /* Octicons.ttf */,
 				75FD30F9A7D9476F8BE347CF /* Zocial.ttf */,
-				0A7123111D612D2D004CEF2A /* Lato-Black.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -604,13 +608,6 @@
 			remoteRef = 0A08849C1D5FDF6C007877DA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		0A0884A31D5FDF6C007877DA /* RNI18nTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = RNI18nTests.xctest;
-			remoteRef = 0A0884A21D5FDF6C007877DA /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		0A0884A61D5FDF6C007877DA /* libRNVectorIcons.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -685,9 +682,10 @@
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				3E129BB56774446B821B72E6 /* Entypo.ttf in Resources */,
 				9CDE7EEB1E2C40B28DC4A259 /* EvilIcons.ttf in Resources */,
+				0A86F5F61D653F5000C38A06 /* Lato-Black.ttf in Resources */,
 				0BE7DCEF93B149D4B00CE236 /* FontAwesome.ttf in Resources */,
 				C789E69A0C2A4537AADBD347 /* Foundation.ttf in Resources */,
-				0A7123121D612D30004CEF2A /* Lato-Black.ttf in Resources */,
+				0A86F5F41D653F2A00C38A06 /* Lato-Regular.ttf in Resources */,
 				5AD793506A91485B91FC3B0F /* Ionicons.ttf in Resources */,
 				F0022BFC4C6645A983C9EFC5 /* MaterialIcons.ttf in Resources */,
 				409AA46FEC16456894359BE0 /* Octicons.ttf in Resources */,
@@ -779,9 +777,7 @@
 				INFOPLIST_FILE = ShelfieAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShelfieApp.app/ShelfieApp";
 			};
@@ -795,9 +791,7 @@
 				INFOPLIST_FILE = ShelfieAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShelfieApp.app/ShelfieApp";
 			};
