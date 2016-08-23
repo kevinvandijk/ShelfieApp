@@ -5,6 +5,7 @@ import TabView from '../../components/TabView';
 import ShelfieLogo from '../../components/ShelfieLogo';
 import TextContent from '../../components/TextContent';
 import { pxToDpi } from '../../helpers/styles';
+import Input from '../../components/Input';
 
 export default class AuthContainer extends Component {
   onTabPress(key) {
@@ -26,7 +27,8 @@ export default class AuthContainer extends Component {
         <View style={ styles.authDialogContainer }>
           <ShelfieLogo size={ pxToDpi(248) } style={ styles.loginLogo } />
           <TextContent style={ styles.loginText } i18nKey="auth.login.welcome" />
-
+          <Input placeholder="Email" />
+          <Input placeholder="Password" style={{ marginBottom: 0 }} />
         </View>
       </View>
     );
