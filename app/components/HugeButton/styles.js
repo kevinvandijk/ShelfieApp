@@ -7,9 +7,7 @@ function dpi(size) {
 export default StyleSheet.create({
   container: {
     backgroundColor: '#E24546',
-    flex: 1,
     height: dpi(88),
-    top: 50,
     justifyContent: 'center',
     alignItems: 'center'
   },

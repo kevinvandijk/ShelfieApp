@@ -6,6 +6,8 @@ import ShelfieLogo from '../../components/ShelfieLogo';
 import TextContent from '../../components/TextContent';
 import { pxToDpi } from '../../helpers/styles';
 import Input from '../../components/Input';
+import HugeButton from '../../components/HugeButton';
+
 
 export default class AuthContainer extends Component {
   onTabPress(key) {
@@ -29,6 +31,10 @@ export default class AuthContainer extends Component {
           <TextContent style={ styles.loginText } i18nKey="auth.login.welcome" />
           <Input placeholder="Email" />
           <Input placeholder="Password" style={{ marginBottom: 0 }} />
+        </View>
+        <View style={ styles.authDialogButtonContainer }>
+          <HugeButton>Login</HugeButton>
+          <HugeButton style={{ marginTop: pxToDpi(30), backgroundColor: '#3B5998' }}>Facebook</HugeButton>
         </View>
       </View>
     );

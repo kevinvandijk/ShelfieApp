@@ -22,6 +22,11 @@ export default StyleSheet.create({
     paddingBottom: pxToDpi(31)
   },
 
+  authDialogButtonContainer: {
+    margin: pxToDpi(30),
+    marginTop: 0
+  },
+
   loginLogo: {
     alignSelf: 'center',
     marginTop: pxToDpi(41),
