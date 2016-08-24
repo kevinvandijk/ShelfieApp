@@ -2,7 +2,7 @@ import StackTrace from 'stacktrace-js';
 import { Crashlytics } from 'react-native-fabric';
 
 export default function crashlyticsInitializer() {
-  if (__DEV__) return;
+  if (__DEV__ || (process.env && process.env.NODE_ENV === 'development')) return;
 
   const originalHandler = global.ErrorUtils.getGlobalHandler();
 
