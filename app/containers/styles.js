@@ -5,30 +5,27 @@ const dialogPadding = 25;
 
 export default StyleSheet.create({
   containerView: {
-    top: pxToDpi(128)
+    flex: 1,
   },
 
   containerViewAuth: {
     flex: 1,
-    backgroundColor: '#eee',
-    paddingBottom: pxToDpi(30)
+    justifyContent: 'space-around',
+    alignItems: 'stretch',
+    paddingHorizontal: pxToDpi(30),
+    paddingVertical: pxToDpi(15),
+    backgroundColor: '#eee'
   },
 
   authDialogContainer: {
-    backgroundColor: '#fff',
-    margin: pxToDpi(30),
     padding: pxToDpi(dialogPadding),
     paddingTop: 0,
-    paddingBottom: pxToDpi(31)
-  },
-
-  authDialogButtonContainer: {
-    margin: pxToDpi(30),
-    marginTop: 0
+    paddingBottom: pxToDpi(30),
+    backgroundColor: '#fff',
+    overflow: 'hidden'
   },
 
   loginLogo: {
-    alignSelf: 'center',
     marginTop: pxToDpi(41),
     marginBottom: pxToDpi(21)
   },
