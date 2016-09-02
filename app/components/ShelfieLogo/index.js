@@ -11,7 +11,7 @@ const ShelfieLogo = (props) => {
   return (
     <View style={ props.style }>
       { /* eslint-disable */ }
-      <Svg width={ width } height={ height } viewBox="122 65 1214 1215">
+      <Svg style={ styles.logo } width={ width } height={ height } viewBox="122 65 1214 1215">
         <G fill="none" fillRule="evenodd">
           <Path d="M729 65c335.2 0 607 272 607 607.5S1064.2 1280 729 1280s-607-272-607-607.5S393.8 65 729 65z" fill={ props.color } />
           <Path d="M741.2 1036.9V294.7c0-17.7 18.7-29.1 34.3-20.9l247.8 129.9c7.7 4.1 12.6 12.1 12.6 20.9l.8 483c0 8.8-4.9 16.9-12.7 21l-248.5 129.3c-15.7 8.1-34.3-3.3-34.3-21z" fill="#FFF" />

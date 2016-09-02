@@ -2,6 +2,10 @@ import { StyleSheet } from 'react-native';
 import { pxToDpi } from '../../helpers/styles';
 
 export default StyleSheet.create({
+  logo: {
+    alignSelf: 'center',
+  },
+  
   text: {
     fontFamily: 'Lato-Black',
     fontSize: pxToDpi(62),
