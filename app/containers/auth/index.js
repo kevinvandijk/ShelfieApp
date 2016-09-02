@@ -12,7 +12,8 @@ import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 export default class AuthContainer extends Component {
   state = {
-    keyboardHeight: 0
+    keyboardHeight: 0,
+    movingFields: false
   }
 
   onTabPress(key) {
@@ -20,9 +21,29 @@ export default class AuthContainer extends Component {
   }
 
   onKeyboardToggle = (enabled, height) => {
+    if (!this.state.movingFields) {
+      this.setState({
+        keyboardHeight: height
+      });
+    }
+  }
+
+  onFocus = () => {
     this.setState({
-      keyboardHeight: height
+      movingFields: false
     });
+  }
+
+  onSubmit = () => {
+    console.log('Submit');
+  }
+
+  moveToPassword = () => {
+    this.setState({
+      movingFields: true
+    });
+
+    this.refs.passwordField.focus();
   }
 
   render() {
@@ -48,13 +69,21 @@ export default class AuthContainer extends Component {
                 keyboardType="email-address"
                 autoCapitalize="none"
                 returnKeyType="next"
-                enablesReturnKeyAutomatically={ true }
+                autoCorrect={ false }
+                enablesReturnKeyAutomatically
+                blurOnSubmit={ false }
+                onSubmitEditing={ this.moveToPassword }
+                onFocus={ this.onFocus }
               />
               <Input
                 placeholder="Password"
                 autoCapitalize="none"
                 returnKeyType="go"
-                enablesReturnKeyAutomatically={ true }
+                enablesReturnKeyAutomatically
+                secureTextEntry
+                onSubmitEditing={ this.onSubmit }
+                onFocus={ this.onFocus }
+                ref="passwordField"
               />
             </View>
           </View>
