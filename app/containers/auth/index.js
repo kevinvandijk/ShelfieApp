@@ -43,8 +43,19 @@ export default class AuthContainer extends Component {
             <View style={{ marginTop: -Math.abs(this.state.keyboardHeight) }}>
               <ShelfieLogo size={ pxToDpi(248) } style={ styles.loginLogo } />
               <TextContent style={ styles.loginText } i18nKey="auth.login.welcome" />
-              <Input placeholder="Email" />
-              <Input placeholder="Password" style={{ marginBottom: 0 }} />
+              <Input
+                placeholder="Email"
+                keyboardType="email-address"
+                autoCapitalize="none"
+                returnKeyType="next"
+                enablesReturnKeyAutomatically={ true }
+              />
+              <Input
+                placeholder="Password"
+                autoCapitalize="none"
+                returnKeyType="go"
+                enablesReturnKeyAutomatically={ true }
+              />
             </View>
           </View>
           <HugeButton>Login</HugeButton>

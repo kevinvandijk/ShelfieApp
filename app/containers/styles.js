@@ -18,9 +18,8 @@ export default StyleSheet.create({
   },
 
   authDialogContainer: {
-    padding: pxToDpi(dialogPadding),
-    paddingTop: 0,
-    paddingBottom: pxToDpi(30),
+    paddingHorizontal: pxToDpi(dialogPadding),
+    paddingVertical: 0,
     backgroundColor: '#fff',
     overflow: 'hidden'
   },
