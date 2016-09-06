@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { View, ScrollView } from 'react-native';
 import styles from '../styles';
 import TabView from '../../components/TabView';
@@ -9,11 +10,15 @@ import Input from '../../components/Input';
 import HugeButton from '../../components/HugeButton';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 
+import { login } from '../../modules/auth';
 
-export default class AuthContainer extends Component {
+
+class AuthContainer extends Component {
   state = {
     keyboardHeight: 0,
-    movingFields: false
+    movingFields: false,
+    email: null,
+    password: null
   }
 
   onTabPress(key) {
@@ -35,7 +40,8 @@ export default class AuthContainer extends Component {
   }
 
   onSubmit = () => {
-    console.log('Submit');
+    const { email, password } = this.state;
+    this.props.login(email, password);
   }
 
   moveToPassword = () => {
@@ -74,6 +80,9 @@ export default class AuthContainer extends Component {
                 blurOnSubmit={ false }
                 onSubmitEditing={ this.moveToPassword }
                 onFocus={ this.onFocus }
+                onChangeText={ (email) => this.setState({ email }) }
+                value={ this.state.email }
+                ref="emailField"
               />
               <Input
                 placeholder="Password"
@@ -82,7 +91,9 @@ export default class AuthContainer extends Component {
                 enablesReturnKeyAutomatically
                 secureTextEntry
                 onSubmitEditing={ this.onSubmit }
+                onChangeText={ (password) => this.setState({ password }) }
                 onFocus={ this.onFocus }
+                value={ this.state.password }
                 ref="passwordField"
               />
             </View>
@@ -95,3 +106,9 @@ export default class AuthContainer extends Component {
     );
   }
 }
+
+const mapDispatchToProps = {
+  login
+};
+
+export default connect(null, mapDispatchToProps)(AuthContainer);
