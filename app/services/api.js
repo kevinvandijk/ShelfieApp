@@ -1,8 +1,20 @@
 import apisauce from 'apisauce';
 import Reactotron from 'reactotron';
+import config from '../../config';
 
 const api = apisauce.create({
-  baseUrl: ''
+  baseURL: config.get('api.baseURL')
 });
 
-export const addMonitor = api.addMonitor(Reactotron.apiLog);
+api.addMonitor(Reactotron.apiLog);
+
+async function login(email, password) {
+  return api.post('/auth/login', {
+    email,
+    password
+  });
+}
+
+export default {
+  login
+};
