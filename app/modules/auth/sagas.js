@@ -21,11 +21,6 @@ function* loginRequest(email, password) {
 
     yield put({
       type: IS_AUTHENTICATED,
-      payload: true
-    });
-
-    yield put({
-      type: RECEIVE_ACCOUNT,
       payload: result.data.user
     });
   } else {
