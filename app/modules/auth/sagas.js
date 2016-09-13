@@ -1,10 +1,7 @@
 import { take, call, put } from 'redux-saga/effects';
-import { FETCH_TOKEN, RECEIVE_ACCOUNT, IS_AUTHENTICATED } from './index';
+import { FETCH_TOKEN, IS_AUTHENTICATED } from './index';
 import api from '../../services/api';
 import keychain from '../../services/keychain';
-import { createAction } from 'redux-actions';
-
-const receiveToken = createAction('RECEIVE_TOKEN');
 
 export function* login() {
   return;
@@ -23,12 +20,13 @@ function* loginRequest(email, password) {
       type: IS_AUTHENTICATED,
       payload: result.data.user
     });
+
+
   } else {
     console.log('error');
   }
   return true;
 }
-
 
 export function* watchLoginRequest() {
   while (true) {
