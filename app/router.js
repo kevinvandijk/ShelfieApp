@@ -22,7 +22,7 @@ const rootComponent = connect(state => {
 const rootSelector = (state) => {
   if (!state.isLoaded) return LOAD_SCENE;
   return state.isAuthenticated ? MAIN_SCENE : AUTH_SCENE;
-}
+};
 
 const AppRouter = () => {
   return (
@@ -44,7 +44,7 @@ const AppRouter = () => {
         />
 
         <Scene
-          key="auth"
+          key={ AUTH_SCENE }
           component={ AuthContainer }
           title="Authentication"
           navigationBarStyle={ styles.navBar }
@@ -52,7 +52,7 @@ const AppRouter = () => {
           sceneStyle={ styles.sceneWithNavBar }
         />
         <Scene
-          key="main" component={ MainContainer }
+          key={ MAIN_SCENE } component={ MainContainer }
           title="Main"
           navigationBarStyle={ styles.navBar }
           titleStyle={ styles.navBarTitle }
@@ -61,6 +61,6 @@ const AppRouter = () => {
       </Scene>
     </ReduxRouter>
   );
-}
+};
 
 export default AppRouter;
