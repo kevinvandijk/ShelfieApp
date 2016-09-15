@@ -5,7 +5,7 @@ import styles from './styles';
 
 import LoadContainer from './containers/load';
 import AuthContainer from './containers/auth';
-import MainContainer from './containers/main';
+import TimelineContainer from './containers/timeline';
 
 const LOAD_SCENE = 'load';
 const AUTH_SCENE = 'auth';
@@ -52,12 +52,17 @@ const AppRouter = () => {
           sceneStyle={ styles.sceneWithNavBar }
         />
         <Scene
-          key={ MAIN_SCENE } component={ MainContainer }
-          title="Main"
+          key={ MAIN_SCENE }
           navigationBarStyle={ styles.navBar }
           titleStyle={ styles.navBarTitle }
-          sceneStyle={ styles.sceneWithNavBar }
-        />
+        >
+          <Scene
+            key="main-timeline"
+            title="Timeline"
+            component={ TimelineContainer }
+            sceneStyle={ styles.sceneWithNavBar }
+            initial />
+        </Scene>
       </Scene>
     </ReduxRouter>
   );
