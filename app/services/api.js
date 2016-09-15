@@ -5,6 +5,7 @@ import config from '../../config';
 const api = apisauce.create({
   baseURL: config.get('api.baseURL')
 });
+let authToken;
 
 api.addMonitor(Reactotron.apiLog);
 
@@ -15,6 +16,11 @@ async function login(email, password) {
   });
 }
 
+function setAuthToken(token) {
+  authToken = token;
+}
+
 export default {
-  login
+  login,
+  setAuthToken
 };
