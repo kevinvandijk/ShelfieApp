@@ -5,7 +5,7 @@ async function getAuthToken() {
   return Keychain.getInternetCredentials('shelfie-auth-token');
 }
 
-function setAuthToken(token) {
+async function setAuthToken(token) {
   return Keychain.setInternetCredentials('shelfie-auth-token', null, token);
 }
 
