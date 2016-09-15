@@ -29,8 +29,6 @@ const AppRouter = () => {
     <ReduxRouter>
       <Scene
         key="root"
-        navigationBarStyle={ styles.navBar }
-        titleStyle={ styles.navBarTitle }
         component={ rootComponent }
         tabs
         unmountScenes
@@ -39,6 +37,8 @@ const AppRouter = () => {
         <Scene
           key={ LOAD_SCENE }
           component={ LoadContainer }
+          navigationBarStyle={ styles.navBar }
+          titleStyle={ styles.navBarTitle }
           sceneStyle={ styles.sceneWithNavBar }
           initial
         />
@@ -47,11 +47,15 @@ const AppRouter = () => {
           key="auth"
           component={ AuthContainer }
           title="Authentication"
+          navigationBarStyle={ styles.navBar }
+          titleStyle={ styles.navBarTitle }
           sceneStyle={ styles.sceneWithNavBar }
         />
         <Scene
           key="main" component={ MainContainer }
           title="Main"
+          navigationBarStyle={ styles.navBar }
+          titleStyle={ styles.navBarTitle }
           sceneStyle={ styles.sceneWithNavBar }
         />
       </Scene>
