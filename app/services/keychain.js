@@ -10,5 +10,6 @@ async function setAuthToken(token) {
 }
 
 export default {
+  getAuthToken,
   setAuthToken
 };
