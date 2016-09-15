@@ -3,6 +3,7 @@ import { createReducer } from 'reduxsauce';
 import { ActionConst } from 'react-native-router-flux';
 
 import auth from './modules/auth';
+import boot from './modules/boot';
 
 // TODO: Move this somewhere better:
 const initialRouterState = {
@@ -35,5 +36,6 @@ function combineReducers(reducers) {
 
 export default combineReducers({
   router: routerReducer,
-  auth
+  auth,
+  boot
 });

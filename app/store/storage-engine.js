@@ -1,9 +1,11 @@
 import config from '../../config';
 import { createLoader } from 'redux-storage';
 import createEngine from 'redux-storage-engine-reactnativeasyncstorage';
+export { SAVE, LOAD } from 'redux-storage';
 
 let store;
 let loader;
+
 export const engine = (config.get('storage.enabled')
   ? createEngine(config.get('storage.engineKey'))
   : null
