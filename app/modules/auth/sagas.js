@@ -23,7 +23,7 @@ function* loginRequest(email, password) {
 
     storage.saveState();
   } else {
-    console.log('error');
+    console.log(result);
   }
   return true;
 }
