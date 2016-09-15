@@ -1,4 +1,5 @@
 import { createReducer } from 'reduxsauce';
+import keychain from '../../services/keychain';
 
 export const INITIAL_STATE = {
   isAuthenticated: false
@@ -24,4 +25,12 @@ export function login(email, password) {
     email,
     password
   };
+}
+
+export async function setAuthToken(token) {
+  return keychain.setAuthToken(token);
+}
+
+export async function getAuthToken() {
+  return keychain.getAuthToken();
 }

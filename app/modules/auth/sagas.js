@@ -1,7 +1,7 @@
 import { take, call, put } from 'redux-saga/effects';
-import { FETCH_TOKEN, IS_AUTHENTICATED } from './index';
+import { FETCH_TOKEN, IS_AUTHENTICATED, setAuthToken } from './index';
 import api from '../../services/api';
-import keychain from '../../services/keychain';
+import storage from '../../services/storage';
 
 export function* login() {
   return;
@@ -14,14 +14,14 @@ export function* signup() {
 function* loginRequest(email, password) {
   const result = yield call(api.login, email, password);
   if (result.ok) {
-    yield call(keychain.setAuthToken, result.data.token); // TODO: Error handling
+    yield call(setAuthToken, result.data.token); // TODO: Error handling
 
     yield put({
       type: IS_AUTHENTICATED,
       payload: result.data.user
     });
 
-
+    storage.saveState();
   } else {
     console.log('error');
   }
