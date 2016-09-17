@@ -4,7 +4,7 @@ import Video from 'react-native-video';
 import Controls from './Controls';
 import Progress from './Progress';
 import styles from './styles';
-const { func, number, object, oneOfType } = PropTypes;
+const { func, number, object, oneOfType, bool } = PropTypes;
 
 class VideoPlayer extends Component {
   static propTypes = {
@@ -14,11 +14,29 @@ class VideoPlayer extends Component {
     getBackwardTime: func.isRequired,
     getForwardTime: func.isRequired,
     style: oneOfType([number, object]),
-    videoStyle: oneOfType([number, object])
+    videoStyle: oneOfType([number, object]),
+    autoStart: bool
+  }
+
+  static defaultProps = {
+    getBackwardTime: (currentTime) => {
+      const timestamp = currentTime - 5;
+      return timestamp > 0 ? timestamp : 0;
+    },
+
+    getForwardTime: (currentTime, duration) => {
+      const timestamp = currentTime + 5;
+      return timestamp < duration ? timestamp : duration;
+    },
+    autoStart: false
   }
 
   state = {
-    paused: false,
+    paused: false
+  }
+
+  componentWillMount() {
+    this.setState({ paused: !this.props.autoStart });
   }
 
   onPause = () => {
@@ -72,13 +90,14 @@ class VideoPlayer extends Component {
           muted={ false }
           paused={ this.state.paused   }
           resizeMode="contain"
-          repeat={ true }
+          repeat={ false }
           playInBackGround={ false }
           playWhenInActive={ false }
           onLoadStart={ this.props.onLoadStart }
           onLoad={ this.onLoad }
           onProgress={ this.onProgress }
           style={ [styles.video, this.props.videoStyle] }
+          ref="video"
         />
 
         <Progress
