@@ -6,6 +6,7 @@ import styles from './styles';
 import LoadContainer from './containers/load';
 import AuthContainer from './containers/auth';
 import TimelineContainer from './containers/timeline';
+import WatchContainer from './containers/watch';
 
 const LOAD_SCENE = 'load';
 const AUTH_SCENE = 'auth';
@@ -61,7 +62,15 @@ const AppRouter = () => {
             title="Timeline"
             component={ TimelineContainer }
             sceneStyle={ styles.sceneWithNavBar }
-            initial />
+          />
+
+          <Scene
+            key="main-watch"
+            title="Watch"
+            component={ WatchContainer }
+            sceneStyle={ styles.sceneWithNavBar }
+            initial
+          />
         </Scene>
       </Scene>
     </ReduxRouter>
