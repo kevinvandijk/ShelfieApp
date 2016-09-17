@@ -79,6 +79,17 @@ class VideoPlayer extends Component {
     });
   }
 
+  onEnd = () => {
+    this.setState({
+      currentTime: this.state.duration,
+      paused: true
+    });
+  }
+
+  onError = () => {
+    console.error('Error playing video, not handled');
+  }
+
   getWidth() {
     return Dimensions.get('window').width;
   }
@@ -111,6 +122,8 @@ class VideoPlayer extends Component {
           onLoadStart={ this.props.onLoadStart }
           onLoad={ this.onLoad }
           onProgress={ this.onProgress }
+          onEnd={ this.onEnd }
+          onError={ this.onError }
           style={ [styles.video, this.props.videoStyle] }
           ref="video"
         />
