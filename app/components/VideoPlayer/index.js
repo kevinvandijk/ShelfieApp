@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { View } from 'react-native';
+import { View, Dimensions } from 'react-native';
 import Video from 'react-native-video';
 import Controls from './Controls';
+import Progress from './Progress';
 import styles from './styles';
 const { func, number, object, oneOfType } = PropTypes;
 
@@ -30,8 +31,29 @@ class VideoPlayer extends Component {
     });
   }
 
-  onProgress = (arg1, arg2, arg3) => {
-    console.log('onProgress', arg1, arg2);
+  onLoad = (videoProps) => {
+    this.setState({
+      duration: videoProps.duration,
+      currentTime: videoProps.currentTime
+    });
+  }
+
+  onProgress = (progress) => {
+    this.setState({
+      currentTime: progress.currentTime
+    });
+  }
+
+  seekBackward = () => {
+
+  }
+
+  seekForward = () => {
+
+  }
+
+  getWidth() {
+    return Dimensions.get('window').width;
   }
 
   render() {
@@ -48,9 +70,16 @@ class VideoPlayer extends Component {
           playInBackGround={ false }
           playWhenInActive={ false }
           onLoadStart={ this.props.onLoadStart }
-          onLoad={ this.props.onLoad }
+          onLoad={ this.onLoad }
           onProgress={ this.onProgress }
           style={ [styles.video, this.props.videoStyle] }
+        />
+
+        <Progress
+          duration={ this.state.duration }
+          currentTime={ this.state.currentTime }
+          width={ this.getWidth() }
+          easingDuration={ this.state.paused ? 0 : undefined }
         />
 
         <Controls
@@ -59,6 +88,8 @@ class VideoPlayer extends Component {
           paused={ this.state.paused }
           onPause={ this.onPause }
           onPlay={ this.onPlay }
+          onBackward={ this.seekBackward }
+          onForward={ this.seekForward }
           style={ styles.videoPlayerControls }
         />
       </View>
