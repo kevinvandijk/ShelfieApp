@@ -21,10 +21,8 @@ export default StyleSheet.create({
 
   progressBar: {
     backgroundColor: '#E24546',
-    flex: 0.5,
     height: pxToDpi(6)
   },
-
 
   video: {
     height: pxToDpi(804),
