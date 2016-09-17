@@ -62,14 +62,15 @@ const AppRouter = () => {
             title="Timeline"
             component={ TimelineContainer }
             sceneStyle={ styles.sceneWithNavBar }
+            initial
           />
 
           <Scene
-            key="main-watch"
+            key="mainWatch"
             title="Watch"
             component={ WatchContainer }
             sceneStyle={ styles.sceneWithNavBar }
-            initial
+            backTitle="Back"
           />
         </Scene>
       </Scene>
