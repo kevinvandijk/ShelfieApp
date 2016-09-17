@@ -11,6 +11,8 @@ class VideoPlayer extends Component {
     onLoadStart: func,
     onLoad: func,
     onProgress: func,
+    getBackwardTime: func.isRequired,
+    getForwardTime: func.isRequired,
     style: oneOfType([number, object]),
     videoStyle: oneOfType([number, object])
   }
@@ -44,16 +46,20 @@ class VideoPlayer extends Component {
     });
   }
 
-  seekBackward = () => {
+  getWidth() {
+    return Dimensions.get('window').width;
+  }
 
+  seekBackward = () => {
+    const { currentTime, duration } = this.state;
+    const timestamp = this.props.getBackwardTime(currentTime, duration);
+    this.refs.video.seek(timestamp);
   }
 
   seekForward = () => {
-
-  }
-
-  getWidth() {
-    return Dimensions.get('window').width;
+    const { currentTime, duration } = this.state;
+    const timestamp = this.props.getForwardTime(currentTime, duration);
+    this.refs.video.seek(timestamp);
   }
 
   render() {
