@@ -56,6 +56,8 @@ const AppRouter = () => {
           key={ MAIN_SCENE }
           navigationBarStyle={ styles.navBar }
           titleStyle={ styles.navBarTitle }
+          backButtonImage={ require('./images/back-chevron.png') }
+          backButtonTextStyle={ styles.backButtonTextStyle }
         >
           <Scene
             key="main-timeline"

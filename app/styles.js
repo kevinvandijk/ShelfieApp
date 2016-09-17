@@ -13,6 +13,11 @@ const styles = StyleSheet.create({
   navBarTitle: {
     fontFamily: 'Lato-Black',
     color: '#333'
+  },
+
+  backButtonTextStyle: {
+    fontFamily: 'Lato-Regular',
+    color: '#E34040'
   }
 });
 
