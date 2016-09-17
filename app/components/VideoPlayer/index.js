@@ -15,12 +15,20 @@ class VideoPlayer extends Component {
     getForwardTime: func.isRequired,
     style: oneOfType([number, object]),
     videoStyle: oneOfType([number, object]),
-    autoStart: bool
+    autoStart: bool,
+    muted: bool,
+    volume: number,
+    rate: number,
+    playInBackground: bool,
+    playWhenInactive: bool,
+    repeat: bool,
     controlsStyle: oneOfType([number, object]),
     progressStyle: oneOfType([number, object])
   }
 
   static defaultProps = {
+    volume: 1.0,
+    rate: 1.0,
     getBackwardTime: (currentTime) => {
       const timestamp = currentTime - 5;
       return timestamp > 0 ? timestamp : 0;
@@ -29,8 +37,7 @@ class VideoPlayer extends Component {
     getForwardTime: (currentTime, duration) => {
       const timestamp = currentTime + 5;
       return timestamp < duration ? timestamp : duration;
-    },
-    autoStart: false
+    }
   }
 
   state = {
@@ -87,14 +94,14 @@ class VideoPlayer extends Component {
       <View style={ this.props.style }>
         <Video
           source={{ uri: 'https://dl.dropboxusercontent.com/u/2930039/screencast%202016-09-16%2001-50-42.mp4' }}
-          rate={ 1.0 }
-          volume={ 1.0 }
-          muted={ false }
-          paused={ this.state.paused   }
           resizeMode="contain"
-          repeat={ false }
-          playInBackGround={ false }
-          playWhenInActive={ false }
+          rate={ this.props.rate }
+          volume={ this.props.volume }
+          muted={ this.props.muted }
+          paused={ this.state.paused }
+          repeat={ this.props.repeat }
+          playInBackGround={ this.props.playInBackground }
+          playWhenInActive={ this.props.playWhenInactive }
           onLoadStart={ this.props.onLoadStart }
           onLoad={ this.onLoad }
           onProgress={ this.onProgress }
