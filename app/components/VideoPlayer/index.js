@@ -55,6 +55,12 @@ class VideoPlayer extends Component {
   }
 
   onPlay = () => {
+    const { currentTime, duration } = this.state;
+
+    if (currentTime === duration) {
+      this.refs.video.seek(0);
+    }
+
     this.setState({
       paused: false
     });
