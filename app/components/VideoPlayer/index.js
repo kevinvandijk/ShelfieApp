@@ -3,8 +3,9 @@ import { View, Dimensions } from 'react-native';
 import Video from 'react-native-video';
 import Controls from './Controls';
 import Progress from './Progress';
+import Title from './Title';
 import styles from './styles';
-const { func, number, object, oneOfType, bool } = PropTypes;
+const { func, number, object, oneOfType, bool, string } = PropTypes;
 
 class VideoPlayer extends Component {
   static propTypes = {
@@ -23,7 +24,8 @@ class VideoPlayer extends Component {
     playWhenInactive: bool,
     repeat: bool,
     controlsStyle: oneOfType([number, object]),
-    progressStyle: oneOfType([number, object])
+    progressStyle: oneOfType([number, object]),
+    title: string
   }
 
   static defaultProps = {
@@ -108,7 +110,7 @@ class VideoPlayer extends Component {
 
   render() {
     return (
-      <View style={ this.props.style }>
+      <View style={ [styles.videoPlayerContainer, this.props.style] }>
         <Video
           source={{ uri: 'https://dl.dropboxusercontent.com/u/2930039/screencast%202016-09-16%2001-50-42.mp4' }}
           resizeMode="contain"
@@ -127,6 +129,8 @@ class VideoPlayer extends Component {
           style={ [styles.video, this.props.videoStyle] }
           ref="video"
         />
+
+        <Title>The title goes here</Title>
 
         <Progress
           duration={ this.state.duration }

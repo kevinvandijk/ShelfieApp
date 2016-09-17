@@ -6,7 +6,7 @@ import { pxToDpi } from '../../helpers/styles';
 class WatchContainer extends Component {
   render() {
     return (
-      <View>
+      <View style={{ flex: 1, alignItems: 'flex-end', flexDirection: 'row', backgroundColor: 'orange' }}>
         <VideoPlayer />
       </View>
 

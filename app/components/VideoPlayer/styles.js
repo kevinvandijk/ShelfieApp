@@ -2,6 +2,11 @@ import { StyleSheet } from 'react-native';
 import { pxToDpi } from '../../helpers/styles';
 
 export default StyleSheet.create({
+  videoPlayerContainer: {
+    flex: 1,
+    backgroundColor: '#fff'
+  },
+
   controls: {
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -38,8 +43,21 @@ export default StyleSheet.create({
     color: '#B2B2B2'
   },
 
+  titleContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: pxToDpi(170)
+  },
+
+  titleText: {
+    fontFamily: 'Lato-Black',
+    fontSize: pxToDpi(32),
+    color: '#333'
+  },
+
   video: {
-    height: pxToDpi(804),
+    flex: -1,
+    height: pxToDpi(1000),
     backgroundColor: '#eee'
   }
 });
