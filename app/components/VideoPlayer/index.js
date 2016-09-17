@@ -16,6 +16,7 @@ class VideoPlayer extends Component {
     style: oneOfType([number, object]),
     videoStyle: oneOfType([number, object]),
     autoStart: bool
+    progressStyle: oneOfType([number, object])
   }
 
   static defaultProps = {
@@ -103,8 +104,9 @@ class VideoPlayer extends Component {
         <Progress
           duration={ this.state.duration }
           currentTime={ this.state.currentTime }
-          width={ this.getWidth() }
-          easingDuration={ this.state.paused ? 0 : undefined }
+          // If paused or currentTime is 0, instantly jump the progress bar to correct position:
+          easingDuration={ this.state.paused || this.state.currentTime === 0 ? 0 : undefined }
+          style={ [this.props.progressStyle, { width: this.getWidth() }] }
         />
 
         <Controls

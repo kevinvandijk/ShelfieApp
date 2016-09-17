@@ -1,16 +1,16 @@
 import React, { PropTypes } from 'react';
-import { View, Animated, Easing } from 'react-native';
+import { View, Animated, Easing, StyleSheet } from 'react-native';
 import styles from './styles';
-const { number, oneOfType, object, func } = PropTypes;
+const { number, oneOfType, object, func, array } = PropTypes;
 
+// TODO: Fix proptype for style, it always needs a width!
 class Progress extends React.Component {
   static propTypes = {
     easing: func,
     easingDuration: number,
-    width: number.isRequired,
     currentTime: number.isRequired,
     duration: number.isRequired,
-    style: oneOfType([number, object])
+    style: oneOfType([number, object, array]).isRequired
   }
 
   static defaultProps = {
@@ -30,9 +30,10 @@ class Progress extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
+    const style = StyleSheet.flatten(nextProps.style);
     if (nextProps.currentTime !== this.props.currentTime) {
       const progress = nextProps.currentTime / nextProps.duration;
-      const width = nextProps.width * progress;
+      const width = style.width * progress;
       this.animate(width);
     }
   }
@@ -47,7 +48,7 @@ class Progress extends React.Component {
 
   render() {
     return (
-      <View style={ [styles.progressContainer, this.props.style, { width: this.props.width }] }>
+      <View style={ [styles.progressContainer, this.props.style] }>
         <Animated.View style={ [styles.progressBar, { width: this.progressWidth }] } />
       </View>
     );
