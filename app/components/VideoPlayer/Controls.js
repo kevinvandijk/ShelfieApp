@@ -6,7 +6,7 @@ const { number, string, bool, object, oneOfType, func, array } = PropTypes;
 
 const Controls = (props) => {
   return (
-    <View style={ [styles.controls, props.style] }>
+    <View style={ [styles.controlsContainer, props.style] }>
       { props.backward &&
         <TouchableHighlight onPress={ props.onBackward }>
           <Icon

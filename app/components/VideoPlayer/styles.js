@@ -2,12 +2,11 @@ import { StyleSheet } from 'react-native';
 import { pxToDpi } from '../../helpers/styles';
 
 export default StyleSheet.create({
-  videoPlayerContainer: {
-    flex: 1,
+  container: {
     backgroundColor: '#fff'
   },
 
-  controls: {
+  controlsContainer: {
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row'
@@ -56,8 +55,20 @@ export default StyleSheet.create({
   },
 
   video: {
-    flex: -1,
-    height: pxToDpi(1000),
+    flex: 1,
     backgroundColor: '#eee'
+  },
+
+  videoContainer: {
+    flex: -1,
+    height: pxToDpi(1000)
+  },
+
+  bigPlayButton: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'transparent',
+    alignItems: 'center',
+    justifyContent: 'center'
+
   }
 });

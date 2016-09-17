@@ -4,6 +4,7 @@ import Video from 'react-native-video';
 import Controls from './Controls';
 import Progress from './Progress';
 import Title from './Title';
+import BigPlayButton from './BigPlayButton';
 import styles from './styles';
 const { func, number, object, oneOfType, bool, string } = PropTypes;
 
@@ -110,27 +111,33 @@ class VideoPlayer extends Component {
 
   render() {
     return (
-      <View style={ [styles.videoPlayerContainer, this.props.style] }>
-        <Video
-          source={{ uri: 'https://dl.dropboxusercontent.com/u/2930039/screencast%202016-09-16%2001-50-42.mp4' }}
-          resizeMode="contain"
-          rate={ this.props.rate }
-          volume={ this.props.volume }
-          muted={ this.props.muted }
-          paused={ this.state.paused }
-          repeat={ this.props.repeat }
-          playInBackGround={ this.props.playInBackground }
-          playWhenInActive={ this.props.playWhenInactive }
-          onLoadStart={ this.props.onLoadStart }
-          onLoad={ this.onLoad }
-          onProgress={ this.onProgress }
-          onEnd={ this.onEnd }
-          onError={ this.onError }
-          style={ [styles.video, this.props.videoStyle] }
-          ref="video"
-        />
+      <View style={ [styles.container, this.props.style] }>
+        <View style={ styles.videoContainer }>
+          <Video
+            source={{ uri: 'https://dl.dropboxusercontent.com/u/2930039/screencast%202016-09-16%2001-50-42.mp4' }}
+            resizeMode="contain"
+            rate={ this.props.rate }
+            volume={ this.props.volume }
+            muted={ this.props.muted }
+            paused={ this.state.paused }
+            repeat={ this.props.repeat }
+            playInBackGround={ this.props.playInBackground }
+            playWhenInActive={ this.props.playWhenInactive }
+            onLoadStart={ this.props.onLoadStart }
+            onLoad={ this.onLoad }
+            onProgress={ this.onProgress }
+            onEnd={ this.onEnd }
+            onError={ this.onError }
+            style={ [styles.video, this.props.videoStyle] }
+            ref="video"
+          />
+          { this.state.paused &&
+            <BigPlayButton style={ styles.bigPlayButton } onPress={ this.onPlay } />
+          }
+        </View>
 
-        <Title>The title goes here</Title>
+
+        <Title>The title here</Title>
 
         <Progress
           duration={ this.state.duration }
