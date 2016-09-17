@@ -14,7 +14,7 @@ export default StyleSheet.create({
     paddingVertical: pxToDpi(60)
   },
 
-  progressContainer: {
+  progressBarContainer: {
     height: pxToDpi(6),
     backgroundColor: '#DDD'
   },
@@ -22,6 +22,20 @@ export default StyleSheet.create({
   progressBar: {
     backgroundColor: '#E24546',
     height: pxToDpi(6)
+  },
+
+  progressTextContainer: {
+    paddingHorizontal: pxToDpi(30),
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    paddingVertical: pxToDpi(15)
+  },
+
+  progressText: {
+    backgroundColor: 'transparent',
+    fontFamily: 'Lato-Regular',
+    fontSize: pxToDpi(24),
+    color: '#B2B2B2'
   },
 
   video: {

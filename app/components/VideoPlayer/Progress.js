@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
-import { View, Animated, Easing, StyleSheet } from 'react-native';
+import { View, Animated, Easing, StyleSheet, Text } from 'react-native';
 import styles from './styles';
-const { number, oneOfType, object, func, array } = PropTypes;
+const { number, oneOfType, object, func, array, bool } = PropTypes;
 
 // TODO: Fix proptype for style, it always needs a width!
 class Progress extends React.Component {
@@ -10,7 +10,9 @@ class Progress extends React.Component {
     easingDuration: number,
     currentTime: number.isRequired,
     duration: number.isRequired,
-    style: oneOfType([number, object, array]).isRequired
+    style: oneOfType([number, object, array]).isRequired,
+    disableTotal: bool,
+    disablePlayed: bool
   }
 
   static defaultProps = {
@@ -46,10 +48,39 @@ class Progress extends React.Component {
     }).start();
   }
 
+  formatSeconds(seconds) {
+    const date = new Date(null);
+    date.setSeconds(seconds);
+
+    return (seconds < 3600
+      ? date.toISOString().substr(14, 5)
+      : date.toISOString().substr(11, 8)
+    );
+  }
+
   render() {
+    const { disableTotal, disablePlayed, currentTime, duration, style } = this.props;
+
     return (
-      <View style={ [styles.progressContainer, this.props.style] }>
-        <Animated.View style={ [styles.progressBar, { width: this.progressWidth }] } />
+      <View style={ style }>
+        { !(disableTotal && disablePlayed) &&
+          <View style={ styles.progressTextContainer }>
+            { !disablePlayed &&
+              <Text style={ styles.progressText }>
+                { this.formatSeconds(currentTime) }
+              </Text>
+            }
+
+            { !disableTotal &&
+              <Text style={ styles.progressText }>
+                { this.formatSeconds(duration) }
+              </Text>
+            }
+          </View>
+        }
+        <View style={ styles.progressBarContainer }>
+          <Animated.View style={ [styles.progressBar, { width: this.progressWidth }] } />
+        </View>
       </View>
     );
   }
