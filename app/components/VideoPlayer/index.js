@@ -16,6 +16,7 @@ class VideoPlayer extends Component {
     style: oneOfType([number, object]),
     videoStyle: oneOfType([number, object]),
     autoStart: bool
+    controlsStyle: oneOfType([number, object]),
     progressStyle: oneOfType([number, object])
   }
 
@@ -117,7 +118,7 @@ class VideoPlayer extends Component {
           onPlay={ this.onPlay }
           onBackward={ this.seekBackward }
           onForward={ this.seekForward }
-          style={ styles.videoPlayerControls }
+          style={ [styles.videoPlayerControls, this.props.controlsStyle] }
         />
       </View>
     );
