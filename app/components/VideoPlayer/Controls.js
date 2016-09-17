@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { View, TouchableHighlight } from 'react-native';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
-const { number, string, bool, object, oneOfType, func } = PropTypes;
+const { number, string, bool, object, oneOfType, func, array } = PropTypes;
 
 const Controls = (props) => {
   return (
@@ -61,7 +61,7 @@ Controls.propTypes = {
   onPause: func,
   onForward: func,
   onPlay: func,
-  style: oneOfType([number, object])
+  style: oneOfType([number, object, array])
 };
 
 Controls.defaultProps = {
