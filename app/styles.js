@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
 
   backButtonTextStyle: {
     fontFamily: 'Lato-Regular',
+    fontSize: pxToDpi(28),
     color: '#E34040'
   }
 });
