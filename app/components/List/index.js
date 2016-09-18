@@ -1,14 +1,14 @@
 import React, { Component, PropTypes } from 'react';
-import { ListView, Text, View, TouchableHighlight } from 'react-native';
+import { ListView, Text, View, TouchableOpacity } from 'react-native';
 import styles from './styles';
 const { string, func } = PropTypes;
 import { Actions } from 'react-native-router-flux'
 
 const Row = (props) => {
   return (
-    <TouchableHighlight style={ styles.rowContainer } onPress={ props.onPress }>
+    <TouchableOpacity style={ styles.rowContainer } onPress={ props.onPress }>
       <Text style={ styles.rowText }>{ props.text }</Text>
-    </TouchableHighlight>
+    </TouchableOpacity>
   );
 };
 
