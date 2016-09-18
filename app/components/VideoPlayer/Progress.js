@@ -1,7 +1,18 @@
 import React, { PropTypes } from 'react';
-import { View, Animated, Easing, StyleSheet, Text } from 'react-native';
+import { View, Animated, Easing, StyleSheet, Text, Slider } from 'react-native';
 import styles from './styles';
 const { number, oneOfType, object, func, array, bool } = PropTypes;
+
+const validateOnSeekProp = (props) => {
+  if (!props.disableSeek && !props.onSeek) {
+    return new Error('Prop `onSeek` is required when seeking is not disabled');
+  }
+
+  return (typeof props.onSeek !== 'function'
+    ? new Error('Prop `onSeek` should be a function')
+    : null
+  );
+};
 
 // TODO: Fix proptype for style, it always needs a width!
 class Progress extends React.Component {
@@ -12,7 +23,10 @@ class Progress extends React.Component {
     duration: number.isRequired,
     style: oneOfType([number, object, array]).isRequired,
     disableTotal: bool,
-    disablePlayed: bool
+    disablePlayed: bool,
+    disableSeek: bool,
+    onSeek: validateOnSeekProp,
+    onSeekComplete: func
   }
 
   static defaultProps = {
@@ -32,11 +46,13 @@ class Progress extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    const style = StyleSheet.flatten(nextProps.style);
-    if (nextProps.currentTime !== this.props.currentTime) {
-      const progress = nextProps.currentTime / nextProps.duration;
-      const width = style.width * progress;
-      this.animate(width);
+    if (nextProps.disableSeek) {
+      const style = StyleSheet.flatten(nextProps.style);
+      if (nextProps.currentTime !== this.props.currentTime) {
+        const progress = nextProps.currentTime / nextProps.duration;
+        const width = style.width * progress;
+        this.animate(width);
+      }
     }
   }
 
@@ -59,7 +75,7 @@ class Progress extends React.Component {
   }
 
   render() {
-    const { disableTotal, disablePlayed, currentTime, duration, style } = this.props;
+    const { disableTotal, disablePlayed, currentTime, duration, style, disableSeek } = this.props;
 
     return (
       <View style={ style }>
@@ -78,9 +94,20 @@ class Progress extends React.Component {
             }
           </View>
         }
-        <View style={ styles.progressBarContainer }>
-          <Animated.View style={ [styles.progressBar, { width: this.progressWidth }] } />
-        </View>
+
+
+        { disableSeek ?
+          <View style={ styles.progressBarContainer }>
+            <Animated.View style={ [styles.progressBar, { width: this.progressWidth }] } />
+          </View>
+          :
+          <Slider
+            maximumValue={ duration }
+            value={ currentTime }
+            onValueChange={ this.props.onSeek }
+            onSlidingComplete={ this.props.onSeekComplete }
+          />
+        }
       </View>
     );
   }

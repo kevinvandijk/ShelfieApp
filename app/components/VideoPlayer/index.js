@@ -109,6 +109,27 @@ class VideoPlayer extends Component {
     this.refs.video.seek(timestamp);
   }
 
+  seek = (seconds) => {
+    if (!this.state.paused) {
+      this.setState({
+        paused: true,
+        pausedForSeeking: true
+      });
+    }
+
+    this.refs.video.seek(seconds);
+  }
+
+  seekComplete = (seconds) => {
+    this.seek(seconds);
+    if (this.state.pausedForSeeking) {
+      this.setState({
+        paused: false,
+        pausedForSeeking: false
+      });
+    }
+  }
+
   render() {
     return (
       <View style={ [styles.container, this.props.style] }>
@@ -131,7 +152,7 @@ class VideoPlayer extends Component {
             style={ [styles.video, this.props.videoStyle] }
             ref="video"
           />
-          { this.state.paused &&
+          { this.state.paused && !this.state.pausedForSeeking &&
             <BigPlayButton style={ styles.bigPlayButton } onPress={ this.onPlay } />
           }
         </View>
@@ -142,6 +163,8 @@ class VideoPlayer extends Component {
         <Progress
           duration={ this.state.duration }
           currentTime={ this.state.currentTime }
+          onSeek={ this.seek }
+          onSeekComplete={ this.seekComplete }
           // If paused or currentTime is 0, instantly jump the progress bar to correct position:
           easingDuration={ this.state.paused || this.state.currentTime === 0 ? 0 : undefined }
           style={ [this.props.progressStyle, { width: this.getWidth() }] }
