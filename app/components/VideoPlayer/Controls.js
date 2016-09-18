@@ -1,50 +1,72 @@
 import React, { PropTypes } from 'react';
-import { View, TouchableHighlight } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 const { number, string, bool, object, oneOfType, func, array } = PropTypes;
+
+function calculateHitSlop(size, minimalTouchArea) {
+  const extraSurface = (minimalTouchArea - size) / 2;
+  return {
+    top: extraSurface,
+    right: extraSurface,
+    bottom: extraSurface,
+    left: extraSurface
+  };
+}
 
 const Controls = (props) => {
   return (
     <View style={ [styles.controlsContainer, props.style] }>
       { props.backward &&
-        <TouchableHighlight onPress={ props.onBackward }>
+        <TouchableOpacity
+          hitSlop={ calculateHitSlop(props.normalButtonSize, props.minimalTouchArea) }
+          onPress={ props.onBackward }
+        >
           <Icon
             name="backward"
-            size={ 11 * props.scale }
+            size={ props.normalButtonSize }
             color={ props.color }
           />
-        </TouchableHighlight>
+        </TouchableOpacity>
       }
 
       { !props.paused &&
-        <TouchableHighlight onPress={ props.onPause }>
+        <TouchableOpacity
+          hitSlop={ calculateHitSlop(props.mainButtonSize, props.minimalTouchArea) }
+          onPress={ props.onPause }
+        >
           <Icon
             name="pause"
-            size={ 22 * props.scale }
+            size={ props.mainButtonSize }
             color={ props.color }
           />
-        </TouchableHighlight>
+        </TouchableOpacity>
       }
 
       { props.paused &&
-        <TouchableHighlight onPress={ props.onPlay }>
+        <TouchableOpacity
+          hitSlop={ calculateHitSlop(props.mainButtonSize, props.minimalTouchArea) }
+          onPress={ props.onPlay }
+        >
           <Icon
             name="play"
-            size={ 22 * props.scale }
+            size={ props.mainButtonSize }
             color={ props.color }
           />
-        </TouchableHighlight>
+        </TouchableOpacity>
       }
 
       { props.forward &&
-        <TouchableHighlight onPress={ props.onForward }>
+        <TouchableOpacity
+          hitSlop={ calculateHitSlop(props.normalButtonSize, props.minimalTouchArea) }
+          onPress={ props.onForward }
+        >
           <Icon
             name="forward"
-            size={ 11 * props.scale }
+            size={ props.normalButtonSize }
             color={ props.color }
           />
-        </TouchableHighlight>
+        </TouchableOpacity>
       }
     </View>
   );
@@ -52,8 +74,7 @@ const Controls = (props) => {
 
 // TODO: Better proptype control:
 Controls.propTypes = {
-  scale: number,
-  color: string,
+  color: string.isRequired,
   forward: bool,
   backward: bool,
   paused: bool,
@@ -61,12 +82,17 @@ Controls.propTypes = {
   onPause: func,
   onForward: func,
   onPlay: func,
+  normalButtonSize: number.isRequired,
+  mainButtonSize: number.isRequired,
+  minimalTouchArea: number.isRequired,
   style: oneOfType([number, object, array])
 };
 
 Controls.defaultProps = {
-  scale: 1,
-  color: '#B2B2B2'
+  color: '#B2B2B2',
+  normalButtonSize: 11,
+  mainButtonSize: 22,
+  minimalTouchArea: 44
 };
 
 export default Controls;
