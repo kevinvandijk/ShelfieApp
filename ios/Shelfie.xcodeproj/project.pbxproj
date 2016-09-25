@@ -529,7 +529,8 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = UWY25699U9;
+						DevelopmentTeam = 3F2E38V2SB;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Keychain = {
 								enabled = 1;
@@ -885,6 +886,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = 3F2E38V2SB;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -909,7 +911,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = nl.shelfie.shelfieapp;
 				PRODUCT_NAME = Shelfie;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "68196915-b163-44af-ab7d-42f65b79ce6c";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development nl.shelfie.shelfieapp";
 			};
 			name = Debug;
 		};
@@ -920,6 +923,7 @@
 				CODE_SIGN_ENTITLEMENTS = ShelfieApp/ShelfieApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 3F2E38V2SB;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -944,7 +948,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = nl.shelfie.shelfieapp;
 				PRODUCT_NAME = Shelfie;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "68196915-b163-44af-ab7d-42f65b79ce6c";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development nl.shelfie.shelfieapp";
 			};
 			name = Release;
 		};
