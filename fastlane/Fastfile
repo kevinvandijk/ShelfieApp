@@ -17,7 +17,7 @@ default_platform :ios
 
 platform :ios do
   before_all do
-    # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
+    ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
 
 
   end
@@ -29,8 +29,36 @@ platform :ios do
 
   desc "Submit a new Beta Build to Apple TestFlight"
   desc "This will also make sure the profile is up to date"
-  lane :beta do
-    # match(type: "development") # more information: https://codesigning.guide
+  lane :staging do
+    # changelog = prompt(
+    #   text: "Changelog (confirm by typing END and enter): ",
+    #   multi_line_end_keyword: "END"
+    # )
+    # ensure_git_status_clean
+
+
+    match(type: "appstore")
+
+    # ensure_git_branch # Defaults to master
+    increment_build_number(xcodeproj: "./ios/Shelfie.xcodeproj")
+    # commit_version_bump(xcodeproj: "./ios/Shelfie.xcodeproj")
+    # add_git_tag
+    # push_to_git_remote
+
+    # increment_build_number(
+    #   xcodeproj: "./ios/Shelfie.xcodeproj"
+    # )
+
+    gym(scheme: "Shelfie")
+    # changelog_from_git_commits(
+    #   include_merges: false
+    # )
+    testflight #(changelog: changelog)
+  end
+
+  desc "Create a development build"
+  lane :development do
+    match(type: "development") # more information: https://codesigning.guide
     gym(scheme: "Shelfie") # Build your app - more options available
     # pilot
 
@@ -51,17 +79,22 @@ platform :ios do
 
   after_all do |lane|
     # This block is called, only if the executed lane was successful
-
-    # slack(
-    #   message: "Successfully deployed new App Update."
-    # )
+    # say "Successfully finished deployment (#{lane})!"
+    unless lane == :development
+      git_user = `git config user.name`
+      slack(
+        message: "*Shelfie iOS* deployed to *#{lane}* by #{git_user}"
+      )
+    end
   end
 
   error do |lane, exception|
-    # slack(
-    #   message: exception.message,
-    #   success: false
-    # )
+    unless lane == :development
+      slack(
+        message: exception.message,
+        success: false
+      )
+    end
   end
 end
 
