@@ -2,7 +2,7 @@ import config from '../../config';
 let authToken;
 
 async function post(path, body) {
-  return fetch(`${config.get('api.baseURL')}/${path}`, {
+  return fetch(`${config.get('api.baseURL')}${path}`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
