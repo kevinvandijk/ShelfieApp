@@ -18,9 +18,9 @@ fastlane ios staging
 Submit a new Beta Build to Apple TestFlight
 
 This will also make sure the profile is up to date
-### ios development
+### ios dev
 ```
-fastlane ios development
+fastlane ios dev
 ```
 Create a development build
 ### ios release

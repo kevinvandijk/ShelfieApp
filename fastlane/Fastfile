@@ -57,10 +57,14 @@ platform :ios do
   end
 
   desc "Create a development build"
-  lane :development do
+  lane :dev do
     match(type: "development") # more information: https://codesigning.guide
-    gym(scheme: "Shelfie") # Build your app - more options available
+    gym(scheme: "Shelfie", configuration: "Debug") # Build your app - more options available
     # pilot
+    install_on_device(
+      device_id: "c54125b9064b3d8fe0d396479e06c74f2592dad2",
+      ipa: "./build/Shelfie.ipa"
+    )
 
     # sh "your_script.sh"
     # You can also use other beta testing services here (run `fastlane actions`)
@@ -70,8 +74,8 @@ platform :ios do
   lane :release do
     # match(type: "appstore")
     # snapshot
-    gym(scheme: "Shelfie") # Build your app - more options available
-    deliver(force: true)
+    # gym(scheme: "Shelfie") # Build your app - more options available
+    # deliver(force: true)
     # frameit
   end
 
@@ -80,7 +84,7 @@ platform :ios do
   after_all do |lane|
     # This block is called, only if the executed lane was successful
     # say "Successfully finished deployment (#{lane})!"
-    unless lane == :development
+    unless lane == :dev
       git_user = `git config user.name`
       slack(
         message: "*Shelfie iOS* deployed to *#{lane}* by #{git_user}"
@@ -89,7 +93,7 @@ platform :ios do
   end
 
   error do |lane, exception|
-    unless lane == :development
+    unless lane == :dev
       slack(
         message: exception.message,
         success: false
