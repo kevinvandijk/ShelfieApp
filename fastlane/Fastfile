@@ -29,7 +29,7 @@ platform :ios do
 
   desc "Submit a new Beta Build to Apple TestFlight"
   desc "This will also make sure the profile is up to date"
-  lane :staging do
+  lane :beta do
     # changelog = prompt(
     #   text: "Changelog (confirm by typing END and enter): ",
     #   multi_line_end_keyword: "END"
@@ -62,7 +62,11 @@ platform :ios do
   desc "Create a development build"
   lane :dev do
     match(type: "development") # more information: https://codesigning.guide
-    gym(scheme: "Shelfie", configuration: "Debug") # Build your app - more options available
+    gym(
+      scheme: "Shelfie",
+      configuration: "Debug",
+      clean: false
+    ) # Build your app - more options available
     # pilot
     install_on_device(
       device_id: "c54125b9064b3d8fe0d396479e06c74f2592dad2",
