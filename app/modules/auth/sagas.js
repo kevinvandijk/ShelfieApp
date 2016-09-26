@@ -13,19 +13,16 @@ export function* signup() {
 
 function* loginRequest(email, password) {
   const result = yield call(api.login, email, password);
-  if (result.ok) {
-    yield call(setAuthToken, result.data.token); // TODO: Error handling
+  if (!result.error) {
+    yield call(setAuthToken, result.payload.token); // TODO: Error handling
 
     yield put({
       type: IS_AUTHENTICATED,
-      payload: result.data.user
+      payload: result.payload.user
     });
 
     storage.saveState();
-  } else {
-    console.log(result);
   }
-  return true;
 }
 
 export function* watchLoginRequest() {
