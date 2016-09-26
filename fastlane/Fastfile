@@ -49,7 +49,10 @@ platform :ios do
     #   xcodeproj: "./ios/Shelfie.xcodeproj"
     # )
 
-    gym(scheme: "Shelfie")
+    gym(
+      scheme: "Shelfie",
+      clean: true
+    )
     # changelog_from_git_commits(
     #   include_merges: false
     # )

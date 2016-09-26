@@ -12,6 +12,5 @@
 
 project "./ios/Shelfie.xcodeproj"
 output_directory "./build"
-clean true
 use_legacy_build_api true
 sdk "iphoneos10.0"
