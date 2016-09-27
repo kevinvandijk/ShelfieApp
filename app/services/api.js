@@ -1,8 +1,10 @@
 import config from '../../config';
+import { Alert } from 'react-native';
 let authToken;
 
 async function post(path, body) {
-  return fetch(`${config.get('api.baseURL')}${path}`, {
+  const url = `${config.get('api.baseURL')}${path}`;
+  return fetch(url, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -11,28 +13,45 @@ async function post(path, body) {
     body: JSON.stringify(body)
   })
   .then(response => {
-    return response.json();
-  })
-  .then(json => {
-    return {
-      payload: json
-    };
+    if (response.status >= 300) {
+      return {
+        error: true,
+        payload: response,
+        metadata: {
+          url,
+          body
+        }
+      };
+    }
+
+
+    return response.json().then(json => {
+      return {
+        payload: json
+      };
+    });
   })
   .catch(error => {
     const metadata = {
-      error,
-      baseUrl: config.get('api.baseURL'),
-      path,
+      url,
       body
     };
-
-    if (__DEV__) console.log('Network error', metadata); // eslint-disable-line
 
     return {
       error: true,
       payload: error,
       metadata
     };
+  })
+  .then(result => {
+    if (result.error) {
+      if (__DEV__) console.log('Network error', result); // eslint-disable-line
+      if (config.get('api.showAlerts')) {
+        Alert.alert('Network error');
+      }
+    }
+
+    return result;
   });
 }
 
