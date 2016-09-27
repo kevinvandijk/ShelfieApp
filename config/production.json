@@ -1,3 +1,6 @@
 {
-
+  "api": {
+    "baseURL": "https://api.staging.shelfie.nl",
+    "showAlerts": true
+  }
 }
