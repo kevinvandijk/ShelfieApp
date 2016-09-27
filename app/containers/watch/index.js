@@ -5,6 +5,7 @@ import { pxToDpi } from '../../helpers/styles';
 
 class WatchContainer extends Component {
   render() {
+    throw new Error('Test Crashlytics in production');
     return (
       <View style={{ flex: 1, alignItems: 'flex-end', flexDirection: 'row', backgroundColor: 'orange' }}>
         <VideoPlayer />
