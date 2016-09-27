@@ -24,7 +24,9 @@ platform :ios do
 
   desc "Runs all the tests"
   lane :test do
-    scan
+    # scan
+    bla = get_version_number(xcodeproj: "./ios/Shelfie.xcodeproj")
+    say bla
   end
 
   desc "Submit a new Beta Build to Apple TestFlight"
@@ -40,10 +42,22 @@ platform :ios do
     match(type: "appstore")
 
     # ensure_git_branch # Defaults to master
-    increment_build_number(xcodeproj: "./ios/Shelfie.xcodeproj")
-    commit_version_bump(xcodeproj: "./ios/Shelfie.xcodeproj")
+    increment_build_number(
+      xcodeproj: "./ios/Shelfie.xcodeproj"
+    )
+
+    # https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Actions.md#increment_version_number
+    # latest_testflight_build_number + 1
+
+    commit_version_bump(
+      message: "Release new build",
+      xcodeproj: "./ios/Shelfie.xcodeproj"
+    )
+    # add_git_tag(
+    #   grouping: 'builds'
+    # )
     # add_git_tag
-    # push_to_git_remote
+    push_to_git_remote
 
     # increment_build_number(
     #   xcodeproj: "./ios/Shelfie.xcodeproj"
