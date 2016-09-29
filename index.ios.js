@@ -19,9 +19,6 @@ Reactotron.connect({
   enabled: __DEV__
 });
 
-const error = new Error('Other place SENTRY SOURCE MAP TEST IPHONE');
-Raven.captureException(error);
-
 if (__DEV__) { //eslint-disable-line
   console.tron = Reactotron.log; //eslint-disable-line
   console.bench = Reactotron.bench; //eslint-disable-line
@@ -34,7 +31,8 @@ if (__DEV__) { //eslint-disable-line
     };
   };
 }
-
+const error = new Error('Other place SENTRY SOURCE MAP TEST IPHONE');
+Raven.captureException(error);
 // Handling store here to avoid hot-reloading issues
 const store = configureStore();
 
