@@ -37,7 +37,7 @@ output="$(
     -X POST \
     -H "Authorization: Bearer $SENTRY_TOKEN" \
     -H "Content-Type: application/json" \
-    -d "{\"version\": $FULL_VERSION}"
+    -d "{\"version\": "\"$FULL_VERSION\""}"
 )"
 
 if [[ $output > 299 ]] ;then
