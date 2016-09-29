@@ -43,7 +43,7 @@ platform :ios do
 
     version_number = get_version_number(xcodeproj: "./ios/Shelfie.xcodeproj")
     build_number = latest_testflight_build_number(version: version_number) + 1
-    full_version = "#{version_number}-alpha.#{build_number}"
+    full_version = "#{version_number}.#{build_number}"
 
     increment_build_number(
       xcodeproj: "./ios/Shelfie.xcodeproj",
