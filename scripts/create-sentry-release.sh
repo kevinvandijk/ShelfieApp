@@ -5,10 +5,12 @@
 
 if [ -z ${SENTRY_URL+x} ]; then
   echo "[ERROR] SENTRY_URL needs to be set"
+  exit 1
 fi
 
 if [ -z ${SENTRY_TOKEN+x} ]; then
   echo "[ERROR] SENTRY_TOKEN needs to be set"
+  exit 1
 fi
 
 # Script
