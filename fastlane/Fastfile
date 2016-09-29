@@ -29,9 +29,9 @@ platform :ios do
     say bla
   end
 
-  desc "Submit a new Alpha Build to Apple TestFlight"
+  desc "Submit a new Beta Build to Apple TestFlight"
   desc "This will also make sure the profile is up to date"
-  lane :alpha do # Rename to internal_alpha later?
+  lane :beta do
     # changelog = prompt(
     #   text: "Changelog (confirm by typing END and enter): ",
     #   multi_line_end_keyword: "END"
