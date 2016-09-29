@@ -8,13 +8,8 @@ import DeviceInfo from 'react-native-device-info';
 import Raven from 'raven-js';
 require('raven-js/plugins/react-native')(Raven);
 
-let dsnKey = 'sentry.dsn';
-if (DeviceInfo.getVersion().match(/alpha|beta/)) {
-  dsnKey = `${dsnKey}-staging`;
-}
-
 Raven
-  .config(config.get(dsnKey), { release: DeviceInfo.getReadableVersion() })
+  .config(config.get('sentry.dsn'), { release: DeviceInfo.getReadableVersion() })
   .install();
 
 // connect with defaults
