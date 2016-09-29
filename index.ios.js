@@ -3,11 +3,12 @@ import { AppRegistry, Platform } from 'react-native';
 import Reactotron from 'reactotron';
 import App from './app';
 import configureStore from './app/store/configure-store';
+import DeviceInfo from 'react-native-device-info';
 import Raven from 'raven-js';
 require('raven-js/plugins/react-native')(Raven);
 
 Raven
-  .config('https://3942dddabbac457f8103d4e157c9ef9e@sentry.io/102018', { release: '3' })
+  .config('https://3942dddabbac457f8103d4e157c9ef9e@sentry.io/102018', { release: DeviceInfo.getReadableVersion() })
   .install();
 
 // connect with defaults
