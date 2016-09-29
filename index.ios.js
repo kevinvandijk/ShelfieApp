@@ -7,11 +7,8 @@ import Raven from 'raven-js';
 require('raven-js/plugins/react-native')(Raven);
 
 Raven
-  .config('https://3942dddabbac457f8103d4e157c9ef9e@sentry.io/102018', { release: '2' })
+  .config('https://3942dddabbac457f8103d4e157c9ef9e@sentry.io/102018', { release: '3' })
   .install();
-
-const error = new Error('ANOTHER SENTRY SOURCE MAP TEST IPHONE');
-Raven.captureException(error);
 
 // connect with defaults
 Reactotron.connect({
@@ -19,6 +16,9 @@ Reactotron.connect({
   userAgent: Platform.OS,
   enabled: __DEV__
 });
+
+const error = new Error('Other place SENTRY SOURCE MAP TEST IPHONE');
+Raven.captureException(error);
 
 if (__DEV__) { //eslint-disable-line
   console.tron = Reactotron.log; //eslint-disable-line

@@ -40,6 +40,7 @@ cd ..
 [ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/.nvm"
 
 # Define entry file
+ENTRY_FILE=${1:-index.ios.js}
 
 if [[ -s "$HOME/.nvm/nvm.sh" ]]; then
   . "$HOME/.nvm/nvm.sh"
@@ -82,7 +83,7 @@ fi
 cd build
 
 $NODE_BINARY "$REACT_NATIVE_DIR/local-cli/cli.js" bundle \
-  --entry-file "index.ios.js" \
+  --entry-file "$ENTRY_FILE" \
   --platform ios \
   --dev $DEV \
   --reset-cache \
@@ -93,3 +94,7 @@ $NODE_BINARY "$REACT_NATIVE_DIR/local-cli/cli.js" bundle \
 cd ..
 cp ./build/main.jsbundle "$DEST/main.jsbundle"
 mv ./build/main.jsbundle.meta "$DEST/main.jsbundle.meta"
+
+# Replace current working dir with nothing so the root of the app is shown well in Sentry
+CURRENT_DIR=$(pwd)
+sed -i.bak "s#$CURRENT_DIR##g" ./build/main.jsbundle.map
