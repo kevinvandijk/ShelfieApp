@@ -3,12 +3,18 @@ import { AppRegistry, Platform } from 'react-native';
 import Reactotron from 'reactotron';
 import App from './app';
 import configureStore from './app/store/configure-store';
+import config from './config';
 import DeviceInfo from 'react-native-device-info';
 import Raven from 'raven-js';
 require('raven-js/plugins/react-native')(Raven);
 
+let dsnKey = 'sentry.dsn';
+if (DeviceInfo.getVersion().match(/alpha|beta/)) {
+  dsnKey = `${dsnKey}-staging`;
+}
+
 Raven
-  .config('https://3942dddabbac457f8103d4e157c9ef9e@sentry.io/102018', { release: DeviceInfo.getReadableVersion() })
+  .config(config.get(dsnKey), { release: DeviceInfo.getReadableVersion() })
   .install();
 
 // connect with defaults
