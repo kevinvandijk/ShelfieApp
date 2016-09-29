@@ -30,7 +30,6 @@ case "$CONFIGURATION" in
     ;;
 esac
 
-APP_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 # Path to react-native folder inside node_modules
 REACT_NATIVE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../node_modules/react-native" && pwd)"
 
@@ -41,7 +40,6 @@ cd ..
 [ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/.nvm"
 
 # Define entry file
-ENTRY_FILE=${1:-index.ios.js}
 
 if [[ -s "$HOME/.nvm/nvm.sh" ]]; then
   . "$HOME/.nvm/nvm.sh"
@@ -84,7 +82,7 @@ fi
 cd build
 
 $NODE_BINARY "$REACT_NATIVE_DIR/local-cli/cli.js" bundle \
-  --entry-file "$ENTRY_FILE" \
+  --entry-file "index.ios.js" \
   --platform ios \
   --dev $DEV \
   --reset-cache \

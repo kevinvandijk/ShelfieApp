@@ -7,10 +7,10 @@ import Raven from 'raven-js';
 require('raven-js/plugins/react-native')(Raven);
 
 Raven
-  .config('https://3942dddabbac457f8103d4e157c9ef9e@sentry.io/102018', { release: '1' })
+  .config('https://3942dddabbac457f8103d4e157c9ef9e@sentry.io/102018', { release: '2' })
   .install();
 
-const error = new Error('SENTRY SOURCE MAP TEST IPHONE');
+const error = new Error('ANOTHER SENTRY SOURCE MAP TEST IPHONE');
 Raven.captureException(error);
 
 // connect with defaults
