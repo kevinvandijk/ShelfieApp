@@ -19,8 +19,7 @@ export default function sentryInitializer() {
     'Device System': `${DeviceInfo.getSystemName()} ${DeviceInfo.getSystemVersion()}`,
     'Device Name': DeviceInfo.getDeviceName(),
     'Device Locale': DeviceInfo.getDeviceLocale(),
-    'Device Country': DeviceInfo.getDeviceCountry(),
-    'Device Timezone': DeviceInfo.getTimezone()
+    'Device Country': DeviceInfo.getDeviceCountry()
   });
 
   const originalHandler = global.ErrorUtils.getGlobalHandler();
