@@ -3,14 +3,9 @@ import { AppRegistry, Platform } from 'react-native';
 import Reactotron from 'reactotron';
 import App from './app';
 import configureStore from './app/store/configure-store';
-import config from './config';
-import DeviceInfo from 'react-native-device-info';
-import Raven from 'raven-js';
-require('raven-js/plugins/react-native')(Raven);
+import sentryInitializer from './app/initializers/sentry';
 
-Raven
-  .config(config.get('sentry.dsn'), { release: DeviceInfo.getReadableVersion() })
-  .install();
+sentryInitializer();
 
 // connect with defaults
 Reactotron.connect({
@@ -31,8 +26,7 @@ if (__DEV__) { //eslint-disable-line
     };
   };
 }
-const error = new Error('Other place SENTRY SOURCE MAP TEST IPHONE');
-Raven.captureException(error);
+
 // Handling store here to avoid hot-reloading issues
 const store = configureStore();
 
