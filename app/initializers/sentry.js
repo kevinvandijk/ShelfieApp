@@ -1,7 +1,6 @@
 import DeviceInfo from 'react-native-device-info';
 import Raven from 'raven-js';
 import config from '../../config';
-import { Alert } from 'react-native';
 
 require('raven-js/plugins/react-native')(Raven);
 
@@ -23,20 +22,4 @@ export default function sentryInitializer() {
     'Device Locale': DeviceInfo.getDeviceLocale(),
     'Device Country': DeviceInfo.getDeviceCountry()
   });
-
-  // const originalHandler = global.ErrorUtils.getGlobalHandler();
-  //
-  // function errorHandler(err, isFatal) {
-  //   Raven.captureException(err, {
-  //     extra: {
-  //       fatal: isFatal
-  //     }
-  //   });
-  //
-  //   // FIXME: Handle errors
-  //   Alert.alert(err.message);
-  //   // if (originalHandler) originalHandler(err, isFatal);
-  // }
-
-  // global.ErrorUtils.setGlobalHandler(errorHandler);
 }
