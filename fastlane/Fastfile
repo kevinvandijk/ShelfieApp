@@ -15,10 +15,12 @@ fastlane_version "1.104.0"
 
 default_platform :ios
 
+opt_out_usage
+
 platform :ios do
   before_all do
     ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
-
+    ENV["SENTRY_TOKEN"] = "312ee38f31254c9dbb3be6929fa00c569eb16ac6e8dc454eaf3468917c36c60a"
 
   end
 
@@ -32,10 +34,17 @@ platform :ios do
   desc "Submit a new Beta Build to Apple TestFlight"
   desc "This will also make sure the profile is up to date"
   lane :beta do
-    # changelog = prompt(
-    #   text: "Changelog (confirm by typing END and enter): ",
-    #   multi_line_end_keyword: "END"
-    # )
+    ENV["SENTRY_URL"] = "https://sentry.io/api/0/projects/shelfie/shelfieapp"
+
+    changelog = prompt(
+      text: "Changelog?",
+      multi_line_end_keyword: "END"
+    )
+
+    if changelog.size == 0
+      changelog = "Bug fixes and performance enhancements"
+    end
+
     ensure_git_status_clean
     ensure_git_branch # Defaults to master
 
@@ -55,8 +64,15 @@ platform :ios do
       clean: true
     )
 
-    # https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Actions.md#increment_version_number
-    # latest_testflight_build_number + 1
+    # Create Sentry release
+    if !system("../scripts/create-sentry-release.sh")
+      raise "Could not create Sentry release for #{full_version}"
+    end
+
+    testflight(
+      skip_waiting_for_build_processing: true,
+      changelog: changelog
+    )
 
     commit_version_bump(
       message: "Build #{full_version}",
@@ -68,12 +84,6 @@ platform :ios do
     )
 
     push_to_git_remote
-
-    # changelog_from_git_commits(
-    #   include_merges: false
-    # )
-
-    testflight #(changelog: changelog)
   end
 
   desc "Create a development build"
