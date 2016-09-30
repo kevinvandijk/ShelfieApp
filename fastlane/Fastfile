@@ -38,7 +38,7 @@ platform :ios do
 
     changelog = prompt(
       text: "Changelog?",
-      multi_line_end_keyword: "END"
+      multi_line_end_keyword: "EOT"
     )
 
     if changelog.size == 0
