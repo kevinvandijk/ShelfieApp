@@ -1,6 +1,8 @@
 import DeviceInfo from 'react-native-device-info';
 import Raven from 'raven-js';
 import config from '../../config';
+import { Alert } from 'react-native';
+
 require('raven-js/plugins/react-native')(Raven);
 
 export default function sentryInitializer() {
@@ -31,7 +33,9 @@ export default function sentryInitializer() {
       }
     });
 
-    if (originalHandler) originalHandler(err, isFatal);
+    // FIXME: Handle errors
+    Alert.alert(err.message);
+    // if (originalHandler) originalHandler(err, isFatal);
   }
 
   global.ErrorUtils.setGlobalHandler(errorHandler);
