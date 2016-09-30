@@ -31,6 +31,7 @@ if [ ! -f "$SOURCEMAP_PATH" ]; then
   echo "[ERROR] Sourcemap not found in build directory"
 fi
 
+echo "[INFO] Creating release $FULL_VERSION on Sentry"
 output="$(
   curl "$SENTRY_URL/releases/" \
     -s -o /dev/null -w "%{http_code}" \
@@ -45,6 +46,7 @@ if [[ $output > 299 ]] ;then
   exit 1
 fi
 
+echo "[INFO] Uploading sourcemap to Sentry"
 output="$(curl "$SENTRY_URL/releases/$FULL_VERSION/files/" \
   -s -o /dev/null -w "%{http_code}" \
   -X POST \
@@ -58,6 +60,7 @@ if [[ $output > 299 ]] ;then
   exit 1
 fi
 
+echo "[INFO] Uploading jsbundle to Sentry"
 output="$(curl "$SENTRY_URL/releases/$FULL_VERSION/files/" \
   -s -o /dev/null -w "%{http_code}" \
   -X POST \
