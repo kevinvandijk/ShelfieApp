@@ -24,19 +24,19 @@ export default function sentryInitializer() {
     'Device Country': DeviceInfo.getDeviceCountry()
   });
 
-  const originalHandler = global.ErrorUtils.getGlobalHandler();
+  // const originalHandler = global.ErrorUtils.getGlobalHandler();
+  //
+  // function errorHandler(err, isFatal) {
+  //   Raven.captureException(err, {
+  //     extra: {
+  //       fatal: isFatal
+  //     }
+  //   });
+  //
+  //   // FIXME: Handle errors
+  //   Alert.alert(err.message);
+  //   // if (originalHandler) originalHandler(err, isFatal);
+  // }
 
-  function errorHandler(err, isFatal) {
-    Raven.captureException(err, {
-      extra: {
-        fatal: isFatal
-      }
-    });
-
-    // FIXME: Handle errors
-    Alert.alert(err.message);
-    // if (originalHandler) originalHandler(err, isFatal);
-  }
-
-  global.ErrorUtils.setGlobalHandler(errorHandler);
+  // global.ErrorUtils.setGlobalHandler(errorHandler);
 }
