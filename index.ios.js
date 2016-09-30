@@ -1,11 +1,12 @@
+// Catch errors with Sentry as early as possible
+import sentryInitializer from './app/initializers/sentry';
+sentryInitializer();
+
 import React from 'react';
 import { AppRegistry, Platform } from 'react-native';
-import Reactotron from 'reactotron';
 import App from './app';
+import Reactotron from 'reactotron';
 import configureStore from './app/store/configure-store';
-import sentryInitializer from './app/initializers/sentry';
-
-sentryInitializer();
 
 // connect with defaults
 Reactotron.connect({
