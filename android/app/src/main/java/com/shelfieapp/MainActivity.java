@@ -2,7 +2,6 @@ package com.shelfieapp;
 
 import com.facebook.react.ReactActivity;
 import com.horcrux.svg.RNSvgPackage;
-import com.smixx.fabric.FabricPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.oblador.vectoricons.VectorIconsPackage;
 
