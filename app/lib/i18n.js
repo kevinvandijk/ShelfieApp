@@ -1,55 +1,56 @@
-import { getDeviceLocale } from 'react-native-device-info';
+
 import Immutable from 'seamless-immutable';
 import { get, uniq } from 'lodash';
 
 const _private = {
-  language: getDeviceLocale().toLowerCase()
+  fallback: 'en'
 };
 
 export default {
-  setTranslations(translations) {
+  setTranslations(translations, options = {}) {
     _private.translations = translations;
-    _private.fallback = (this.getLanguage().match(/-/)
-      ? this.getLanguage().split('-')[0]
-      : null
-    );
-    this.setLanguage(this.getLanguage());
+    if (options.fallback) this.setFallback(options.fallback);
   },
 
-  setLanguage(language) {
+  switchLanguage(locale) {
+    const language = locale.toLowerCase();
     const translations = _private.translations;
+    const fallbacks = [language, ...this.getFallbacks()].reverse();
 
-    if (!translations[language] && !translations[this.getFallback()]) {
-      throw new Error(`No translations found for language ${language}`);
-    }
+    const precompiledTranslations = fallbacks.reduce((precompiled, lang) => {
+      return precompiled.merge(translations[lang] || {}, { deep: true });
+    }, Immutable.from({}));
 
-    let precompiledTranslations;
-    const localTranslations = Immutable.from(translations[language]);
-
-    const fallback = this.getFallback();
-    if (fallback) {
-      const fallbackTranslations = Immutable.from(
-        translations[fallback] || {}
-      );
-
-      precompiledTranslations = (localTranslations
-        ? fallbackTranslations.merge(localTranslations, { deep: true })
-        : fallbackTranslations
-      );
-    } else {
-      precompiledTranslations = localTranslations || Immutable.from({});
-    }
-
-
+    _private.language = language;
     _private.precompiledTranslations = precompiledTranslations;
   },
 
   getLanguage() {
-    return _private.language;
+    return _private.language || '';
   },
 
-  getFallback() {
-    return _private.fallback;
+  setFallback(lang) {
+    _private.fallback = lang;
+  },
+
+  getFallbacks() {
+    const fallbacks = [];
+
+    if (this.getLanguage().match(/-/)) {
+      fallbacks.push(this.getLanguage().split('-')[0]);
+    }
+
+    if (_private.fallback) {
+      const translations = _private.translations;
+      const fallbackLang = _private.fallback;
+
+      if (!translations[fallbackLang]) {
+        throw new Error(`No translations found for fallback language ${fallbackLang}`);
+      }
+      fallbacks.push(fallbackLang);
+    }
+
+    return fallbacks;
   },
 
   format(key, interpolationValues = {}) {
