@@ -11,15 +11,18 @@ export default function sentryInitializer() {
     .config(config.get('sentry.dsn'), { release: DeviceInfo.getReadableVersion() })
     .install();
 
+  Raven.setTagsContext({
+    manufacturer: DeviceInfo.getManufacturer(),
+    brand: DeviceInfo.getBrand(),
+    model: DeviceInfo.getModel(),
+    os: `${DeviceInfo.getSystemName()} ${DeviceInfo.getSystemVersion()}`,
+    locale: DeviceInfo.getDeviceLocale(),
+    country: DeviceInfo.getDeviceCountry()
+  });
+
   Raven.setExtraContext({
-    'Device Unique ID': DeviceInfo.getUniqueID(),
-    'Device Manufacturer': DeviceInfo.getManufacturer(),
-    'Device Brand': DeviceInfo.getBrand(),
-    'Device Model': DeviceInfo.getModel(),
     'Device ID': DeviceInfo.getDeviceId(),
-    'Device System': `${DeviceInfo.getSystemName()} ${DeviceInfo.getSystemVersion()}`,
+    'Device Unique ID': DeviceInfo.getUniqueID(),
     'Device Name': DeviceInfo.getDeviceName(),
-    'Device Locale': DeviceInfo.getDeviceLocale(),
-    'Device Country': DeviceInfo.getDeviceCountry()
   });
 }
