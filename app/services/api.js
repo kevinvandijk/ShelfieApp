@@ -7,11 +7,16 @@ async function login(email, password) {
   });
 }
 
+function getVideos() {
+  return get('/1/videos');
+}
+
 function setAuthToken(token) {
   setHeader('Authorization', `Bearer ${token}`);
 }
 
 export default {
   login,
-  setAuthToken
+  setAuthToken,
+  getVideos
 };
