@@ -4,7 +4,7 @@ import Keychain from 'react-native-keychain';
 async function getAuthToken() {
   try {
     const authToken = await Keychain.getInternetCredentials('shelfie-auth-token');
-    return authToken;
+    return authToken.password;
   } catch(err) {
     if (err.message.match(/No keychain entry found/)) {
       return null;
