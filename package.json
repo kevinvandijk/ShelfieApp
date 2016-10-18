@@ -35,6 +35,7 @@
     "instrument": false
   },
   "dependencies": {
+    "qs": "https://registry.npmjs.org/qs/-/qs-4.0.0.tgz",
     "raven-js": "^3.7.0",
     "react": "15.2.1",
     "react-native": "0.31.0",
