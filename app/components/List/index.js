@@ -1,90 +1,52 @@
 import React, { Component, PropTypes } from 'react';
-import { ListView, Text, View, TouchableOpacity } from 'react-native';
-import styles from './styles';
-const { string, func } = PropTypes;
-import { Actions } from 'react-native-router-flux'
+import { ListView } from 'react-native';
+import { partial, noop } from 'lodash';
 
-const Row = (props) => {
-  return (
-    <TouchableOpacity style={ styles.rowContainer } onPress={ props.onPress }>
-      <Text style={ styles.rowText }>{ props.text }</Text>
-    </TouchableOpacity>
-  );
-};
+import Row from './Row';
+import Separator from './Separator';
+import SectionHeader from './SectionHeader';
 
-Row.propTypes = {
-  text: string.isRequired,
-  onPress: func
-};
-
-const SectionHeader = (props) => {
-  return (
-    <View style={ styles.headerContainer }>
-      <Text style={ styles.headerText }>{ props.children }</Text>
-    </View>
-  );
-};
-
-SectionHeader.propTypes = {
-  children: string.isRequired
-};
-
-const Separator = () => {
-  return <View style={ styles.separator } />;
-};
+const { func, shape } = PropTypes;
 
 export default class List extends Component {
-  constructor() {
-    super();
+  static propTypes = {
+    rowDataGetter: func.isRequired,
+    onRowPress: func.isRequired,
+    data: shape({}).isRequired
+  }
+
+  static defaultProps = {
+    onRowPress: noop,
+    data: {}
+  }
+
+  constructor(props) {
+    super(props);
+
     const datasource = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2,
-      sectionHeaderHasChanged: (r1, r2) => r1 !== r2
+      // sectionHeaderHasChanged: (r1, r2) => r1 !== r2
     });
 
-    const data = {
-      1979: [
-        { text: 'Wouter speelt in de tuin' },
-        { text: 'Wouter zwemt in het water' },
-        { text: 'Alexander presenteert het nieuws' },
-        { text: 'Vakantie Portugal' },
-        { text: 'Wouter rookt een sigaretje' },
-        { text: 'Speeldband' }
-      ],
-      1980: [
-        { text: 'Wouter & Kevin spelen samen' },
-        { text: 'Verjaardag Catrien' },
-        { text: 'Kerst bij Oma' },
-        { text: 'Wouter maakt al het speelgoed stuk' },
-        { text: 'Pasen bij tante Anneke' },
-        { text: 'Vakantie Duitsland' },
-        { text: 'Wouter voetballen bij Margriet' },
-        { text: 'Wouter springt op en neer op het gras' },
-        { text: 'Wouter vermaakt zich kostelijk'}
-      ],
-      2016: [
-        { text: 'Wouter begint project KIP' },
-        { text: 'Wouter eet een kippetje' },
-        { text: 'Wouter wordt supergroot en sterk van kip' },
-        { text: 'Wouter start Shelfie' },
-        { text: 'Wouter kijkt deze video ' }
-      ]
-    };
-
     this.state = {
-      dataSource: datasource.cloneWithRowsAndSections(data)
+      dataSource: datasource.cloneWithRows(props.data)
     };
   }
 
-  onRowPress() {
-    Actions['mainWatch']();
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.data) {
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(nextProps.data)
+      });
+    }
   }
 
   renderRow = (rowData, sectionId, rowId) => {
     return (
       <Row
-        { ...rowData }
+        content={ this.props.rowDataGetter(rowData, sectionId, rowId) }
         key={ `${sectionId}-${rowId}` }
-        onPress={ this.onRowPress }
+        onPress={ partial(this.props.onRowPress, rowData, sectionId, rowId) }
       />
     );
   }
@@ -104,6 +66,7 @@ export default class List extends Component {
         renderRow={ this.renderRow }
         renderSectionHeader={ this.renderSectionHeader }
         renderSeparator={ this.renderSeparator }
+        enableEmptySections // FIXME: Always need a section header somehow
       />
     );
   }
