@@ -11,6 +11,10 @@ function getVideos() {
   return get('/1/videos');
 }
 
+function getSignedOutputUrl(id, quality) {
+  return get(`/1/videos/${id}/outputs/${quality}`);
+}
+
 function setAuthToken(token) {
   setHeader('Authorization', `Bearer ${token}`);
 }
@@ -18,5 +22,6 @@ function setAuthToken(token) {
 export default {
   login,
   setAuthToken,
-  getVideos
+  getVideos,
+  getSignedOutputUrl
 };

@@ -21,7 +21,7 @@ class TimelineContainer extends Component {
   }
 
   navigateToVideo(video) {
-    Actions.mainWatch(video.id);
+    Actions.mainWatch({ videoId: video.id });
   }
 
   render() {
@@ -35,14 +35,14 @@ class TimelineContainer extends Component {
   }
 }
 
-const mapDispatchToProps = {
-  fetchVideos
-};
-
 const mapStateToProps = (state) => {
   return {
     videos: getVideosById(state)
   };
+};
+
+const mapDispatchToProps = {
+  fetchVideos
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TimelineContainer);

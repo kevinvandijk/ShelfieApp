@@ -1,17 +1,50 @@
-import React, { Component } from 'react';
-import { View, Text, ListView, StyleSheet } from 'react-native';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { View } from 'react-native';
+import { getVideo, fetchSignedOutputUrl, getSignedUrlForQuality } from '../../modules/videos';
+
 import VideoPlayer from '../../components/VideoPlayer';
-import { pxToDpi } from '../../helpers/styles';
+
+const { string, shape, func } = PropTypes;
 
 class WatchContainer extends Component {
+  static propTypes = {
+    fetchSignedOutputUrl: func.isRequired,
+    videoId: string.isRequired,
+    video: shape({}).isRequired,
+    videoUrl: string
+  }
+
+  componentDidMount() {
+    this.props.fetchSignedOutputUrl(this.props.videoId, '360p-mp4');
+  }
+
   render() {
+    const { video } = this.props;
+
     return (
       <View style={{ flex: 1, alignItems: 'flex-end', flexDirection: 'row', backgroundColor: 'orange' }}>
-        <VideoPlayer />
+        { this.props.videoUrl &&
+          <VideoPlayer
+            title={ video.title }
+            url={ this.props.videoUrl }
+          />
+        }
       </View>
 
     );
   }
 }
 
-export default WatchContainer;
+const mapDispatchToProps = {
+  fetchSignedOutputUrl
+};
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    video: getVideo(state, ownProps.videoId),
+    videoUrl: getSignedUrlForQuality(state, ownProps.videoId, '360p-mp4')
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(WatchContainer);
