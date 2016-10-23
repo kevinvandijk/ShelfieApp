@@ -36,7 +36,8 @@ const logger = createLogger({
 });
 middlewares.push(logger);
 
-if (__DEV__) middlewares.push(Reactotron.reduxMiddleware);
+// Somehow conflicts with router:
+// if (__DEV__) middlewares.push(Reactotron.reduxMiddleware);
 
 export default function configureStore() {
   const store = createStore(
