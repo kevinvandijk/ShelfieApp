@@ -1,23 +1,27 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, ListView } from 'react-native';
-import { fetchVideos } from '../../modules/videos';
-import List from '../../components/List'
+
+import { fetchVideos, getVideosById } from '../../modules/videos';
+import List from '../../components/List';
+const { func, shape } = PropTypes;
 
 class TimelineContainer extends Component {
+  static propTypes = {
+    fetchVideos: func.isRequired,
+    videos: shape({})
+  }
 
   componentDidMount() {
     this.props.fetchVideos();
   }
 
-  renderRow(rowData) {
-
+  getRowText(rowData) {
+    return rowData.title;
   }
 
   render() {
     return (
-      <List data={ this.props.videos }
-      />
+      <List data={ this.props.videos } rowDataGetter={ this.getRowText } />
     );
   }
 }
@@ -28,7 +32,7 @@ const mapDispatchToProps = {
 
 const mapStateToProps = (state) => {
   return {
-    videos: state.videos || []
+    videos: getVideosById(state)
   };
 };
 
