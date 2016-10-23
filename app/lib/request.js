@@ -6,7 +6,6 @@ let headers = {};
 
 export async function request(method, path, options) {
   const url = `${config.get('api.baseURL')}${path}`;
-  console.log('url', url);
   const body = options.body ? JSON.stringify(options.body) : null;
 
   return fetch(url, {
@@ -16,7 +15,7 @@ export async function request(method, path, options) {
       'Content-Type': 'application/json',
       ...headers
     },
-    ...body
+    body
   })
   .then(response => {
     // If error, transform it into FSAA compliant error
