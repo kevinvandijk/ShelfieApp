@@ -1,4 +1,5 @@
 import { createReducer } from 'reduxsauce';
+import { createAction } from 'redux-actions';
 import keychain from '../../services/keychain';
 
 export const INITIAL_STATE = {
@@ -26,6 +27,8 @@ export function login(email, password) {
     password
   };
 }
+
+export const isAuthenticated = createAction(IS_AUTHENTICATED);
 
 export async function setAuthToken(token) {
   return keychain.setAuthToken(token);
