@@ -2,7 +2,9 @@ import { createReducer } from 'reduxsauce';
 import { createAction } from 'redux-actions';
 import { omit } from 'lodash';
 
-export const INITIAL_STATE = {};
+export const INITIAL_STATE = {
+  total: 0
+};
 
 export const FETCH_VIDEOS = 'shelfie/videos/FETCH_VIDEOS';
 export const RECEIVE_VIDEOS = 'shelfie/videos/RECEIVE_VIDEOS';
@@ -32,3 +34,15 @@ export default createReducer(INITIAL_STATE, {
 
 export const fetchVideos = createAction(FETCH_VIDEOS);
 export const receiveVideos = createAction(RECEIVE_VIDEOS);
+
+function local(state) {
+  return state.videos;
+}
+
+export function getVideosById(state) {
+  return local(state).byId || {};
+}
+
+export function getTotalVideos(state) {
+  return local(state).total;
+}

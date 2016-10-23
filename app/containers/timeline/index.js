@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 
 import { fetchVideos, getVideosById } from '../../modules/videos';
 import List from '../../components/List';
@@ -19,9 +20,17 @@ class TimelineContainer extends Component {
     return rowData.title;
   }
 
+  navigateToVideo(video) {
+    Actions.mainWatch(video.id);
+  }
+
   render() {
     return (
-      <List data={ this.props.videos } rowDataGetter={ this.getRowText } />
+      <List
+        data={ this.props.videos }
+        rowDataGetter={ this.getRowText }
+        onRowPress={ this.navigateToVideo }
+      />
     );
   }
 }
