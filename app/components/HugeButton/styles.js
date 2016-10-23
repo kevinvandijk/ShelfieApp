@@ -9,7 +9,8 @@ export default StyleSheet.create({
     backgroundColor: '#E24546',
     height: dpi(88),
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    flex: 1
   },
 
   text: {

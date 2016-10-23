@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, ScrollView } from 'react-native';
+import { View, Dimensions } from 'react-native';
 import styles from '../styles';
 import TabView from '../../components/TabView';
 import ShelfieLogo from '../../components/ShelfieLogo';
 import TextContent from '../../components/TextContent';
-import { pxToDpi } from '../../helpers/styles';
 import Input from '../../components/Input';
 import HugeButton from '../../components/HugeButton';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
@@ -61,15 +60,27 @@ class AuthContainer extends Component {
       key: 'register'
     }];
 
+    const isSmallScreen = Dimensions.get('window').height < 667;
+
+    let buttonContainerStyles;
+    if (isSmallScreen) {
+      buttonContainerStyles = {
+        flexDirection: 'row',
+        alignItems: 'stretch',
+        justifyContent: 'space-between'
+      };
+    }
+
     return (
       <View style={ styles.containerView }>
         <TabView tabs={ tabs } onPress={ this.onTabPress } active="login" />
         <View style={ [styles.containerViewAuth] }>
-
           <View style={ styles.authDialogContainer }>
-            <View style={{ marginTop: -Math.abs(this.state.keyboardHeight) }}>
-              <ShelfieLogo size={ pxToDpi(248) } style={ styles.loginLogo } />
-              <TextContent style={ styles.loginText } i18nKey="auth.login.welcome" />
+            <ShelfieLogo size={ 124 } style={{ marginTop: -Math.abs(this.state.keyboardHeight) }} />
+            { !isSmallScreen &&
+              <View><TextContent style={ styles.loginText } i18nKey="auth.login.welcome" /></View>
+            }
+            <View>
               <Input
                 placeholder="Email"
                 keyboardType="email-address"
@@ -95,13 +106,18 @@ class AuthContainer extends Component {
                 onFocus={ this.onFocus }
                 value={ this.state.password }
                 ref="passwordField"
+                style={{ marginTop: 15 }}
               />
             </View>
           </View>
-          <HugeButton>Login</HugeButton>
-          <HugeButton style={{ backgroundColor: '#3B5998' }}>Facebook</HugeButton>
+          <View style={ buttonContainerStyles }>
+            <HugeButton style={{ [isSmallScreen ? 'marginRight' : 'marginBottom']: 15 }}>
+              Login
+            </HugeButton>
+            <HugeButton style={{ backgroundColor: '#3B5998' }}>Facebook</HugeButton>
+          </View>
+          <KeyboardSpacer onToggle={ this.onKeyboardToggle } />
         </View>
-        <KeyboardSpacer onToggle={ this.onKeyboardToggle } />
       </View>
     );
   }

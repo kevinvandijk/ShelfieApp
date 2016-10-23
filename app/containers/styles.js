@@ -10,23 +10,26 @@ export default StyleSheet.create({
 
   containerViewAuth: {
     flex: 1,
-    justifyContent: 'space-around',
+    justifyContent: 'flex-end',
     alignItems: 'stretch',
     paddingHorizontal: pxToDpi(30),
-    paddingVertical: pxToDpi(15),
-    backgroundColor: '#eee'
+    paddingVertical: pxToDpi(30),
+    backgroundColor: '#eee',
+    overflow: 'hidden'
   },
 
   authDialogContainer: {
     paddingHorizontal: pxToDpi(dialogPadding),
-    paddingVertical: 0,
+    paddingVertical: pxToDpi(dialogPadding),
     backgroundColor: '#fff',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    marginBottom: pxToDpi(30),
+    flex: 1,
+    justifyContent: 'space-between'
   },
 
   loginLogo: {
-    marginTop: pxToDpi(41),
-    marginBottom: pxToDpi(21)
+    marginBottom: pxToDpi(20),
   },
 
   loginText: {

@@ -10,7 +10,6 @@ export default StyleSheet.create({
     padding: pxToDpi(30),
     fontSize: pxToDpi(24),
     color: '#303030',
-    fontFamily: 'Lato-Regular',
-    marginBottom: pxToDpi(31)
+    fontFamily: 'Lato-Regular'
   }
 });
