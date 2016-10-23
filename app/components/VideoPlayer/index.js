@@ -26,7 +26,8 @@ class VideoPlayer extends Component {
     repeat: bool,
     controlsStyle: oneOfType([number, object]),
     progressStyle: oneOfType([number, object]),
-    title: string
+    title: string,
+    url: string.isRequired
   }
 
   static defaultProps = {
@@ -135,7 +136,7 @@ class VideoPlayer extends Component {
       <View style={ [styles.container, this.props.style] }>
         <View style={ styles.videoContainer }>
           <Video
-            source={{ uri: 'https://dl.dropboxusercontent.com/u/2930039/screencast%202016-09-16%2001-50-42.mp4' }}
+            source={{ uri: this.props.url }}
             resizeMode="contain"
             rate={ this.props.rate }
             volume={ this.props.volume }
@@ -157,8 +158,9 @@ class VideoPlayer extends Component {
           }
         </View>
 
-
-        <Title>The title here</Title>
+        { this.props.title &&
+          <Title>{ this.props.title }</Title>
+        }
 
         <Progress
           duration={ this.state.duration }
