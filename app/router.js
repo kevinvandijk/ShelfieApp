@@ -41,9 +41,10 @@ const Drawer = (props) => {
       type="displace"
       content={ <SideMenu /> }
       tapToClose
-      openDrawerOffset={ 0.2 }
-      panCloseMask={ 0.2 }
+      openDrawerOffset={ 0.28 }
+      panCloseMask={ 0.28 }
       negotiatePan
+      tweenDuration={ 200 }
       tweenHandler={ (ratio) => ({
         main: { opacity: Math.max(0.54, 1 - ratio) }
       }) }
@@ -85,7 +86,7 @@ const AppRouter = () => {
           titleStyle={ styles.navBarTitle }
           sceneStyle={ styles.sceneWithNavBar }
         />
-        <Scene key={ MAIN_SCENE_DRAWER } component={ Drawer }>
+        <Scene key={ MAIN_SCENE_DRAWER } component={ Drawer } open>
           <Scene
             key={ MAIN_SCENE }
             navigationBarStyle={ styles.navBar }

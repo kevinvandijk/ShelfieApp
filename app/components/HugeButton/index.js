@@ -5,13 +5,16 @@ import styles from './styles';
 export default class HugeButton extends Component {
   static propTypes = {
     children: PropTypes.string.isRequired,
-    style: PropTypes.object
+    style: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
+    textStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number])
   }
 
   render() {
     return (
       <View style={ [styles.container, this.props.style] }>
-        <Text style={ styles.text }>{ this.props.children.toUpperCase() }</Text>
+        <Text style={ [styles.text, this.props.textStyle] }>
+          { this.props.children.toUpperCase() }
+        </Text>
       </View>
     );
   }
