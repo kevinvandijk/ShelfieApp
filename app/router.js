@@ -17,6 +17,7 @@ const AUTH_SCENE = 'auth';
 const MAIN_SCENE = 'main';
 
 const ReduxRouter = connect()(Router);
+
 const rootComponent = connect(state => {
   return {
     isAuthenticated: state.auth.isAuthenticated,
@@ -100,7 +101,6 @@ const AppRouter = () => {
               title="Timeline"
               component={ TimelineContainer }
               sceneStyle={ styles.sceneWithNavBar }
-              initial
             />
 
             <Scene
