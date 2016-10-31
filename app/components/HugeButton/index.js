@@ -1,21 +1,24 @@
-import React, { Component, PropTypes } from 'react';
-import { View, Text } from 'react-native';
+import React, { PropTypes } from 'react';
+import { Text, TouchableOpacity } from 'react-native';
 import styles from './styles';
 
-export default class HugeButton extends Component {
-  static propTypes = {
-    children: PropTypes.string.isRequired,
-    style: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
-    textStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number])
-  }
+const { string, oneOfType, object, number, func } = PropTypes;
 
-  render() {
-    return (
-      <View style={ [styles.container, this.props.style] }>
-        <Text style={ [styles.text, this.props.textStyle] }>
-          { this.props.children.toUpperCase() }
-        </Text>
-      </View>
-    );
-  }
-}
+const HugeButton = (props) => {
+  return (
+    <TouchableOpacity onPress={ props.onPress } style={ [styles.container, props.style] }>
+      <Text style={ [styles.text, props.textStyle] }>
+        { props.children.toUpperCase() }
+      </Text>
+    </TouchableOpacity>
+  );
+};
+
+HugeButton.propTypes = {
+  children: string.isRequired,
+  style: oneOfType([object, number]),
+  textStyle: oneOfType([object, number]),
+  onPress: func
+};
+
+export default HugeButton;
