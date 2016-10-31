@@ -38,7 +38,7 @@ class AuthContainer extends Component {
     });
   }
 
-  onSubmit = () => {
+  login = () => {
     const { email, password } = this.state;
     this.props.login(email, password);
   }
@@ -101,7 +101,7 @@ class AuthContainer extends Component {
                 returnKeyType="go"
                 enablesReturnKeyAutomatically
                 secureTextEntry
-                onSubmitEditing={ this.onSubmit }
+                onSubmitEditing={ this.login }
                 onChangeText={ (password) => this.setState({ password }) }
                 onFocus={ this.onFocus }
                 value={ this.state.password }
@@ -111,7 +111,7 @@ class AuthContainer extends Component {
             </View>
           </View>
           <View style={ buttonContainerStyles }>
-            <HugeButton style={{ [isSmallScreen ? 'marginRight' : 'marginBottom']: 15 }}>
+            <HugeButton style={{ [isSmallScreen ? 'marginRight' : 'marginBottom']: 15 }} onPress={ this.login }>
               Login
             </HugeButton>
             <HugeButton style={{ backgroundColor: '#3B5998' }}>Facebook</HugeButton>
