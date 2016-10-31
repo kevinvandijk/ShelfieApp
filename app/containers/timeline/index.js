@@ -2,10 +2,13 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 
+import AuthenticatedComponent from '../../decorators/AuthenticatedComponent';
 import { fetchVideos, getVideosById } from '../../modules/videos';
 import List from '../../components/List';
+
 const { func, shape } = PropTypes;
 
+@AuthenticatedComponent()
 class TimelineContainer extends Component {
   static propTypes = {
     fetchVideos: func.isRequired,
