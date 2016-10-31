@@ -37,3 +37,7 @@ export async function setAuthToken(token) {
 export async function getAuthToken() {
   return keychain.getAuthToken();
 }
+
+export function userIsAuthenticated(state) {
+  return !!state.auth.isAuthenticated;
+}
