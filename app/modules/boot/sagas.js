@@ -6,17 +6,19 @@ import { INITIALIZE, appLoaded } from './index';
 import { getAuthToken } from '../auth';
 
 export function* waitForAppLoadRequest() {
-  yield take(INITIALIZE);
+  while (true) {
+    yield take(INITIALIZE);
 
-  const authToken = yield call(getAuthToken);
-  if (authToken) {
-    api.setAuthToken(authToken);
+    const authToken = yield call(getAuthToken);
+    if (authToken) {
+      api.setAuthToken(authToken);
 
-    yield call(storage.loadState);
-    yield take(LOAD);
-    yield put(appLoaded());
-  } else {
-    yield call(storage.clearStorage);
-    yield put(appLoaded());
+      yield call(storage.loadState);
+      yield take(LOAD);
+      yield put(appLoaded());
+    } else {
+      yield call(storage.clearStorage);
+      yield put(appLoaded());
+    }
   }
 }
