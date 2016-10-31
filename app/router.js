@@ -87,7 +87,7 @@ const AppRouter = () => {
           titleStyle={ styles.navBarTitle }
           sceneStyle={ styles.sceneWithNavBar }
         />
-        <Scene key={ MAIN_SCENE_DRAWER } component={ Drawer } open>
+        <Scene key={ MAIN_SCENE_DRAWER } component={ Drawer }>
           <Scene
             key={ MAIN_SCENE }
             navigationBarStyle={ styles.navBar }
