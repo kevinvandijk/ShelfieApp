@@ -6,6 +6,7 @@ export const INITIAL_STATE = {
   isAuthenticated: false
 };
 
+export const LOGOUT = 'shelfie/auth/LOGOUT';
 export const FETCH_TOKEN = 'shelfie/auth/FETCH_TOKEN';
 export const IS_AUTHENTICATED = 'shelfie/auth/IS_AUTHENTICATED';
 
@@ -27,6 +28,8 @@ export function login(email, password) {
     password
   };
 }
+
+export const logout = createAction(LOGOUT);
 
 export const isAuthenticated = createAction(IS_AUTHENTICATED);
 

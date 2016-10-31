@@ -1,5 +1,6 @@
 import { take, call, put } from 'redux-saga/effects';
-import { FETCH_TOKEN, setAuthToken, isAuthenticated } from './index';
+import { FETCH_TOKEN, LOGOUT, setAuthToken, isAuthenticated } from './index';
+import { clearState } from '../../reducer';
 import api from '../../services/api';
 import keychain from '../../services/keychain';
 import storage from '../../services/storage';
@@ -10,6 +11,12 @@ export function* login() {
 
 export function* signup() {
   return;
+}
+
+export function* logout() {
+  api.setAuthToken(null);
+  yield call(keychain.clearAuthToken);
+  yield call(storage.clearStorage);
 }
 
 function* loginRequest(email, password) {
@@ -27,5 +34,12 @@ export function* watchLoginRequest() {
   while (true) { // eslint-disable-line
     const { email, password } = yield take(FETCH_TOKEN);
     yield call(loginRequest, email, password);
+  }
+}
+
+export function* watchLogout() {
+  while (true) {
+    yield take(LOGOUT);
+    yield logout();
   }
 }

@@ -2,7 +2,7 @@ import Immutable from 'seamless-immutable';
 import { createReducer } from 'reduxsauce';
 import { ActionConst } from 'react-native-router-flux';
 
-import auth from './modules/auth';
+import auth, { LOGOUT } from './modules/auth';
 import boot from './modules/boot';
 import videos from './modules/videos';
 
@@ -35,9 +35,13 @@ function combineReducers(reducers) {
   };
 }
 
-export default combineReducers({
+const appReducer = combineReducers({
   router: routerReducer,
   auth,
   boot,
   videos
 });
+
+export default (state, action) => {
+  return appReducer(action.type === LOGOUT ? {} : state, action);
+};
