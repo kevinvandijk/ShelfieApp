@@ -18,7 +18,12 @@ async function setAuthToken(token) {
   return Keychain.setInternetCredentials('shelfie-auth-token', null, token);
 }
 
+async function clearAuthToken() {
+  return Keychain.resetInternetCredentials('shelfie-auth-token');
+}
+
 export default {
   getAuthToken,
-  setAuthToken
+  setAuthToken,
+  clearAuthToken
 };
