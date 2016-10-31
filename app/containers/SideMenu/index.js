@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { logout } from '../../modules/auth';
 import HugeButton from '../../components/HugeButton';
 import { View, StyleSheet } from 'react-native';
 
@@ -27,18 +29,32 @@ const styles = StyleSheet.create({
   }
 });
 
-const SideMenu = () => {
-  return (
-    <View style={ styles.container }>
-      <View style={ styles.content }>
+class SideMenu extends Component {
+  onLogout = () => {
+    this.props.logout();
+  }
+
+  render() {
+    return (
+      <View style={ styles.container }>
+        <View style={ styles.content }>
+        </View>
+        <View style={ styles.footer }>
+          <HugeButton
+            onPress={ this.onLogout }
+            style={ styles.hugeButton }
+            textStyle={ styles.hugeButtonText }
+          >
+            Log out
+          </HugeButton>
+        </View>
       </View>
-      <View style={ styles.footer }>
-        <HugeButton style={ styles.hugeButton } textStyle={ styles.hugeButtonText }>
-          Log out
-        </HugeButton>
-      </View>
-    </View>
-  );
+    );
+  }
+}
+
+const mapDispatchToProps = {
+  logout
 };
 
-export default SideMenu;
+export default connect(null, mapDispatchToProps)(SideMenu);
