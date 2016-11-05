@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { logout } from '../../modules/auth';
 import HugeButton from '../../components/HugeButton';
 import { View, StyleSheet, Text } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 const { func } = PropTypes;
 
 const styles = StyleSheet.create({
@@ -54,15 +55,19 @@ class SideMenu extends Component {
     logout: func.isRequired,
   }
 
-  onLogout = () => {
+  onLogoutPress = () => {
     this.props.logout();
+  }
+
+  onTimelinePress = () => {
+    Actions.refresh({ key: 'drawer', open: false });
   }
 
   render() {
     return (
       <View style={ styles.container }>
         <View style={ styles.content }>
-          <HugeButton style={ styles.contentButton }>
+          <HugeButton style={ styles.contentButton } onPress={ this.onTimelinePress }>
             <Icon name="timeline" size={ 26 } color="#ED9090" />
             <Text style={ styles.contentButtonText }>Timeline</Text>
           </HugeButton>
@@ -73,7 +78,7 @@ class SideMenu extends Component {
             <Text style={ styles.contentButtonText }>Change Profile</Text>
           </HugeButton>
           <HugeButton
-            onPress={ this.onLogout }
+            onPress={ this.onLogoutPress }
             style={ styles.hugeButton }
             textStyle={ styles.hugeButtonText }
           >
