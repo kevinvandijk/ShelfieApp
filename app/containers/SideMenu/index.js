@@ -1,25 +1,45 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { logout } from '../../modules/auth';
 import HugeButton from '../../components/HugeButton';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
+const { func } = PropTypes;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
-  },
-
-  content: {
-    backgroundColor: '#E24546',
-    flex: 1
-  },
-
-  footer: {
-    padding: 15,
+    flex: 1,
+    justifyContent: 'space-between',
     backgroundColor: '#E24546'
   },
 
+  content: {
+    paddingTop: 63.5
+  },
+
+  contentButton: {
+    height: 68,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    paddingHorizontal: 15,
+    backgroundColor: 'transparent',
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: '#ED9090',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: '#ED9090'
+  },
+
+  contentButtonText: {
+    marginLeft: 20,
+    fontFamily: 'Lato-Black',
+    color: '#fff'
+  },
+
+  footer: {
+  },
+
   hugeButton: {
+    margin: 15,
     backgroundColor: '#fff'
   },
 
@@ -30,6 +50,10 @@ const styles = StyleSheet.create({
 });
 
 class SideMenu extends Component {
+  static propTypes = {
+    logout: func.isRequired,
+  }
+
   onLogout = () => {
     this.props.logout();
   }
@@ -38,8 +62,16 @@ class SideMenu extends Component {
     return (
       <View style={ styles.container }>
         <View style={ styles.content }>
+          <HugeButton style={ styles.contentButton }>
+            <Icon name="timeline" size={ 26 } color="#ED9090" />
+            <Text style={ styles.contentButtonText }>Timeline</Text>
+          </HugeButton>
         </View>
         <View style={ styles.footer }>
+          <HugeButton style={ styles.contentButton }>
+            <Icon name="person" size={ 26 } color="#ED9090" />
+            <Text style={ styles.contentButtonText }>Change Profile</Text>
+          </HugeButton>
           <HugeButton
             onPress={ this.onLogout }
             style={ styles.hugeButton }
