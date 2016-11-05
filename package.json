@@ -1,6 +1,6 @@
 {
   "name": "ShelfieApp",
-  "version": "0.1",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
@@ -43,6 +43,7 @@
     "react-native-device-info": "^0.9.3",
     "react-native-drawer": "^2.3.0",
     "react-native-fabric": "^0.3.0",
+    "react-native-fbsdk": "^0.3.0",
     "react-native-keyboard-spacer": "^0.3.0",
     "react-native-keychain": "^0.3.2",
     "react-native-router-flux": "^3.34.0",

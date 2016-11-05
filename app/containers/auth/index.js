@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { View, Dimensions } from 'react-native';
 import styles from '../styles';
@@ -9,10 +9,15 @@ import Input from '../../components/Input';
 import HugeButton from '../../components/HugeButton';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 
-import { login } from '../../modules/auth';
-
+import { login, requestFacebookAuth } from '../../modules/auth';
+const { func } = PropTypes;
 
 class AuthContainer extends Component {
+  static propTypes = {
+    requestFacebookAuth: func.isRequired,
+    login: func.isRequired
+  }
+
   state = {
     keyboardHeight: 0,
     movingFields: false,
@@ -41,6 +46,10 @@ class AuthContainer extends Component {
   login = () => {
     const { email, password } = this.state;
     this.props.login(email, password);
+  }
+
+  facebook = () => {
+    this.props.requestFacebookAuth();
   }
 
   moveToPassword = () => {
@@ -114,7 +123,7 @@ class AuthContainer extends Component {
             <HugeButton style={{ [isSmallScreen ? 'marginRight' : 'marginBottom']: 15 }} onPress={ this.login }>
               Login
             </HugeButton>
-            <HugeButton style={{ backgroundColor: '#3B5998' }}>Facebook</HugeButton>
+            <HugeButton style={{ backgroundColor: '#3B5998' }} onPress={ this.facebook }>Facebook</HugeButton>
           </View>
           <KeyboardSpacer onToggle={ this.onKeyboardToggle } />
         </View>
@@ -124,7 +133,8 @@ class AuthContainer extends Component {
 }
 
 const mapDispatchToProps = {
-  login
+  login,
+  requestFacebookAuth
 };
 
 export default connect(null, mapDispatchToProps)(AuthContainer);

@@ -4,6 +4,8 @@ import android.app.Application;
 import android.util.Log;
 
 import com.facebook.react.ReactApplication;
+import com.facebook.reactnative.androidsdk.FBSDKPackage;
+import com.smixx.fabric.FabricPackage;
 import com.brentvatne.react.ReactVideoPackage;
 import com.oblador.keychain.KeychainPackage;
 import com.facebook.react.ReactInstanceManager;
@@ -26,6 +28,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new FBSDKPackage(),
+            new FabricPackage(),
             new ReactVideoPackage(),
             new KeychainPackage()
       );

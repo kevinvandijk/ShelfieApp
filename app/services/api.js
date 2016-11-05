@@ -23,5 +23,8 @@ export default {
   login,
   setAuthToken,
   getVideos,
-  getSignedOutputUrl
+  getSignedOutputUrl,
+  swapFBToken(fbToken) {
+    return post('/auth/exchange/facebook', fbToken);
+  }
 };
