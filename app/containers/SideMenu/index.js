@@ -63,6 +63,10 @@ class SideMenu extends Component {
     Actions.refresh({ key: 'drawer', open: false });
   }
 
+  onChangeProfilePress = () => {
+    Actions.changePassword();
+  }
+
   render() {
     return (
       <View style={ styles.container }>
@@ -73,7 +77,7 @@ class SideMenu extends Component {
           </HugeButton>
         </View>
         <View style={ styles.footer }>
-          <HugeButton style={ styles.contentButton }>
+          <HugeButton style={ styles.contentButton } onPress={ this.onChangeProfilePress }>
             <Icon name="person" size={ 26 } color="#ED9090" />
             <Text style={ styles.contentButtonText }>Change Profile</Text>
           </HugeButton>
