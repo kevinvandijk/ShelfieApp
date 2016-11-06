@@ -1,23 +1,26 @@
 import React, { Component, PropTypes } from 'react';
-import { ListView } from 'react-native';
+import { ListView, RefreshControl } from 'react-native';
 import { partial, noop } from 'lodash';
 
 import Row from './Row';
 import Separator from './Separator';
 import SectionHeader from './SectionHeader';
 
-const { func, shape } = PropTypes;
+const { func, shape, bool } = PropTypes;
 
 export default class List extends Component {
   static propTypes = {
     rowDataGetter: func.isRequired,
     onRowPress: func.isRequired,
-    data: shape({}).isRequired
+    data: shape({}).isRequired,
+    onRefresh: func,
+    refreshing: bool
   }
 
   static defaultProps = {
     onRowPress: noop,
-    data: {}
+    data: {},
+    refreshing: false
   }
 
   constructor(props) {
@@ -25,11 +28,12 @@ export default class List extends Component {
 
     const datasource = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2,
-      // sectionHeaderHasChanged: (r1, r2) => r1 !== r2
+      sectionHeaderHasChanged: (r1, r2) => r1 !== r2
     });
 
     this.state = {
-      dataSource: datasource.cloneWithRows(props.data)
+      dataSource: datasource.cloneWithRows(props.data),
+      refreshing: false
     };
   }
 
@@ -60,6 +64,10 @@ export default class List extends Component {
   }
 
   render() {
+    const refreshControl = this.props.onRefresh
+      ? <RefreshControl refreshing={ this.props.refreshing } onRefresh={ this.props.onRefresh } />
+      : null;
+
     return (
       <ListView
         dataSource={ this.state.dataSource }
@@ -67,6 +75,7 @@ export default class List extends Component {
         renderSectionHeader={ this.renderSectionHeader }
         renderSeparator={ this.renderSeparator }
         enableEmptySections // FIXME: Always need a section header somehow
+        refreshControl={ refreshControl }
       />
     );
   }

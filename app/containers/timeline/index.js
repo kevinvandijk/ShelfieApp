@@ -27,12 +27,17 @@ class TimelineContainer extends Component {
     Actions.mainWatch({ videoId: video.id });
   }
 
+  onRefresh() {
+    
+  }
+
   render() {
     return (
       <List
         data={ this.props.videos }
         rowDataGetter={ this.getRowText }
         onRowPress={ this.navigateToVideo }
+        onRefresh={ this.onRefresh }
       />
     );
   }
