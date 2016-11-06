@@ -1,5 +1,5 @@
 import { fork } from 'redux-saga/effects';
-import { login, signup, watchLoginRequest, watchLogout, watchFacebookRequest } from './modules/auth/sagas';
+import { login, signup, watchLoginRequest, watchLogout, watchFacebookRequest, watchChangePasswordRequest } from './modules/auth/sagas';
 import { waitForAppLoadRequest } from './modules/boot/sagas';
 import { videoWatchers } from './modules/videos/sagas';
 
@@ -12,4 +12,5 @@ export default function* rootSaga() {
   yield fork(videoWatchers);
   yield fork(watchLogout);
   yield fork(watchFacebookRequest);
+  yield fork(watchChangePasswordRequest);
 }

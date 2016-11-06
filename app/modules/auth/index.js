@@ -10,6 +10,8 @@ export const LOGOUT = 'shelfie/auth/LOGOUT';
 export const FETCH_TOKEN = 'shelfie/auth/FETCH_TOKEN';
 export const IS_AUTHENTICATED = 'shelfie/auth/IS_AUTHENTICATED';
 export const REQUEST_FACEBOOK_AUTH = 'shelfie/auth/REQUEST_FACEBOOK_AUTH';
+export const CHANGE_PASSWORD_REQUEST = ' shelfie/auth/CHANGE_PASSWORD_REQUEST';
+export const CHANGE_PASSWORD_SUCCESS = ' shelfie/auth/CHANGE_PASSWORD_REQUEST';
 
 export default createReducer(INITIAL_STATE, {
   [IS_AUTHENTICATED]: (state, action) => {
@@ -32,6 +34,8 @@ export function login(email, password) {
 
 export const logout = createAction(LOGOUT);
 export const requestFacebookAuth = createAction(REQUEST_FACEBOOK_AUTH);
+export const changePassword = createAction(CHANGE_PASSWORD_REQUEST);
+export const changePasswordSuccess = createAction(CHANGE_PASSWORD_SUCCESS);
 
 export const isAuthenticated = createAction(IS_AUTHENTICATED);
 

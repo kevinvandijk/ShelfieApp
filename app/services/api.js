@@ -1,4 +1,4 @@
-import { setHeader, post, get } from '../lib/request';
+import { setHeader, post, get, patch } from '../lib/request';
 
 async function login(email, password) {
   return post('/auth/login', {
@@ -26,5 +26,10 @@ export default {
   getSignedOutputUrl,
   swapFBToken(fbToken) {
     return post('/auth/exchange/facebook', fbToken);
+  },
+  changePassword(password) {
+    return patch('/1/users/me', {
+      password
+    });
   }
 };

@@ -1,8 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
 import Input from '../../components/Input';
 import HugeButton from '../../components/HugeButton';
+import { changePassword } from '../../modules/auth';
 import { Actions } from 'react-native-router-flux';
+const { func } = PropTypes;
 
 const styles = StyleSheet.create({
   overlay: {
@@ -44,6 +47,10 @@ const styles = StyleSheet.create({
 });
 
 class ChangePasswordContainer extends Component {
+  static propTypes = {
+    changePassword: func.isRequired
+  }
+
   state = {
     movingFields: false,
     email: null,
@@ -58,14 +65,23 @@ class ChangePasswordContainer extends Component {
     });
   }
 
-  moveToPassword = () => {
+  moveToPasswordConfirm = () => {
     this.setState({
       movingFields: true
     });
+
+    this.refs.passwordConfirmField.focus();
   }
 
   close = () => {
     Actions.pop();
+  }
+
+  submit = () => {
+    const { password, passwordConfirm } = this.state;
+    if (password && password.length && password === passwordConfirm) {
+      this.props.changePassword(password);
+    }
   }
 
   render() {
@@ -75,20 +91,6 @@ class ChangePasswordContainer extends Component {
       <View style={ styles.overlay }>
         <View style={ styles.container }>
           <Text style={ styles.titleText }>Change Password</Text>
-          <Input
-            placeholder="Email"
-            keyboardType="email-address"
-            autoCapitalize="none"
-            returnKeyType="next"
-            autoCorrect={ false }
-            enablesReturnKeyAutomatically
-            blurOnSubmit={ false }
-            onSubmitEditing={ this.moveToPassword }
-            onFocus={ this.onFocus }
-            onChangeText={ (email) => this.setState({ email }) }
-            value={ this.state.email }
-            ref="emailField"
-          />
           <Input
             placeholder="Password"
             autoCapitalize="none"
@@ -108,17 +110,17 @@ class ChangePasswordContainer extends Component {
             returnKeyType="go"
             enablesReturnKeyAutomatically
             secureTextEntry
-            onSubmitEditing={ this.save }
+            onSubmitEditing={ this.submit }
             onChangeText={ (passwordConfirm) => this.setState({ passwordConfirm }) }
             onFocus={ this.onFocus }
             value={ this.state.passwordConfirm }
-            ref="passwordField"
+            ref="passwordConfirmField"
             style={{ marginTop: 15 }}
           />
 
           <View style={ styles.footer }>
             <HugeButton style={ styles.cancelButton } onPress={ this.close }>Cancel</HugeButton>
-            <HugeButton onPress={ this.close }>Opslaan</HugeButton>
+            <HugeButton onPress={ this.submit }>Opslaan</HugeButton>
           </View>
         </View>
       </View>
@@ -126,4 +128,8 @@ class ChangePasswordContainer extends Component {
   }
 }
 
-export default ChangePasswordContainer;
+const mapDispatchToProps = {
+  changePassword
+};
+
+export default connect(null, mapDispatchToProps)(ChangePasswordContainer);

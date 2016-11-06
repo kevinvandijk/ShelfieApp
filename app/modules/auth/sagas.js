@@ -1,5 +1,5 @@
 import { take, call, put } from 'redux-saga/effects';
-import { FETCH_TOKEN, LOGOUT, REQUEST_FACEBOOK_AUTH, setAuthToken, isAuthenticated } from './index';
+import { FETCH_TOKEN, LOGOUT, REQUEST_FACEBOOK_AUTH, CHANGE_PASSWORD_REQUEST, setAuthToken, isAuthenticated, changePasswordSuccess } from './index';
 import { clearState } from '../../reducer';
 import api from '../../services/api';
 import keychain from '../../services/keychain';
@@ -28,6 +28,13 @@ function* loginRequest(email, password) {
     yield put(isAuthenticated(result.payload.user));
     yield call(keychain.setAuthToken, result.payload.token);
     yield call(storage.saveState);
+  }
+}
+
+function* changePasswordRequest(password) {
+  const result = yield call(api.changePassword, password);
+  if (!result.error) {
+    yield put(changePasswordSuccess());
   }
 }
 
@@ -65,5 +72,12 @@ export function* watchLogout() {
   while (true) {
     yield take(LOGOUT);
     yield logout();
+  }
+}
+
+export function* watchChangePasswordRequest() {
+  while (true) {
+    const { payload } = yield take(CHANGE_PASSWORD_REQUEST);
+    yield changePasswordRequest(payload);
   }
 }
