@@ -65,7 +65,7 @@ export function getVideo(state, videoId) {
 }
 
 export function getVideosById(state) {
-  return local(state).byId || {};
+  return local(state).byId || null;
 }
 
 export function getTotalVideos(state) {

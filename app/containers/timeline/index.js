@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+import Spinner from 'react-native-spinkit';
 
 import AuthenticatedComponent from '../../decorators/AuthenticatedComponent';
 import { fetchVideos, getVideosById } from '../../modules/videos';
@@ -28,10 +30,18 @@ class TimelineContainer extends Component {
   }
 
   onRefresh() {
-    
+
   }
 
   render() {
+    if (!this.props.videos) {
+      return (
+        <View style={{ flex: 1, top: 30, alignItems: 'center' }}>
+          <Spinner type="ThreeBounce" color="#ED9090" />
+        </View>
+      );
+    }
+
     return (
       <List
         data={ this.props.videos }
