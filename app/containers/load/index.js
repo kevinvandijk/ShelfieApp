@@ -17,7 +17,6 @@ class LoadContainer extends Component {
   render() {
     return (
       <View>
-        <Text>LOADING...</Text>
       </View>
     );
   }
