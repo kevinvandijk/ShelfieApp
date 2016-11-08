@@ -13,8 +13,16 @@ export default StyleSheet.create({
     flex: 1
   },
 
+  containerDisabled: {
+    backgroundColor: '#ccc'
+  },
+
   text: {
     color: '#fff',
     fontSize: dpi(24)
+  },
+
+  textDisabled: {
+    color: 'rgba(255, 255, 255, .6)'
   }
 });
