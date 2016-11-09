@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import Form from '../../components/Form';
 import Input from '../../components/Form/Input';
@@ -54,37 +54,8 @@ class ChangePasswordContainer extends Component {
   }
 
   state = {
-    movingFields: false,
-    email: null,
-    password: null,
-    passwordConfirm: null,
     closed: false,
     enableSaveButton: false
-  }
-
-  onFocus = () => {
-    this.setState({
-      movingFields: false
-    });
-  }
-
-  moveToPasswordConfirm = () => {
-    this.setState({
-      movingFields: true
-    });
-
-    this.refs.passwordConfirmField.focus();
-  }
-
-  close = () => {
-    Actions.pop();
-  }
-
-  submit = (values, validations) => {
-    // const { password, passwordConfirm } = this.state;
-    // if (password && password.length && password === passwordConfirm) {
-    //   this.props.changePassword(password);
-    // }
   }
 
   onFormChange = (values) => {
@@ -93,12 +64,28 @@ class ChangePasswordContainer extends Component {
     });
   }
 
-  validate = (values) => {
-    return (values.password.length > 6 && values.password === values.confirmPassword);
+  onSubmit = (values, validationError) => {
+    if (validationError) {
+      Alert.alert(...validationError);
+    } else {
+      this.props.changePassword(values.password);
+    }
   }
 
-  onSubmit = (values, valid) => {
-    console.log('submit', values, valid);
+  validate = (values) => {
+    if (values.password.length < 6) {
+      return ['Password too short', 'Please make sure your password is longer than 6 characters'];
+    }
+
+    if (values.password !== values.confirmPassword) {
+      return ['Passwords do not match', 'Please make sure to enter the same new password twice'];
+    }
+
+    return null;
+  }
+
+  close = () => {
+    Actions.pop();
   }
 
   render() {
@@ -113,8 +100,6 @@ class ChangePasswordContainer extends Component {
               name="password"
               placeholder="Password"
               type="password"
-              onReturn="next"
-              ref="passwordField"
               style={{ marginTop: 15 }}
             />
             <Input
@@ -122,7 +107,6 @@ class ChangePasswordContainer extends Component {
               placeholder="Password Confirmation"
               type="password"
               onReturn="submit"
-              ref="passwordConfirmField"
               style={{ marginTop: 15 }}
             />
 
