@@ -54,7 +54,6 @@ class ChangePasswordContainer extends Component {
   }
 
   state = {
-    closed: false,
     enableSaveButton: false
   }
 
@@ -89,8 +88,6 @@ class ChangePasswordContainer extends Component {
   }
 
   render() {
-    if (this.state.closed) return null;
-
     return (
       <View style={ styles.overlay }>
         <Form validate={ this.validate } onChange={ this.onFormChange } onSubmit={ this.onSubmit }>
