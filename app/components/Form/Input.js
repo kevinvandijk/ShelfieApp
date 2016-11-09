@@ -35,7 +35,8 @@ class Input extends Component {
   static defaultProps = {
     type: 'text',
     onChangeText: noop,
-    alwaysEnableReturn: false
+    alwaysEnableReturn: false,
+    onReturn: 'next'
   }
 
   static contextTypes = {
