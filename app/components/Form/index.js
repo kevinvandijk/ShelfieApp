@@ -60,7 +60,6 @@ export default class Form extends Component {
 
   attachToForm = (component) => {
     const name = component.props.name;
-    console.log('component', component);
     if (this.inputs[name]) {
       console.warn(`Input or button with '${name} was already attached to this form`); // eslint-disable-line
     }

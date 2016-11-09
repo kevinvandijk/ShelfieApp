@@ -135,7 +135,6 @@ class Input extends Component {
       onChangeText: this.onChangeText
     };
 
-    console.log('props', props);
     return (
       <TextInput
         { ...props }
