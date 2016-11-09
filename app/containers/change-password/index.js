@@ -1,7 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import Input from '../../components/Input';
+import Form from '../../components/Form';
+import Input from '../../components/Form/Input';
+import SubmitButton from '../../components/Form/SubmitButton';
 import HugeButton from '../../components/HugeButton';
 import { changePassword } from '../../modules/auth';
 import { Actions } from 'react-native-router-flux';
@@ -56,7 +58,8 @@ class ChangePasswordContainer extends Component {
     email: null,
     password: null,
     passwordConfirm: null,
-    closed: false
+    closed: false,
+    enableSaveButton: false
   }
 
   onFocus = () => {
@@ -78,10 +81,20 @@ class ChangePasswordContainer extends Component {
   }
 
   submit = () => {
-    const { password, passwordConfirm } = this.state;
-    if (password && password.length && password === passwordConfirm) {
-      this.props.changePassword(password);
-    }
+    // const { password, passwordConfirm } = this.state;
+    // if (password && password.length && password === passwordConfirm) {
+    //   this.props.changePassword(password);
+    // }
+  }
+
+  onFormChange = (values, valid) => {
+    this.setState({
+      enableSaveButton: valid
+    });
+  }
+
+  validate = (values) => {
+    return (values.password.length > 6 && values.password === values.confirmPassword);
   }
 
   render() {
@@ -89,40 +102,51 @@ class ChangePasswordContainer extends Component {
 
     return (
       <View style={ styles.overlay }>
-        <View style={ styles.container }>
-          <Text style={ styles.titleText }>Change Password</Text>
-          <Input
-            placeholder="Password"
-            autoCapitalize="none"
-            returnKeyType="go"
-            enablesReturnKeyAutomatically
-            secureTextEntry
-            onSubmitEditing={ this.moveToPasswordConfirm }
-            onChangeText={ (password) => this.setState({ password }) }
-            onFocus={ this.onFocus }
-            value={ this.state.password }
-            ref="passwordField"
-            style={{ marginTop: 15 }}
-          />
-          <Input
-            placeholder="Password Confirmation"
-            autoCapitalize="none"
-            returnKeyType="go"
-            enablesReturnKeyAutomatically
-            secureTextEntry
-            onSubmitEditing={ this.submit }
-            onChangeText={ (passwordConfirm) => this.setState({ passwordConfirm }) }
-            onFocus={ this.onFocus }
-            value={ this.state.passwordConfirm }
-            ref="passwordConfirmField"
-            style={{ marginTop: 15 }}
-          />
+        <Form validate={ this.validate } onChange={ this.onFormChange }>
+          <View style={ styles.container }>
+            <Text style={ styles.titleText }>Change Password</Text>
+            <Input
+              name="password"
+              placeholder="Password"
+              autoCapitalize="none"
+              returnKeyType="go"
+              enablesReturnKeyAutomatically
+              secureTextEntry
+              // onSubmitEditing={ this.moveToPasswordConfirm }
+              // onChangeText={ (password) => this.setState({ password }) }
+              // onFocus={ this.onFocus }
+              // value={ this.state.password }
+              ref="passwordField"
+              style={{ marginTop: 15 }}
+            />
+            <Input
+              name="confirmPassword"
+              placeholder="Password Confirmation"
+              autoCapitalize="none"
+              returnKeyType="go"
+              enablesReturnKeyAutomatically
+              secureTextEntry
 
-          <View style={ styles.footer }>
-            <HugeButton style={ styles.cancelButton } onPress={ this.close }>Cancel</HugeButton>
-            <HugeButton onPress={ this.submit }>Opslaan</HugeButton>
+              // onSubmitEditing={ this.submit }
+              // onChangeText={ (passwordConfirm) => this.setState({ passwordConfirm }) }
+              // onFocus={ this.onFocus }
+              // value={ this.state.passwordConfirm }
+              ref="passwordConfirmField"
+              style={{ marginTop: 15 }}
+            />
+
+            <View style={ styles.footer }>
+
+              <HugeButton style={ styles.cancelButton } onPress={ this.close }>Cancel</HugeButton>
+              {/* <HugeButton onPress={ this.submit } disabled>Opslaan</HugeButton> */}
+              <SubmitButton
+                name="submit"
+                component={ HugeButton }
+                disabled={ !this.state.enableSaveButton }
+              >Opslaan</SubmitButton>
+            </View>
           </View>
-        </View>
+        </Form>
       </View>
     );
   }
