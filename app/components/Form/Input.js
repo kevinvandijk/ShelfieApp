@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
 });
 
 
-const { object, number, oneOfType, func, string } = PropTypes;
+const { object, number, oneOfType, func, string, bool } = PropTypes;
 
 class Input extends Component {
   static propTypes = {
@@ -26,12 +26,16 @@ class Input extends Component {
     onChangeText: func,
     value: string,
     name: string.isRequired,
-    onReturn: string
+    onReturn: string,
+    alwaysEnableReturn: bool,
+    autoCapitalize: string,
+    placeholder: string
   }
 
   static defaultProps = {
     type: 'text',
-    onChangeText: noop
+    onChangeText: noop,
+    alwaysEnableReturn: false
   }
 
   static contextTypes = {
@@ -126,13 +130,23 @@ class Input extends Component {
       onSubmitEditing = this.submit;
     }
 
+    let autoCapitalize;
+    if (this.props.type === 'password') {
+      autoCapitalize = this.props.autoCapitalize || 'none';
+    } else {
+      autoCapitalize = this.props.autoCapitalize;
+    }
 
     const props = {
-      ...this.props,
+      // ...this.props,
       returnKeyType,
       onSubmitEditing,
+      autoCapitalize,
+      placeholder: this.props.placeholder,
+      enablesReturnKeyAutomatically: !this.props.alwaysEnableReturn,
       value: this.state.value,
-      onChangeText: this.onChangeText
+      onChangeText: this.onChangeText,
+      secureTextEntry: this.props.type === 'password'
     };
 
     return (

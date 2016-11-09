@@ -80,7 +80,7 @@ class ChangePasswordContainer extends Component {
     Actions.pop();
   }
 
-  submit = () => {
+  submit = (values, validations) => {
     // const { password, passwordConfirm } = this.state;
     // if (password && password.length && password === passwordConfirm) {
     //   this.props.changePassword(password);
@@ -97,43 +97,44 @@ class ChangePasswordContainer extends Component {
     return (values.password.length > 6 && values.password === values.confirmPassword);
   }
 
+  onSubmit = (values, valid) => {
+    console.log('submit', values, valid);
+  }
+
   render() {
     if (this.state.closed) return null;
 
     return (
       <View style={ styles.overlay }>
-        <Form validate={ this.validate } onChange={ this.onFormChange }>
+        <Form validate={ this.validate } onChange={ this.onFormChange } onSubmit={ this.onSubmit }>
           <View style={ styles.container }>
             <Text style={ styles.titleText }>Change Password</Text>
             <Input
               name="password"
               placeholder="Password"
-              autoCapitalize="none"
+              type="password"
               onReturn="next"
-              enablesReturnKeyAutomatically
-              secureTextEntry
               ref="passwordField"
               style={{ marginTop: 15 }}
             />
             <Input
               name="confirmPassword"
               placeholder="Password Confirmation"
-              autoCapitalize="none"
+              type="password"
               onReturn="submit"
-              enablesReturnKeyAutomatically
-              secureTextEntry
               ref="passwordConfirmField"
               style={{ marginTop: 15 }}
             />
 
             <View style={ styles.footer }>
-
               <HugeButton style={ styles.cancelButton } onPress={ this.close }>Cancel</HugeButton>
               <SubmitButton
                 name="submit"
                 component={ HugeButton }
                 disabled={ !this.state.enableSaveButton }
-              >Opslaan</SubmitButton>
+              >
+                Opslaan
+              </SubmitButton>
             </View>
           </View>
         </Form>
