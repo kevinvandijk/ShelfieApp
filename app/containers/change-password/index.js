@@ -87,9 +87,9 @@ class ChangePasswordContainer extends Component {
     // }
   }
 
-  onFormChange = (values, valid) => {
+  onFormChange = (values) => {
     this.setState({
-      enableSaveButton: valid
+      enableSaveButton: values.password.length && values.confirmPassword.length
     });
   }
 
@@ -109,13 +109,9 @@ class ChangePasswordContainer extends Component {
               name="password"
               placeholder="Password"
               autoCapitalize="none"
-              returnKeyType="go"
+              onReturn="next"
               enablesReturnKeyAutomatically
               secureTextEntry
-              // onSubmitEditing={ this.moveToPasswordConfirm }
-              // onChangeText={ (password) => this.setState({ password }) }
-              // onFocus={ this.onFocus }
-              // value={ this.state.password }
               ref="passwordField"
               style={{ marginTop: 15 }}
             />
@@ -123,14 +119,9 @@ class ChangePasswordContainer extends Component {
               name="confirmPassword"
               placeholder="Password Confirmation"
               autoCapitalize="none"
-              returnKeyType="go"
+              onReturn="submit"
               enablesReturnKeyAutomatically
               secureTextEntry
-
-              // onSubmitEditing={ this.submit }
-              // onChangeText={ (passwordConfirm) => this.setState({ passwordConfirm }) }
-              // onFocus={ this.onFocus }
-              // value={ this.state.passwordConfirm }
               ref="passwordConfirmField"
               style={{ marginTop: 15 }}
             />
@@ -138,7 +129,6 @@ class ChangePasswordContainer extends Component {
             <View style={ styles.footer }>
 
               <HugeButton style={ styles.cancelButton } onPress={ this.close }>Cancel</HugeButton>
-              {/* <HugeButton onPress={ this.submit } disabled>Opslaan</HugeButton> */}
               <SubmitButton
                 name="submit"
                 component={ HugeButton }
