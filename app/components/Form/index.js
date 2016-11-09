@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { View } from 'react-native';
-const { node, func, oneOfType, number, object } = PropTypes;
+const { node, func, oneOfType, number, object, bool } = PropTypes;
 import { mapValues, omitBy } from 'lodash';
 
 export default class Form extends Component {
@@ -9,14 +9,20 @@ export default class Form extends Component {
     style: oneOfType([number, object]),
     validate: func,
     onSubmit: func,
-    onChange: func
+    onChange: func,
+    validateOnChange: bool
+  }
+
+  static defaultProps = {
+    validateOnChange: false
   }
 
   static childContextTypes = {
     attachToForm: func,
     detachFromForm: func,
     submitForm: func,
-    onChange: func
+    onChange: func,
+    focusOnNextField: func
   }
   constructor(props) {
     super(props);
@@ -29,15 +35,18 @@ export default class Form extends Component {
       attachToForm: this.attachToForm,
       detachFromForm: this.detachFromForm,
       onChange: this.onChange,
-      submitForm: this.submitForm
+      submitForm: this.submitForm,
+      focusOnNextField: this.focusOnNextField
     };
   }
 
   onChange = () => {
-    const { validate, onChange } = this.props;
-    if (onChange) {
+    const { validate, onChange, validateOnChange } = this.props;
+    if (onChange && validateOnChange) {
       const values = this.getValues();
       onChange(values, validate ? validate(values) : undefined);
+    } else if (onChange) {
+      onChange(this.getValues());
     }
   }
 
@@ -51,6 +60,7 @@ export default class Form extends Component {
 
   attachToForm = (component) => {
     const name = component.props.name;
+    console.log('component', component);
     if (this.inputs[name]) {
       console.warn(`Input or button with '${name} was already attached to this form`); // eslint-disable-line
     }
@@ -66,6 +76,18 @@ export default class Form extends Component {
     if (onSubmit) {
       const values = this.getValues();
       onSubmit(values, validate ? validate(values) : undefined);
+    }
+  }
+
+  focusOnNextField = (component) => {
+    const inputNames = Object.keys(this.inputs);
+    const index = inputNames.indexOf(component.props.name);
+    for (let i = index; i < inputNames.length; i++) {
+      const nextField = this.inputs[inputNames[index + 1]];
+      if (nextField && nextField.focus) {
+        nextField.focus();
+        break;
+      }
     }
   }
 

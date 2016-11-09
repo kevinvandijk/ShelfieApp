@@ -25,7 +25,8 @@ class Input extends Component {
     style: oneOfType([object, number]),
     onChangeText: func,
     value: string,
-    name: string.isRequired
+    name: string.isRequired,
+    onReturn: string
   }
 
   static defaultProps = {
@@ -36,7 +37,9 @@ class Input extends Component {
   static contextTypes = {
     attachToForm: func,
     detachFromForm: func,
-    onChange: func
+    onChange: func,
+    focusOnNextField: func,
+    submitForm: func
   }
 
   state = {
@@ -100,12 +103,39 @@ class Input extends Component {
     this.refs.input.clear();
   }
 
+  moveToNextField = () => {
+    if (this.context.focusOnNextField) {
+      this.context.focusOnNextField(this);
+    }
+  }
+
+  submit = () => {
+    if (this.context.submitForm) {
+      this.context.submitForm();
+    }
+  }
+
   render() {
+    let returnKeyType;
+    let onSubmitEditing;
+    if (this.props.onReturn === 'next') {
+      returnKeyType = 'next';
+      onSubmitEditing = this.moveToNextField;
+    } else if (this.props.onReturn === 'submit') {
+      returnKeyType = 'go';
+      onSubmitEditing = this.submit;
+    }
+
+
     const props = {
       ...this.props,
+      returnKeyType,
+      onSubmitEditing,
       value: this.state.value,
       onChangeText: this.onChangeText
     };
+
+    console.log('props', props);
     return (
       <TextInput
         { ...props }
