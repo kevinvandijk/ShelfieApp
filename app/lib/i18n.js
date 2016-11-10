@@ -14,14 +14,15 @@ export default {
 
   switchLanguage(locale) {
     const language = locale.toLowerCase();
+    _private.language = language;
+
     const translations = _private.translations;
-    const fallbacks = [language, ...this.getFallbacks()].reverse();
+    const fallbacks = this.getFallbacks().reverse();
 
     const precompiledTranslations = fallbacks.reduce((precompiled, lang) => {
       return precompiled.merge(translations[lang] || {}, { deep: true });
     }, Immutable.from({}));
 
-    _private.language = language;
     _private.precompiledTranslations = precompiledTranslations;
   },
 
@@ -34,7 +35,8 @@ export default {
   },
 
   getFallbacks() {
-    const fallbacks = [];
+    const language = this.getLanguage();
+    const fallbacks = [language];
 
     if (this.getLanguage().match(/-/)) {
       fallbacks.push(this.getLanguage().split('-')[0]);
