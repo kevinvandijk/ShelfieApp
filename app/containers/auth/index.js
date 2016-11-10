@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { View, Dimensions } from 'react-native';
+import { View, Dimensions, Alert } from 'react-native';
 import styles from '../styles';
 import TabView from '../../components/TabView';
 import ShelfieLogo from '../../components/ShelfieLogo';
@@ -34,8 +34,18 @@ class AuthContainer extends Component {
     });
   }
 
-  login = ({ email, password }) => {
-    this.props.login(email, password);
+  validate = ({ email, password }) => {
+    if (!email.length) return ['Missing e-mail', 'Please fill in your e-mail address to login'];
+    if (!password.length) return ['Missing password', 'Please fill in your password to login'];
+    return null;
+  }
+
+  login = ({ email, password }, validationError) => {
+    if (validationError) {
+      Alert.alert(...validationError);
+    } else {
+      this.props.login(email, password);
+    }
   }
 
   facebook = () => {
@@ -65,7 +75,7 @@ class AuthContainer extends Component {
     return (
       <View style={ styles.containerView }>
         <TabView tabs={ tabs } onPress={ this.onTabPress } active="login" />
-        <Form onSubmit={ this.login }>
+        <Form onSubmit={ this.login } validate={ this.validate }>
           <View style={ [styles.containerViewAuth] }>
             <View style={ styles.authDialogContainer }>
               <ShelfieLogo size={ 124 } style={{ marginTop: -Math.abs(this.state.keyboardHeight) }} />
@@ -96,7 +106,9 @@ class AuthContainer extends Component {
               >
                 Login
               </SubmitButton>
-              <HugeButton style={{ backgroundColor: '#3B5998' }} onPress={ this.facebook }>Facebook</HugeButton>
+              <HugeButton style={{ backgroundColor: '#3B5998' }} onPress={ this.facebook }>
+                Facebook
+              </HugeButton>
             </View>
             <KeyboardSpacer onToggle={ this.onKeyboardToggle } />
           </View>
