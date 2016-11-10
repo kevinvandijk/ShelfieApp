@@ -5,7 +5,9 @@ import styles from '../styles';
 import TabView from '../../components/TabView';
 import ShelfieLogo from '../../components/ShelfieLogo';
 import TextContent from '../../components/TextContent';
-import Input from '../../components/Input';
+import Form from '../../components/Form';
+import Input from '../../components/Form/Input';
+import SubmitButton from '../../components/Form/SubmitButton';
 import HugeButton from '../../components/HugeButton';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 
@@ -19,10 +21,7 @@ class AuthContainer extends Component {
   }
 
   state = {
-    keyboardHeight: 0,
-    movingFields: false,
-    email: null,
-    password: null
+    keyboardHeight: 0
   }
 
   onTabPress(key) {
@@ -30,34 +29,17 @@ class AuthContainer extends Component {
   }
 
   onKeyboardToggle = (enabled, height) => {
-    if (!this.state.movingFields) {
-      this.setState({
-        keyboardHeight: height
-      });
-    }
-  }
-
-  onFocus = () => {
     this.setState({
-      movingFields: false
+      keyboardHeight: height
     });
   }
 
-  login = () => {
-    const { email, password } = this.state;
+  login = ({ email, password }) => {
     this.props.login(email, password);
   }
 
   facebook = () => {
     this.props.requestFacebookAuth();
-  }
-
-  moveToPassword = () => {
-    this.setState({
-      movingFields: true
-    });
-
-    this.refs.passwordField.focus();
   }
 
   render() {
@@ -83,50 +65,42 @@ class AuthContainer extends Component {
     return (
       <View style={ styles.containerView }>
         <TabView tabs={ tabs } onPress={ this.onTabPress } active="login" />
-        <View style={ [styles.containerViewAuth] }>
-          <View style={ styles.authDialogContainer }>
-            <ShelfieLogo size={ 124 } style={{ marginTop: -Math.abs(this.state.keyboardHeight) }} />
-            { !isSmallScreen &&
-              <View><TextContent style={ styles.loginText } i18nKey="auth.login.welcome" /></View>
-            }
-            <View>
-              <Input
-                placeholder="Email"
-                keyboardType="email-address"
-                autoCapitalize="none"
-                returnKeyType="next"
-                autoCorrect={ false }
-                enablesReturnKeyAutomatically
-                blurOnSubmit={ false }
-                onSubmitEditing={ this.moveToPassword }
-                onFocus={ this.onFocus }
-                onChangeText={ (email) => this.setState({ email }) }
-                value={ this.state.email }
-                ref="emailField"
-              />
-              <Input
-                placeholder="Password"
-                autoCapitalize="none"
-                returnKeyType="go"
-                enablesReturnKeyAutomatically
-                secureTextEntry
-                onSubmitEditing={ this.login }
-                onChangeText={ (password) => this.setState({ password }) }
-                onFocus={ this.onFocus }
-                value={ this.state.password }
-                ref="passwordField"
-                style={{ marginTop: 15 }}
-              />
+        <Form onSubmit={ this.login }>
+          <View style={ [styles.containerViewAuth] }>
+            <View style={ styles.authDialogContainer }>
+              <ShelfieLogo size={ 124 } style={{ marginTop: -Math.abs(this.state.keyboardHeight) }} />
+              { !isSmallScreen &&
+                <View><TextContent style={ styles.loginText } i18nKey="auth.login.welcome" /></View>
+              }
+              <View>
+                <Input
+                  name="email"
+                  placeholder="Email"
+                  type="email"
+                />
+                <Input
+                  name="password"
+                  type="password"
+                  placeholder="Password"
+                  onReturn="submit"
+                  style={{ marginTop: 15 }}
+                />
+              </View>
             </View>
+            <View style={ buttonContainerStyles }>
+              <SubmitButton
+                name="submit"
+                component={ HugeButton }
+                style={{ [isSmallScreen ? 'marginRight' : 'marginBottom']: 15 }}
+                onPress={ this.login }
+              >
+                Login
+              </SubmitButton>
+              <HugeButton style={{ backgroundColor: '#3B5998' }} onPress={ this.facebook }>Facebook</HugeButton>
+            </View>
+            <KeyboardSpacer onToggle={ this.onKeyboardToggle } />
           </View>
-          <View style={ buttonContainerStyles }>
-            <HugeButton style={{ [isSmallScreen ? 'marginRight' : 'marginBottom']: 15 }} onPress={ this.login }>
-              Login
-            </HugeButton>
-            <HugeButton style={{ backgroundColor: '#3B5998' }} onPress={ this.facebook }>Facebook</HugeButton>
-          </View>
-          <KeyboardSpacer onToggle={ this.onKeyboardToggle } />
-        </View>
+        </Form>
       </View>
     );
   }
