@@ -53,7 +53,7 @@ export default {
     return fallbacks;
   },
 
-  format(key, interpolationValues = {}) {
+  t(key, interpolationValues = {}) {
     let translation = get(_private.precompiledTranslations, key);
     if (!translation) throw new Error(`No translation found for key ${this.getLanguage()}.${key}`);
 
@@ -72,5 +72,11 @@ export default {
     });
 
     return translation;
+  },
+
+  namespace(baseKey) {
+    return (key, interpolationValues) => {
+      return this.t(`${baseKey}.${key}`, interpolationValues);
+    };
   }
 };
