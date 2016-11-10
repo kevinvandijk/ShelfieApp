@@ -139,7 +139,6 @@ class Input extends Component {
     }
 
     const props = {
-      // ...this.props,
       returnKeyType,
       onSubmitEditing,
       autoCapitalize,
