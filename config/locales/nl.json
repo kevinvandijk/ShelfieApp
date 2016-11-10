@@ -1,0 +1,58 @@
+{
+  "navigation": {
+    "back": "Back"
+  },
+
+  "containers": {
+    "auth": {
+      "title": "Aanmelden",
+      "errors": {
+        "missingEmail": "Geen email adres ingvoerd",
+        "missingEmailDescription": "Voer je email adres in om in te loggen",
+        "missingPassword": "Geen wachtwoord ingevoerd",
+        "missingPasswordDescription": "Voer je wachtwoord in om in te loggen"
+      },
+      "tabs": {
+        "login": "Login",
+        "register": "Registreren"
+      },
+      "content": {
+        "welcome": "Met Shelfie heb je weer fatsoenlijk toegang tot je verleden. Wij digitaliseren je banden, jij hebt je nostalgische beelden van vroeger in je zak.",
+        "email": "Email",
+        "password": "Wachtwoord",
+        "login": "Login",
+        "facebookLogin": "Login met Facebook"
+      }
+    },
+
+    "changePassword": {
+      "title": "Verander Wachtwoord",
+      "content": {
+        "password": "Nieuw wachtwoord",
+        "confirmPassword": "Bevestig wachtwoord"
+      },
+      "actions": {
+        "cancel": "Annuleren",
+        "save": "Opslaan"
+      },
+      "errors": {
+        "passwordTooShort": "Wachtwoord te kort",
+        "passwordTooShortDescription": "Maak je wachtwoord veiliger door minstens 6 karakters te gebruiken",
+        "passwordsDontMatch": "Wachtwoorden komen niet overeen",
+        "passwordsDontMatchDescription": "De ingevoerde wachtwoorden zijn niet hetzelfde"
+      }
+    },
+
+    "timeline": {
+      "title": "Tijdlijn"
+    },
+
+    "watch": {
+      "title": "Shelfie Video",
+    },
+
+    "sideMenu": {
+      "logout": "Uitloggen"
+    }
+  }
+}

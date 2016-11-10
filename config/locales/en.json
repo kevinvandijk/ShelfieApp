@@ -2,7 +2,7 @@
   "navigation": {
     "back": "Back"
   },
-  
+
   "containers": {
     "auth": {
       "title": "Authentication",
@@ -48,20 +48,11 @@
     },
 
     "watch": {
-      "title": "Watch",
+      "title": "Shelfie Video",
     },
 
     "sideMenu": {
       "logout": "Sign out"
     }
-  },
-
-  "auth": {
-    "login": {
-      "welcome": "Met Shelfie heb je weer fatsoenlijk toegang tot je verleden. Wij digitaliseren je banden, jij hebt je nostalgische beelden van vroeger in je zak."
-    }
-  },
-  "app": {
-    "helloWorld": "Hello World!"
   }
 }
