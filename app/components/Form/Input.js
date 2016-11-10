@@ -121,32 +121,47 @@ class Input extends Component {
   }
 
   render() {
-    let returnKeyType;
-    let onSubmitEditing;
+    let textInputProps = {};
+
     if (this.props.onReturn === 'next') {
-      returnKeyType = 'next';
-      onSubmitEditing = this.moveToNextField;
+      textInputProps = {
+        ...textInputProps,
+        returnKeyType: 'next',
+        onSubmitEditing: this.moveToNextField,
+        blurOnSubmit: false
+      };
     } else if (this.props.onReturn === 'submit') {
-      returnKeyType = 'go';
-      onSubmitEditing = this.submit;
+      textInputProps = {
+        ...textInputProps,
+        returnKeyType: 'go',
+        onSubmitEditing: this.submit
+      };
     }
 
-    let autoCapitalize;
-    if (this.props.type === 'password') {
-      autoCapitalize = this.props.autoCapitalize || 'none';
-    } else {
-      autoCapitalize = this.props.autoCapitalize;
+    // Field types:
+
+    if (['password', 'secure'].includes(this.props.type)) {
+      textInputProps = {
+        ...textInputProps,
+        secureTextEntry: true
+      };
+    }
+
+    if (this.props.type === 'email') {
+      textInputProps = {
+        ...textInputProps,
+        autoCapitalize: 'none',
+        autoCorrect: false,
+        keyboardType: 'email-address'
+      };
     }
 
     const props = {
-      returnKeyType,
-      onSubmitEditing,
-      autoCapitalize,
+      ...textInputProps,
       placeholder: this.props.placeholder,
       enablesReturnKeyAutomatically: !this.props.alwaysEnableReturn,
       value: this.state.value,
       onChangeText: this.onChangeText,
-      secureTextEntry: this.props.type === 'password'
     };
 
     return (
