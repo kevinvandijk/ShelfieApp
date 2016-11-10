@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { View, Text, StyleSheet, Alert } from 'react-native';
 import { connect } from 'react-redux';
+import I18n from '../../lib/i18n';
 import Form from '../../components/Form';
 import Input from '../../components/Form/Input';
 import SubmitButton from '../../components/Form/SubmitButton';
@@ -8,6 +9,8 @@ import HugeButton from '../../components/HugeButton';
 import { changePassword } from '../../modules/auth';
 import { Actions } from 'react-native-router-flux';
 const { func } = PropTypes;
+
+const translate = I18n.namespace('containers.changePassword');
 
 const styles = StyleSheet.create({
   overlay: {
@@ -73,11 +76,16 @@ class ChangePasswordContainer extends Component {
 
   validate = (values) => {
     if (values.password.length < 6) {
-      return ['Password too short', 'Please make sure your password is longer than 6 characters'];
+      return [
+        translate('errors.passwordTooShort'),
+        translate('errors.passwordTooShortDescription')];
     }
 
     if (values.password !== values.confirmPassword) {
-      return ['Passwords do not match', 'Please make sure to enter the same new password twice'];
+      return [
+        translate('errors.passwordsDontMatch'),
+        translate('errors.passwordsDontMatchDescription')
+      ];
     }
 
     return null;
@@ -92,29 +100,31 @@ class ChangePasswordContainer extends Component {
       <View style={ styles.overlay }>
         <Form validate={ this.validate } onChange={ this.onFormChange } onSubmit={ this.onSubmit }>
           <View style={ styles.container }>
-            <Text style={ styles.titleText }>Change Password</Text>
+            <Text style={ styles.titleText }>{ translate('title') }</Text>
             <Input
               name="password"
-              placeholder="Password"
+              placeholder={ translate('content.password') }
               type="password"
               style={{ marginTop: 15 }}
             />
             <Input
               name="confirmPassword"
-              placeholder="Password Confirmation"
+              placeholder={ translate('content.confirmPassword') }
               type="password"
               onReturn="submit"
               style={{ marginTop: 15 }}
             />
 
             <View style={ styles.footer }>
-              <HugeButton style={ styles.cancelButton } onPress={ this.close }>Cancel</HugeButton>
+              <HugeButton style={ styles.cancelButton } onPress={ this.close }>
+                { translate('actions.cancel') }
+              </HugeButton>
               <SubmitButton
                 name="submit"
                 component={ HugeButton }
                 disabled={ !this.state.enableSaveButton }
               >
-                Opslaan
+                { translate('actions.save') }
               </SubmitButton>
             </View>
           </View>

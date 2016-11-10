@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Scene, Router, Switch, DefaultRenderer, Actions, Modal } from 'react-native-router-flux';
+
+import I18n from './lib/i18n';
 import styles from './styles';
 import ReactNativeDrawer from 'react-native-drawer';
 import LoadContainer from './containers/load';
@@ -84,7 +86,7 @@ const AppRouter = () => {
           <Scene
             key={ AUTH_SCENE }
             component={ AuthContainer }
-            title="Authentication"
+            title={ I18n.t('containers.auth.title') }
             navigationBarStyle={ styles.navBar }
             titleStyle={ styles.navBarTitle }
             sceneStyle={ styles.sceneWithNavBar }
@@ -100,17 +102,17 @@ const AppRouter = () => {
             >
               <Scene
                 key="main-timeline"
-                title="Timeline"
+                title={ I18n.t('containers.timeline.title') }
                 component={ TimelineContainer }
                 sceneStyle={ styles.sceneWithNavBar }
               />
 
               <Scene
                 key="mainWatch"
-                title="Watch"
+                title={ I18n.t('containers.watch.title') }
                 component={ WatchContainer }
                 sceneStyle={ styles.sceneWithNavBar }
-                backTitle="Back"
+                backTitle={ I18n.t('navigation.back') }
               />
             </Scene>
           </Scene>

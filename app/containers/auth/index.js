@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { View, Dimensions, Alert } from 'react-native';
+
+import I18n from '../../lib/i18n';
 import styles from '../styles';
 import TabView from '../../components/TabView';
 import ShelfieLogo from '../../components/ShelfieLogo';
@@ -13,6 +15,8 @@ import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 import { login, requestFacebookAuth } from '../../modules/auth';
 const { func } = PropTypes;
+
+const translate = I18n.namespace('containers.auth');
 
 class AuthContainer extends Component {
   static propTypes = {
@@ -35,8 +39,12 @@ class AuthContainer extends Component {
   }
 
   validate = ({ email, password }) => {
-    if (!email.length) return ['Missing e-mail', 'Please fill in your e-mail address to login'];
-    if (!password.length) return ['Missing password', 'Please fill in your password to login'];
+    if (!email.length) {
+      return [translate('errors.missingEmail'), translate('errors.missingEmailDescription')];
+    }
+    if (!password.length) {
+      return [translate('errors.missingPassword'), translate('errors.missingPasswordDescription')];
+    }
     return null;
   }
 
@@ -54,10 +62,10 @@ class AuthContainer extends Component {
 
   render() {
     const tabs = [{
-      title: 'Login',
+      title: translate('tabs.login'),
       key: 'login'
     }, {
-      title: 'Register',
+      title: translate('tabs.register'),
       key: 'register'
     }];
 
@@ -72,26 +80,32 @@ class AuthContainer extends Component {
       };
     }
 
+    const { keyboardHeight } = this.state;
+
     return (
       <View style={ styles.containerView }>
         <TabView tabs={ tabs } onPress={ this.onTabPress } active="login" />
         <Form onSubmit={ this.login } validate={ this.validate }>
           <View style={ [styles.containerViewAuth] }>
             <View style={ styles.authDialogContainer }>
-              <ShelfieLogo size={ 124 } style={{ marginTop: -Math.abs(this.state.keyboardHeight) }} />
+              <ShelfieLogo size={ 124 } style={{ marginTop: -Math.abs(keyboardHeight) }} />
               { !isSmallScreen &&
-                <View><TextContent style={ styles.loginText } i18nKey="auth.login.welcome" /></View>
+                <View>
+                  <TextContent style={ styles.loginText }>
+                    { translate('content.welcome') }
+                  </TextContent>
+                </View>
               }
               <View>
                 <Input
                   name="email"
-                  placeholder="Email"
+                  placeholder={ translate('content.email') }
                   type="email"
                 />
                 <Input
                   name="password"
                   type="password"
-                  placeholder="Password"
+                  placeholder={ translate('content.password') }
                   onReturn="submit"
                   style={{ marginTop: 15 }}
                 />
@@ -104,10 +118,10 @@ class AuthContainer extends Component {
                 style={{ [isSmallScreen ? 'marginRight' : 'marginBottom']: 15 }}
                 onPress={ this.login }
               >
-                Login
+                { translate('content.login') }
               </SubmitButton>
               <HugeButton style={{ backgroundColor: '#3B5998' }} onPress={ this.facebook }>
-                Facebook
+                { translate('content.facebookLogin') }
               </HugeButton>
             </View>
             <KeyboardSpacer onToggle={ this.onKeyboardToggle } />

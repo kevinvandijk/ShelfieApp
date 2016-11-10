@@ -6,7 +6,7 @@ const { oneOfType, string, object, number } = PropTypes;
 
 const TextContent = (props) => {
   const text = (props.i18nKey
-    ? I18n.format(props.i18nKey, props.i18nValues)
+    ? I18n.t(props.i18nKey, props.i18nValues)
     : props.children
   );
 

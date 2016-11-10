@@ -1,4 +1,61 @@
 {
+  "navigation": {
+    "back": "Back"
+  },
+  
+  "containers": {
+    "auth": {
+      "title": "Authentication",
+      "errors": {
+        "missingEmail": "Missing e-mail",
+        "missingEmailDescription": "Please fill in your e-mail address to login",
+        "missingPassword": "Missing password",
+        "missingPasswordDescription": "Please fill in your password to login"
+      },
+      "tabs": {
+        "login": "Sign in",
+        "register": "Register"
+      },
+      "content": {
+        "welcome": "With Shelfie you can now finally have access to your past. We digitize your tapes, you get to carry around your nostalgic videos in your pocket.",
+        "email": "E-mail",
+        "password": "Password",
+        "login": "Sign in",
+        "facebookLogin": "Sign in with Facebook"
+      }
+    },
+
+    "changePassword": {
+      "title": "Change Password",
+      "content": {
+        "password": "Password",
+        "confirmPassword": "Confirm password"
+      },
+      "actions": {
+        "cancel": "Cancel",
+        "save": "Save"
+      },
+      "errors": {
+        "passwordTooShort": "Password too short",
+        "passwordTooShortDescription": "Please make sure your password is longer than 6 characters",
+        "passwordsDontMatch": "Passwords do not match",
+        "passwordsDontMatchDescription": "Please make sure to enter the same new password twice"
+      }
+    },
+
+    "timeline": {
+      "title": "Timeline"
+    },
+
+    "watch": {
+      "title": "Watch",
+    },
+
+    "sideMenu": {
+      "logout": "Sign out"
+    }
+  },
+
   "auth": {
     "login": {
       "welcome": "Met Shelfie heb je weer fatsoenlijk toegang tot je verleden. Wij digitaliseren je banden, jij hebt je nostalgische beelden van vroeger in je zak."
