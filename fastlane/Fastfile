@@ -69,11 +69,6 @@ platform :ios do
       raise "Could not create Sentry release for #{full_version}"
     end
 
-    testflight(
-      skip_waiting_for_build_processing: true,
-      changelog: changelog
-    )
-
     commit_version_bump(
       message: "Build #{full_version}",
       xcodeproj: "./ios/Shelfie.xcodeproj"
@@ -81,6 +76,11 @@ platform :ios do
 
     add_git_tag(
       build_number: full_version
+    )
+
+    testflight(
+      skip_waiting_for_build_processing: true,
+      changelog: changelog
     )
 
     push_to_git_remote
