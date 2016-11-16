@@ -21,7 +21,7 @@ class TimelineContainer extends Component {
     this.props.fetchVideos();
   }
 
-  onRefresh() {
+  onRefresh = () => {
     this.props.fetchVideos();
   }
 
