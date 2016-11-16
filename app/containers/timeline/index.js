@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import Spinner from 'react-native-spinkit';
 
-import AuthenticatedComponent from '../../decorators/AuthenticatedComponent';
+import authenticatedComponent from '../../decorators/AuthenticatedComponent';
 import { fetchVideos, getVideosById } from '../../modules/videos';
 import List from '../../components/List';
 
 const { func, shape } = PropTypes;
 
-@AuthenticatedComponent()
+@authenticatedComponent()
 class TimelineContainer extends Component {
   static propTypes = {
     fetchVideos: func.isRequired,
@@ -21,16 +21,16 @@ class TimelineContainer extends Component {
     this.props.fetchVideos();
   }
 
+  onRefresh() {
+    this.props.fetchVideos();
+  }
+
   getRowText(rowData) {
     return rowData.title;
   }
 
   navigateToVideo(video) {
     Actions.mainWatch({ videoId: video.id });
-  }
-
-  onRefresh() {
-
   }
 
   render() {
