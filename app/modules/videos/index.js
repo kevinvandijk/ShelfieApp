@@ -1,9 +1,11 @@
 import { createReducer } from 'reduxsauce';
 import { createAction } from 'redux-actions';
-import { omit, keyBy } from 'lodash';
+import { omit, keyBy, mapValues } from 'lodash';
 
 export const INITIAL_STATE = {
-  total: 0
+  total: 0,
+  byId: {},
+  byYear: {}
 };
 
 export const FETCH_VIDEOS = 'shelfie/videos/FETCH_VIDEOS';
@@ -13,7 +15,14 @@ export const RECEIVE_SIGNED_OUTPUT_URL = 'shelfie/videos/RECEIVE_SIGNED_OUTPUT_U
 
 export default createReducer(INITIAL_STATE, {
   [RECEIVE_VIDEOS]: (state, action) => {
+    const byYear = state.byYear.asMutable();
     const byId = action.payload.data.reduce((result, video) => {
+      const yearKey = video.attributes.year || '-';
+      byYear[yearKey] = [
+        ...(byYear[yearKey] || []),
+        video.id
+      ];
+
       const outputs = keyBy(video.attributes.outputs, 'quality');
       return {
         ...result,
@@ -31,6 +40,7 @@ export default createReducer(INITIAL_STATE, {
         ...state.byId,
         ...byId
       },
+      byYear,
       total: action.payload.meta.total
     };
   },
@@ -75,4 +85,11 @@ export function getTotalVideos(state) {
 export function getSignedUrlForQuality(state, videoId, quality) {
   const localState = local(state);
   return localState[quality] && localState[quality][videoId];
+}
+
+export function getVideosByYear(state) {
+  const byYear = local(state).byYear;
+  return mapValues(byYear, (ids) => {
+    return ids.map(id => getVideo(state, id));
+  });
 }

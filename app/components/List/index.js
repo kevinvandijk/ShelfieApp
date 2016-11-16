@@ -32,7 +32,7 @@ export default class List extends Component {
     });
 
     this.state = {
-      dataSource: datasource.cloneWithRows(props.data),
+      dataSource: datasource.cloneWithRowsAndSections(props.data),
       refreshing: false
     };
   }
@@ -40,7 +40,7 @@ export default class List extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.data) {
       this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(nextProps.data)
+        dataSource: this.state.dataSource.cloneWithRowsAndSections(nextProps.data)
       });
     }
   }

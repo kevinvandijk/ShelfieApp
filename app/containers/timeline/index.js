@@ -5,7 +5,7 @@ import { Actions } from 'react-native-router-flux';
 import Spinner from 'react-native-spinkit';
 
 import authenticatedComponent from '../../decorators/AuthenticatedComponent';
-import { fetchVideos, getVideosById } from '../../modules/videos';
+import { fetchVideos, getVideosByYear } from '../../modules/videos';
 import List from '../../components/List';
 
 const { func, shape } = PropTypes;
@@ -55,7 +55,7 @@ class TimelineContainer extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    videos: getVideosById(state)
+    videos: getVideosByYear(state)
   };
 };
 
