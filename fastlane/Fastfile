@@ -64,11 +64,6 @@ platform :ios do
       clean: true
     )
 
-    # Create Sentry release
-    if !system("../scripts/create-sentry-release.sh")
-      raise "Could not create Sentry release for #{full_version}"
-    end
-
     commit_version_bump(
       message: "Build #{full_version}",
       xcodeproj: "./ios/Shelfie.xcodeproj"
@@ -77,6 +72,11 @@ platform :ios do
     add_git_tag(
       build_number: full_version
     )
+
+    # Create Sentry release
+    if !system("../scripts/create-sentry-release.sh")
+      raise "Could not create Sentry release for #{full_version}"
+    end
 
     testflight(
       skip_waiting_for_build_processing: true,
