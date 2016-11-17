@@ -90,8 +90,8 @@ Controls.propTypes = {
 
 Controls.defaultProps = {
   color: '#B2B2B2',
-  normalButtonSize: 11,
-  mainButtonSize: 22,
+  normalButtonSize: 22,
+  mainButtonSize: 44,
   minimalTouchArea: 44
 };
 
