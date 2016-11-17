@@ -26,8 +26,8 @@ BigPlayButton.propTypes = {
 };
 
 BigPlayButton.defaultProps = {
-  color: '#E24546',
-  size: 94
+  color: '#FFF',
+  size: 90
 };
 
 export default BigPlayButton;
