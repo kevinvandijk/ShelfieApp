@@ -14,14 +14,14 @@ export const FETCH_SIGNED_OUTPUT_URL = 'shelfie/videos/FETCH_SIGNED_OUTPUT_URL';
 export const RECEIVE_SIGNED_OUTPUT_URL = 'shelfie/videos/RECEIVE_SIGNED_OUTPUT_URL';
 
 export default createReducer(INITIAL_STATE, {
+  // TODO: Clean up this mess:
   [RECEIVE_VIDEOS]: (state, action) => {
     const byYear = state.byYear.asMutable();
     const byId = action.payload.data.reduce((result, video) => {
       const yearKey = video.attributes.year || '-';
-      byYear[yearKey] = [
-        ...(byYear[yearKey] || []),
-        video.id
-      ];
+
+      if (!byYear[yearKey]) byYear[yearKey] = [];
+      if (!byYear[yearKey].includes(video.id)) byYear[yearKey].push(video.id);
 
       const outputs = keyBy(video.attributes.outputs, 'quality');
       return {
