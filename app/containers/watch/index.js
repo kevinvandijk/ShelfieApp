@@ -23,7 +23,7 @@ class WatchContainer extends Component {
     const { video } = this.props;
 
     return (
-      <View style={{ flex: 1, alignItems: 'flex-end', flexDirection: 'row' }}>
+      <View style={{ flex: 1 }}>
         { this.props.videoUrl &&
           <VideoPlayer
             title={ video.title }

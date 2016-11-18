@@ -3,7 +3,9 @@ import { pxToDpi } from '../../helpers/styles';
 
 export default StyleSheet.create({
   container: {
-    backgroundColor: '#fff'
+    flex: 1,
+    backgroundColor: '#fff',
+    justifyContent: 'flex-start'
   },
 
   controlsContainer: {
@@ -16,6 +18,14 @@ export default StyleSheet.create({
     alignSelf: 'center',
     width: pxToDpi(324),
     paddingVertical: pxToDpi(60)
+  },
+
+  progressContainer: {
+  },
+
+  metadataContainer: {
+    flex: 1,
+    justifyContent: 'flex-end'
   },
 
   progressBarContainer: {
@@ -55,13 +65,17 @@ export default StyleSheet.create({
   },
 
   video: {
-    flex: 1,
-    backgroundColor: '#fff'
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    backgroundColor: '#eee'
   },
 
   videoContainer: {
-    flex: -1,
-    height: pxToDpi(1000)
+    flex: 1,
+    maxHeight: 211
   },
 
   bigPlayButton: {

@@ -158,9 +158,11 @@ class VideoPlayer extends Component {
           }
         </View>
 
-        { this.props.title &&
-          <Title>{ this.props.title }</Title>
-        }
+        <View style={ styles.metadataContainer }>
+          { this.props.title &&
+            <Title>{ this.props.title }</Title>
+          }
+        </View>
 
         <Progress
           duration={ this.state.duration }
@@ -169,7 +171,7 @@ class VideoPlayer extends Component {
           onSeekComplete={ this.seekComplete }
           // If paused or currentTime is 0, instantly jump the progress bar to correct position:
           easingDuration={ this.state.paused || this.state.currentTime === 0 ? 0 : undefined }
-          style={ [this.props.progressStyle, { width: this.getWidth() }] }
+          style={ [this.props.progressStyle, styles.progressContainer, { width: this.getWidth() }] }
         />
 
         <Controls
