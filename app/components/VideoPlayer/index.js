@@ -36,12 +36,12 @@ class VideoPlayer extends Component {
     volume: 1.0,
     rate: 1.0,
     getBackwardTime: (currentTime) => {
-      const timestamp = currentTime - 5;
+      const timestamp = currentTime - 10;
       return timestamp > 0 ? timestamp : 0;
     },
 
     getForwardTime: (currentTime, duration) => {
-      const timestamp = currentTime + 5;
+      const timestamp = currentTime + 10;
       return timestamp < duration ? timestamp : duration;
     }
   }
