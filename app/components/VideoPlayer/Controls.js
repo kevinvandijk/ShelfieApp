@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import styles from './styles';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 const { number, string, bool, object, oneOfType, func, array } = PropTypes;
 
 function calculateHitSlop(size, minimalTouchArea) {
@@ -23,7 +23,7 @@ const Controls = (props) => {
           onPress={ props.onBackward }
         >
           <Icon
-            name="backward"
+            name="replay-10"
             size={ props.normalButtonSize }
             color={ props.color }
           />
@@ -49,7 +49,7 @@ const Controls = (props) => {
           onPress={ props.onPlay }
         >
           <Icon
-            name="play"
+            name="play-arrow"
             size={ props.mainButtonSize }
             color={ props.color }
           />
@@ -62,7 +62,7 @@ const Controls = (props) => {
           onPress={ props.onForward }
         >
           <Icon
-            name="forward"
+            name="forward-10"
             size={ props.normalButtonSize }
             color={ props.color }
           />
@@ -90,8 +90,8 @@ Controls.propTypes = {
 
 Controls.defaultProps = {
   color: '#B2B2B2',
-  normalButtonSize: 22,
-  mainButtonSize: 44,
+  normalButtonSize: 32,
+  mainButtonSize: 64,
   minimalTouchArea: 44
 };
 

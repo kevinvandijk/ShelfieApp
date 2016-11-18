@@ -16,7 +16,7 @@ export default StyleSheet.create({
 
   videoPlayerControls: {
     alignSelf: 'center',
-    width: pxToDpi(324),
+    width: 220,
     paddingVertical: pxToDpi(60)
   },
 
