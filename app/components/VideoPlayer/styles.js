@@ -70,7 +70,7 @@ export default StyleSheet.create({
     right: 0,
     bottom: 0,
     left: 0,
-    backgroundColor: '#eee'
+    backgroundColor: '#000'
   },
 
   videoContainer: {
@@ -80,7 +80,7 @@ export default StyleSheet.create({
 
   bigPlayButton: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'transparent',
+    backgroundColor: 'rgba(0, 0, 0, .5)',
     alignItems: 'center',
     justifyContent: 'center'
 
