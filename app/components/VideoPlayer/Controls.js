@@ -1,18 +1,9 @@
 import React, { PropTypes } from 'react';
 import { View, TouchableOpacity } from 'react-native';
+import { calculateHitSlop } from '../../helpers';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 const { number, string, bool, object, oneOfType, func, array } = PropTypes;
-
-function calculateHitSlop(size, minimalTouchArea) {
-  const extraSurface = (minimalTouchArea - size) / 2;
-  return {
-    top: extraSurface,
-    right: extraSurface,
-    bottom: extraSurface,
-    left: extraSurface
-  };
-}
 
 const Controls = (props) => {
   return (

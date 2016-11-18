@@ -83,6 +83,11 @@ export default StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, .5)',
     alignItems: 'center',
     justifyContent: 'center'
+  },
 
+  metadataButtons: {
+    position: 'absolute',
+    right: 2,
+    top: 0
   }
 });

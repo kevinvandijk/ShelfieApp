@@ -1,12 +1,14 @@
 import React, { Component, PropTypes } from 'react';
-import { View, Dimensions } from 'react-native';
+import { View, Dimensions, TouchableOpacity } from 'react-native';
 import Video from 'react-native-video';
+import { calculateHitSlop } from '../../helpers';
 import Controls from './Controls';
 import Progress from './Progress';
 import Title from './Title';
 import BigPlayButton from './BigPlayButton';
 import styles from './styles';
 const { func, number, object, oneOfType, bool, string } = PropTypes;
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 class VideoPlayer extends Component {
   static propTypes = {
@@ -110,6 +112,12 @@ class VideoPlayer extends Component {
     this.refs.video.seek(timestamp);
   }
 
+  enableFullscreen = () => {
+    if (this.refs.video) {
+      this.refs.video.presentFullscreenPlayer();
+    }
+  }
+
   seek = (seconds) => {
     if (!this.state.paused) {
       this.setState({
@@ -159,6 +167,18 @@ class VideoPlayer extends Component {
         </View>
 
         <View style={ styles.metadataContainer }>
+          <View style={ styles.metadataButtons }>
+            <TouchableOpacity
+              hitSlop={ calculateHitSlop(32, 44) }
+              onPress={ this.enableFullscreen }
+            >
+              <Icon
+                name="fullscreen"
+                size={ 32 }
+                color="#B2B2B2"
+              />
+            </TouchableOpacity>
+          </View>
           { this.props.title &&
             <Title>{ this.props.title }</Title>
           }
