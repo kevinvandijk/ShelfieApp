@@ -6,9 +6,6 @@ global.__DEV__ = true;
 mockery.enable();
 mockery.warnOnUnregistered(false);
 
-// Mock any libs that get called in here
-mockery.registerMock('reactotron', {});
-
 // Mock all images for React Native
 const originalLoader = m._load;
 m._load = (request, parent, isMain) => {

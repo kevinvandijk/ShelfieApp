@@ -6,7 +6,6 @@ import {
 } from 'redux-storage';
 import createSagaMiddleware from 'redux-saga';
 import createLogger from 'redux-logger';
-import Reactotron from 'reactotron';
 
 import combinedReducer from '../reducer';
 import sagas from '../sagas';
@@ -29,15 +28,12 @@ if (config.get('storage.enabled')) {
 const sagaMiddleware = createSagaMiddleware();
 middlewares.push(sagaMiddleware);
 
-// Logger and Reactotron must be the last middleware in chain
+// Logger must be the last middleware in chain
 const logger = createLogger({
   // Remove seamless immutable stuff for nicer logging:
   stateTransformer: (state) => state.asMutable({ deep: true })
 });
 middlewares.push(logger);
-
-// Somehow conflicts with router:
-// if (__DEV__) middlewares.push(Reactotron.reduxMiddleware);
 
 export default function configureStore() {
   const store = createStore(
@@ -46,7 +42,6 @@ export default function configureStore() {
   );
 
   if (storage) storage.addStore(store);
-  if (__DEV__) Reactotron.addReduxStore(store); //eslint-disable-line
 
   sagaMiddleware.run(sagas);
 

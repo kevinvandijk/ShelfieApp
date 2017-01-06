@@ -12,10 +12,6 @@ export default class App extends Component {
     store: PropTypes.object.isRequired
   }
 
-  componentWillMount() {
-    console.tron('App boot'); //eslint-disable-line
-  }
-
   render() {
     return (
       <Provider store={ this.props.store }>
