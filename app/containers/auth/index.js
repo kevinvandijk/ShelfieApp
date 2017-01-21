@@ -1,19 +1,18 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { View, Dimensions, Alert } from 'react-native';
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 import I18n from '../../lib/i18n';
 import styles from '../styles';
 import TabView from '../../components/TabView';
-import ShelfieLogo from '../../components/ShelfieLogo';
 import TextContent from '../../components/TextContent';
 import Form from '../../components/Form';
 import Input from '../../components/Form/Input';
 import SubmitButton from '../../components/Form/SubmitButton';
 import HugeButton from '../../components/HugeButton';
-import KeyboardSpacer from 'react-native-keyboard-spacer';
-
 import { login, requestFacebookAuth } from '../../modules/auth';
+
 const { func } = PropTypes;
 
 const translate = I18n.namespace('containers.auth');
@@ -88,7 +87,6 @@ class AuthContainer extends Component {
         <Form onSubmit={ this.login } validate={ this.validate }>
           <View style={ [styles.containerViewAuth] }>
             <View style={ styles.authDialogContainer }>
-              <ShelfieLogo size={ 124 } style={{ marginTop: -Math.abs(keyboardHeight) }} />
               { !isSmallScreen &&
                 <View>
                   <TextContent style={ styles.loginText }>

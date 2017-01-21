@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { View, StyleSheet, Text, Slider } from 'react-native';
 import styles from './styles';
+
 const { number, oneOfType, object, func, array, bool } = PropTypes;
 
 const validateOnSeekProp = (props) => {

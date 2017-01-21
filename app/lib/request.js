@@ -1,6 +1,6 @@
-import config from '../../config';
 import { stringify } from 'qs';
 import { Alert } from 'react-native';
+import config from '../../config';
 
 let headers = {};
 

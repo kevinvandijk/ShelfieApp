@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Scene, Router, Switch, DefaultRenderer, Actions, Modal } from 'react-native-router-flux';
+import ReactNativeDrawer from 'react-native-drawer';
 
 import I18n from './lib/i18n';
 import styles from './styles';
-import ReactNativeDrawer from 'react-native-drawer';
 import LoadContainer from './containers/load';
 import AuthContainer from './containers/auth';
 import TimelineContainer from './containers/timeline';

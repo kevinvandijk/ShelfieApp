@@ -7,6 +7,7 @@ import { videoWatchers } from './modules/videos/sagas';
 export default function* rootSaga() {
   // yield fork(login);
   // yield fork(signup);
+
   yield fork(waitForAppLoadRequest);
   yield fork(watchLoginRequest);
   yield fork(videoWatchers);

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-
 import { userIsAuthenticated } from '../modules/auth';
+
 const { bool } = PropTypes;
 
 export default () => {

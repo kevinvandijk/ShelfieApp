@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { TextInput, StyleSheet } from 'react-native';
-import { pxToDpi } from '../../helpers/styles';
 import { noop } from 'lodash';
+
+import { pxToDpi } from '../../helpers/styles';
 
 const styles = StyleSheet.create({
   textInput: {

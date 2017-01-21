@@ -1,5 +1,6 @@
 import Immutable from 'seamless-immutable';
 import { get, isUndefined } from 'lodash';
+
 const defaultConfig = require('./default.json');
 // eslint-disable-next-line global-require
 const localConfig = __DEV__ ? require('./development.json') : require('./production.json');

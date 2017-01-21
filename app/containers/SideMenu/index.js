@@ -1,12 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { View, StyleSheet, Text } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import I18n from '../../lib/i18n';
 import { logout } from '../../modules/auth';
 import HugeButton from '../../components/HugeButton';
-import { View, StyleSheet, Text } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+
 const { func } = PropTypes;
 
 const translate = I18n.namespace('containers.sideMenu');
