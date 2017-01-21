@@ -14,7 +14,7 @@ case "$CONFIGURATION" in
   Debug)
     # Speed up build times by skipping the creation of the offline package for debug
     # builds on the simulator since the packager is supposed to be running anyways.
-    if [[ "$PLATFORM_NAME" = "iphonesimulator" ]]; then
+    if [[ "$PLATFORM_NAME" == *simulator ]]; then
       echo "Skipping bundling for Simulator platform"
       exit 0;
     fi
@@ -71,10 +71,13 @@ type $NODE_BINARY >/dev/null 2>&1 || nodejs_not_found
 set -x
 DEST=$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH
 
-if [[ "$CONFIGURATION" = "Debug" && "$PLATFORM_NAME" != "iphonesimulator" ]]; then
+if [[ "$CONFIGURATION" = "Debug" && ! "$PLATFORM_NAME" == *simulator ]]; then
   PLISTBUDDY='/usr/libexec/PlistBuddy'
   PLIST=$TARGET_BUILD_DIR/$INFOPLIST_PATH
   IP=$(ipconfig getifaddr en0)
+  if [ -z "$IP" ]; then
+    IP=$(ifconfig | grep 'inet ' | grep -v 127.0.0.1 | cut -d\   -f2  | awk 'NR==1{print $1}')
+  fi
   $PLISTBUDDY -c "Add NSAppTransportSecurity:NSExceptionDomains:localhost:NSTemporaryExceptionAllowsInsecureHTTPLoads bool true" "$PLIST"
   $PLISTBUDDY -c "Add NSAppTransportSecurity:NSExceptionDomains:$IP.xip.io:NSTemporaryExceptionAllowsInsecureHTTPLoads bool true" "$PLIST"
   echo "$IP.xip.io" > "$DEST/ip.txt"
@@ -82,18 +85,26 @@ fi
 
 cd build
 
+BUNDLE_FILE="main.jsbundle"
+
 $NODE_BINARY "$REACT_NATIVE_DIR/local-cli/cli.js" bundle \
   --entry-file "$ENTRY_FILE" \
   --platform ios \
   --dev $DEV \
   --reset-cache \
-  --bundle-output "main.jsbundle" \
+  --bundle-output "$BUNDLE_FILE" \
   --assets-dest "$DEST" \
-  --sourcemap-output "main.jsbundle.map"
+  --sourcemap-output "$BUNDLE_FILE.map"
+
+if [[ ! $DEV && ! -f "$BUNDLE_FILE" ]]; then
+  echo "error: File $BUNDLE_FILE does not exist. This must be a bug with" >&2
+  echo "React Native, please report it here: https://github.com/facebook/react-native/issues"
+  exit 2
+fi
 
 cd ..
-cp ./build/main.jsbundle "$DEST/main.jsbundle"
-mv ./build/main.jsbundle.meta "$DEST/main.jsbundle.meta"
+cp ./build/main.jsbundle "$DEST/$BUNDLE_FILE"
+mv ./build/main.jsbundle.meta "$DEST/$BUNDLE_FILE.meta"
 
 # Replace current working dir with nothing so the root of the app is shown well in Sentry
 CURRENT_DIR=$(pwd)

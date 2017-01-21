@@ -26,6 +26,11 @@ platform :ios do
   desc "Submit a new Beta Build to Apple TestFlight"
   desc "This will also make sure the profile is up to date"
   lane :beta do
+    # Overwrite React Native bundling script
+    if !system("../scripts/setup-react-native-bundler.sh")
+      raise "Could not overwrite react-native bundler script"
+    end
+
     ENV["SENTRY_URL"] = "https://sentry.io/api/0/projects/shelfie/shelfieapp"
 
     # changelog = prompt(
