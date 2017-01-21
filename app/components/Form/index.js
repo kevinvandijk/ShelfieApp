@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { View } from 'react-native';
-const { node, func, oneOfType, number, object, bool } = PropTypes;
 import { mapValues, omitBy } from 'lodash';
+
+const { node, func, oneOfType, number, object, bool } = PropTypes;
 
 export default class Form extends Component {
   static propTypes = {

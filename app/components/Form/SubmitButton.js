@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { omit } from 'lodash';
+
 const { func, string } = PropTypes;
 
 export default class SubmitButton extends Component {

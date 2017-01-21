@@ -1,6 +1,6 @@
-// Catch errors with Sentry as early as possible
-import sentryInitializer from './app/initializers/sentry';
-sentryInitializer();
+// // Catch errors with Sentry as early as possible
+// import sentryInitializer from './app/initializers/sentry';
+// sentryInitializer();
 
 import React from 'react';
 import { AppRegistry } from 'react-native';
@@ -10,6 +10,6 @@ import configureStore from './app/store/configure-store';
 // Handling store here to avoid hot-reloading issues
 const store = configureStore();
 
-const ShelfieApp = (props) => <App { ...props } store={ store } />;
+const Shelfie = (props) => <App { ...props } store={ store } />;
 
-AppRegistry.registerComponent('ShelfieApp', () => ShelfieApp);
+AppRegistry.registerComponent('Shelfie', () => Shelfie);

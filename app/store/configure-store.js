@@ -1,4 +1,3 @@
-import config from '../../config';
 import { applyMiddleware, createStore } from 'redux';
 import {
   reducer as createStorageReducer,
@@ -7,6 +6,7 @@ import {
 import createSagaMiddleware from 'redux-saga';
 import createLogger from 'redux-logger';
 
+import config from '../../config';
 import combinedReducer from '../reducer';
 import sagas from '../sagas';
 import { SAVE_STATE_REQUEST } from '../services/storage';

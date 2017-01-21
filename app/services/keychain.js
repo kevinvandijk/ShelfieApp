@@ -1,4 +1,4 @@
-import Keychain from 'react-native-keychain';
+import * as Keychain from 'react-native-keychain';
 
 // TODO: Make configurable name
 async function getAuthToken() {

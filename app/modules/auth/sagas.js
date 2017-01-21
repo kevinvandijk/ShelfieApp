@@ -1,10 +1,10 @@
 import { take, call, put } from 'redux-saga/effects';
+// import { LoginManager, GraphRequest, GraphRequestManager, AccessToken } from 'react-native-fbsdk';
 import { FETCH_TOKEN, LOGOUT, REQUEST_FACEBOOK_AUTH, CHANGE_PASSWORD_REQUEST, setAuthToken, isAuthenticated, changePasswordSuccess } from './index';
 import { clearState } from '../../reducer';
 import api from '../../services/api';
 import keychain from '../../services/keychain';
 import storage from '../../services/storage';
-import { LoginManager, GraphRequest, GraphRequestManager, AccessToken } from 'react-native-fbsdk';
 
 export function* login() {
   return;
@@ -40,7 +40,7 @@ function* changePasswordRequest(password) {
 
 function* facebookRequest() {
   // TODO: Error handling:
-  yield call(LoginManager.logInWithReadPermissions, ['public_profile', 'email']);
+  // yield call(LoginManager.logInWithReadPermissions, ['public_profile', 'email']);
   const accessToken = yield call(AccessToken.getCurrentAccessToken);
 
   const result = yield call(api.swapFBToken, accessToken);

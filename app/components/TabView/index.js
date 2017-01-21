@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import styles from './styles';
 import { partial } from 'lodash';
+import styles from './styles';
 
 const { func, shape, string, arrayOf } = PropTypes;
 

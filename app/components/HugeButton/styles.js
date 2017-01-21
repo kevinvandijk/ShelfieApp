@@ -9,8 +9,7 @@ export default StyleSheet.create({
     backgroundColor: '#E24546',
     height: dpi(88),
     justifyContent: 'center',
-    alignItems: 'center',
-    flex: 1
+    alignItems: 'center'
   },
 
   containerDisabled: {

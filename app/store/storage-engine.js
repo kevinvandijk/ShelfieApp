@@ -1,6 +1,7 @@
-import config from '../../config';
 import { createLoader } from 'redux-storage';
 import createEngine from 'redux-storage-engine-reactnativeasyncstorage';
+import config from '../../config';
+
 export { SAVE, LOAD } from 'redux-storage';
 
 let store;

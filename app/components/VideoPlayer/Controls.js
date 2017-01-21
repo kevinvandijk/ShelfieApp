@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react';
 import { View, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { calculateHitSlop } from '../../helpers';
 import styles from './styles';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+
 const { number, string, bool, object, oneOfType, func, array } = PropTypes;
 
 const Controls = (props) => {

@@ -1,81 +1,50 @@
 {
-  "name": "ShelfieApp",
+  "name": "Shelfie",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "NODE_ENV=test node_modules/.bin/ava",
-    "test:watch": "NODE_ENV=test node_modules/.bin/ava --watch",
-    "coverage": "NODE_ENV=test node_modules/.bin/nyc ava",
-    "ios": "react-native run-ios",
-    "clear:cache": "rm -rf node_modules && watchman watch-del-all && npm install && npm start --reset-cache"
-  },
-  "ava": {
-    "babel": "inherit",
-    "files": [
-      "tests/**/*.js",
-      "!tests/setup.js"
-    ],
-    "require": [
-      "babel-register",
-      "babel-polyfill",
-      "react-native-mock/mock",
-      "./tests/setup.js"
-    ]
-  },
-  "nyc": {
-    "include": [
-      "app/**/*.js"
-    ],
-    "require": [
-      "babel-register"
-    ],
-    "sourceMap": false,
-    "instrument": false
+    "test": "jest",
+    "clean": "rm -rf node_modules && watchman watch-del-all && npm install && npm start -- --reset-cache"
   },
   "dependencies": {
-    "lodash": "^4.16.4",
-    "qs": "^4.0.0",
-    "raven-js": "^3.7.0",
-    "react": "15.2.1",
-    "react-native": "0.31.0",
-    "react-native-device-info": "^0.9.3",
+    "react": "15.4.2",
+    "react-native": "0.39.0",
+    "react-native-device-info": "^0.9.7",
     "react-native-drawer": "^2.3.0",
-    "react-native-fabric": "^0.3.0",
-    "react-native-fbsdk": "^0.3.0",
-    "react-native-keyboard-spacer": "^0.3.0",
+    "react-native-keyboard-spacer": "^0.3.1",
     "react-native-keychain": "^0.3.2",
-    "react-native-router-flux": "^3.34.0",
-    "react-native-spinkit": "^0.1.3",
-    "react-native-svg": "4.1.1",
-    "react-native-vector-icons": "^2.0.3",
+    "react-native-router-flux": "^3.37.0",
+    "react-native-spinkit": "0.1.5",
+    "react-native-vector-icons": "^3.0.0",
     "react-native-video": "^0.9.0",
-    "react-redux": "^4.4.5",
-    "redux": "^3.5.2",
-    "redux-actions": "^0.10.1",
-    "redux-logger": "^2.6.1",
-    "redux-saga": "^0.11.0",
-    "redux-storage": "^4.1.0",
-    "redux-storage-engine-reactnativeasyncstorage": "^1.0.1",
-    "reduxsauce": "^0.1.0",
-    "seamless-immutable": "^6.1.1",
-    "stacktrace-js": "^1.3.1"
+    "react-redux": "^5.0.2",
+    "redux": "^3.6.0",
+    "redux-actions": "^1.2.0",
+    "redux-logger": "^2.7.4",
+    "redux-saga": "^0.14.3",
+    "redux-storage": "^4.1.2",
+    "redux-storage-engine-reactnativeasyncstorage": "^1.0.5",
+    "reduxsauce": "^0.4.1",
+    "seamless-immutable": "^7.0.1"
   },
   "devDependencies": {
-    "ava": "^0.16.0",
-    "babel-eslint": "^6.1.2",
-    "babel-plugin-istanbul": "^1.0.3",
+    "babel-eslint": "^7.1.1",
+    "babel-jest": "18.0.0",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "enzyme": "^2.4.1",
-    "eslint": "^2.10.2",
-    "eslint-config-airbnb": "^9.0.1",
-    "eslint-loader": "^1.4.1",
-    "eslint-plugin-import": "^1.10.3",
-    "eslint-plugin-jsx-a11y": "^1.2.0",
-    "eslint-plugin-react": "^5.2.2",
-    "mockery": "^1.7.0",
-    "nyc": "^7.1.0",
-    "react-addons-test-utils": "^15.2.1",
-    "react-dom": "^15.2.1"
+    "babel-preset-react-native": "1.9.1",
+    "eslint": "^3.13.1",
+    "eslint-config-airbnb": "^14.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^3.0.2",
+    "eslint-plugin-react": "^6.9.0",
+    "jest": "18.1.0",
+    "react-test-renderer": "15.4.2"
+  },
+  "jest": {
+    "preset": "react-native"
+  },
+  "rnpm": {
+    "assets": ["app/assets"]
   }
 }
