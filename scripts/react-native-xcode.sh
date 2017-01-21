@@ -31,10 +31,11 @@ case "$CONFIGURATION" in
 esac
 
 # Path to react-native folder inside node_modules
-REACT_NATIVE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../node_modules/react-native" && pwd)"
+# REACT_NATIVE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../node_modules/react-native" && pwd)"
+REACT_NATIVE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 # Xcode project file for React Native apps is located in ios/ subfolder
-cd ..
+cd "${REACT_NATIVE_DIR}"/../..
 
 # Define NVM_DIR and source the nvm.sh setup script
 [ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/.nvm"
@@ -109,3 +110,5 @@ mv ./build/main.jsbundle.meta "$DEST/$BUNDLE_FILE.meta"
 # Replace current working dir with nothing so the root of the app is shown well in Sentry
 CURRENT_DIR=$(pwd)
 sed -i.bak "s#$CURRENT_DIR##g" ./build/main.jsbundle.map
+
+cd ..
