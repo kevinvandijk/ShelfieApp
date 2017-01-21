@@ -15,7 +15,8 @@ fi
 
 # Script
 APP_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-APP_NAME="$(basename $APP_PATH)"
+# APP_NAME="$(basename $APP_PATH)"
+APP_NAME="Shelfie" # TODO: Get this from package.json
 PLIST="$APP_PATH/ios/$APP_NAME/Info.plist"
 VERSION_NUMBER="$(defaults read $PLIST CFBundleShortVersionString)"
 BUILD_NUMBER="$(defaults read $PLIST CFBundleVersion)"
