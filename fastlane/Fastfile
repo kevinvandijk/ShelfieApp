@@ -15,53 +15,97 @@ fastlane_version "2.9.0"
 
 default_platform :ios
 
+opt_out_usage
+
 platform :ios do
   before_all do
-    # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
-    
-    
-  end
-
-  desc "Runs all the tests"
-  lane :test do
-    scan
+    ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
+    ENV["SENTRY_TOKEN"] = "312ee38f31254c9dbb3be6929fa00c569eb16ac6e8dc454eaf3468917c36c60a"
   end
 
   desc "Submit a new Beta Build to Apple TestFlight"
   desc "This will also make sure the profile is up to date"
   lane :beta do
-    # match(type: "appstore") # more information: https://codesigning.guide
-    gym(scheme: "Shelfie") # Build your app - more options available
-    pilot
+    ENV["SENTRY_URL"] = "https://sentry.io/api/0/projects/shelfie/shelfieapp"
 
-    # sh "your_script.sh"
-    # You can also use other beta testing services here (run `fastlane actions`)
-  end
+    # changelog = prompt(
+    #   text: "Changelog?",
+    #   multi_line_end_keyword: "EOT"
+    # )
+    #
+    # if changelog.size == 0
+    #   changelog = "Bug fixes and performance enhancements"
+    # end
 
-  desc "Deploy a new version to the App Store"
-  lane :release do
-    # match(type: "appstore")
-    # snapshot
-    gym(scheme: "Shelfie") # Build your app - more options available
-    deliver(force: true)
-    # frameit
+    ensure_git_status_clean
+    # TODO: beta release track branch
+    ensure_git_branch
+
+    match(type: "appstore")
+
+    version_number = get_version_number(xcodeproj: "./ios/Shelfie.xcodeproj")
+    build_number = latest_testflight_build_number(version: version_number) + 1
+    full_version = "#{version_number}.#{build_number}"
+
+    increment_build_number(
+      xcodeproj: "./ios/Shelfie.xcodeproj",
+      build_number: build_number
+    )
+
+    gym(
+      scheme: "Shelfie",
+      clean: true
+    )
+
+    commit_version_bump(
+      message: "Build #{full_version}",
+      xcodeproj: "./ios/Shelfie.xcodeproj"
+    )
+
+    add_git_tag(
+      build_number: full_version
+    )
+
+    # Create Sentry release
+    if !system("../scripts/create-sentry-release.sh")
+      raise "Could not create Sentry release for #{full_version}"
+    end
+
+    testflight(
+      # changelog: changelog,
+      skip_waiting_for_build_processing: true
+    )
+
+    push_to_git_remote
   end
+  #
+  # desc "Deploy a new version to the App Store"
+  # lane :release do
+  #   # match(type: "appstore")
+  #   # snapshot
+  #   gym(scheme: "Shelfie") # Build your app - more options available
+  #   deliver(force: true)
+  #   # frameit
+  # end
 
   # You can define as many lanes as you want
 
   after_all do |lane|
-    # This block is called, only if the executed lane was successful
-
-    # slack(
-    #   message: "Successfully deployed new App Update."
-    # )
+    unless lane == :dev
+      git_user = `git config user.name`
+      slack(
+        message: "*Shelfie iOS* deployed to *#{lane}* by #{git_user}"
+      )
+    end
   end
 
   error do |lane, exception|
-    # slack(
-    #   message: exception.message,
-    #   success: false
-    # )
+    unless lane == :dev
+      slack(
+        message: exception.message,
+        success: false
+      )
+    end
   end
 end
 
