@@ -1,6 +1,6 @@
 git_url "git@github.com:kevinvandijk/shelfie-certs.git"
 
-type "development" # The default type, can be: appstore, adhoc or development
+# type "development" # The default type, can be: appstore, adhoc or development
 
 # app_identifier "tools.fastlane.app"
 # username "user@fastlane.tools" # Your Apple Developer Portal username
