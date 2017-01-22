@@ -1,7 +1,5 @@
 // // Catch errors with Sentry as early as possible
-// import sentryInitializer from './app/initializers/sentry';
-// sentryInitializer();
-
+import sentryInitializer from './app/initializers/sentry';
 import React from 'react';
 import { AppRegistry } from 'react-native';
 import App from './app';
