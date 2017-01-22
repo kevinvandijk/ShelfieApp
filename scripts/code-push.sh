@@ -8,12 +8,50 @@ ENTRY_FILE="index.ios.js"
 BUNDLE_FILE="main.jsbundle"
 BUILD_PATH="$APP_PATH/build"
 DEST="$BUILD_PATH/bundle"
+GIT_REV="$(git rev-parse --short HEAD)"
+REVISION_FILE="$APP_PATH/config/revision.json"
+
+cd $APP_PATH
+
+# Stop the script if something fails
+set -e
+
+require_clean_work_tree () {
+    # Update the index
+    git update-index -q --ignore-submodules --refresh
+    err=0
+
+    # Disallow unstaged changes in the working tree
+    if ! git diff-files --quiet --ignore-submodules --
+    then
+        echo >&2 "cannot $1: you have unstaged changes."
+        git diff-files --name-status -r --ignore-submodules -- >&2
+        err=1
+    fi
+
+    # Disallow uncommitted changes in the index
+    if ! git diff-index --cached --quiet HEAD --ignore-submodules --
+    then
+        echo >&2 "cannot $1: your index contains uncommitted changes."
+        git diff-index --cached --name-status -r --ignore-submodules HEAD -- >&2
+        err=1
+    fi
+
+    if [ $err = 1 ]
+    then
+        echo >&2 "Please commit or stash them."
+        exit 1
+    fi
+}
+
+require_clean_work_tree
 
 mkdir -p "$BUILD_PATH"
 rm -rf "$BUILD_PATH"/*
 mkdir -p "$DEST"
 
-cd $APP_PATH
+# For sentry to know where to post errors to
+echo "{\"revision\": \"${GIT_REV}\"}" > $REVISION_FILE
 
 react-native bundle \
   --entry-file "$ENTRY_FILE" \
@@ -23,6 +61,9 @@ react-native bundle \
   --bundle-output "$BUILD_PATH/$BUNDLE_FILE" \
   --assets-dest "$DEST" \
   --sourcemap-output "$BUILD_PATH/$BUNDLE_FILE.map"
+
+# Clean up because it shouldn't be in git
+echo "{\"revision\": \"\"}" > $REVISION_FILE
 
 if [[ ! -f "$BUILD_PATH/$BUNDLE_FILE" ]]; then
   echo "error: File $BUILD_PATH/$BUNDLE_FILE does not exist. This must be a bug with" >&2
@@ -36,14 +77,13 @@ sed -i.bak "s#$CURRENT_DIR##g" $BUILD_PATH/main.jsbundle.map
 cp "$BUILD_PATH/$BUNDLE_FILE" "$DEST/$BUNDLE_FILE"
 mv "$BUILD_PATH/$BUNDLE_FILE.meta" "$DEST/$BUNDLE_FILE.meta"
 
-# Stop the script if code-push fails
-set -e
-code-push release $APP_NAME $BUILD_PATH/bundle $VERSION_NUMBER
-
 # FIXME: This should go into some central place, it's scattered over 3 places now
 export SENTRY_URL="https://sentry.io/api/0/projects/shelfie/shelfieapp"
 export SENTRY_TOKEN="312ee38f31254c9dbb3be6929fa00c569eb16ac6e8dc454eaf3468917c36c60a"
 $APP_PATH/scripts/create-sentry-release.sh
+
+cd $BUILD_PATH/bundle
+code-push release $APP_NAME . $VERSION_NUMBER
 
 function post_to_slack () {
   # format message as a code block ```${msg}```
