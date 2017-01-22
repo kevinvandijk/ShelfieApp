@@ -29,10 +29,12 @@ const sagaMiddleware = createSagaMiddleware();
 middlewares.push(sagaMiddleware);
 
 // Logger must be the last middleware in chain
-const logger = createLogger({
+const loggerOptions = {
   // Remove seamless immutable stuff for nicer logging:
   stateTransformer: (state) => state.asMutable({ deep: true })
-});
+};
+if (!__DEV__) loggerOptions.colors = false;
+const logger = createLogger(loggerOptions);
 middlewares.push(logger);
 
 export default function configureStore() {
