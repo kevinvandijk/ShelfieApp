@@ -4038,9 +4038,9 @@
       "resolved": "https://registry.npmjs.org/range-parser/-/range-parser-1.0.3.tgz"
     },
     "raven-js": {
-      "version": "3.7.0",
-      "from": "raven-js@3.7.0",
-      "resolved": "https://registry.npmjs.org/raven-js/-/raven-js-3.7.0.tgz"
+      "version": "3.9.1",
+      "from": "git+https://git@github.com/kevinvandijk/raven-js.git",
+      "resolved": "git+https://git@github.com/kevinvandijk/raven-js.git#8edd7a029ce2d86206b31584986f06d33f13fd85"
     },
     "raw-body": {
       "version": "2.1.7",
