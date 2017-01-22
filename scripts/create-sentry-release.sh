@@ -20,7 +20,8 @@ APP_NAME="Shelfie" # TODO: Get this from package.json
 PLIST="$APP_PATH/ios/$APP_NAME/Info.plist"
 VERSION_NUMBER="$(defaults read $PLIST CFBundleShortVersionString)"
 BUILD_NUMBER="$(defaults read $PLIST CFBundleVersion)"
-FULL_VERSION="$VERSION_NUMBER.$BUILD_NUMBER"
+GIT_REV="$(git rev-parse --short HEAD)"
+FULL_VERSION="$VERSION_NUMBER.$BUILD_NUMBER.$GIT_REV"
 BUNDLE_PATH="$APP_PATH/build/main.jsbundle"
 SOURCEMAP_PATH="$APP_PATH/build/main.jsbundle.map"
 
