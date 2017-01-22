@@ -1,7 +1,7 @@
 import DeviceInfo from 'react-native-device-info';
-import Raven from 'raven-js';
 import config from '../../config';
 
+let Raven = require('raven-js');
 require('raven-js/plugins/react-native')(Raven);
 const revision = require('../../config/revision.json');
 
@@ -29,13 +29,9 @@ function sentryInitializer() {
     'Device Name': DeviceInfo.getDeviceName(),
   });
 
-  const originalHandler = global.ErrorUtils.getGlobalHandler();
+  // const originalHandler = global.ErrorUtils.getGlobalHandler();
   function errorHandler(e, isFatal) {
-    Raven.captureException(e, { isFatal });
-
-    if (isFatal) {
-      // originalHandler(e, isFatal);
-    }
+    console.log('block');
   }
 
   global.ErrorUtils.setGlobalHandler(errorHandler);
