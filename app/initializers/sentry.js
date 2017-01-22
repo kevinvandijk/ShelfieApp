@@ -3,12 +3,15 @@ import Raven from 'raven-js';
 import config from '../../config';
 
 require('raven-js/plugins/react-native')(Raven);
+const revision = require('../../config/revision.json');
 
-export default function sentryInitializer() {
-  if (__DEV__ || (process.env && process.env.NODE_ENV === 'development')) return;
+function sentryInitializer() {
+  if (__DEV__ || (process.env && process.env.NODE_ENV === 'development')) return null;
 
+  const rev = revision.revision.length ? revision.revision : 'development';
+  const release = `${DeviceInfo.getReadableVersion()}.${rev}`;
   Raven
-    .config(config.get('sentry.dsn'), { release: DeviceInfo.getReadableVersion() })
+    .config(config.get('sentry.dsn'), { release })
     .install();
 
   Raven.setTagsContext({
@@ -25,4 +28,19 @@ export default function sentryInitializer() {
     'Device Unique ID': DeviceInfo.getUniqueID(),
     'Device Name': DeviceInfo.getDeviceName(),
   });
+
+  const originalHandler = global.ErrorUtils.getGlobalHandler();
+  function errorHandler(e, isFatal) {
+    Raven.captureException(e, { isFatal });
+
+    if (isFatal) {
+      // originalHandler(e, isFatal);
+    }
+  }
+
+  global.ErrorUtils.setGlobalHandler(errorHandler);
+
+  return Raven;
 }
+
+export default sentryInitializer();
