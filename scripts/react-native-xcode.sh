@@ -84,6 +84,11 @@ if [[ "$CONFIGURATION" = "Debug" && ! "$PLATFORM_NAME" == *simulator ]]; then
   echo "$IP.xip.io" > "$DEST/ip.txt"
 fi
 
+# For sentry to know where to post errors to
+GIT_REV="$(git rev-parse --short HEAD)"
+REVISION_FILE="./config/revision.json"
+echo "{\"revision\": \"${GIT_REV}\"}" > $REVISION_FILE
+
 cd build
 
 BUNDLE_FILE="main.jsbundle"
@@ -97,13 +102,16 @@ $NODE_BINARY "$REACT_NATIVE_DIR/local-cli/cli.js" bundle \
   --assets-dest "$DEST" \
   --sourcemap-output "$BUNDLE_FILE.map"
 
-if [[ ! $DEV && ! -f "$BUNDLE_FILE" ]]; then
-  echo "error: File $BUNDLE_FILE does not exist. This must be a bug with" >&2
+cd ..
+# Clean up because it shouldn't be in git
+echo "{\"revision\": \"\"}" > $REVISION_FILE
+
+if [[ ! $DEV && ! -f "./build/$BUNDLE_FILE" ]]; then
+  echo "error: File ./build/$BUNDLE_FILE does not exist. This must be a bug with" >&2
   echo "React Native, please report it here: https://github.com/facebook/react-native/issues"
   exit 2
 fi
 
-cd ..
 cp ./build/main.jsbundle "$DEST/$BUNDLE_FILE"
 mv ./build/main.jsbundle.meta "$DEST/$BUNDLE_FILE.meta"
 
