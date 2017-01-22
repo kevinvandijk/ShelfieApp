@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "clean": "rm -rf node_modules && watchman watch-del-all && npm install && npm start -- --reset-cache"
+    "clean": "rm -rf node_modules && watchman watch-del-all && npm install && npm start -- --reset-cache",
+    "codepush": "./scripts/code-push.sh"
   },
   "dependencies": {
     "raven-js": "git+https://git@github.com/kevinvandijk/raven-js.git",
