@@ -10,7 +10,7 @@ import i18nInitializer from './initializers/i18n';
 i18nInitializer();
 
 @codePush({
-  checkFrequency: codePush.CheckFrequency.ON_APP_RESUME
+  checkFrequency: __DEV__ ? codePush.CheckFrequency.MANUAL : codePush.CheckFrequency.ON_APP_RESUME
 })
 export default class App extends Component {
   static propTypes = {
