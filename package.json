@@ -20,7 +20,7 @@
     "react-native-router-flux": "^3.37.0",
     "react-native-spinkit": "0.1.5",
     "react-native-vector-icons": "^3.0.0",
-    "react-native-video": "^0.9.0",
+    "react-native-video": "github:react-native-community/react-native-video#9bcf70cbb513402622bc114f93da751c28f15303",
     "react-redux": "^5.0.2",
     "redux": "^3.6.0",
     "redux-actions": "^1.2.0",
