@@ -9,6 +9,7 @@
     "codepush": "./scripts/code-push.sh"
   },
   "dependencies": {
+    "lodash": "https://registry.npmjs.org/lodash/-/lodash-4.17.4.tgz",
     "raven-js": "git+https://git@github.com/kevinvandijk/raven-js.git",
     "react": "15.4.2",
     "react-native": "0.39.0",
