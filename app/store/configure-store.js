@@ -35,7 +35,8 @@ const loggerOptions = {
 };
 if (!__DEV__) loggerOptions.colors = false;
 const logger = createLogger(loggerOptions);
-middlewares.push(logger);
+// Don't do logging for now in test because it's really annoying
+if (process.env.NODE_ENV !== 'test') middlewares.push(logger);
 
 export default function configureStore() {
   const store = createStore(

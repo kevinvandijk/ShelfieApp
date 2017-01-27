@@ -1,18 +1,19 @@
 import React, { Component, PropTypes } from 'react';
 import { Alert } from 'react-native';
 import { Provider } from 'react-redux';
-import codePush from 'react-native-code-push';
 import Router from './router';
 
 // Initializers
 import i18nInitializer from './initializers/i18n';
 
+const codePush = (process.env.NODE_ENV !== 'test' && process.env.NODE_ENV !== 'development'
+  ? require('react-native-code-push')
+  : null
+);
+
 i18nInitializer();
 
-@codePush({
-  checkFrequency: __DEV__ ? codePush.CheckFrequency.MANUAL : codePush.CheckFrequency.ON_APP_RESUME
-})
-export default class App extends Component {
+class App extends Component {
   static propTypes = {
     store: PropTypes.object.isRequired
   }
@@ -31,3 +32,12 @@ export default class App extends Component {
     );
   }
 }
+
+let codePushOptions;
+if (codePush) {
+  codePushOptions = {
+    checkFrequency: __DEV__ ? codePush.CheckFrequency.MANUAL : codePush.CheckFrequency.ON_APP_RESUME
+  };
+}
+
+export default codePush ? codePush(codePushOptions)(App) : App;

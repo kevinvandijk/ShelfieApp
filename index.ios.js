@@ -1,5 +1,7 @@
+/* eslint-disable import/first */
 // // Catch errors with Sentry as early as possible
-import sentryInitializer from './app/initializers/sentry';
+if (__DEV__) require('./app/initializers/sentry');
+
 import React from 'react';
 import { AppRegistry } from 'react-native';
 import App from './app';
@@ -11,3 +13,5 @@ const store = configureStore();
 const Shelfie = (props) => <App { ...props } store={ store } />;
 
 AppRegistry.registerComponent('Shelfie', () => Shelfie);
+
+export default Shelfie;
