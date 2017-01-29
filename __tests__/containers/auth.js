@@ -8,11 +8,13 @@ import configureStore from '../../app/store/configure-store';
 jest.mock('../../app/lib/i18n');
 
 describe('<AuthContainer>', () => {
-  it('renders', () => {
-    renderer.create(
+  it('renders correctly', () => {
+    const tree = renderer.create(
       <Provider store={ configureStore() }>
         <AuthContainer />
       </Provider>
-    );
+    ).toJSON();
+
+    expect(tree).toMatchSnapshot();
   });
 });

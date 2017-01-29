@@ -24,6 +24,7 @@
     "jest": true,
     "describe": true,
     "it": true,
-    "xit": true
+    "xit": true,
+    "expect": true
   }
 }
