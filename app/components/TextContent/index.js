@@ -27,7 +27,7 @@ TextContent.propTypes = {
   i18nKey: validateTextPresence,
   i18nValues: object,
   children: oneOfType([string, validateTextPresence]),
-  style: number
+  style: oneOfType([number, object])
 };
 
 export default TextContent;

@@ -21,6 +21,9 @@
   },
   "globals": {
     "__DEV__": true,
-    "jest": true
+    "jest": true,
+    "describe": true,
+    "it": true,
+    "xit": true
   }
 }
