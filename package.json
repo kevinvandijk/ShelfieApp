@@ -9,7 +9,7 @@
     "codepush": "./scripts/code-push.sh"
   },
   "dependencies": {
-    "lodash": "https://registry.npmjs.org/lodash/-/lodash-4.17.4.tgz",
+    "lodash": "^4.17.4",
     "raven-js": "git+https://git@github.com/kevinvandijk/raven-js.git",
     "react": "15.4.2",
     "react-native": "0.39.0",
@@ -42,7 +42,7 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^3.0.2",
     "eslint-plugin-react": "^6.9.0",
-    "jest": "18.1.0",
+    "jest": "^18.1.0",
     "react-test-renderer": "15.4.2"
   },
   "jest": {
