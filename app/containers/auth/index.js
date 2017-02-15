@@ -11,7 +11,7 @@ import Form from '../../components/Form';
 import Input from '../../components/Form/Input';
 import SubmitButton from '../../components/Form/SubmitButton';
 import HugeButton from '../../components/HugeButton';
-import { login, requestFacebookAuth } from '../../modules/auth';
+import { login } from '../../modules/auth';
 
 const { func } = PropTypes;
 
@@ -19,7 +19,6 @@ const translate = I18n.namespace('containers.auth');
 
 class AuthContainer extends Component {
   static propTypes = {
-    requestFacebookAuth: func.isRequired,
     login: func.isRequired
   }
 
@@ -53,10 +52,6 @@ class AuthContainer extends Component {
     } else {
       this.props.login(email, password);
     }
-  }
-
-  facebook = () => {
-    this.props.requestFacebookAuth();
   }
 
   render() {
@@ -118,9 +113,6 @@ class AuthContainer extends Component {
               >
                 { translate('content.login') }
               </SubmitButton>
-              <HugeButton style={{ backgroundColor: '#3B5998' }} onPress={ this.facebook }>
-                { translate('content.facebookLogin') }
-              </HugeButton>
             </View>
             <KeyboardSpacer onToggle={ this.onKeyboardToggle } />
           </View>
@@ -131,8 +123,7 @@ class AuthContainer extends Component {
 }
 
 const mapDispatchToProps = {
-  login,
-  requestFacebookAuth
+  login
 };
 
 export default connect(null, mapDispatchToProps)(AuthContainer);
