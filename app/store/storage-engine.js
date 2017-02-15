@@ -13,7 +13,8 @@ export const engine = (config.get('storage.enabled')
 );
 
 export function addStore(newStore) {
-  if (store) throw new Error('A store was already set!');
+  // TODO: FIX THIS
+  // if (store) throw new Error('A store was already set!');
   store = newStore;
 }
 
