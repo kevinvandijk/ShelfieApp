@@ -34,7 +34,7 @@ if [ ! -f "$SOURCEMAP_PATH" ]; then
 fi
 
 echo "[INFO] Creating release $FULL_VERSION on Sentry"
-output="$(
+release_output="$(
   curl "$SENTRY_URL/releases/" \
     -s -o /dev/null -w "%{http_code}" \
     -X POST \
@@ -43,7 +43,12 @@ output="$(
     -d "{\"version\": "\"$FULL_VERSION\""}"
 )"
 
-if [[ $output > 299 ]] ;then
+if [[ $release_output = 208 ]] ;then
+  echo "[INFO] Release $FULL_VERSION already exists on Sentry"
+  exit 0
+fi
+
+if [[ $release_output > 299 ]] ;then
   echo "[ERROR] Could not create release version on Sentry"
   exit 1
 fi

@@ -6,7 +6,7 @@ PLIST="$APP_PATH/ios/$APP_NAME/Info.plist"
 VERSION_NUMBER="$(defaults read $PLIST CFBundleShortVersionString)"
 ENTRY_FILE="index.ios.js"
 BUNDLE_FILE="main.jsbundle"
-BUILD_PATH="$APP_PATH/build/codepush"
+BUILD_PATH="$APP_PATH/build"
 DEST="$BUILD_PATH/bundle"
 GIT_REV="$(git rev-parse --short HEAD)"
 REVISION_FILE="$APP_PATH/config/revision.json"
@@ -47,8 +47,8 @@ require_clean_work_tree () {
 require_clean_work_tree
 
 mkdir -p "$BUILD_PATH"
-rm -rf "$BUILD_PATH"/*
 mkdir -p "$DEST"
+rm -rf "$DEST"/*
 
 # For sentry to know where to post errors to
 echo "{\"revision\": \"${GIT_REV}\"}" > $REVISION_FILE
@@ -83,7 +83,8 @@ export SENTRY_TOKEN="312ee38f31254c9dbb3be6929fa00c569eb16ac6e8dc454eaf3468917c3
 $APP_PATH/scripts/create-sentry-release.sh
 
 cd $BUILD_PATH/bundle
-code-push release $APP_NAME . $VERSION_NUMBER
+code-push release $APP_NAME . $VERSION_NUMBER --noDuplicateReleaseError
+cd $APP_PATH
 
 function post_to_slack () {
   # format message as a code block ```${msg}```
