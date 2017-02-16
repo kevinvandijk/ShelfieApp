@@ -80,12 +80,7 @@ const AppRouter = () => {
           <Scene
             key={ LOAD_SCENE }
             component={ LoadContainer }
-            navigationBarStyle={ styles.navBar }
-            titleStyle={ styles.navBarTitle }
-            hideTitle
-            hideNavbar
-            sceneStyle={ styles.sceneWithNavBar }
-            initial
+            hideNavBar
           />
 
           <Scene key={ UNAUTHENTICATED_SCENE }>

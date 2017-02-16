@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { View, Text } from 'react-native';
+import { View, Image } from 'react-native';
 import { connect } from 'react-redux';
+
+import styles from './styles';
 import { initialize } from '../../modules/boot';
 
 const { func } = PropTypes;
@@ -16,7 +18,13 @@ class LoadContainer extends Component {
 
   render() {
     return (
-      <View>
+      <View style={ styles.container }>
+        <View style={ styles.backgroundContainer }>
+          <Image
+            source={ require('../../assets/images/splashscreen.png') }
+            style={ styles.backgroundImage }
+          />
+        </View>
       </View>
     );
   }
