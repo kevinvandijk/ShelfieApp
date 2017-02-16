@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -41,6 +40,7 @@
 		E2C4466063784FABB1359C66 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64193E6891D74B098537E086 /* FontAwesome.ttf */; };
 		E664FDC5FD87495D97F2FD7C /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E5BB1E14EDD14F309DF2FA9A /* libCodePush.a */; };
 		F7244481D58C40CF8156E4E5 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D88BD3EAD1A4055B01589BD /* Lato-Regular.ttf */; };
+		88ACF965FA2B4E5D953F07F6 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF140A8208F6473B96C6F5CF /* Poppins-Medium.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -275,6 +275,7 @@
 		E438A9D3B88E40B3B2DF7E57 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		E5BB1E14EDD14F309DF2FA9A /* libCodePush.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libCodePush.a; sourceTree = "<group>"; };
 		F65868D222084CCEBA0FDD6B /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
+		BF140A8208F6473B96C6F5CF /* Poppins-Medium.ttf */ = {isa = PBXFileReference; name = "Poppins-Medium.ttf"; path = "../app/assets/fonts/Poppins-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -558,6 +559,7 @@
 				DD54F8D73959445D934CC1F8 /* Zocial.ttf */,
 				BF90032808004BE4B70A57ED /* Lato-Black.ttf */,
 				7D88BD3EAD1A4055B01589BD /* Lato-Regular.ttf */,
+				BF140A8208F6473B96C6F5CF /* Poppins-Medium.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -916,6 +918,7 @@
 				8F3226E736234772BE4DE060 /* Zocial.ttf in Resources */,
 				8C1E80F43D8E4FCC81AD5B75 /* Lato-Black.ttf in Resources */,
 				F7244481D58C40CF8156E4E5 /* Lato-Regular.ttf in Resources */,
+				88ACF965FA2B4E5D953F07F6 /* Poppins-Medium.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

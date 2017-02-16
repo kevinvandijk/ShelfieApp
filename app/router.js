@@ -6,6 +6,7 @@ import ReactNativeDrawer from 'react-native-drawer';
 import I18n from './lib/i18n';
 import styles from './styles';
 import LoadContainer from './containers/load';
+import WelcomeContainer from './containers/welcome';
 import AuthContainer from './containers/auth';
 import TimelineContainer from './containers/timeline';
 import WatchContainer from './containers/watch';
@@ -18,6 +19,7 @@ const MAIN_SCENE_DRAWER = 'drawer';
 const LOAD_SCENE = 'load';
 const AUTH_SCENE = 'auth';
 const MAIN_SCENE = 'main';
+const WELCOME_SCENE = 'welcome';
 
 const ReduxRouter = connect()(Router);
 
@@ -30,7 +32,7 @@ const rootComponent = connect(state => {
 
 const rootSelector = (state) => {
   if (!state.isLoaded) return LOAD_SCENE;
-  return state.isAuthenticated ? MAIN_SCENE_DRAWER : AUTH_SCENE;
+  return state.isAuthenticated ? MAIN_SCENE_DRAWER : WELCOME_SCENE;
 };
 
 const Drawer = (props) => {
@@ -79,18 +81,18 @@ const AppRouter = () => {
             component={ LoadContainer }
             navigationBarStyle={ styles.navBar }
             titleStyle={ styles.navBarTitle }
+            hideTitle
+            hideNavbar
             sceneStyle={ styles.sceneWithNavBar }
             initial
           />
 
           <Scene
-            key={ AUTH_SCENE }
-            component={ AuthContainer }
-            title={ I18n.t('containers.auth.title') }
-            navigationBarStyle={ styles.navBar }
-            titleStyle={ styles.navBarTitle }
-            sceneStyle={ styles.sceneWithNavBar }
+            key={ WELCOME_SCENE }
+            component={ WelcomeContainer }
+            hideNavBar
           />
+
           <Scene key={ MAIN_SCENE_DRAWER } component={ Drawer }>
             <Scene
               key={ MAIN_SCENE }

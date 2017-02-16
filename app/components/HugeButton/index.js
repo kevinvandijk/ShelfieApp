@@ -9,7 +9,7 @@ const HugeButton = (props) => {
   if (typeof props.children === 'string') {
     childComponents = (
       <Text style={ [styles.text, props.textStyle, props.disabled ? styles.textDisabled : null] }>
-        { props.children.toUpperCase() }
+        { props.children }
       </Text>
     );
   } else {

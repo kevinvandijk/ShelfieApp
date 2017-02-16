@@ -50,6 +50,12 @@
       "title": "Shelfie Video"
     },
 
+    "welcome": {
+      "intro": "Your video tapes on your iPhone",
+      "signIn": "Sign in",
+      "dropOffPoints": "Video tape drop off points"
+    },
+
     "sideMenu": {
       "logout": "Sign out"
     }
