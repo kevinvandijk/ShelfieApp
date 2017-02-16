@@ -71,9 +71,9 @@ platform :ios do
       build_number: full_version
     )
 
-    # Create Sentry release
-    if !system("../scripts/create-sentry-release.sh")
-      raise "Could not create Sentry release for #{full_version}"
+    # Create Run codepush script, which will also create a Sentry release
+    if !system("../scripts/code-push.sh")
+      raise "Codepush release failed for #{full_version}"
     end
 
     testflight(
