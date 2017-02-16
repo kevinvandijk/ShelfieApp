@@ -1,12 +1,18 @@
 import React from 'react';
 import { View, Image } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
+import { AUTH_SCENE } from '../../router';
 import I18n from '../../lib/i18n';
 import styles from './styles';
 import TextContent from '../../components/TextContent';
 import HugeButton from '../../components/HugeButton';
 
 const translate = I18n.namespace('containers.welcome');
+
+function navigateToLogin() {
+  Actions[AUTH_SCENE]();
+}
 
 const WelcomeContainer = () => {
   return (
@@ -28,7 +34,11 @@ const WelcomeContainer = () => {
         />
       </View>
       <View style={ styles.buttonsContainer }>
-        <HugeButton style={ styles.button } textStyle={ styles.buttonText }>
+        <HugeButton
+          style={ styles.button }
+          textStyle={ styles.buttonText }
+          onPress={ navigateToLogin }
+        >
           { translate('signIn') }
         </HugeButton>
         <HugeButton style={ styles.button } textStyle={ styles.buttonText }>

@@ -15,11 +15,12 @@ import SideMenu from './containers/SideMenu';
 
 const { func, object } = PropTypes;
 
-const MAIN_SCENE_DRAWER = 'drawer';
-const LOAD_SCENE = 'load';
-const AUTH_SCENE = 'auth';
-const MAIN_SCENE = 'main';
-const WELCOME_SCENE = 'welcome';
+export const MAIN_SCENE_DRAWER = 'drawer';
+export const LOAD_SCENE = 'load';
+export const AUTH_SCENE = 'auth';
+export const MAIN_SCENE = 'main';
+export const WELCOME_SCENE = 'welcome';
+export const UNAUTHENTICATED_SCENE = 'unauthenticated';
 
 const ReduxRouter = connect()(Router);
 
@@ -32,7 +33,7 @@ const rootComponent = connect(state => {
 
 const rootSelector = (state) => {
   if (!state.isLoaded) return LOAD_SCENE;
-  return state.isAuthenticated ? MAIN_SCENE_DRAWER : WELCOME_SCENE;
+  return state.isAuthenticated ? MAIN_SCENE_DRAWER : UNAUTHENTICATED_SCENE;
 };
 
 const Drawer = (props) => {
@@ -87,11 +88,24 @@ const AppRouter = () => {
             initial
           />
 
-          <Scene
-            key={ WELCOME_SCENE }
-            component={ WelcomeContainer }
-            hideNavBar
-          />
+          <Scene key={ UNAUTHENTICATED_SCENE }>
+            <Scene
+              key={ WELCOME_SCENE }
+              hideNavBar
+              component={ WelcomeContainer }
+              initial
+            />
+
+            <Scene
+              key={ AUTH_SCENE }
+              component={ AuthContainer }
+              title={ I18n.t('containers.auth.title') }
+              navigationBarStyle={ styles.navBar }
+              titleStyle={ styles.navBarTitle }
+              sceneStyle={ styles.sceneWithNavBar }
+              hideBackImage
+            />
+          </Scene>
 
           <Scene key={ MAIN_SCENE_DRAWER } component={ Drawer }>
             <Scene
