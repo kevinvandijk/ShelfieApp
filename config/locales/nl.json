@@ -5,6 +5,8 @@
 
   "containers": {
     "auth": {
+      "welcomeBack": "Welkom terug!",
+      "enterEmail": "Voer je Email in om\nverder te gaan.",
       "title": "Aanmelden",
       "errors": {
         "missingEmail": "Geen email adres ingvoerd",

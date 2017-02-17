@@ -5,6 +5,8 @@
 
   "containers": {
     "auth": {
+      "welcomeBack": "Welcome back!",
+      "enterEmail": "Enter your e-mail address\n to continue.",
       "title": "Authentication",
       "errors": {
         "missingEmail": "Missing e-mail",

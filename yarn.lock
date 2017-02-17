@@ -4312,10 +4312,6 @@ react-native-experimental-navigation@0.26.x:
     fbjs "^0.8.1"
     react-addons-pure-render-mixin "^15.0.2"
 
-react-native-keyboard-spacer@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/react-native-keyboard-spacer/-/react-native-keyboard-spacer-0.3.1.tgz#9580297ebfd078202dc4c65303d29cda35de67f1"
-
 react-native-keychain@^0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/react-native-keychain/-/react-native-keychain-0.3.2.tgz#6c0cd9d609a0844a6dc281bb121ef7bc443b4f2b"
