@@ -76,6 +76,9 @@ const AppRouter = () => {
           tabs
           unmountScenes
           selector={ rootSelector }
+          sceneStyle={{
+            backgroundColor: 'rgb(233, 106, 103)'
+          }}
         >
           <Scene
             key={ LOAD_SCENE }
@@ -97,7 +100,7 @@ const AppRouter = () => {
               navigationBarStyle={ styles.navBarWithBackground }
               sceneStyle={ styles.sceneWithNavBar }
               direction="vertical"
-              duration={ 300 }
+              duration={ 200 }
               backButtonImage={ require('./assets/images/back-chevron.png') }
             />
           </Scene>
