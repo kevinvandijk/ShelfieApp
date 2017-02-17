@@ -97,7 +97,7 @@ const AppRouter = () => {
               navigationBarStyle={ styles.navBarWithBackground }
               sceneStyle={ styles.sceneWithNavBar }
               direction="vertical"
-              duration={ 200 }
+              duration={ 300 }
               backButtonImage={ require('./assets/images/back-chevron.png') }
             />
           </Scene>
