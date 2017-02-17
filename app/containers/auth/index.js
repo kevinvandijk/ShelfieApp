@@ -52,6 +52,10 @@ class AuthContainer extends Component {
     }
   }
 
+  componentDidMount() {
+    this.refs.firstInput.focus();
+  }
+
   render() {
     return (
       <View style={ styles.container }>
@@ -73,6 +77,7 @@ class AuthContainer extends Component {
                 placeholder={ translate('content.email') }
                 placeholderTextColor="rgba(255, 255, 255, .8)"
                 type="email"
+                ref="firstInput"
                 style={ styles.input }
               />
             </View>
