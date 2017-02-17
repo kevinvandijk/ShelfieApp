@@ -96,6 +96,8 @@ const AppRouter = () => {
               component={ AuthContainer }
               navigationBarStyle={ styles.navBarWithBackground }
               sceneStyle={ styles.sceneWithNavBar }
+              direction="vertical"
+              duration={ 200 }
               backButtonImage={ require('./assets/images/back-chevron.png') }
             />
           </Scene>
