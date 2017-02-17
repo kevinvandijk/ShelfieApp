@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { View, Alert, Image } from 'react-native';
+import { View, Alert, Image, Dimensions } from 'react-native';
 
 import I18n from '../../lib/i18n';
 import styles from './styles';
@@ -66,11 +66,16 @@ class AuthContainer extends Component {
   }
 
   render() {
+    const { width } = Dimensions.get('window');
+    const background = width > 375
+      ? require('../../assets/images/background-plus.png') // eslint-disable-line
+      : require('../../assets/images/background.png');
+
     return (
       <View style={ styles.container }>
         <View style={ styles.backgroundContainer }>
           <Image
-            source={ require('../../assets/images/background.png') }
+            source={ background }
             style={ styles.backgroundImage }
           />
         </View>

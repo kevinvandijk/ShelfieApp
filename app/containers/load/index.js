@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { View, Image, StatusBar } from 'react-native';
+import { View, Image, StatusBar, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 
 import styles from './styles';
@@ -18,11 +18,16 @@ class LoadContainer extends Component {
   }
 
   render() {
+    const { width } = Dimensions.get('window');
+    const background = width > 375
+      ? require('../../assets/images/background-plus.png') // eslint-disable-line
+      : require('../../assets/images/background.png');
+
     return (
       <View style={ styles.container }>
         <View style={ styles.backgroundContainer }>
           <Image
-            source={ require('../../assets/images/background.png') }
+            source={ background }
             style={ styles.backgroundImage }
           />
         </View>
