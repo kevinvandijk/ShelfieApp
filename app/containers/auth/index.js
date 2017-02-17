@@ -61,7 +61,7 @@ class AuthContainer extends Component {
       setTimeout(() => {
         this.emailInput.blur();
         this.passwordInput.blur();
-      }, 250);
+      }, 150);
     }
   }
 
