@@ -58,8 +58,10 @@ class AuthContainer extends Component {
 
   componentWillReceiveProps(props) {
     if (!props.isFocused) {
-      this.emailInput.blur();
-      this.passwordInput.blur();
+      setTimeout(() => {
+        this.emailInput.blur();
+        this.passwordInput.blur();
+      }, 250);
     }
   }
 
