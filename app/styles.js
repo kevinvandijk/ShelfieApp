@@ -10,6 +10,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     borderBottomColor: '#DDD',
   },
+
+  navBarWithBackground: {
+    backgroundColor: 'transparent',
+    borderBottomWidth: 0
+  },
+
   navBarTitle: {
     fontFamily: 'Lato-Black',
     color: '#333'

@@ -86,19 +86,17 @@ const AppRouter = () => {
           <Scene key={ UNAUTHENTICATED_SCENE }>
             <Scene
               key={ WELCOME_SCENE }
-              hideNavBar
               component={ WelcomeContainer }
+              navBar={ () => null }
               initial
             />
 
             <Scene
               key={ AUTH_SCENE }
               component={ AuthContainer }
-              title={ I18n.t('containers.auth.title') }
-              navigationBarStyle={ styles.navBar }
-              titleStyle={ styles.navBarTitle }
+              navigationBarStyle={ styles.navBarWithBackground }
               sceneStyle={ styles.sceneWithNavBar }
-              hideBackImage
+              backButtonImage={ require('./assets/images/back-chevron.png') }
             />
           </Scene>
 
