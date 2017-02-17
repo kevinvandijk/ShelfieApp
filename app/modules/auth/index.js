@@ -1,5 +1,6 @@
 import { createReducer } from 'reduxsauce';
 import { createAction } from 'redux-actions';
+import { ActionConst } from 'react-native-router-flux';
 import keychain from '../../services/keychain';
 
 export const INITIAL_STATE = {
@@ -19,6 +20,29 @@ export default createReducer(INITIAL_STATE, {
       isAuthenticated: true,
       account: action.payload
     };
+  },
+
+  // Used so the login screen can quickly blur the input fields when navigating back
+  [ActionConst.PUSH]: (state, action) => {
+    if (action.key === 'auth') {
+      return {
+        ...state,
+        authScreenFocused: true
+      };
+    }
+
+    return state;
+  },
+
+  [ActionConst.BACK_ACTION]: (state) => {
+    if (state.authScreenFocused) {
+      return {
+        ...state,
+        authScreenFocused: false
+      };
+    }
+
+    return state;
   }
 });
 
@@ -47,4 +71,8 @@ export async function getAuthToken() {
 
 export function userIsAuthenticated(state) {
   return !!state.auth.isAuthenticated;
+}
+
+export function authScreenIsFocused(state) {
+  return !!state.auth.authScreenFocused;
 }

@@ -9,7 +9,7 @@ import Form from '../../components/Form';
 import Input from '../../components/Form/Input';
 import SubmitButton from '../../components/Form/SubmitButton';
 import HugeButton from '../../components/HugeButton';
-import { login } from '../../modules/auth';
+import { login, authScreenIsFocused } from '../../modules/auth';
 
 const { func } = PropTypes;
 
@@ -53,7 +53,14 @@ class AuthContainer extends Component {
   }
 
   componentDidMount() {
-    this.refs.firstInput.focus();
+    this.emailInput.focus();
+  }
+
+  componentWillReceiveProps(props) {
+    if (!props.isFocused) {
+      this.emailInput.blur();
+      this.passwordInput.blur();
+    }
   }
 
   render() {
@@ -77,7 +84,7 @@ class AuthContainer extends Component {
                 placeholder={ translate('content.email') }
                 placeholderTextColor="rgba(255, 255, 255, .8)"
                 type="email"
-                ref="firstInput"
+                ref={ (c) => { this.emailInput = c; } }
                 style={ styles.input }
               />
             </View>
@@ -88,6 +95,7 @@ class AuthContainer extends Component {
                 placeholder={ translate('content.password') }
                 placeholderTextColor="rgba(255, 255, 255, .8)"
                 onReturn="submit"
+                ref={ (c) => { this.passwordInput = c; } }
                 style={ styles.input }
                 // style={{ marginTop: 15 }}
               />
@@ -108,8 +116,14 @@ class AuthContainer extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    isFocused: authScreenIsFocused(state)
+  };
+};
+
 const mapDispatchToProps = {
   login
 };
 
-export default connect(null, mapDispatchToProps)(AuthContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(AuthContainer);
