@@ -15,6 +15,11 @@ export default StyleSheet.create({
 
   backgroundImage: {
     flex: 1,
-    resizeMode: 'cover'
+    resizeMode: 'cover',
+  },
+
+  logo: {
+    marginTop: 263,
+    alignSelf: 'center',
   }
 });

@@ -22,8 +22,14 @@ class LoadContainer extends Component {
       <View style={ styles.container }>
         <View style={ styles.backgroundContainer }>
           <Image
-            source={ require('../../assets/images/splashscreen.png') }
+            source={ require('../../assets/images/background.png') }
             style={ styles.backgroundImage }
+          />
+        </View>
+        <View style={ styles.content }>
+          <Image
+            source={ require('../../assets/images/logo.png') }
+            style={ styles.logo }
           />
         </View>
       </View>
