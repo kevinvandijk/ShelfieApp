@@ -7,5 +7,7 @@ export default function i18nInitializer() {
     nl: require('../../config/locales/nl.json')
   });
 
-  I18n.switchLanguage(getDeviceLocale());
+  // FIXME: Hardcoded to nl for now
+  I18n.switchLanguage('nl');
+  // I18n.switchLanguage(getDeviceLocale());
 }
