@@ -53,6 +53,7 @@
       <string>Lato-Black.ttf</string>
       <string>Lato-Regular.ttf</string>
       <string>Poppins-Medium.ttf</string>
+      <string>Poppins-Bold.ttf</string>
     </array>
     <key>UIRequiredDeviceCapabilities</key>
     <array>
