@@ -6,14 +6,14 @@ import { pxToDpi } from '../../helpers/styles';
 
 const styles = StyleSheet.create({
   textInput: {
-    backgroundColor: '#eee',
-    height: pxToDpi(88),
-    alignSelf: 'stretch',
-    lineHeight: pxToDpi(88),
-    padding: pxToDpi(30),
-    fontSize: pxToDpi(24),
-    color: '#303030',
-    fontFamily: 'Lato-Regular'
+    // backgroundColor: '#eee',
+    // height: pxToDpi(88),
+    // alignSelf: 'stretch',
+    // lineHeight: pxToDpi(88),
+    // padding: pxToDpi(30),
+    // fontSize: pxToDpi(24),
+    // color: '#303030',
+    // fontFamily: 'Lato-Regular'
   }
 });
 
@@ -122,7 +122,9 @@ class Input extends Component {
   }
 
   render() {
-    let textInputProps = {};
+    let textInputProps = {
+      ...this.props
+    };
 
     if (this.props.onReturn === 'next') {
       textInputProps = {
