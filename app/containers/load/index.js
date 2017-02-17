@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 
 import styles from './styles';
@@ -13,6 +13,7 @@ class LoadContainer extends Component {
   }
 
   componentWillMount() {
+    StatusBar.setHidden(true);
     this.props.initialize();
   }
 

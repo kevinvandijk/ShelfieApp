@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { View } from 'react-native';
+import { View, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import Spinner from 'react-native-spinkit';
@@ -18,6 +18,7 @@ class TimelineContainer extends Component {
   }
 
   componentDidMount() {
+    StatusBar.setHidden(false);
     this.props.fetchVideos();
   }
 

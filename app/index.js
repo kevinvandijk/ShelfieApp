@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Alert } from 'react-native';
+import { Alert, StatusBar } from 'react-native';
 import { Provider } from 'react-redux';
 import Router from './router';
 
@@ -25,6 +25,8 @@ class App extends Component {
   }
 
   render() {
+    StatusBar.setHidden(true);
+
     return (
       <Provider store={ this.props.store }>
         <Router />
