@@ -23,8 +23,8 @@ function* loginRequest(email, password) {
   const result = yield call(api.login, email, password);
   if (!result.error) {
     // TODO: Error handling when keychain fails?
-    api.setAuthToken(result.payload.token);
-    yield put(isAuthenticated(result.payload.user));
+    api.setAuthToken(result.payload.data.token);
+    yield put(isAuthenticated(result.payload.data.user));
     yield call(keychain.setAuthToken, result.payload.token);
     yield call(storage.saveState);
   }

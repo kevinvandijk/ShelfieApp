@@ -1,18 +1,20 @@
 import { setHeader, post, get, patch } from '../lib/request';
 
 async function login(email, password) {
-  return post('/auth/login', {
-    email,
-    password
+  return post('/v1/auth/signin', {
+    data: {
+      email,
+      password
+    }
   });
 }
 
 function getVideos() {
-  return get('/1/videos');
+  return get('/v1/videos');
 }
 
 function getSignedOutputUrl(id, quality) {
-  return get(`/1/videos/${id}/outputs/${quality}`);
+  return get(`/v1/videos/${id}/outputs/${quality}`);
 }
 
 function setAuthToken(token) {
@@ -24,11 +26,8 @@ export default {
   setAuthToken,
   getVideos,
   getSignedOutputUrl,
-  swapFBToken(fbToken) {
-    return post('/auth/exchange/facebook', fbToken);
-  },
   changePassword(password) {
-    return patch('/1/users/me', {
+    return patch('/v1/users/me', {
       password
     });
   }

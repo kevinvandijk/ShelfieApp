@@ -1,6 +1,6 @@
 {
   "api": {
-    "baseURL": "https://api.shelfie.nl",
+    "baseURL": "http://localhost:3000",
     "showAlerts": true
   },
 

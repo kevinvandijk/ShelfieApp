@@ -16,7 +16,7 @@ class WatchContainer extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchSignedOutputUrl(this.props.videoId, '360p-mp4');
+    this.props.fetchSignedOutputUrl(this.props.videoId, '360p_mp4');
   }
 
   render() {
@@ -43,7 +43,7 @@ const mapDispatchToProps = {
 const mapStateToProps = (state, ownProps) => {
   return {
     video: getVideo(state, ownProps.videoId),
-    videoUrl: getSignedUrlForQuality(state, ownProps.videoId, '360p-mp4')
+    videoUrl: getSignedUrlForQuality(state, ownProps.videoId, '360p_mp4')
   };
 };
 

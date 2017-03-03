@@ -51,7 +51,7 @@ export default createReducer(INITIAL_STATE, {
       ...state,
       [payload.quality]: {
         ...state[payload.quality],
-        [payload.videoId]: payload.data.attributes.signedUrl
+        [payload.videoId]: payload.data.attributes.url
       }
     }
 
