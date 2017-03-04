@@ -6,11 +6,12 @@ import Row from './Row';
 import Separator from './Separator';
 import SectionHeader from './SectionHeader';
 
-const { func, shape, bool } = PropTypes;
+const { func, shape, bool, instanceOf, oneOfType } = PropTypes;
 
 export default class List extends Component {
   static propTypes = {
     rowDataGetter: func.isRequired,
+    rowComponent: oneOfType([instanceOf(Component), func]),
     onRowPress: func.isRequired,
     data: shape({}).isRequired,
     onRefresh: func,
@@ -19,6 +20,7 @@ export default class List extends Component {
 
   static defaultProps = {
     onRowPress: noop,
+    rowComponent: Row,
     data: {},
     refreshing: false
   }
@@ -47,10 +49,10 @@ export default class List extends Component {
 
   renderRow = (rowData, sectionId, rowId) => {
     return (
-      <Row
-        content={ this.props.rowDataGetter(rowData, sectionId, rowId) }
+      <this.props.rowComponent
         key={ `${sectionId}-${rowId}` }
         onPress={ partial(this.props.onRowPress, rowData, sectionId, rowId) }
+        { ...this.props.rowDataGetter(rowData, sectionId, rowId) }
       />
     );
   }
