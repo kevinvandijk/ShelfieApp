@@ -4,9 +4,11 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import Spinner from 'react-native-spinkit';
 
+import config from '../../../config';
 import authenticatedComponent from '../../decorators/AuthenticatedComponent';
 import { fetchVideos, getVideosByYear } from '../../modules/videos';
 import List from '../../components/List';
+import VideoSummary from '../../components/VideoSummary';
 
 const { func, shape } = PropTypes;
 
@@ -26,8 +28,14 @@ class TimelineContainer extends Component {
     this.props.fetchVideos();
   }
 
-  getRowText(rowData) {
-    return rowData.title;
+  getRowData = (rowData) => {
+    return {
+      content: rowData.title,
+      title: rowData.title,
+      description: 'Here will be a description',
+      id: rowData.id,
+      screenshotUrl: `${config.get('api.baseURL')}/v1/videos/${rowData.id}/thumbnail`
+    };
   }
 
   navigateToVideo(video) {
@@ -46,7 +54,8 @@ class TimelineContainer extends Component {
     return (
       <List
         data={ this.props.videos }
-        rowDataGetter={ this.getRowText }
+        rowComponent={ VideoSummary }
+        rowDataGetter={ this.getRowData }
         onRowPress={ this.navigateToVideo }
         onRefresh={ this.onRefresh }
       />
