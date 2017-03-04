@@ -51,8 +51,12 @@ class TimelineContainer extends Component {
     };
   }
 
-  navigateToVideo(video) {
+  navigateToVideo = (video) => {
     Actions.mainWatch({ videoId: video.id });
+  }
+
+  renderSectionHeader = (sectionData, sectionId) => {
+    return <TimelineHeader key={ sectionId }>{ sectionId }</TimelineHeader>;
   }
 
   render() {
@@ -73,6 +77,7 @@ class TimelineContainer extends Component {
         onRowPress={ this.navigateToVideo }
         onRefresh={ this.onRefresh }
         onChangeVisibleRows={ this.onChangeVisibleRows }
+        renderSectionHeader={ this.renderSectionHeader }
       />
     );
   }
