@@ -5,7 +5,7 @@ import styles from './styles';
 
 const { string } = PropTypes;
 
-const SectionHeader = (props) => {
+const TimelineHeader = (props) => {
   return (
     <View style={ styles.container }>
       <Text style={ styles.text }>{ props.children }</Text>
@@ -13,8 +13,8 @@ const SectionHeader = (props) => {
   );
 };
 
-SectionHeader.propTypes = {
+TimelineHeader.propTypes = {
   children: string.isRequired
 };
 
-export default SectionHeader;
+export default TimelineHeader;
