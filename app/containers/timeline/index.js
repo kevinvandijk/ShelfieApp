@@ -49,7 +49,7 @@ class TimelineContainer extends Component {
     return {
       content: rowData.title,
       title: rowData.title,
-      description: 'Here will be a description',
+      // description: 'Here will be a description',
       id: rowData.id,
       screenshotUrl: `${config.get('api.baseURL')}/v1/videos/${rowData.id}/thumbnail`
     };
