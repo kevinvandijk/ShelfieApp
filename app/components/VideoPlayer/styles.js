@@ -21,11 +21,13 @@ export default StyleSheet.create({
   },
 
   progressContainer: {
+
   },
 
   metadataContainer: {
     flex: 1,
-    justifyContent: 'flex-end'
+    paddingTop: 36
+    // justifyContent: 'flex-end'
   },
 
   progressBarContainer: {
@@ -54,28 +56,33 @@ export default StyleSheet.create({
 
   titleContainer: {
     alignItems: 'center',
-    justifyContent: 'center',
-    height: pxToDpi(170)
+    justifyContent: 'center'
   },
 
   titleText: {
-    fontFamily: 'Lato-Black',
-    fontSize: pxToDpi(32),
+    fontFamily: 'Poppins',
+    fontWeight: 'bold',
+    fontSize: 30,
+    lineHeight: 36,
+    color: '#333'
+  },
+
+  descriptionText: {
+    fontSize: 14,
+    fontFamily: 'Poppins',
+    lineHeight: 20,
     color: '#333'
   },
 
   video: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
+    ...StyleSheet.absoluteFillObject,
     backgroundColor: '#000'
   },
 
   videoContainer: {
     flex: 1,
-    maxHeight: 211
+    minHeight: 286,
+    maxHeight: 286
   },
 
   bigPlayButton: {

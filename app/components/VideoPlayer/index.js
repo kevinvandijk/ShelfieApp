@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { View, Dimensions, TouchableOpacity } from 'react-native';
+import { View, Dimensions, TouchableOpacity, Text } from 'react-native';
 import Video from 'react-native-video';
 import { calculateHitSlop } from '../../helpers';
 import Controls from './Controls';
@@ -145,7 +145,7 @@ class VideoPlayer extends Component {
         <View style={ styles.videoContainer }>
           <Video
             source={{ uri: this.props.url }}
-            resizeMode="contain"
+            resizeMode="cover"
             rate={ this.props.rate }
             volume={ this.props.volume }
             muted={ this.props.muted }
@@ -181,6 +181,11 @@ class VideoPlayer extends Component {
           </View>
           { this.props.title &&
             <Title>{ this.props.title }</Title>
+          }
+          { this.props.description &&
+            <View style={ styles.titleContainer }>
+              <Text style={ styles.descriptionText }>{ this.props.description }</Text>
+            </View>
           }
         </View>
 
