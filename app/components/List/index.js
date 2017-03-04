@@ -16,7 +16,8 @@ export default class List extends Component {
     onRowPress: func.isRequired,
     data: shape({}).isRequired,
     onRefresh: func,
-    refreshing: bool
+    refreshing: bool,
+    onChangeVisibleRows: func
   }
 
   static defaultProps = {
@@ -24,7 +25,8 @@ export default class List extends Component {
     rowComponent: Row,
     headerComponent: SectionHeader,
     data: {},
-    refreshing: false
+    refreshing: false,
+    onChangeVisibleRows: null
   }
 
   constructor(props) {
@@ -74,6 +76,7 @@ export default class List extends Component {
 
     return (
       <ListView
+        onChangeVisibleRows={ this.props.onChangeVisibleRows }
         dataSource={ this.state.dataSource }
         renderRow={ this.renderRow }
         renderSectionHeader={ this.renderSectionHeader }

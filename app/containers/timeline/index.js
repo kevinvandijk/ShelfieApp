@@ -20,6 +20,10 @@ class TimelineContainer extends Component {
     videos: shape({})
   }
 
+  state = {
+    activeSection: null
+  }
+
   componentDidMount() {
     StatusBar.setHidden(false);
     this.props.fetchVideos();
@@ -27,6 +31,14 @@ class TimelineContainer extends Component {
 
   onRefresh = () => {
     this.props.fetchVideos();
+  }
+
+  onChangeVisibleRows = (visibleRows) => {
+    const activeSection = Object.keys(visibleRows)[0];
+
+    if (activeSection !== this.state.activeSection) {
+      this.setState({ activeSection });
+    }
   }
 
   getRowData = (rowData) => {
@@ -60,6 +72,7 @@ class TimelineContainer extends Component {
         rowDataGetter={ this.getRowData }
         onRowPress={ this.navigateToVideo }
         onRefresh={ this.onRefresh }
+        onChangeVisibleRows={ this.onChangeVisibleRows }
       />
     );
   }
