@@ -5,6 +5,7 @@ import { ActionConst } from 'react-native-router-flux';
 import auth, { LOGOUT } from './modules/auth';
 import boot from './modules/boot';
 import videos from './modules/videos';
+import timeline from './modules/timeline';
 
 // TODO: Move this somewhere better:
 const initialRouterState = {
@@ -39,7 +40,8 @@ const appReducer = combineReducers({
   router: routerReducer,
   auth,
   boot,
-  videos
+  videos,
+  timeline
 });
 
 export default (state, action) => {

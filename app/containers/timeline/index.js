@@ -7,21 +7,20 @@ import Spinner from 'react-native-spinkit';
 import config from '../../../config';
 import authenticatedComponent from '../../decorators/AuthenticatedComponent';
 import { fetchVideos, getVideosByYear } from '../../modules/videos';
+import { setActiveTimelineSection, getActiveTimelineSection } from '../../modules/timeline';
 import List from '../../components/List';
 import TimelineHeader from '../../components/TimelineHeader';
 import VideoSummary from '../../components/VideoSummary';
 
-const { func, shape } = PropTypes;
+const { func, shape, string } = PropTypes;
 
 @authenticatedComponent()
 class TimelineContainer extends Component {
   static propTypes = {
     fetchVideos: func.isRequired,
-    videos: shape({})
-  }
-
-  state = {
-    activeSection: null
+    videos: shape({}),
+    setActiveTimelineSection: func.isRequired,
+    activeSection: string
   }
 
   componentDidMount() {
@@ -36,7 +35,8 @@ class TimelineContainer extends Component {
   onChangeVisibleRows = (visibleRows) => {
     const activeSection = Object.keys(visibleRows)[0];
 
-    if (activeSection !== this.state.activeSection) {
+    if (activeSection !== this.props.activeSection) {
+      this.props.setActiveTimelineSection(activeSection);
       this.setState({ activeSection });
     }
   }
@@ -85,12 +85,14 @@ class TimelineContainer extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    videos: getVideosByYear(state)
+    videos: getVideosByYear(state),
+    activeSection: getActiveTimelineSection(state)
   };
 };
 
 const mapDispatchToProps = {
-  fetchVideos
+  fetchVideos,
+  setActiveTimelineSection
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TimelineContainer);

@@ -8,10 +8,21 @@ export default StyleSheet.create({
     marginBottom: 22
   },
 
+  containerActive: {
+    marginTop: 0,
+    marginBottom: 0
+  },
+
   text: {
     fontFamily: 'Poppins',
     fontWeight: 'bold',
     fontSize: 48,
     color: '#333'
+  },
+
+  activeText: {
+    fontFamily: 'Poppins',
+    fontWeight: 'bold',
+    fontSize: 20
   }
 });
