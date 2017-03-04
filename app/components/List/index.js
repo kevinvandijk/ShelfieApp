@@ -75,7 +75,7 @@ export default class List extends Component {
         dataSource={ this.state.dataSource }
         renderRow={ this.renderRow }
         renderSectionHeader={ this.renderSectionHeader }
-        renderSeparator={ this.renderSeparator }
+        // renderSeparator={ this.renderSeparator }
         enableEmptySections // FIXME: Always need a section header somehow
         refreshControl={ refreshControl }
       />
