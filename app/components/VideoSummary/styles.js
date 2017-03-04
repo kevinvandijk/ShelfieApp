@@ -16,8 +16,8 @@ export default StyleSheet.create({
   metaInfo: {
     position: 'absolute',
     zIndex: 2,
-    left: 12,
-    bottom: 12
+    left: 10,
+    bottom: 10
   },
 
   title: {
