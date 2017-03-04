@@ -25,7 +25,7 @@ function* loginRequest(email, password) {
     // TODO: Error handling when keychain fails?
     api.setAuthToken(result.payload.data.token);
     yield put(isAuthenticated(result.payload.data.user));
-    yield call(keychain.setAuthToken, result.payload.token);
+    yield call(keychain.setAuthToken, result.payload.data.token);
     yield call(storage.saveState);
   }
 }

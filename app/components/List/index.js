@@ -4,23 +4,29 @@ import { partial, noop } from 'lodash';
 
 import Row from './Row';
 import Separator from './Separator';
-import SectionHeader from './SectionHeader';
 
-const { func, shape, bool } = PropTypes;
+const { func, shape, bool, instanceOf, oneOfType } = PropTypes;
 
 export default class List extends Component {
   static propTypes = {
     rowDataGetter: func.isRequired,
+    rowComponent: oneOfType([instanceOf(Component), func]),
+    headerComponent: oneOfType([instanceOf(Component), func]),
     onRowPress: func.isRequired,
     data: shape({}).isRequired,
+    renderSectionHeader: func,
     onRefresh: func,
-    refreshing: bool
+    refreshing: bool,
+    onChangeVisibleRows: func
   }
 
   static defaultProps = {
     onRowPress: noop,
+    rowComponent: Row,
     data: {},
-    refreshing: false
+    refreshing: false,
+    onChangeVisibleRows: null,
+    renderSectionHeader: null
   }
 
   constructor(props) {
@@ -47,19 +53,15 @@ export default class List extends Component {
 
   renderRow = (rowData, sectionId, rowId) => {
     return (
-      <Row
-        content={ this.props.rowDataGetter(rowData, sectionId, rowId) }
+      <this.props.rowComponent
         key={ `${sectionId}-${rowId}` }
         onPress={ partial(this.props.onRowPress, rowData, sectionId, rowId) }
+        { ...this.props.rowDataGetter(rowData, sectionId, rowId) }
       />
     );
   }
 
-  renderSectionHeader(sectionData, sectionId) {
-    return <SectionHeader key={ sectionId }>{ sectionId }</SectionHeader>;
-  }
-
-  renderSeparator(sectionId, rowId) {
+  renderSeparator = (sectionId, rowId) => {
     return <Separator key={ `${sectionId}-${rowId}` } />;
   }
 
@@ -70,10 +72,11 @@ export default class List extends Component {
 
     return (
       <ListView
+        onChangeVisibleRows={ this.props.onChangeVisibleRows }
         dataSource={ this.state.dataSource }
         renderRow={ this.renderRow }
-        renderSectionHeader={ this.renderSectionHeader }
-        renderSeparator={ this.renderSeparator }
+        renderSectionHeader={ this.props.renderSectionHeader }
+        // renderSeparator={ this.renderSeparator }
         enableEmptySections // FIXME: Always need a section header somehow
         refreshControl={ refreshControl }
       />

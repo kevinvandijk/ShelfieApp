@@ -1,5 +1,7 @@
 import { setHeader, post, get, patch } from '../lib/request';
 
+let authToken;
+
 async function login(email, password) {
   return post('/v1/auth/signin', {
     data: {
@@ -18,7 +20,12 @@ function getSignedOutputUrl(id, quality) {
 }
 
 function setAuthToken(token) {
+  authToken = token;
   setHeader('Authorization', `Bearer ${token}`);
+}
+
+export function getAuthToken() {
+  return authToken;
 }
 
 export default {

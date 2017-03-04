@@ -4,17 +4,23 @@ import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import Spinner from 'react-native-spinkit';
 
+import config from '../../../config';
 import authenticatedComponent from '../../decorators/AuthenticatedComponent';
 import { fetchVideos, getVideosByYear } from '../../modules/videos';
+import { setActiveTimelineSection, getActiveTimelineSection } from '../../modules/timeline';
 import List from '../../components/List';
+import TimelineHeader from '../../components/TimelineHeader';
+import VideoSummary from '../../components/VideoSummary';
 
-const { func, shape } = PropTypes;
+const { func, shape, string } = PropTypes;
 
 @authenticatedComponent()
 class TimelineContainer extends Component {
   static propTypes = {
     fetchVideos: func.isRequired,
-    videos: shape({})
+    videos: shape({}),
+    setActiveTimelineSection: func.isRequired,
+    activeSection: string
   }
 
   componentDidMount() {
@@ -26,12 +32,31 @@ class TimelineContainer extends Component {
     this.props.fetchVideos();
   }
 
-  getRowText(rowData) {
-    return rowData.title;
+  onChangeVisibleRows = (visibleRows) => {
+    const activeSection = Object.keys(visibleRows)[0];
+
+    if (activeSection !== this.props.activeSection) {
+      this.props.setActiveTimelineSection(activeSection);
+      this.setState({ activeSection });
+    }
   }
 
-  navigateToVideo(video) {
+  getRowData = (rowData) => {
+    return {
+      content: rowData.title,
+      title: rowData.title,
+      description: 'Here will be a description',
+      id: rowData.id,
+      screenshotUrl: `${config.get('api.baseURL')}/v1/videos/${rowData.id}/thumbnail`
+    };
+  }
+
+  navigateToVideo = (video) => {
     Actions.mainWatch({ videoId: video.id });
+  }
+
+  renderSectionHeader = (sectionData, sectionId) => {
+    return <TimelineHeader key={ sectionId }>{ sectionId }</TimelineHeader>;
   }
 
   render() {
@@ -46,9 +71,13 @@ class TimelineContainer extends Component {
     return (
       <List
         data={ this.props.videos }
-        rowDataGetter={ this.getRowText }
+        headerComponent={ TimelineHeader }
+        rowComponent={ VideoSummary }
+        rowDataGetter={ this.getRowData }
         onRowPress={ this.navigateToVideo }
         onRefresh={ this.onRefresh }
+        onChangeVisibleRows={ this.onChangeVisibleRows }
+        renderSectionHeader={ this.renderSectionHeader }
       />
     );
   }
@@ -56,12 +85,14 @@ class TimelineContainer extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    videos: getVideosByYear(state)
+    videos: getVideosByYear(state),
+    activeSection: getActiveTimelineSection(state)
   };
 };
 
 const mapDispatchToProps = {
-  fetchVideos
+  fetchVideos,
+  setActiveTimelineSection
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TimelineContainer);
