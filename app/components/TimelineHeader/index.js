@@ -3,41 +3,51 @@ import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
 
 import styles from './styles';
-import { getActiveTimelineSection } from '../../modules/timeline';
+import { getActiveTimelineSection, getPreviousTimelineSection } from '../../modules/timeline';
 
-const { string } = PropTypes;
+const { string, bool } = PropTypes;
 
-function test(options) {
-  // console.log('yay', options.nativeEvent.layout.y);
+class TimelineHeader extends React.Component {
+  static propTypes = {
+    children: string.isRequired,
+    isActive: bool
+  }
+
+  static defaultProps = {
+    activeSection: null,
+    isActive: false
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // Keep small height when scrolling to top, go back to big size when scrolling back down:
+    // TODO: Fix this up with proper ids, not by looking at the children and weird stuff like that:
+    if (this.props.isActive && !nextProps.isActive) {
+      if (parseInt(nextProps.previousSection, 10) < parseInt(nextProps.activeSection, 10)) {
+        this.keepActive = true;
+      } else {
+        this.keepActive = false;
+      }
+    }
+  }
+
+  render() {
+    const isActiveSection = this.keepActive || this.props.isActive;
+
+    return (
+      <View style={ [styles.container, isActiveSection && styles.containerActive] }>
+        <Text style={ [styles.text, isActiveSection && styles.activeText] }>
+          { this.props.children }
+        </Text>
+      </View>
+    );
+  }
 }
 
-const TimelineHeader = (props) => {
-  const isActiveSection = props.activeSection === props.children;
-
-  return (
-    <View onLayout={ test } style={ [styles.container, isActiveSection && styles.containerActive] }>
-      <Text style={ isActiveSection ? styles.activeText : styles.text }>
-        { props.children }
-      </Text>
-      {/* { props.activeSection === props.children &&
-        <Text>JAJA</Text>
-      } */}
-    </View>
-  );
-};
-
-TimelineHeader.propTypes = {
-  children: string.isRequired,
-  activeSection: string
-};
-
-TimelineHeader.defaultProps = {
-  activeSection: null
-};
-
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    activeSection: getActiveTimelineSection(state)
+    activeSection: getActiveTimelineSection(state),
+    isActive: getActiveTimelineSection(state) === ownProps.children,
+    previousSection: getPreviousTimelineSection(state)
   };
 };
 
