@@ -10,7 +10,7 @@ export default StyleSheet.create({
       width: 0,
       height: 2
     },
-    shadowRadius: 3
+    shadowRadius: 6
   },
 
   metaInfo: {

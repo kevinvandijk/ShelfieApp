@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { View, StatusBar, Text } from 'react-native';
+import { View, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import Spinner from 'react-native-spinkit';
