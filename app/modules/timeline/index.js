@@ -2,16 +2,22 @@ import { createReducer } from 'reduxsauce';
 import { createAction } from 'redux-actions';
 
 const INITIAL_STATE = {
-  activeSection: null
+  activeSection: 0
 };
 
 export const SET_ACTIVE_TIMELINE_SECTION = 'shelfie/timeline/SET_ACTIVE_TIMELINE_SECTION';
 
 export default createReducer(INITIAL_STATE, {
   [SET_ACTIVE_TIMELINE_SECTION]: (state, action) => {
+    const newActiveSection = action.payload;
     return {
       ...state,
-      activeSection: action.payload
+      activeSection: newActiveSection,
+      previousSection: (
+        newActiveSection !== state.previousSection
+        ? state.activeSection
+        : state.previousSection
+      )
     };
   }
 });
@@ -25,4 +31,8 @@ function local(state) {
 
 export function getActiveTimelineSection(state) {
   return local(state).activeSection;
+}
+
+export function getPreviousTimelineSection(state) {
+  return local(state).previousSection;
 }

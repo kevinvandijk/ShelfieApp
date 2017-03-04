@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import { View, StatusBar } from 'react-native';
+import { View, StatusBar, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import Spinner from 'react-native-spinkit';
+import { debounce, defer } from 'lodash';
 
 import config from '../../../config';
 import authenticatedComponent from '../../decorators/AuthenticatedComponent';
@@ -12,20 +13,25 @@ import List from '../../components/List';
 import TimelineHeader from '../../components/TimelineHeader';
 import VideoSummary from '../../components/VideoSummary';
 
-const { func, shape, string } = PropTypes;
+const { func, shape } = PropTypes;
 
 @authenticatedComponent()
 class TimelineContainer extends Component {
   static propTypes = {
     fetchVideos: func.isRequired,
     videos: shape({}),
-    setActiveTimelineSection: func.isRequired,
-    activeSection: string
+    setActiveTimelineSection: func.isRequired
   }
 
   componentDidMount() {
     StatusBar.setHidden(false);
     this.props.fetchVideos();
+
+    this.debouncedStatus = debounce((activeSection) => {
+      this.props.setActiveTimelineSection(activeSection);
+    }, 100);
+
+    this.props.setActiveTimelineSection('1989');
   }
 
   onRefresh = () => {
@@ -35,10 +41,8 @@ class TimelineContainer extends Component {
   onChangeVisibleRows = (visibleRows) => {
     const activeSection = Object.keys(visibleRows)[0];
 
-    if (activeSection !== this.props.activeSection) {
-      this.props.setActiveTimelineSection(activeSection);
-      this.setState({ activeSection });
-    }
+    // Wait for callstack to complete to try and mitigate twitchiness
+    defer(this.props.setActiveTimelineSection, activeSection);
   }
 
   getRowData = (rowData) => {
