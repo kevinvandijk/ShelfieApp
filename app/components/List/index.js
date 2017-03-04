@@ -12,6 +12,7 @@ export default class List extends Component {
   static propTypes = {
     rowDataGetter: func.isRequired,
     rowComponent: oneOfType([instanceOf(Component), func]),
+    headerComponent: oneOfType([instanceOf(Component), func]),
     onRowPress: func.isRequired,
     data: shape({}).isRequired,
     onRefresh: func,
@@ -21,6 +22,7 @@ export default class List extends Component {
   static defaultProps = {
     onRowPress: noop,
     rowComponent: Row,
+    headerComponent: SectionHeader,
     data: {},
     refreshing: false
   }
@@ -57,11 +59,11 @@ export default class List extends Component {
     );
   }
 
-  renderSectionHeader(sectionData, sectionId) {
-    return <SectionHeader key={ sectionId }>{ sectionId }</SectionHeader>;
+  renderSectionHeader = (sectionData, sectionId) => {
+    return <this.props.headerComponent key={ sectionId }>{ sectionId }</this.props.headerComponent>;
   }
 
-  renderSeparator(sectionId, rowId) {
+  renderSeparator = (sectionId, rowId) => {
     return <Separator key={ `${sectionId}-${rowId}` } />;
   }
 

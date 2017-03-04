@@ -8,6 +8,7 @@ import config from '../../../config';
 import authenticatedComponent from '../../decorators/AuthenticatedComponent';
 import { fetchVideos, getVideosByYear } from '../../modules/videos';
 import List from '../../components/List';
+import TimelineHeader from '../../components/TimelineHeader';
 import VideoSummary from '../../components/VideoSummary';
 
 const { func, shape } = PropTypes;
@@ -54,6 +55,7 @@ class TimelineContainer extends Component {
     return (
       <List
         data={ this.props.videos }
+        headerComponent={ TimelineHeader }
         rowComponent={ VideoSummary }
         rowDataGetter={ this.getRowData }
         onRowPress={ this.navigateToVideo }
