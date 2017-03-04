@@ -22,6 +22,11 @@ const VideoSummary = (props) => {
         </Text>
       </View>
       <Image resizeMode="cover" source={ source } style={ styles.image } />
+      <Image
+        resizeMode="cover"
+        source={ require('../../assets/images/timeline-overlay.png') }
+        style={ styles.overlay }
+      />
     </TouchableOpacity>
   );
 

@@ -2,12 +2,20 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   container: {
-    height: 285
+    height: 285,
+    marginBottom: 10,
+    shadowColor: '#737373',
+    shadowOpacity: 0.5,
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowRadius: 3
   },
 
   metaInfo: {
     position: 'absolute',
-    zIndex: 1,
+    zIndex: 2,
     left: 12,
     bottom: 12
   },
@@ -31,5 +39,11 @@ export default StyleSheet.create({
 
   image: {
     flex: 1
+  },
+
+  overlay: {
+    position: 'absolute',
+    zIndex: 1,
+    height: 285
   }
 });
