@@ -17,9 +17,11 @@ const VideoSummary = (props) => {
     <TouchableOpacity style={ styles.container } onPress={ props.onPress }>
       <View style={ styles.metaInfo }>
         <Text style={ styles.title }>{ props.title }</Text>
-        <Text style={ styles.description }>
-          { props.description }
-        </Text>
+        { props.description &&
+          <Text style={ styles.description }>
+            { props.description }
+          </Text>
+        }
       </View>
       <Image resizeMode="cover" source={ source } style={ styles.image } />
       <Image
@@ -37,7 +39,11 @@ VideoSummary.propTypes = {
   title: string.isRequired,
   onPress: func,
   screenshotUrl: string.isRequired,
-  description: string.isRequired
+  description: string
+};
+
+VideoSummary.defaultProps = {
+  description: null
 };
 
 export default VideoSummary;
