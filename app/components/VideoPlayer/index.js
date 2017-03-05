@@ -158,11 +158,10 @@ class VideoPlayer extends Component {
   }
 
   chromecastPlay() {
-    console.log('wtf');
-    // if (!this.state.chromecastPlaying) {
-    //   Chromecast.togglePauseCast();
-    //   this.setState({ chromecastPlaying: true });
-    // }
+    if (!this.state.chromecastPlaying) {
+      Chromecast.togglePauseCast();
+      this.setState({ chromecastPlaying: true });
+    }
   }
 
   chromecastPause() {

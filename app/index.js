@@ -6,10 +6,10 @@ import Router from './router';
 // Initializers
 import i18nInitializer from './initializers/i18n';
 
-const codePush = (process.env.NODE_ENV !== 'test' && process.env.NODE_ENV !== 'development'
-  ? require('react-native-code-push')
-  : null
-);
+// const codePush = (process.env.NODE_ENV !== 'test' && process.env.NODE_ENV !== 'development'
+//   ? require('react-native-code-push')
+//   : null
+// );
 
 i18nInitializer();
 
@@ -18,11 +18,11 @@ class App extends Component {
     store: PropTypes.object.isRequired
   }
 
-  codePushStatusDidChange(status) {
-    if (status === codePush.SyncStatus.UPDATE_INSTALLED) {
-      Alert.alert('App was updated');
-    }
-  }
+  // codePushStatusDidChange(status) {
+  //   if (status === codePush.SyncStatus.UPDATE_INSTALLED) {
+  //     Alert.alert('App was updated');
+  //   }
+  // }
 
   render() {
     StatusBar.setHidden(true);
@@ -35,11 +35,12 @@ class App extends Component {
   }
 }
 
-let codePushOptions;
-if (codePush) {
-  codePushOptions = {
-    checkFrequency: __DEV__ ? codePush.CheckFrequency.MANUAL : codePush.CheckFrequency.ON_APP_RESUME
-  };
-}
+// let codePushOptions;
+// if (codePush) {
+//   codePushOptions = {
+//     checkFrequency: __DEV__ ? codePush.CheckFrequency.MANUAL : codePush.CheckFrequency.ON_APP_RESUME
+//   };
+// }
 
-export default codePush ? codePush(codePushOptions)(App) : App;
+export default App;
+// export default codePush ? codePush(codePushOptions)(App) : App;
