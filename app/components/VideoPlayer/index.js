@@ -158,6 +158,7 @@ class VideoPlayer extends Component {
   }
 
   chromecastPlay() {
+    // Adding comment for codepush, stupid
     if (!this.state.chromecastPlaying) {
       Chromecast.togglePauseCast();
       this.setState({ chromecastPlaying: true });
