@@ -1,14 +1,14 @@
 import { StyleSheet } from 'react-native';
-import { pxToDpi } from './helpers/styles';
 
 const styles = StyleSheet.create({
   sceneWithNavBar: {
     flex: 1,
-    paddingTop: pxToDpi(128)
+    paddingTop: 64
   },
+
   navBar: {
-    backgroundColor: '#FFF',
-    borderBottomColor: '#DDD',
+    backgroundColor: '#E96A67',
+    borderBottomWidth: 0
   },
 
   navBarWithBackground: {
@@ -17,14 +17,10 @@ const styles = StyleSheet.create({
   },
 
   navBarTitle: {
-    fontFamily: 'Lato-Black',
-    color: '#333'
-  },
-
-  backButtonTextStyle: {
-    fontFamily: 'Lato-Regular',
-    fontSize: pxToDpi(28),
-    color: '#E34040'
+    fontFamily: 'Poppins',
+    fontWeight: 'bold',
+    fontSize: 16,
+    color: '#fff'
   }
 });
 

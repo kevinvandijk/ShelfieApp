@@ -110,9 +110,8 @@ const AppRouter = () => {
               key={ MAIN_SCENE }
               navigationBarStyle={ styles.navBar }
               titleStyle={ styles.navBarTitle }
-              backButtonImage={ require('./images/back-chevron.png') }
-              backButtonTextStyle={ styles.backButtonTextStyle }
-              drawerImage={ require('./images/menu-burger.png') }
+              backButtonImage={ require('./assets/images/back-chevron.png') }
+              drawerImage={ require('./assets/images/burger.png') }
             >
               <Scene
                 key="main-timeline"
@@ -126,7 +125,6 @@ const AppRouter = () => {
                 title={ I18n.t('containers.watch.title') }
                 component={ WatchContainer }
                 sceneStyle={ styles.sceneWithNavBar }
-                backTitle={ I18n.t('navigation.back') }
               />
             </Scene>
           </Scene>

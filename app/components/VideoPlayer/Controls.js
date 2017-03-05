@@ -2,13 +2,12 @@ import React, { PropTypes } from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { calculateHitSlop } from '../../helpers';
-import styles from './styles';
 
 const { number, string, bool, object, oneOfType, func, array } = PropTypes;
 
 const Controls = (props) => {
   return (
-    <View style={ [styles.controlsContainer, props.style] }>
+    <View style={ props.style }>
       { props.backward &&
         <TouchableOpacity
           hitSlop={ calculateHitSlop(props.normalButtonSize, props.minimalTouchArea) }
@@ -82,8 +81,8 @@ Controls.propTypes = {
 
 Controls.defaultProps = {
   color: '#B2B2B2',
-  normalButtonSize: 32,
-  mainButtonSize: 64,
+  normalButtonSize: 45,
+  mainButtonSize: 92,
   minimalTouchArea: 44
 };
 

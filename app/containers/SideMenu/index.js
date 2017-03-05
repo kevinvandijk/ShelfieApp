@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'space-between',
-    backgroundColor: '#E24546'
+    backgroundColor: '#EB726F'
   },
 
   content: {
@@ -37,21 +37,41 @@ const styles = StyleSheet.create({
 
   contentButtonText: {
     marginLeft: 20,
-    fontFamily: 'Lato-Black',
+    fontFamily: 'Poppins',
+    fontWeight: 'bold',
     color: '#fff'
   },
 
   footer: {
+    paddingHorizontal: 10,
+    paddingVertical: 15
   },
 
   hugeButton: {
-    margin: 15,
+    marginBottom: 20,
     backgroundColor: '#fff'
   },
 
   hugeButtonText: {
-    color: '#E24546',
-    fontFamily: 'Lato-Black'
+    color: '#E96E66',
+    fontFamily: 'Poppins',
+    fontSize: 18
+  },
+
+  titleContainer: {
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: '#fff',
+    alignItems: 'center',
+    paddingTop: 27,
+    paddingBottom: 4
+  },
+
+  titleText: {
+    fontFamily: 'Poppins',
+    fontWeight: 'bold',
+    fontSize: 24,
+    color: '#fff',
+    lineHeight: 33
   }
 });
 
@@ -75,22 +95,26 @@ class SideMenu extends Component {
   render() {
     return (
       <View style={ styles.container }>
+        <View style={ styles.titleContainer }>
+          <Text style={ styles.titleText }>{ I18n.t('containers.sideMenu.title') }</Text>
+        </View>
         <View style={ styles.content }>
-          <HugeButton style={ styles.contentButton } onPress={ this.onMainContentPress }>
+          {/* <HugeButton style={ styles.contentButton } onPress={ this.onMainContentPress }>
             <Icon name="timeline" size={ 26 } color="#ED9090" />
             <Text style={ styles.contentButtonText }>{ I18n.t('containers.timeline.title') }</Text>
-          </HugeButton>
+          </HugeButton> */}
         </View>
         <View style={ styles.footer }>
-          <HugeButton style={ styles.contentButton } onPress={ this.onChangeProfilePress }>
-            <Icon name="person" size={ 26 } color="#ED9090" />
-            <Text style={ styles.contentButtonText }>
-              { I18n.t('containers.changePassword.title') }
-            </Text>
+          <HugeButton
+            onPress={ this.onChangeProfilePress }
+            style={ styles.hugeButton }
+            textStyle={ styles.hugeButtonText }
+          >
+            { I18n.t('containers.changePassword.title') }
           </HugeButton>
           <HugeButton
             onPress={ this.onLogoutPress }
-            style={ styles.hugeButton }
+            style={ [styles.hugeButton, { marginBottom: 0 }] }
             textStyle={ styles.hugeButtonText }
           >
             { translate('logout') }
