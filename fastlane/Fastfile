@@ -49,12 +49,12 @@ platform :ios do
     match(type: "appstore")
 
     version_number = get_version_number(xcodeproj: "./ios/Shelfie.xcodeproj")
-    build_number = latest_testflight_build_number(version: version_number) + 1
-    full_version = "#{version_number}.#{build_number}"
+    build = latest_testflight_build_number(version: version_number) + 2
+    full_version = "#{version_number}.#{build}"
 
     increment_build_number(
       xcodeproj: "./ios/Shelfie.xcodeproj",
-      build_number: build_number
+      build_number: "#{build}"
     )
 
     gym(
@@ -95,23 +95,23 @@ platform :ios do
 
   # You can define as many lanes as you want
 
-  after_all do |lane|
-    unless lane == :dev
-      git_user = `git config user.name`
-      slack(
-        message: "*Shelfie iOS* deployed to *#{lane}* by #{git_user}"
-      )
-    end
-  end
+  # after_all do |lane|
+  #   unless lane == :dev
+  #     git_user = `git config user.name`
+  #     slack(
+  #       message: "*Shelfie iOS* deployed to *#{lane}* by #{git_user}"
+  #     )
+  #   end
+  # end
 
-  error do |lane, exception|
-    unless lane == :dev
-      slack(
-        message: exception.message,
-        success: false
-      )
-    end
-  end
+  # error do |lane, exception|
+  #   unless lane == :dev
+  #     slack(
+  #       message: exception.message,
+  #       success: false
+  #     )
+  #   end
+  # end
 end
 
 
