@@ -73,16 +73,15 @@ export default StyleSheet.create({
     maxHeight: 286
   },
 
-  bigPlayButton: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0, 0, 0, .5)',
-    alignItems: 'center',
-    justifyContent: 'center'
+  videoButtons: {
+    position: 'absolute',
+    right: 0,
+    bottom: 10
   },
 
-  metadataButtons: {
-    position: 'absolute',
-    right: 2,
-    top: 0
+  videoIcons: {
+    color: '#fff',
+    backgroundColor: 'transparent',
+    marginRight: 10
   }
 });

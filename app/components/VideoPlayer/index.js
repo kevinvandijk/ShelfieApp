@@ -1,14 +1,14 @@
 import React, { Component, PropTypes } from 'react';
-import { View, Dimensions, TouchableOpacity, Text } from 'react-native';
+import { View, Dimensions, TouchableOpacity, Text, TouchableWithoutFeedback } from 'react-native';
 import Video from 'react-native-video';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { calculateHitSlop } from '../../helpers';
 import Controls from './Controls';
 import Progress from './Progress';
 import Title from './Title';
-import BigPlayButton from './BigPlayButton';
 import styles from './styles';
+
 const { func, number, object, oneOfType, bool, string } = PropTypes;
-import Icon from 'react-native-vector-icons/MaterialIcons';
 
 class VideoPlayer extends Component {
   static propTypes = {
@@ -47,7 +47,8 @@ class VideoPlayer extends Component {
   }
 
   state = {
-    paused: false
+    paused: false,
+    showVideoButtons: false
   }
 
   componentWillMount() {
@@ -139,46 +140,63 @@ class VideoPlayer extends Component {
     }
   }
 
+  toggleVideoButtons = () => {
+    const newState = !this.state.showVideoButtons;
+    this.setState({
+      showVideoButtons: newState
+    });
+
+    if (newState) {
+      setTimeout(() => {
+        this.setState({
+          showVideoButtons: false
+        });
+      }, 3000);
+    }
+  }
+
   render() {
     return (
       <View style={ [styles.container, this.props.style] }>
         <View style={ styles.videoContainer }>
-          <Video
-            source={{ uri: this.props.url }}
-            resizeMode="cover"
-            rate={ this.props.rate }
-            volume={ this.props.volume }
-            muted={ this.props.muted }
-            paused={ this.state.paused }
-            repeat={ this.props.repeat }
-            playInBackGround={ this.props.playInBackground }
-            playWhenInActive={ this.props.playWhenInactive }
-            onLoadStart={ this.props.onLoadStart }
-            onLoad={ this.onLoad }
-            onProgress={ this.onProgress }
-            onEnd={ this.onEnd }
-            onError={ this.onError }
-            style={ [styles.video, this.props.videoStyle] }
-            ref="video"
-          />
-          { this.state.paused && !this.state.pausedForSeeking &&
-            <BigPlayButton style={ styles.bigPlayButton } onPress={ this.onPlay } />
+          <TouchableWithoutFeedback onPress={ this.toggleVideoButtons }>
+            <Video
+              source={{ uri: this.props.url }}
+              resizeMode="cover"
+              rate={ this.props.rate }
+              volume={ this.props.volume }
+              muted={ this.props.muted }
+              paused={ this.state.paused }
+              repeat={ this.props.repeat }
+              playInBackGround={ this.props.playInBackground }
+              playWhenInActive={ this.props.playWhenInactive }
+              onLoadStart={ this.props.onLoadStart }
+              onLoad={ this.onLoad }
+              onProgress={ this.onProgress }
+              onEnd={ this.onEnd }
+              onError={ this.onError }
+              style={ [styles.video, this.props.videoStyle] }
+              ref="video"
+            />
+          </TouchableWithoutFeedback>
+
+          { this.state.showVideoButtons &&
+            <View style={ styles.videoButtons }>
+              <TouchableOpacity
+                hitSlop={ calculateHitSlop(32, 44) }
+                onPress={ this.enableFullscreen }
+              >
+                <Icon
+                  name="fullscreen"
+                  size={ 24 }
+                  style={ styles.videoIcons }
+                />
+              </TouchableOpacity>
+            </View>
           }
         </View>
 
         <View style={ styles.metadataContainer }>
-          <View style={ styles.metadataButtons }>
-            <TouchableOpacity
-              hitSlop={ calculateHitSlop(32, 44) }
-              onPress={ this.enableFullscreen }
-            >
-              <Icon
-                name="fullscreen"
-                size={ 32 }
-                color="#B2B2B2"
-              />
-            </TouchableOpacity>
-          </View>
           { this.props.title &&
             <Title>{ this.props.title }</Title>
           }
