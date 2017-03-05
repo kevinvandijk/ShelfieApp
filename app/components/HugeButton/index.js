@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 import styles from './styles';
 
-const { oneOfType, object, number, func, node, bool } = PropTypes;
+const { oneOfType, object, number, func, node, bool, array } = PropTypes;
 
 const HugeButton = (props) => {
   let childComponents;
@@ -30,8 +30,8 @@ const HugeButton = (props) => {
 
 HugeButton.propTypes = {
   children: node.isRequired,
-  style: oneOfType([object, number]),
-  textStyle: oneOfType([object, number]),
+  style: oneOfType([object, number, array]),
+  textStyle: oneOfType([object, number, array]),
   onPress: func,
   disabled: bool
 };

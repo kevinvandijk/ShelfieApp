@@ -59,6 +59,7 @@
     },
 
     "sideMenu": {
+      "title": "Opties",
       "logout": "Uitloggen"
     }
   }

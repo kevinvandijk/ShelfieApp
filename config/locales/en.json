@@ -59,6 +59,7 @@
     },
 
     "sideMenu": {
+      "title": "Options",
       "logout": "Sign out"
     }
   }
