@@ -10,7 +10,7 @@
 
 # sdk "iphoneos9.0"
 
-project "./ios/Shelfie.xcodeproj"
+workspace "./ios/Shelfie.xcworkspace"
 output_directory "./build"
 use_legacy_build_api true
 include_bitcode false
