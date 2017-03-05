@@ -70,7 +70,14 @@ export default StyleSheet.create({
   videoContainer: {
     flex: 1,
     minHeight: 286,
-    maxHeight: 286
+    maxHeight: 286,
+    shadowColor: '#737373',
+    shadowOpacity: 0.5,
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowRadius: 6
   },
 
   videoButtons: {
