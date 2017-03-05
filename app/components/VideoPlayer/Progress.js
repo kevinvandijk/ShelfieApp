@@ -46,11 +46,6 @@ class Progress extends React.Component {
   render() {
     const { disableTotal, disablePlayed, currentTime, duration, style, disableSeek } = this.props;
 
-    const progressBarContainerStyle = styles.progressBarContainer;
-    const progressBarStyle = [styles.progressBar, { width: this.progressWidth }];
-    const minimumTrackTintColor = StyleSheet.flatten(progressBarStyle).backgroundColor;
-    const maximumTrackTintColor = StyleSheet.flatten(progressBarContainerStyle).backgroundColor;
-
     return (
       <View style={ style }>
         { !(disableTotal && disablePlayed) &&
@@ -71,13 +66,13 @@ class Progress extends React.Component {
 
         <Slider
           disabled={ disableSeek }
-          minimumTrackTintColor={ minimumTrackTintColor }
-          maximumTrackTintColor={ maximumTrackTintColor }
-          thumbImage={ require('../../images/progress-bar-thumb.png') }
+          thumbImage={ require('../../assets/images/progress-bar-thumb.png') }
+          trackImage={ require('../../assets/images/line.png') }
           maximumValue={ duration }
           value={ currentTime }
           onValueChange={ this.props.onSeek }
           onSlidingComplete={ this.props.onSeekComplete }
+          style={ styles.slider }
         />
       </View>
     );

@@ -196,7 +196,7 @@ class VideoPlayer extends Component {
           onSeekComplete={ this.seekComplete }
           // If paused or currentTime is 0, instantly jump the progress bar to correct position:
           easingDuration={ this.state.paused || this.state.currentTime === 0 ? 0 : undefined }
-          style={ [this.props.progressStyle, styles.progressContainer, { width: this.getWidth() }] }
+          style={ [this.props.progressStyle, styles.progressContainer] }
         />
 
         <Controls
@@ -208,6 +208,7 @@ class VideoPlayer extends Component {
           onBackward={ this.seekBackward }
           onForward={ this.seekForward }
           style={ [styles.videoPlayerControls, this.props.controlsStyle] }
+          color="#333"
         />
       </View>
     );

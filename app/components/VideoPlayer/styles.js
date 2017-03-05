@@ -1,57 +1,45 @@
 import { StyleSheet } from 'react-native';
-import { pxToDpi } from '../../helpers/styles';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    justifyContent: 'flex-start'
-  },
-
-  controlsContainer: {
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flexDirection: 'row'
+    backgroundColor: '#fff'
   },
 
   videoPlayerControls: {
-    alignSelf: 'center',
-    width: 220,
-    paddingVertical: pxToDpi(60)
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
+    paddingHorizontal: 74,
+    marginTop: 23
   },
 
   progressContainer: {
-
+    marginHorizontal: 20,
+    marginTop: 34
   },
 
   metadataContainer: {
-    flex: 1,
-    paddingTop: 36
-    // justifyContent: 'flex-end'
-  },
-
-  progressBarContainer: {
-    height: pxToDpi(6),
-    backgroundColor: '#DDD'
-  },
-
-  progressBar: {
-    backgroundColor: '#E24546',
-    height: pxToDpi(6)
+    marginTop: 36,
+    height: 66
   },
 
   progressTextContainer: {
-    paddingHorizontal: pxToDpi(30),
     justifyContent: 'space-between',
     flexDirection: 'row',
-    paddingVertical: pxToDpi(15)
+  },
+
+  slider: {
+    padding: 0,
+    height: 24
   },
 
   progressText: {
     backgroundColor: 'transparent',
-    fontFamily: 'Lato-Regular',
-    fontSize: pxToDpi(24),
-    color: '#B2B2B2'
+    fontFamily: 'Poppins',
+    fontSize: 14,
+    lineHeight: 20,
+    color: '#333'
   },
 
   titleContainer: {
