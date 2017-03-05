@@ -51,7 +51,8 @@ class VideoPlayer extends Component {
     paused: false,
     showVideoButtons: false,
     chromecastAvailable: false,
-    chromecastConnected: false
+    chromecastConnected: false,
+    chromecastPlaying: false
   }
 
   componentWillMount() {
@@ -64,12 +65,16 @@ class VideoPlayer extends Component {
   }
 
   onPause = () => {
+    if (this.state.chromecastConnected) return this.chromecastPause();
+
     this.setState({
       paused: true
     });
   }
 
   onPlay = () => {
+    if (this.state.chromecastConnected) return this.chromecastPlay();
+
     const { currentTime, duration } = this.state;
 
     if (currentTime === duration) {
@@ -113,12 +118,13 @@ class VideoPlayer extends Component {
     });
 
     DeviceEventEmitter.addListener(Chromecast.DEVICE_CONNECTED, () => {
-      this.setState({ chromecastConnected: true });
+      this.setState({ chromecastConnected: true, chromecastPlaying: true });
+      this.startChromecastListener();
       this.chromecastCastMedia();
     });
 
     DeviceEventEmitter.addListener(Chromecast.DEVICE_DISCONNECTED, () => {
-      this.setState({ chromecastConnected: false });
+      this.setState({ chromecastConnected: false, chromecastPlaying: false });
     });
 
     Chromecast.startScan();
@@ -137,6 +143,31 @@ class VideoPlayer extends Component {
       }
     } else {
       Chromecast.disconnect();
+    }
+  }
+
+  startChromecastListener = async () => {
+    const position = await Chromecast.getStreamPosition();
+
+    if (this.state.chromecastConnected) {
+      this.setState({
+        currentTime: position
+      });
+      setTimeout(this.startChromecastListener, 1000);
+    }
+  }
+
+  chromecastPlay() {
+    if (!this.state.chromecastPlaying) {
+      Chromecast.togglePauseCast();
+      this.setState({ chromecastPlaying: true });
+    }
+  }
+
+  chromecastPause() {
+    if (this.state.chromecastPlaying) {
+      Chromecast.togglePauseCast();
+      this.setState({ chromecastPlaying: false })
     }
   }
 
@@ -199,6 +230,13 @@ class VideoPlayer extends Component {
   }
 
   render() {
+    const videoPaused = this.state.chromecastConnected || this.state.paused;
+    let buttonPaused;
+    if (this.state.chromecastConnected) {
+      buttonPaused = !this.state.chromecastPlaying;
+    } else {
+      buttonPaused = this.state.paused;
+    }
     return (
       <View style={ [styles.container, this.props.style] }>
         <View style={ styles.videoContainer }>
@@ -209,7 +247,7 @@ class VideoPlayer extends Component {
               rate={ this.props.rate }
               volume={ this.props.volume }
               muted={ this.props.muted }
-              paused={ this.state.paused }
+              paused={ videoPaused }
               repeat={ this.props.repeat }
               playInBackGround={ this.props.playInBackground }
               playWhenInActive={ this.props.playWhenInactive }
@@ -277,7 +315,7 @@ class VideoPlayer extends Component {
         <Controls
           forward
           backward
-          paused={ this.state.paused }
+          paused={ buttonPaused }
           onPause={ this.onPause }
           onPlay={ this.onPlay }
           onBackward={ this.seekBackward }
