@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { View, Dimensions, TouchableOpacity, Text, TouchableWithoutFeedback } from 'react-native';
+import { View, Dimensions, TouchableOpacity, Text, TouchableWithoutFeedback, DeviceEventEmitter } from 'react-native';
 import Video from 'react-native-video';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Chromecast from 'react-native-google-cast';
 import { calculateHitSlop } from '../../helpers';
 import Controls from './Controls';
 import Progress from './Progress';
@@ -48,11 +49,18 @@ class VideoPlayer extends Component {
 
   state = {
     paused: false,
-    showVideoButtons: false
+    showVideoButtons: false,
+    chromecastAvailable: false,
+    chromecastConnected: false
   }
 
   componentWillMount() {
+    this.initializeChromecast();
     this.setState({ paused: !this.props.autoStart });
+  }
+
+  componentWillUnmount() {
+    Chromecast.stopScan();
   }
 
   onPause = () => {
@@ -97,20 +105,51 @@ class VideoPlayer extends Component {
     console.error('Error playing video, not handled');
   }
 
-  getWidth() {
-    return Dimensions.get('window').width;
+  initializeChromecast() {
+    DeviceEventEmitter.addListener(Chromecast.DEVICE_AVAILABLE, (device) => {
+      this.setState({
+        chromecastAvailable: device.device_available
+      });
+    });
+
+    DeviceEventEmitter.addListener(Chromecast.DEVICE_CONNECTED, () => {
+      this.setState({ chromecastConnected: true });
+      this.chromecastCastMedia();
+    });
+
+    DeviceEventEmitter.addListener(Chromecast.DEVICE_DISCONNECTED, () => {
+      this.setState({ chromecastConnected: false });
+    });
+
+    Chromecast.startScan();
+  }
+
+  chromecastCastMedia = () => {
+    Chromecast.castMedia(this.props.url, this.props.title, "https://www.google.nl/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png", this.state.currentTime);
+  }
+
+  chromecastToggle = async () => {
+    if (!this.state.chromecastConnected) {
+      const devices = await Chromecast.getDevices();
+      if (devices.length === 1) {
+        const device = devices[0];
+        Chromecast.connectToDevice(device.id);
+      }
+    } else {
+      Chromecast.disconnect();
+    }
   }
 
   seekBackward = () => {
     const { currentTime, duration } = this.state;
     const timestamp = this.props.getBackwardTime(currentTime, duration);
-    this.refs.video.seek(timestamp);
+    this.seek(timestamp, false);
   }
 
   seekForward = () => {
     const { currentTime, duration } = this.state;
     const timestamp = this.props.getForwardTime(currentTime, duration);
-    this.refs.video.seek(timestamp);
+    this.seek(timestamp, false);
   }
 
   enableFullscreen = () => {
@@ -119,15 +158,19 @@ class VideoPlayer extends Component {
     }
   }
 
-  seek = (seconds) => {
-    if (!this.state.paused) {
+  seek = (seconds, pauseOnSeek = true) => {
+    if (pauseOnSeek && !this.state.paused) {
       this.setState({
         paused: true,
         pausedForSeeking: true
       });
     }
 
-    this.refs.video.seek(seconds);
+    if (this.state.chromecastConnected) {
+      Chromecast.seekCast(seconds);
+    } else {
+      this.refs.video.seek(seconds);
+    }
   }
 
   seekComplete = (seconds) => {
@@ -182,14 +225,28 @@ class VideoPlayer extends Component {
 
           { this.state.showVideoButtons &&
             <View style={ styles.videoButtons }>
+              { this.state.chromecastAvailable &&
+                <TouchableOpacity
+                  style={ styles.videoButtonTouchable }
+                  hitSlop={ calculateHitSlop(32, 44) }
+                  onPress={ this.chromecastToggle }
+                >
+                  <Icon
+                    name={ this.state.chromecastConnected ? 'cast-connected' : 'cast' }
+                    size={ 24 }
+                    style={ styles.videoIcons }
+                  />
+                </TouchableOpacity>
+              }
               <TouchableOpacity
-                hitSlop={ calculateHitSlop(32, 44) }
+                style={ styles.videoButtonTouchable }
+                hitSlop={ calculateHitSlop(30, 44) }
                 onPress={ this.enableFullscreen }
               >
                 <Icon
                   name="fullscreen"
-                  size={ 24 }
-                  style={ styles.videoIcons }
+                  size={ 30 }
+                  style={ [styles.videoIcons, { marginTop: -3 }] }
                 />
               </TouchableOpacity>
             </View>

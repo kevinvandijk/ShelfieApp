@@ -81,9 +81,13 @@ export default StyleSheet.create({
   },
 
   videoButtons: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
     position: 'absolute',
     right: 0,
-    bottom: 10
+    bottom: 10,
+    height: 24
   },
 
   videoIcons: {

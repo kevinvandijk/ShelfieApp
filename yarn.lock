@@ -4312,6 +4312,10 @@ react-native-experimental-navigation@0.26.x:
     fbjs "^0.8.1"
     react-addons-pure-render-mixin "^15.0.2"
 
+react-native-google-cast@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-google-cast/-/react-native-google-cast-1.2.0.tgz#84392642112b3e5b945f254a89fd91b1c396e604"
+
 react-native-keychain@^0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/react-native-keychain/-/react-native-keychain-0.3.2.tgz#6c0cd9d609a0844a6dc281bb121ef7bc443b4f2b"
