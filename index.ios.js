@@ -1,6 +1,6 @@
 /* eslint-disable import/first */
 // // Catch errors with Sentry as early as possible
-if (__DEV__) require('./app/initializers/sentry');
+if (!__DEV__) require('./app/initializers/sentry');
 
 import React from 'react';
 import { AppRegistry } from 'react-native';
