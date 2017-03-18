@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 export default StyleSheet.create({
   container: {
@@ -44,6 +44,8 @@ export default StyleSheet.create({
   overlay: {
     position: 'absolute',
     zIndex: 1,
-    height: 285
+    bottom: 0,
+    resizeMode: 'stretch',
+    width: Dimensions.get('window').width
   }
 });

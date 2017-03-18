@@ -7,43 +7,62 @@ import styles from './styles';
 
 const { string, func } = PropTypes;
 
-const VideoSummary = (props) => {
-  const source = {
-    uri: props.screenshotUrl,
-    headers: { Authorization: `Bearer ${getAuthToken()}` }
-  };
+class VideoSummary extends React.Component {
+  static propTypes = {
+    title: string.isRequired,
+    onPress: func,
+    screenshotUrl: string.isRequired,
+    description: string
+  }
 
-  return (
-    <TouchableOpacity style={ styles.container } onPress={ props.onPress }>
-      <View style={ styles.metaInfo }>
-        <Text style={ styles.title }>{ props.title }</Text>
-        { props.description &&
-          <Text style={ styles.description }>
-            { props.description }
-          </Text>
+  static defaultProps = {
+    description: null,
+    onPress: null
+  }
+
+  state = {
+    showOverlay: false
+  }
+
+  enableOverlay = () => {
+    this.setState({
+      showOverlay: true
+    });
+  }
+
+  render() {
+    const { title, description, screenshotUrl, onPress } = this.props;
+
+    const source = {
+      uri: screenshotUrl,
+      headers: { Authorization: `Bearer ${getAuthToken()}` }
+    };
+
+    return (
+      <TouchableOpacity style={ styles.container } onPress={ onPress }>
+        <View style={ styles.metaInfo }>
+          <Text style={ styles.title }>{ title }</Text>
+          { description &&
+            <Text style={ styles.description }>
+              { description }
+            </Text>
+          }
+        </View>
+        <Image
+          resizeMode="cover"
+          source={ source }
+          style={ styles.image }
+          onLoad={ this.enableOverlay }
+        />
+        { this.state.showOverlay &&
+          <Image
+            source={ require('../../assets/images/timeline-overlay.png') }
+            style={ styles.overlay }
+          />
         }
-      </View>
-      <Image resizeMode="cover" source={ source } style={ styles.image } />
-      <Image
-        resizeMode="cover"
-        source={ require('../../assets/images/timeline-overlay.png') }
-        style={ styles.overlay }
-      />
-    </TouchableOpacity>
-  );
-
-
-};
-
-VideoSummary.propTypes = {
-  title: string.isRequired,
-  onPress: func,
-  screenshotUrl: string.isRequired,
-  description: string
-};
-
-VideoSummary.defaultProps = {
-  description: null
-};
+      </TouchableOpacity>
+    );
+  }
+}
 
 export default VideoSummary;
