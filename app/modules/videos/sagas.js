@@ -3,16 +3,20 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import {
   FETCH_VIDEOS,
   FETCH_SIGNED_OUTPUT_URL,
-  receiveVideos,
-  receiveSignedOutputUrl
+  receiveSignedOutputUrl,
+  FETCH_VIDEOS_SUCCESS,
+  FETCH_VIDEOS_ERROR
 } from './index';
 
 function* fetchVideos() {
-  const result = yield call(api.getVideos);
+  const data = api.getVideos();
+  data.payload = {
+    ...data.payload,
+    success: FETCH_VIDEOS_SUCCESS,
+    error: FETCH_VIDEOS_ERROR
+  };
 
-  if (!result.error) {
-    yield put(receiveVideos(result.payload));
-  }
+  yield put(data);
 }
 
 function* fetchSignedOutputUrl({ payload }) {

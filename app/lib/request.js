@@ -1,11 +1,9 @@
 import { stringify } from 'qs';
 import { Alert } from 'react-native';
-import config from '../../config';
 
 let headers = {};
 
-export async function request(method, path, options) {
-  const url = `${config.get('api.baseURL')}${path}`;
+export async function request(method, url, options = {}) {
   const body = options.body ? JSON.stringify(options.body) : null;
 
   return fetch(url, {
@@ -51,9 +49,9 @@ export async function request(method, path, options) {
   .then(result => {
     if (result.error) {
       if (__DEV__) console.log('Network error', result); // eslint-disable-line
-      if (config.get('api.showAlerts')) {
-        Alert.alert('Network error');
-      }
+      // if (config.get('api.showAlerts')) {
+      //   Alert.alert('Network error');
+      // }
     }
 
     return result;

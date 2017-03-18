@@ -9,13 +9,15 @@ export const INITIAL_STATE = {
 };
 
 export const FETCH_VIDEOS = 'shelfie/videos/FETCH_VIDEOS';
+export const FETCH_VIDEOS_SUCCESS = 'shelfie/videos/FETCH_VIDEOS_SUCCESS';
+export const FETCH_VIDEOS_ERROR = 'shelfie/videos/FETCH_VIDEOS_ERROR';
 export const RECEIVE_VIDEOS = 'shelfie/videos/RECEIVE_VIDEOS';
 export const FETCH_SIGNED_OUTPUT_URL = 'shelfie/videos/FETCH_SIGNED_OUTPUT_URL';
 export const RECEIVE_SIGNED_OUTPUT_URL = 'shelfie/videos/RECEIVE_SIGNED_OUTPUT_URL';
 
 export default createReducer(INITIAL_STATE, {
   // TODO: Clean up this mess:
-  [RECEIVE_VIDEOS]: (state, action) => {
+  [FETCH_VIDEOS_SUCCESS]: (state, action) => {
     const byYear = state.byYear.asMutable();
     const byId = action.payload.data.reduce((result, video) => {
       const yearKey = video.attributes.year || '-';

@@ -1,6 +1,12 @@
 import { setHeader, post, get, patch } from '../lib/request';
+import config from '../../config';
+import { API_REQUEST } from '../modules/api';
 
 let authToken;
+
+function createUrl(path) {
+  return `${config.get('api.baseURL')}${path}`;
+}
 
 async function login(email, password) {
   return post('/v1/auth/signin', {
@@ -12,11 +18,18 @@ async function login(email, password) {
 }
 
 function getVideos() {
-  return get('/v1/videos');
+  const url = createUrl('/v1/videos');
+  return {
+    type: API_REQUEST,
+    payload: {
+      url,
+      method: 'GET'
+    }
+  };
 }
 
 function getSignedOutputUrl(id, quality) {
-  return get(`/v1/videos/${id}/outputs/${quality}`);
+  return get(createUrl(`/v1/videos/${id}/outputs/${quality}`));
 }
 
 function setAuthToken(token) {
@@ -34,7 +47,7 @@ export default {
   getVideos,
   getSignedOutputUrl,
   changePassword(password) {
-    return patch('/v1/users/me', {
+    return patch(createUrl('/v1/users/me'), {
       password
     });
   }
