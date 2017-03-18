@@ -51,7 +51,6 @@ export default StyleSheet.create({
     fontFamily: 'Poppins',
     fontWeight: 'bold',
     fontSize: 30,
-    lineHeight: 36,
     color: '#333'
   },
 
