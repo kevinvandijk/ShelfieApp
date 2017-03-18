@@ -49,7 +49,7 @@ platform :ios do
     match(type: "appstore")
 
     version_number = get_version_number(xcodeproj: "./ios/Shelfie.xcodeproj")
-    build = latest_testflight_build_number(version: version_number) + 1
+    build = latest_testflight_build_number(version: version_number)
     full_version = "#{version_number}.#{build}"
 
     increment_build_number(
@@ -62,6 +62,16 @@ platform :ios do
       clean: true
     )
 
+    # # Create Run codepush script, which will also create a Sentry release
+    # if !system("../scripts/code-push.sh")
+    #   raise "Codepush release failed for #{full_version}"
+    # end
+    #
+    testflight(
+      # changelog: changelog,
+      skip_waiting_for_build_processing: true
+    )
+
     commit_version_bump(
       message: "Build #{full_version}",
       xcodeproj: "./ios/Shelfie.xcodeproj"
@@ -69,16 +79,6 @@ platform :ios do
 
     add_git_tag(
       build_number: full_version
-    )
-
-    # Create Run codepush script, which will also create a Sentry release
-    if !system("../scripts/code-push.sh")
-      raise "Codepush release failed for #{full_version}"
-    end
-
-    testflight(
-      # changelog: changelog,
-      skip_waiting_for_build_processing: true
     )
 
     push_to_git_remote
