@@ -42,14 +42,15 @@ platform :ios do
     #   changelog = "Bug fixes and performance enhancements"
     # end
 
-    ensure_git_status_clean
+    # ensure_git_status_clean
     # TODO: beta release track branch
-    ensure_git_branch
+    # ensure_git_branch
 
     match(type: "appstore")
 
     version_number = get_version_number(xcodeproj: "./ios/Shelfie.xcodeproj")
-    build = latest_testflight_build_number(version: version_number) + 1
+    # build = latest_testflight_build_number(version: version_number) + 1
+    build = 3
     full_version = "#{version_number}.#{build}"
 
     increment_build_number(
