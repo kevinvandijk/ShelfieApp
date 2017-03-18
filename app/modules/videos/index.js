@@ -1,6 +1,8 @@
 import { createReducer } from 'reduxsauce';
 import { createAction } from 'redux-actions';
 import { omit, keyBy, mapValues } from 'lodash';
+import { API_REQUEST } from '../api';
+import { getVideosUrl } from '../../services/api';
 
 export const INITIAL_STATE = {
   total: 0,
@@ -8,10 +10,8 @@ export const INITIAL_STATE = {
   byYear: {}
 };
 
-export const FETCH_VIDEOS = 'shelfie/videos/FETCH_VIDEOS';
 export const FETCH_VIDEOS_SUCCESS = 'shelfie/videos/FETCH_VIDEOS_SUCCESS';
 export const FETCH_VIDEOS_ERROR = 'shelfie/videos/FETCH_VIDEOS_ERROR';
-export const RECEIVE_VIDEOS = 'shelfie/videos/RECEIVE_VIDEOS';
 export const FETCH_SIGNED_OUTPUT_URL = 'shelfie/videos/FETCH_SIGNED_OUTPUT_URL';
 export const RECEIVE_SIGNED_OUTPUT_URL = 'shelfie/videos/RECEIVE_SIGNED_OUTPUT_URL';
 
@@ -61,8 +61,15 @@ export default createReducer(INITIAL_STATE, {
   }
 });
 
-export const fetchVideos = createAction(FETCH_VIDEOS);
-export const receiveVideos = createAction(RECEIVE_VIDEOS);
+export const fetchVideos = createAction(API_REQUEST, () => {
+  return {
+    url: getVideosUrl(),
+    method: 'GET',
+    success: FETCH_VIDEOS_SUCCESS,
+    error: FETCH_VIDEOS_ERROR
+  };
+});
+
 export const fetchSignedOutputUrl = createAction(FETCH_SIGNED_OUTPUT_URL, (videoId, quality) => {
   return { videoId, quality };
 });

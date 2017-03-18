@@ -4,7 +4,7 @@ import { API_REQUEST } from '../modules/api';
 
 let authToken;
 
-function createUrl(path) {
+export function createUrl(path) {
   return `${config.get('api.baseURL')}${path}`;
 }
 
@@ -17,15 +17,8 @@ async function login(email, password) {
   });
 }
 
-function getVideos() {
-  const url = createUrl('/v1/videos');
-  return {
-    type: API_REQUEST,
-    payload: {
-      url,
-      method: 'GET'
-    }
-  };
+export function getVideosUrl() {
+  return createUrl('/v1/videos');
 }
 
 function getSignedOutputUrl(id, quality) {
@@ -44,7 +37,6 @@ export function getAuthToken() {
 export default {
   login,
   setAuthToken,
-  getVideos,
   getSignedOutputUrl,
   changePassword(password) {
     return patch(createUrl('/v1/users/me'), {
