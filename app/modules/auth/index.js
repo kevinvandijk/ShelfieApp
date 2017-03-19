@@ -13,8 +13,6 @@ export const LOGIN_SUCCESS = 'shelfie/auth/LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'shelfie/auth/LOGIN_FAIL';
 export const LOGOUT = 'shelfie/auth/LOGOUT';
 export const IS_AUTHENTICATED = 'shelfie/auth/IS_AUTHENTICATED';
-export const CHANGE_PASSWORD_REQUEST = ' shelfie/auth/CHANGE_PASSWORD_REQUEST';
-export const CHANGE_PASSWORD_SUCCESS = ' shelfie/auth/CHANGE_PASSWORD_REQUEST';
 
 export default createReducer(INITIAL_STATE, {
   [IS_AUTHENTICATED]: (state, action) => {
@@ -66,9 +64,6 @@ export function login(email, password) {
 }
 
 export const logout = createAction(LOGOUT);
-export const changePassword = createAction(CHANGE_PASSWORD_REQUEST);
-export const changePasswordSuccess = createAction(CHANGE_PASSWORD_SUCCESS);
-
 export const isAuthenticated = createAction(IS_AUTHENTICATED);
 
 export async function setAuthToken(token) {
