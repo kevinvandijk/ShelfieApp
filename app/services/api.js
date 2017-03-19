@@ -15,3 +15,7 @@ export function getVideosUrl() {
 export function getOutputUrl(id, quality) {
   return createUrl(`/v1/videos/${id}/outputs/${quality}`);
 }
+
+export function refreshTokenUrl() {
+  return createUrl('/v1/auth');
+}

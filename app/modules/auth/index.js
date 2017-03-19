@@ -1,7 +1,6 @@
 import { createReducer } from 'reduxsauce';
 import { createAction } from 'redux-actions';
 import { ActionConst } from 'react-native-router-flux';
-import keychain from '../../services/keychain';
 import { getLoginUrl } from '../../services/api';
 import { API_REQUEST } from '../api';
 
@@ -13,8 +12,16 @@ export const LOGIN_SUCCESS = 'shelfie/auth/LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'shelfie/auth/LOGIN_FAIL';
 export const LOGOUT = 'shelfie/auth/LOGOUT';
 export const IS_AUTHENTICATED = 'shelfie/auth/IS_AUTHENTICATED';
+export const SET_ACCESS_TOKEN = 'shelfie/auth/SET_ACCESS_TOKEN';
 
 export default createReducer(INITIAL_STATE, {
+  [SET_ACCESS_TOKEN]: (state, { payload }) => {
+    return {
+      ...state,
+      accessToken: payload
+    };
+  },
+
   [IS_AUTHENTICATED]: (state, { payload }) => {
     return {
       ...state,
@@ -75,6 +82,7 @@ export function login(email, password) {
 
 export const logout = createAction(LOGOUT);
 export const isAuthenticated = createAction(IS_AUTHENTICATED);
+export const setAccessToken = createAction(SET_ACCESS_TOKEN);
 
 // TODO: rename
 export function getAuthToken(state) {
