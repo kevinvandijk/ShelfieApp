@@ -1,8 +1,6 @@
 import { stringify } from 'qs';
 import { Alert } from 'react-native';
 
-let headers = {};
-
 export async function request(method, url, options = {}) {
   const body = options.body ? JSON.stringify(options.body) : null;
 
@@ -11,7 +9,7 @@ export async function request(method, url, options = {}) {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      ...headers
+      ...options.headers
     },
     body
   })
@@ -56,13 +54,6 @@ export async function request(method, url, options = {}) {
 
     return result;
   });
-}
-
-export function setHeader(key, value) {
-  headers = {
-    ...headers,
-    [key]: value
-  };
 }
 
 export async function post(path, body) {

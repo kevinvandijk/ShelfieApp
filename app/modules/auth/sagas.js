@@ -5,7 +5,8 @@ import keychain from '../../services/keychain';
 import storage from '../../services/storage';
 
 export function* logout() {
-  api.setAuthToken(null);
+  // TODO: Fix this
+  // api.setAuthToken(null);
   yield call(keychain.clearAuthToken);
   yield call(storage.clearStorage);
 }
@@ -13,8 +14,10 @@ export function* logout() {
 function* handleLoginSuccessSaga(payload) {
   const { data } = payload;
 
-  api.setAuthToken(data.token);
-  yield put(isAuthenticated(data.user));
+  yield put(isAuthenticated({
+    user: data.user,
+    token: data.token
+  }));
   yield call(keychain.setAuthToken, data.token);
   yield call(storage.saveState);
 }

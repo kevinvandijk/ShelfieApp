@@ -1,5 +1,6 @@
-import { take, fork, call, put } from 'redux-saga/effects';
+import { take, fork, call, put, select } from 'redux-saga/effects';
 import { createAction } from 'redux-actions';
+import { getAuthToken } from './auth';
 import { request } from '../lib/request';
 
 export const API_REQUEST = 'shelfie/api/REQUEST';
@@ -15,6 +16,11 @@ function* handleApiRequest(requestData) {
       data: requestData.data
     };
   }
+
+  const authToken = yield select(getAuthToken);
+  options.headers = {
+    Authorization: `Bearer ${authToken}`
+  };
 
   const result = yield call(request, requestData.method, requestData.url, options);
 

@@ -15,11 +15,12 @@ export const LOGOUT = 'shelfie/auth/LOGOUT';
 export const IS_AUTHENTICATED = 'shelfie/auth/IS_AUTHENTICATED';
 
 export default createReducer(INITIAL_STATE, {
-  [IS_AUTHENTICATED]: (state, action) => {
+  [IS_AUTHENTICATED]: (state, { payload }) => {
     return {
       ...state,
       isAuthenticated: true,
-      account: action.payload
+      account: payload.user,
+      token: payload.token
     };
   },
 
@@ -70,8 +71,8 @@ export async function setAuthToken(token) {
   return keychain.setAuthToken(token);
 }
 
-export async function getAuthToken() {
-  return keychain.getAuthToken();
+export function getAuthToken(state) {
+  return state.auth.token;
 }
 
 export function userIsAuthenticated(state) {
