@@ -56,10 +56,13 @@ function* handleApiRequest(requestData) {
   // if not start blocking call() to refresh token, other requests will queue up now
 
   const accessToken = yield select(getAuthToken);
-  // TODO: Memoize this token decoding:
-  const { exp } = jwtDecode(accessToken);
+  let authTokenValid = false;
 
-  const authTokenValid = moment() < moment.unix(exp);
+  // TODO: Memoize this token decoding:
+  if (accessToken) {
+    const { exp } = jwtDecode(accessToken);
+    authTokenValid = exp ? moment() < moment.unix(exp) : false;
+  }
 
   if (!authTokenValid) {
     const refreshToken = yield call(getRefreshToken);
