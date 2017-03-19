@@ -6,15 +6,18 @@ import { take, call, put } from 'redux-saga/effects';
 import { API_REQUEST } from '../api';
 import { getLoginUrl } from '../../services/api';
 import { setRefreshToken, clearRefreshToken } from '../../services/keychain';
-import storage from '../../services/storage';
+import { saveToStorage, clearStorage, STORAGE_CLEARED } from '../storage';
 
 export const LOGIN_SUCCESS = 'shelfie/auth/LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'shelfie/auth/LOGIN_FAIL';
 export const LOGOUT = 'shelfie/auth/LOGOUT';
+export const LOGOUT_SUCCESS = 'shelfie/auth/LOGOUT_SUCCESS';
+
 export const IS_AUTHENTICATED = 'shelfie/auth/IS_AUTHENTICATED';
 export const REFRESH_ACCESS_TOKEN = 'shelfie/auth/REFRESH_ACCESS_TOKEN';
 
 export const logout = createAction(LOGOUT);
+export const logoutSuccess = createAction(LOGOUT_SUCCESS);
 export const isAuthenticated = createAction(IS_AUTHENTICATED);
 export const refreshAccessToken = createAction(REFRESH_ACCESS_TOKEN);
 
@@ -39,7 +42,7 @@ export default createReducer(INITIAL_STATE, {
     };
   },
 
-  [LOGOUT]: (state) => {
+  [LOGOUT_SUCCESS]: (state) => {
     return {
       ...state,
       isAuthenticated: false,
@@ -103,8 +106,9 @@ export function authScreenIsFocused(state) {
 
 export function* handleLogoutSaga() {
   yield call(clearRefreshToken);
-  // TODO: Call endpoint on api to destroy refresh token
-  yield call(storage.clearStorage);
+  yield put(clearStorage());
+  yield take(STORAGE_CLEARED);
+  yield put(logoutSuccess());
 }
 
 function* handleLoginSuccessSaga(payload) {
@@ -116,7 +120,7 @@ function* handleLoginSuccessSaga(payload) {
   }));
 
   yield call(setRefreshToken, data.refreshToken);
-  yield call(storage.saveState);
+  yield put(saveToStorage());
 }
 
 export function* watchLoginSuccessSaga() {
