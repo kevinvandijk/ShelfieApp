@@ -4,6 +4,7 @@ import { View, StyleSheet, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import { MAIN_SCENE_DRAWER } from '../../router';
 import I18n from '../../lib/i18n';
 import { logout } from '../../modules/auth';
 import HugeButton from '../../components/HugeButton';
@@ -81,6 +82,7 @@ class SideMenu extends Component {
   }
 
   onLogoutPress = () => {
+    Actions.refresh({ key: MAIN_SCENE_DRAWER, open: false });
     this.props.logout();
   }
 

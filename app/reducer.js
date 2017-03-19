@@ -45,5 +45,5 @@ const appReducer = combineReducers({
 });
 
 export default (state, action) => {
-  return appReducer(action.type === LOGOUT ? {} : state, action);
+  return appReducer((action.type === LOGOUT ? undefined : state), action);
 };
