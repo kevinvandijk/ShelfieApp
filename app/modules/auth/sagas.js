@@ -1,10 +1,11 @@
 import { take, call, put } from 'redux-saga/effects';
 import { LOGIN_SUCCESS, LOGOUT, isAuthenticated } from './index';
-import keychain from '../../services/keychain';
+import { setRefreshToken, clearRefreshToken } from '../../services/keychain';
 import storage from '../../services/storage';
 
 export function* handleLogoutSaga() {
-  yield call(keychain.clearAuthToken);
+  yield call(clearRefreshToken);
+  // TODO: Call endpoint on api to destroy refresh token
   yield call(storage.clearStorage);
 }
 
@@ -13,9 +14,9 @@ function* handleLoginSuccessSaga(payload) {
 
   yield put(isAuthenticated({
     user: data.user,
-    token: data.token
+    accessToken: data.accessToken
   }));
-  yield call(keychain.setAuthToken, data.token);
+  yield call(setRefreshToken, data.refreshToken);
   yield call(storage.saveState);
 }
 

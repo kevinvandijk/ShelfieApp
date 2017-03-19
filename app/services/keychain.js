@@ -1,29 +1,22 @@
 import * as Keychain from 'react-native-keychain';
 
-// TODO: Make configurable name
-async function getAuthToken() {
+export async function getRefreshToken() {
   try {
-    const authToken = await Keychain.getInternetCredentials('shelfie-auth-token');
-    return authToken.password;
-  } catch(err) {
+    const refreshToken = await Keychain.getInternetCredentials('shelfie-refresh-token');
+    return refreshToken.password;
+  } catch (err) {
     if (err.message.match(/No keychain entry found/)) {
       return null;
-    } else {
-      throw err;
     }
+
+    throw err;
   }
 }
 
-async function setAuthToken(token) {
-  return Keychain.setInternetCredentials('shelfie-auth-token', null, token);
+export async function setRefreshToken(token) {
+  return Keychain.setInternetCredentials('shelfie-refresh-token', null, token);
 }
 
-async function clearAuthToken() {
-  return Keychain.resetInternetCredentials('shelfie-auth-token');
+export async function clearRefreshToken() {
+  return Keychain.resetInternetCredentials('shelfie-refresh-token');
 }
-
-export default {
-  getAuthToken,
-  setAuthToken,
-  clearAuthToken
-};

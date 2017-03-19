@@ -20,7 +20,7 @@ export default createReducer(INITIAL_STATE, {
       ...state,
       isAuthenticated: true,
       account: payload.user,
-      token: payload.token
+      accessToken: payload.accessToken
     };
   },
 
@@ -28,7 +28,7 @@ export default createReducer(INITIAL_STATE, {
     return {
       ...state,
       isAuthenticated: false,
-      token: null,
+      accessToken: null,
       account: {}
     };
   },
@@ -76,12 +76,9 @@ export function login(email, password) {
 export const logout = createAction(LOGOUT);
 export const isAuthenticated = createAction(IS_AUTHENTICATED);
 
-export async function setAuthToken(token) {
-  return keychain.setAuthToken(token);
-}
-
+// TODO: rename
 export function getAuthToken(state) {
-  return state.auth.token;
+  return state.auth.accessToken;
 }
 
 export function userIsAuthenticated(state) {
