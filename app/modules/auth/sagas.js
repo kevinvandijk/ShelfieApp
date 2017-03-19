@@ -5,8 +5,6 @@ import keychain from '../../services/keychain';
 import storage from '../../services/storage';
 
 export function* logout() {
-  // TODO: Fix this
-  // api.setAuthToken(null);
   yield call(keychain.clearAuthToken);
   yield call(storage.clearStorage);
 }

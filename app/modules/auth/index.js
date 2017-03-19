@@ -24,6 +24,15 @@ export default createReducer(INITIAL_STATE, {
     };
   },
 
+  [LOGOUT]: (state) => {
+    return {
+      ...state,
+      isAuthenticated: false,
+      token: null,
+      account: {}
+    };
+  },
+
   // Used so the login screen can quickly blur the input fields when navigating back
   [ActionConst.PUSH]: (state, action) => {
     if (action.key === 'auth') {
