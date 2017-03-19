@@ -6,30 +6,35 @@ export const API_REQUEST = 'shelfie/api/REQUEST';
 
 export const apiRequest = createAction(API_REQUEST);
 
-function* handleApiRequest(payload) {
+function* handleApiRequest(requestData) {
   const options = {};
-  const method = payload.method.toLowerCase();
+  const method = requestData.method.toLowerCase();
 
-  if (payload.data && method !== 'get' && method !== 'head') {
+  if (requestData.data && method !== 'get' && method !== 'head') {
     options.body = {
-      data: payload.data
+      data: requestData.data
     };
   }
 
-  const result = yield call(request, payload.method, payload.url, options);
+  const result = yield call(request, requestData.method, requestData.url, options);
 
-  if (!payload.fail) throw new Error(`${API_REQUEST} requires error action type`);
-  if (!payload.success) throw new Error(`${API_REQUEST} requires success action type`);
+  if (!requestData.fail) throw new Error(`${API_REQUEST} requires fail action type`);
+  if (!requestData.success) throw new Error(`${API_REQUEST} requires success action type`);
+
+  const payload = (requestData.extra
+    ? { ...result.payload, extra: requestData.extra }
+    : result.payload
+  );
 
   if (result.error) {
     yield put({
-      type: payload.fail,
-      payload: result.payload
+      type: requestData.fail,
+      payload
     });
   } else {
     yield put({
-      type: payload.success,
-      payload: result.payload
+      type: requestData.success,
+      payload
     });
   }
 }
