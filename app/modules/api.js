@@ -11,7 +11,7 @@ export const API_REQUEST = 'shelfie/api/REQUEST';
 
 export const apiRequest = createAction(API_REQUEST);
 
-function* doApiRequest(requestData) {
+function* doApiRequest(requestData, accessToken) {
   const options = {};
   const method = requestData.method.toLowerCase();
 
@@ -72,13 +72,14 @@ function* handleApiRequest(requestData) {
 
     if (!result.error) {
       const { payload } = result;
-      yield put(setAccessToken(payload.data.accessToken));
-      yield spawn(doApiRequest, requestData);
+      const token = payload.data.accessToken
+      yield put(setAccessToken(token));
+      yield spawn(doApiRequest, requestData, token);
     } else {
       yield put(logout());
     }
   } else {
-    yield spawn(doApiRequest, requestData);
+    yield spawn(doApiRequest, requestData, accessToken);
   }
 }
 
