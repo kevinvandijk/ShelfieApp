@@ -1,10 +1,9 @@
 import { take, call, put } from 'redux-saga/effects';
 import { LOGIN_SUCCESS, LOGOUT, isAuthenticated } from './index';
-import api from '../../services/api';
 import keychain from '../../services/keychain';
 import storage from '../../services/storage';
 
-export function* logout() {
+export function* handleLogoutSaga() {
   yield call(keychain.clearAuthToken);
   yield call(storage.clearStorage);
 }
@@ -30,6 +29,6 @@ export function* watchLoginSuccessSaga() {
 export function* watchLogout() {
   while (true) {
     yield take(LOGOUT);
-    yield logout();
+    yield handleLogoutSaga();
   }
 }
