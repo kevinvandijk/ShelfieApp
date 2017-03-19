@@ -7,11 +7,23 @@ export const API_REQUEST = 'shelfie/api/REQUEST';
 export const apiRequest = createAction(API_REQUEST);
 
 function* handleApiRequest(payload) {
-  const result = yield call(request, payload.method, payload.url);
+  const options = {};
+  const method = payload.method.toLowerCase();
+
+  if (payload.data && method !== 'get' && method !== 'head') {
+    options.body = {
+      data: payload.data
+    };
+  }
+
+  const result = yield call(request, payload.method, payload.url, options);
+
+  if (!payload.fail) throw new Error(`${API_REQUEST} requires error action type`);
+  if (!payload.success) throw new Error(`${API_REQUEST} requires success action type`);
 
   if (result.error) {
     yield put({
-      type: payload.error,
+      type: payload.fail,
       payload: result.payload
     });
   } else {

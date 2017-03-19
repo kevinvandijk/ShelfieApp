@@ -11,7 +11,7 @@ export const INITIAL_STATE = {
 };
 
 export const FETCH_VIDEOS_SUCCESS = 'shelfie/videos/FETCH_VIDEOS_SUCCESS';
-export const FETCH_VIDEOS_ERROR = 'shelfie/videos/FETCH_VIDEOS_ERROR';
+export const FETCH_VIDEOS_FAIL = 'shelfie/videos/FETCH_VIDEOS_FAIL';
 export const FETCH_SIGNED_OUTPUT_URL = 'shelfie/videos/FETCH_SIGNED_OUTPUT_URL';
 export const RECEIVE_SIGNED_OUTPUT_URL = 'shelfie/videos/RECEIVE_SIGNED_OUTPUT_URL';
 
@@ -66,7 +66,7 @@ export const fetchVideos = createAction(API_REQUEST, () => {
     url: getVideosUrl(),
     method: 'GET',
     success: FETCH_VIDEOS_SUCCESS,
-    error: FETCH_VIDEOS_ERROR
+    fail: FETCH_VIDEOS_FAIL
   };
 });
 
