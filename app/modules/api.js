@@ -98,7 +98,7 @@ function* handleApiRequest(requestData) {
 }
 
 // do with action channel
-export function* watchApiRequests(refresh) {
+export function* watchApiRequests() {
   const requestChan = yield actionChannel(API_REQUEST);
   while (true) {
     const { payload } = yield take(requestChan);
