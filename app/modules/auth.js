@@ -3,10 +3,10 @@ import { createAction } from 'redux-actions';
 import { ActionConst } from 'react-native-router-flux';
 import { take, call, put } from 'redux-saga/effects';
 
-import { API_REQUEST } from '../api';
-import { getLoginUrl } from '../../services/api';
-import { setRefreshToken, clearRefreshToken } from '../../services/keychain';
-import { saveToStorage, clearStorage, STORAGE_CLEARED } from '../storage';
+import { API_REQUEST } from './api';
+import { getLoginUrl } from '../services/api';
+import { setRefreshToken, clearRefreshToken } from '../services/keychain';
+import { saveToStorage, clearStorage, STORAGE_CLEARED } from './storage';
 
 export const LOGIN_SUCCESS = 'shelfie/auth/LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'shelfie/auth/LOGIN_FAIL';

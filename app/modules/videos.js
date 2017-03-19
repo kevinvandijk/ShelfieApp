@@ -1,8 +1,8 @@
 import { createReducer } from 'reduxsauce';
 import { createAction } from 'redux-actions';
 import { omit, keyBy, mapValues } from 'lodash';
-import { API_REQUEST } from '../api';
-import { getVideosUrl, getOutputUrl } from '../../services/api';
+import { API_REQUEST } from './api';
+import { getVideosUrl, getOutputUrl } from '../services/api';
 
 export const INITIAL_STATE = {
   total: 0,
