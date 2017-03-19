@@ -16,8 +16,8 @@ export function getVideosUrl() {
   return createUrl('/v1/videos');
 }
 
-function getSignedOutputUrl(id, quality) {
-  return get(createUrl(`/v1/videos/${id}/outputs/${quality}`));
+export function getOutputUrl(id, quality) {
+  return createUrl(`/v1/videos/${id}/outputs/${quality}`);
 }
 
 function setAuthToken(token) {
@@ -31,7 +31,6 @@ export function getAuthToken() {
 
 export default {
   setAuthToken,
-  getSignedOutputUrl,
   changePassword(password) {
     return patch(createUrl('/v1/users/me'), {
       password

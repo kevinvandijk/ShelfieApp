@@ -2,7 +2,7 @@ import { createReducer } from 'reduxsauce';
 import { createAction } from 'redux-actions';
 import { omit, keyBy, mapValues } from 'lodash';
 import { API_REQUEST } from '../api';
-import { getVideosUrl } from '../../services/api';
+import { getVideosUrl, getOutputUrl } from '../../services/api';
 
 export const INITIAL_STATE = {
   total: 0,
@@ -12,8 +12,8 @@ export const INITIAL_STATE = {
 
 export const FETCH_VIDEOS_SUCCESS = 'shelfie/videos/FETCH_VIDEOS_SUCCESS';
 export const FETCH_VIDEOS_FAIL = 'shelfie/videos/FETCH_VIDEOS_FAIL';
-export const FETCH_SIGNED_OUTPUT_URL = 'shelfie/videos/FETCH_SIGNED_OUTPUT_URL';
-export const RECEIVE_SIGNED_OUTPUT_URL = 'shelfie/videos/RECEIVE_SIGNED_OUTPUT_URL';
+export const FETCH_SIGNED_OUTPUT_URL_SUCCESS = 'shelfie/videos/FETCH_SIGNED_OUTPUT_URL_SUCCESS';
+export const FETCH_SIGNED_OUTPUT_URL_FAIL = 'shelfie/videos/FETCH_SIGNED_OUTPUT_URL_FAIL';
 
 export default createReducer(INITIAL_STATE, {
   // TODO: Clean up this mess:
@@ -47,17 +47,16 @@ export default createReducer(INITIAL_STATE, {
     };
   },
 
-  [RECEIVE_SIGNED_OUTPUT_URL]: (state, action) => {
-    const payload = action.payload;
+  [FETCH_SIGNED_OUTPUT_URL_SUCCESS]: (state, action) => {
+    const { data, extra } = action.payload;
+
     return {
       ...state,
-      [payload.quality]: {
-        ...state[payload.quality],
-        [payload.videoId]: payload.data.attributes.url
+      [extra.quality]: {
+        ...state[extra.quality],
+        [extra.videoId]: data.attributes.url
       }
-    }
-
-    return state;
+    };
   }
 });
 
@@ -70,10 +69,18 @@ export const fetchVideos = createAction(API_REQUEST, () => {
   };
 });
 
-export const fetchSignedOutputUrl = createAction(FETCH_SIGNED_OUTPUT_URL, (videoId, quality) => {
-  return { videoId, quality };
+export const fetchSignedOutputUrl = createAction(API_REQUEST, (videoId, quality) => {
+  return {
+    url: getOutputUrl(videoId, quality),
+    method: 'GET',
+    success: FETCH_SIGNED_OUTPUT_URL_SUCCESS,
+    fail: FETCH_SIGNED_OUTPUT_URL_FAIL,
+    extra: {
+      videoId,
+      quality
+    }
+  };
 });
-export const receiveSignedOutputUrl = createAction(RECEIVE_SIGNED_OUTPUT_URL);
 
 function local(state) {
   return state.videos;
