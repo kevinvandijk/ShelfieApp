@@ -12,10 +12,10 @@ export const LOGIN_SUCCESS = 'shelfie/auth/LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'shelfie/auth/LOGIN_FAIL';
 export const LOGOUT = 'shelfie/auth/LOGOUT';
 export const IS_AUTHENTICATED = 'shelfie/auth/IS_AUTHENTICATED';
-export const SET_ACCESS_TOKEN = 'shelfie/auth/SET_ACCESS_TOKEN';
+export const REFRESH_ACCESS_TOKEN = 'shelfie/auth/REFRESH_ACCESS_TOKEN';
 
 export default createReducer(INITIAL_STATE, {
-  [SET_ACCESS_TOKEN]: (state, { payload }) => {
+  [REFRESH_ACCESS_TOKEN]: (state, { payload }) => {
     return {
       ...state,
       accessToken: payload
@@ -83,7 +83,7 @@ export function login(email, password) {
 
 export const logout = createAction(LOGOUT);
 export const isAuthenticated = createAction(IS_AUTHENTICATED);
-export const setAccessToken = createAction(SET_ACCESS_TOKEN);
+export const refreshAccessToken = createAction(REFRESH_ACCESS_TOKEN);
 
 // TODO: rename
 export function getAuthToken(state) {

@@ -1,8 +1,8 @@
-import { take, fork, call, put, select, spawn, actionChannel } from 'redux-saga/effects';
+import { take, call, put, select, spawn, actionChannel } from 'redux-saga/effects';
 import { createAction } from 'redux-actions';
 import jwtDecode from 'jwt-decode';
 import moment from 'moment';
-import { setAccessToken, getAuthToken, logout } from './auth';
+import { refreshAccessToken, getAuthToken, logout } from './auth';
 import { request } from '../lib/request';
 import { refreshTokenUrl } from '../services/api';
 import { getRefreshToken } from '../services/keychain';
@@ -86,8 +86,8 @@ function* handleApiRequest(requestData) {
 
     if (!result.error) {
       const { payload } = result;
-      const token = payload.data.accessToken
-      yield put(setAccessToken(token));
+      const token = payload.data.accessToken;
+      yield put(refreshAccessToken(token));
       yield spawn(doApiRequest, requestData, token);
     } else {
       yield put(logout());
