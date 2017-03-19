@@ -2,7 +2,7 @@ import { take, call, put, select, spawn, actionChannel } from 'redux-saga/effect
 import { createAction } from 'redux-actions';
 import jwtDecode from 'jwt-decode';
 import moment from 'moment';
-import { refreshAccessToken, getAuthToken, logout } from './auth';
+import { refreshAccessToken, getAccessToken, logout } from './auth';
 import { request } from '../lib/request';
 import { refreshTokenUrl } from '../services/api';
 import { getRefreshToken } from '../services/keychain';
@@ -60,16 +60,16 @@ function* handleApiRequest(requestData) {
     return;
   }
 
-  const accessToken = yield select(getAuthToken);
-  let authTokenValid = false;
+  const accessToken = yield select(getAccessToken);
+  let accessTokenValid = false;
 
   // TODO: Memoize this token decoding:
   if (accessToken) {
     const { exp } = jwtDecode(accessToken);
-    authTokenValid = exp ? moment() < moment.unix(exp) : false;
+    accessTokenValid = exp ? moment() < moment.unix(exp) : false;
   }
 
-  if (!authTokenValid) {
+  if (!accessTokenValid) {
     const refreshToken = yield call(getRefreshToken);
 
     if (!refreshToken) {

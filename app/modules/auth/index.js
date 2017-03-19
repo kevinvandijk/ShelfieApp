@@ -85,8 +85,7 @@ export const logout = createAction(LOGOUT);
 export const isAuthenticated = createAction(IS_AUTHENTICATED);
 export const refreshAccessToken = createAction(REFRESH_ACCESS_TOKEN);
 
-// TODO: rename
-export function getAuthToken(state) {
+export function getAccessToken(state) {
   return state.auth.accessToken;
 }
 
