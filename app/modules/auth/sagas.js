@@ -19,7 +19,7 @@ function* handleLoginSuccessSaga(payload) {
   yield call(storage.saveState);
 }
 
-export function* watchLoginRequest() {
+export function* watchLoginSuccessSaga() {
   while (true) { // eslint-disable-line
     const { payload } = yield take(LOGIN_SUCCESS);
     yield call(handleLoginSuccessSaga, payload);
