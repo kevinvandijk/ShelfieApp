@@ -8,13 +8,8 @@ export function createUrl(path) {
   return `${config.get('api.baseURL')}${path}`;
 }
 
-async function login(email, password) {
-  return post('/v1/auth/signin', {
-    data: {
-      email,
-      password
-    }
-  });
+export function getLoginUrl() {
+  return createUrl('/v1/auth/signin');
 }
 
 export function getVideosUrl() {
@@ -35,7 +30,6 @@ export function getAuthToken() {
 }
 
 export default {
-  login,
   setAuthToken,
   getSignedOutputUrl,
   changePassword(password) {

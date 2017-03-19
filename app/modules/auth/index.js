@@ -2,13 +2,16 @@ import { createReducer } from 'reduxsauce';
 import { createAction } from 'redux-actions';
 import { ActionConst } from 'react-native-router-flux';
 import keychain from '../../services/keychain';
+import { getLoginUrl } from '../../services/api';
+import { API_REQUEST } from '../api';
 
 export const INITIAL_STATE = {
   isAuthenticated: false
 };
 
+export const LOGIN_SUCCESS = 'shelfie/auth/LOGIN_SUCCESS';
+export const LOGIN_FAIL = 'shelfie/auth/LOGIN_FAIL';
 export const LOGOUT = 'shelfie/auth/LOGOUT';
-export const FETCH_TOKEN = 'shelfie/auth/FETCH_TOKEN';
 export const IS_AUTHENTICATED = 'shelfie/auth/IS_AUTHENTICATED';
 export const CHANGE_PASSWORD_REQUEST = ' shelfie/auth/CHANGE_PASSWORD_REQUEST';
 export const CHANGE_PASSWORD_SUCCESS = ' shelfie/auth/CHANGE_PASSWORD_REQUEST';
@@ -46,12 +49,19 @@ export default createReducer(INITIAL_STATE, {
   }
 });
 
-
 export function login(email, password) {
   return {
-    type: FETCH_TOKEN,
-    email,
-    password
+    type: API_REQUEST,
+    payload: {
+      url: getLoginUrl(),
+      method: 'POST',
+      data: {
+        email,
+        password
+      },
+      success: LOGIN_SUCCESS,
+      fail: LOGIN_FAIL
+    }
   };
 }
 

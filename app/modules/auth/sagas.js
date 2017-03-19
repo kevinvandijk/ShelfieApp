@@ -1,5 +1,5 @@
 import { take, call, put } from 'redux-saga/effects';
-import { FETCH_TOKEN, LOGOUT, CHANGE_PASSWORD_REQUEST, setAuthToken, isAuthenticated, changePasswordSuccess } from './index';
+import { LOGIN_SUCCESS, LOGOUT, CHANGE_PASSWORD_REQUEST, setAuthToken, isAuthenticated, changePasswordSuccess } from './index';
 import { clearState } from '../../reducer';
 import api from '../../services/api';
 import keychain from '../../services/keychain';
@@ -19,15 +19,13 @@ export function* logout() {
   yield call(storage.clearStorage);
 }
 
-function* loginRequest(email, password) {
-  const result = yield call(api.login, email, password);
-  if (!result.error) {
-    // TODO: Error handling when keychain fails?
-    api.setAuthToken(result.payload.data.token);
-    yield put(isAuthenticated(result.payload.data.user));
-    yield call(keychain.setAuthToken, result.payload.data.token);
-    yield call(storage.saveState);
-  }
+function* handleLoginSuccessSaga(payload) {
+  const { data } = payload;
+
+  api.setAuthToken(data.token);
+  yield put(isAuthenticated(data.user));
+  yield call(keychain.setAuthToken, data.token);
+  yield call(storage.saveState);
 }
 
 function* changePasswordRequest(password) {
@@ -39,8 +37,8 @@ function* changePasswordRequest(password) {
 
 export function* watchLoginRequest() {
   while (true) { // eslint-disable-line
-    const { email, password } = yield take(FETCH_TOKEN);
-    yield call(loginRequest, email, password);
+    const { payload } = yield take(LOGIN_SUCCESS);
+    yield call(handleLoginSuccessSaga, payload);
   }
 }
 
