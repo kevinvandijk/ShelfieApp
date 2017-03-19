@@ -42,9 +42,9 @@ platform :ios do
     #   changelog = "Bug fixes and performance enhancements"
     # end
 
-    # ensure_git_status_clean
+    ensure_git_status_clean
     # TODO: beta release track branch
-    # ensure_git_branch
+    ensure_git_branch
 
     match(type: "appstore")
 

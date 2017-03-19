@@ -1,16 +1,14 @@
 import { fork } from 'redux-saga/effects';
-import { login, signup, watchLoginRequest, watchLogout, watchChangePasswordRequest } from './modules/auth/sagas';
-import { waitForAppLoadRequest } from './modules/boot/sagas';
-import { videoWatchers } from './modules/videos/sagas';
+import { watchLoginSuccessSaga, watchLogoutSaga } from './modules/auth';
+import { watchInitializeSaga } from './modules/boot';
+import { watchApiRequests } from './modules/api';
+import { watchStorageSaga } from './modules/storage';
 
 // TODO: Refactor login / logout order and stuff, put boot here
 export default function* rootSaga() {
-  // yield fork(login);
-  // yield fork(signup);
-
-  yield fork(waitForAppLoadRequest);
-  yield fork(watchLoginRequest);
-  yield fork(videoWatchers);
-  yield fork(watchLogout);
-  yield fork(watchChangePasswordRequest);
+  yield fork(watchInitializeSaga);
+  yield fork(watchLoginSuccessSaga);
+  yield fork(watchApiRequests);
+  yield fork(watchLogoutSaga);
+  yield fork(watchStorageSaga);
 }

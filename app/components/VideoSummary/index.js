@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import { TouchableOpacity, View, Text, Image } from 'react-native';
 
-import { getAuthToken } from '../../services/api';
+import { getAccessToken } from '../../modules/auth';
 
 import styles from './styles';
 
@@ -12,7 +13,8 @@ class VideoSummary extends React.Component {
     title: string.isRequired,
     onPress: func,
     screenshotUrl: string.isRequired,
-    description: string
+    description: string,
+    accessToken: string.isRequired
   }
 
   static defaultProps = {
@@ -35,7 +37,7 @@ class VideoSummary extends React.Component {
 
     const source = {
       uri: screenshotUrl,
-      headers: { Authorization: `Bearer ${getAuthToken()}` }
+      headers: { Authorization: `Bearer ${this.props.accessToken}` }
     };
 
     return (
@@ -65,4 +67,10 @@ class VideoSummary extends React.Component {
   }
 }
 
-export default VideoSummary;
+const mapStateToProps = (state) => {
+  return {
+    accessToken: getAccessToken(state)
+  };
+};
+
+export default connect(mapStateToProps)(VideoSummary);

@@ -1,11 +1,7 @@
 import { stringify } from 'qs';
 import { Alert } from 'react-native';
-import config from '../../config';
 
-let headers = {};
-
-export async function request(method, path, options) {
-  const url = `${config.get('api.baseURL')}${path}`;
+export async function request(method, url, options = {}) {
   const body = options.body ? JSON.stringify(options.body) : null;
 
   return fetch(url, {
@@ -13,7 +9,7 @@ export async function request(method, path, options) {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      ...headers
+      ...options.headers
     },
     body
   })
@@ -51,20 +47,13 @@ export async function request(method, path, options) {
   .then(result => {
     if (result.error) {
       if (__DEV__) console.log('Network error', result); // eslint-disable-line
-      if (config.get('api.showAlerts')) {
-        Alert.alert('Network error');
-      }
+      // if (config.get('api.showAlerts')) {
+      //   Alert.alert('Network error');
+      // }
     }
 
     return result;
   });
-}
-
-export function setHeader(key, value) {
-  headers = {
-    ...headers,
-    [key]: value
-  };
 }
 
 export async function post(path, body) {

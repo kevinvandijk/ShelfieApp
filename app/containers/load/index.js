@@ -3,18 +3,25 @@ import { View, Image, StatusBar, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 
 import styles from './styles';
-import { initialize } from '../../modules/boot';
+import { initialize, getAppLoadedStatus } from '../../modules/boot';
 
-const { func } = PropTypes;
+const { func, bool } = PropTypes;
 
 class LoadContainer extends Component {
   static propTypes = {
-    initialize: func.isRequired
+    initialize: func.isRequired,
+    appLoaded: bool
+  }
+
+  static defaultProps = {
+    appLoaded: false
   }
 
   componentWillMount() {
     StatusBar.setHidden(true);
-    this.props.initialize();
+    if (!this.props.appLoaded) {
+      this.props.initialize();
+    }
   }
 
   render() {
@@ -42,8 +49,13 @@ class LoadContainer extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    appLoaded: getAppLoadedStatus(state)
+  }
+}
 const mapDispatchToProps = {
   initialize
 };
 
-export default connect(null, mapDispatchToProps)(LoadContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(LoadContainer);

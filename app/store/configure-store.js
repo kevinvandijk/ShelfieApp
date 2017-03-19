@@ -9,7 +9,7 @@ import createLogger from 'redux-logger';
 import config from '../../config';
 import combinedReducer from '../reducer';
 import sagas from '../sagas';
-import { SAVE_STATE_REQUEST } from '../services/storage';
+import { SAVE_TO_STORAGE } from '../modules/storage';
 
 let reducer = combinedReducer;
 
@@ -18,7 +18,7 @@ const middlewares = [];
 let storage;
 if (config.get('storage.enabled')) {
   storage = require('./storage-engine'); // eslint-disable-line global-require
-  const whitelist = config.get('storage.autosave') ? [] : [SAVE_STATE_REQUEST];
+  const whitelist = config.get('storage.autosave') ? [] : [SAVE_TO_STORAGE];
   const storageMiddleware = createStorageMiddleware(storage.engine, [], whitelist);
   middlewares.push(storageMiddleware);
 
