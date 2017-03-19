@@ -55,7 +55,7 @@ function* handleApiRequest(requestData) {
   // if so, fork / spawn process with request so parent can continue with next request
   // if not start blocking call() to refresh token, other requests will queue up now
 
-  if (requestData.unauthorized) {
+  if (requestData.unauthenticated) {
     yield spawn(doApiRequest, requestData);
     return;
   }

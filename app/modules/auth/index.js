@@ -75,7 +75,8 @@ export function login(email, password) {
         password
       },
       success: LOGIN_SUCCESS,
-      fail: LOGIN_FAIL
+      fail: LOGIN_FAIL,
+      unauthenticated: true
     }
   };
 }
