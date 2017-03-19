@@ -21,11 +21,11 @@ function* doApiRequest(requestData, accessToken) {
     };
   }
 
-  const accessToken = yield select(getAuthToken);
-
-  options.headers = {
-    Authorization: `Bearer ${accessToken}`
-  };
+  if (accessToken) {
+    options.headers = {
+      Authorization: `Bearer ${accessToken}`
+    };
+  }
 
   const result = yield call(request, requestData.method, requestData.url, options);
 
