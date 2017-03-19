@@ -66,6 +66,12 @@ function* handleApiRequest(requestData) {
 
   if (!authTokenValid) {
     const refreshToken = yield call(getRefreshToken);
+
+    if (!refreshToken) {
+      yield put(logout());
+      return;
+    }
+
     const body = {
       data: {
         refreshToken
