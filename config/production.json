@@ -1,6 +1,5 @@
 {
   "api": {
-    "baseURL": "https://api.shelfie.nl",
-    "showAlerts": true
+    "baseURL": "https://api.shelfie.nl"
   }
 }

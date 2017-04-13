@@ -46,10 +46,12 @@ export async function request(method, url, options = {}) {
   })
   .then(result => {
     if (result.error) {
+      const { payload } = result;
       if (__DEV__) console.log('Network error', result); // eslint-disable-line
-      // if (config.get('api.showAlerts')) {
-      //   Alert.alert('Network error');
-      // }
+
+      if (payload instanceof TypeError) {
+        Alert.alert('Probleem met verbinden', 'Er is geen internetverbinding beschikbaar.');
+      }
     }
 
     return result;

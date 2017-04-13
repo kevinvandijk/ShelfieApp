@@ -36,9 +36,26 @@ export default createReducer(INITIAL_STATE, {
   [IS_AUTHENTICATED]: (state, { payload }) => {
     return {
       ...state,
+      loginFailed: false,
       isAuthenticated: true,
       account: payload.user,
       accessToken: payload.accessToken
+    };
+  },
+
+  [API_REQUEST]: (state) => {
+    // FIXME: This API_REQUEST thing needs to be done differently
+    return {
+      ...state,
+      loginFailed: false
+    };
+  },
+
+  [LOGIN_FAIL]: (state) => {
+    return {
+      ...state,
+      loginFailed: true,
+      isAuthenticated: false
     };
   },
 
@@ -102,6 +119,10 @@ export function userIsAuthenticated(state) {
 
 export function authScreenIsFocused(state) {
   return !!state.auth.authScreenFocused;
+}
+
+export function loginFailed(state) {
+  return state.auth.loginFailed;
 }
 
 export function* handleLogoutSaga() {

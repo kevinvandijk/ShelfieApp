@@ -9,16 +9,21 @@ import Form from '../../components/Form';
 import Input from '../../components/Form/Input';
 import SubmitButton from '../../components/Form/SubmitButton';
 import HugeButton from '../../components/HugeButton';
-import { login, authScreenIsFocused } from '../../modules/auth';
+import { login, authScreenIsFocused, loginFailed } from '../../modules/auth';
 
-const { func } = PropTypes;
+const { func, bool } = PropTypes;
 
 const translate = I18n.namespace('containers.auth');
 
 class AuthContainer extends Component {
   static propTypes = {
-    login: func.isRequired
+    login: func.isRequired,
+    loginFailed: bool
   }
+
+  static defaultProps = {
+    loginFailed: false
+  };
 
   state = {
     keyboardHeight: 0
@@ -56,12 +61,16 @@ class AuthContainer extends Component {
     this.emailInput.focus();
   }
 
-  componentWillReceiveProps(props) {
-    if (!props.isFocused) {
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.isFocused) {
       setTimeout(() => {
         if (this.emailInput) this.emailInput.blur();
         if (this.passwordInput) this.passwordInput.blur();
       }, 150);
+    }
+
+    if (nextProps.loginFailed && nextProps.loginFailed !== this.props.loginFailed) {
+      Alert.alert('Oeps!', 'Je gebruikersnaam/wachtwoord kloppen niet.');
     }
   }
 
@@ -127,7 +136,8 @@ class AuthContainer extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    isFocused: authScreenIsFocused(state)
+    isFocused: authScreenIsFocused(state),
+    loginFailed: loginFailed(state)
   };
 };
 
