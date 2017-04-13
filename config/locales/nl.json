@@ -59,7 +59,9 @@
 
     "sideMenu": {
       "title": "Opties",
-      "logout": "Uitloggen"
+      "logout": "Uitloggen",
+      "privacyPolicy": "Privacy Policy",
+      "termsAndConditions": "Algemene Voorwaarden"
     }
   }
 }

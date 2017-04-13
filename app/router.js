@@ -12,6 +12,7 @@ import TimelineContainer from './containers/timeline';
 import WatchContainer from './containers/watch';
 import ChangePasswordContainer from './containers/change-password';
 import SideMenu from './containers/SideMenu';
+import ShelfieWebView from './containers/ShelfieWebView';
 
 const { func, object } = PropTypes;
 
@@ -125,6 +126,20 @@ const AppRouter = () => {
                 title={ I18n.t('containers.watch.title') }
                 component={ WatchContainer }
                 sceneStyle={ styles.sceneWithNavBar }
+              />
+
+              <Scene
+                sceneStyle={ styles.sceneWithNavBar }
+                key="privacyPolicy"
+                component={ ShelfieWebView }
+                uri="https://shelfie.nl/privacy-policy/"
+              />
+
+              <Scene
+                sceneStyle={ styles.sceneWithNavBar }
+                key="termsAndConditions"
+                component={ ShelfieWebView }
+                uri="https://shelfie.nl/algemene-voorwaarden/"
               />
             </Scene>
           </Scene>

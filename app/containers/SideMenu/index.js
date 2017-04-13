@@ -94,6 +94,16 @@ class SideMenu extends Component {
     Actions.changePassword();
   }
 
+  openPrivacyPolicy = async () => {
+    await Actions.refresh({ key: 'drawer', open: false });
+    Actions.privacyPolicy();
+  }
+
+  openTermsAndConditions = async () => {
+    await Actions.refresh({ key: 'drawer', open: false });
+    Actions.termsAndConditions();
+  }
+
   render() {
     return (
       <View style={ styles.container }>
@@ -114,6 +124,20 @@ class SideMenu extends Component {
           >
             { I18n.t('containers.changePassword.title') }
           </HugeButton> */}
+          <HugeButton
+            style={ styles.hugeButton }
+            textStyle={ styles.hugeButtonText }
+            onPress={ this.openTermsAndConditions }
+          >
+            { translate('termsAndConditions') }
+          </HugeButton>
+          <HugeButton
+            style={ styles.hugeButton }
+            textStyle={ styles.hugeButtonText }
+            onPress={ this.openPrivacyPolicy }
+          >
+            { translate('privacyPolicy') }
+          </HugeButton>
           <HugeButton
             onPress={ this.onLogoutPress }
             style={ [styles.hugeButton, { marginBottom: 0 }] }
