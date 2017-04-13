@@ -12,6 +12,6 @@
 
 workspace "./ios/Shelfie.xcworkspace"
 output_directory "./build"
-use_legacy_build_api true
+# use_legacy_build_api true
 include_bitcode false
 sdk "iphoneos10.3"
