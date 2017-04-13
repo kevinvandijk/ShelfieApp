@@ -48,9 +48,6 @@ const WelcomeContainer = () => {
         >
           { translate('signIn') }
         </HugeButton>
-        <HugeButton style={ styles.button } textStyle={ styles.buttonText }>
-          { translate('dropOffPoints') }
-        </HugeButton>
       </View>
     </View>
   );

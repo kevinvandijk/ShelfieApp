@@ -54,8 +54,7 @@
 
     "welcome": {
       "intro": "Je videobanden op je iPhone",
-      "signIn": "Login",
-      "dropOffPoints": "Videobanden inleveren"
+      "signIn": "Login"
     },
 
     "sideMenu": {
