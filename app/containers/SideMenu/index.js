@@ -107,13 +107,13 @@ class SideMenu extends Component {
           </HugeButton> */}
         </View>
         <View style={ styles.footer }>
-          <HugeButton
+          {/* <HugeButton
             onPress={ this.onChangeProfilePress }
             style={ styles.hugeButton }
             textStyle={ styles.hugeButtonText }
           >
             { I18n.t('containers.changePassword.title') }
-          </HugeButton>
+          </HugeButton> */}
           <HugeButton
             onPress={ this.onLogoutPress }
             style={ [styles.hugeButton, { marginBottom: 0 }] }
