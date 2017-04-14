@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { View, Dimensions, TouchableOpacity, Text, TouchableWithoutFeedback, DeviceEventEmitter } from 'react-native';
 import Video from 'react-native-video';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import Chromecast from 'react-native-google-cast';
+// import Chromecast from 'react-native-google-cast';
 import { calculateHitSlop } from '../../helpers';
 import Controls from './Controls';
 import Progress from './Progress';
@@ -56,12 +56,12 @@ class VideoPlayer extends Component {
   }
 
   componentWillMount() {
-    this.initializeChromecast();
+    // this.initializeChromecast();
     this.setState({ paused: !this.props.autoStart });
   }
 
   componentWillUnmount() {
-    Chromecast.stopScan();
+    // Chromecast.stopScan();
   }
 
   onPause = () => {
