@@ -36,6 +36,7 @@ class VideoPlayer extends Component {
   static defaultProps = {
     volume: 1.0,
     rate: 1.0,
+    autoStart: false,
     getBackwardTime: (currentTime) => {
       const timestamp = currentTime - 10;
       return timestamp > 0 ? timestamp : 0;
