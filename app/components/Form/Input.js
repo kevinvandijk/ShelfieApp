@@ -130,6 +130,7 @@ class Input extends Component {
       textInputProps = {
         ...textInputProps,
         returnKeyType: 'next',
+        returnKeyLabel: 'Volgende',
         onSubmitEditing: this.moveToNextField,
         blurOnSubmit: false
       };
@@ -137,6 +138,7 @@ class Input extends Component {
       textInputProps = {
         ...textInputProps,
         returnKeyType: 'go',
+        returnKeyLabel: 'Login',
         onSubmitEditing: this.submit
       };
     }
