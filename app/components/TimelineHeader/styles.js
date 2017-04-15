@@ -30,9 +30,11 @@ export default StyleSheet.create({
         fontWeight: 'bold'
       },
       android: {
-        fontFamily: 'Poppins-Bold'
+        fontFamily: 'Poppins-Bold',
+
       }
     }),
+    paddingTop: 4,
     fontSize: 20
   }
 });
