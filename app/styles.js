@@ -3,7 +3,7 @@ import { StyleSheet, Platform } from 'react-native';
 const styles = StyleSheet.create({
   sceneWithNavBar: {
     flex: 1,
-    paddingTop: 64
+    paddingTop: Platform.OS === 'ios' ? 60 : 54
   },
 
   navBar: {
