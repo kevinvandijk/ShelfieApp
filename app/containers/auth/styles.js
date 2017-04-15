@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 
 export default StyleSheet.create({
   container: {
@@ -44,8 +44,12 @@ export default StyleSheet.create({
     flex: 1,
     flexBasis: 34,
     marginBottom: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: '#fff'
+    ...Platform.select({
+      ios: {
+        borderBottomWidth: 1,
+        borderBottomColor: '#fff'
+      }
+    })
   },
 
   emailInputContainer: {
