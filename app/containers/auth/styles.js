@@ -44,12 +44,8 @@ export default StyleSheet.create({
     flex: 1,
     flexBasis: 34,
     marginBottom: 20,
-    ...Platform.select({
-      ios: {
-        borderBottomWidth: 1,
-        borderBottomColor: '#fff'
-      }
-    })
+    borderBottomWidth: 1,
+    borderBottomColor: '#fff'
   },
 
   emailInputContainer: {
@@ -58,11 +54,11 @@ export default StyleSheet.create({
 
   input: {
     flex: 1,
-    flexBasis: 34,
+    flexBasis: (Platform.OS === 'ios') ? 34 : 42,
     backgroundColor: 'transparent',
     fontFamily: 'Poppins',
     fontSize: 20,
-    lineHeight: 33,
+    lineHeight: 44,
     color: '#fff'
   },
 
