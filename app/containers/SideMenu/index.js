@@ -69,8 +69,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: '#fff',
     alignItems: 'center',
-    paddingTop: 27,
-    paddingBottom: 4
+    paddingTop: Platform.OS === 'ios' ? 27 : 10,
+    paddingBottom: Platform.OS === 'ios' ? 4 : 11
   },
 
   titleText: {
