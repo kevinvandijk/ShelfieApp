@@ -70,14 +70,19 @@ export default createReducer(INITIAL_STATE, {
 
   // Used so the login screen can quickly blur the input fields when navigating back
   [ActionConst.PUSH]: (state, action) => {
-    if (action.key === 'auth') {
-      return {
-        ...state,
-        authScreenFocused: true
-      };
-    }
+    const authScreenFocused = action.key === 'auth';
+    return (state.authScreenFocused === authScreenFocused
+      ? { ...state, authScreenFocused }
+      : state
+    );
+  },
 
-    return state;
+  [ActionConst.REFRESH]: (state, action) => {
+    const authScreenFocused = action.key === 'auth';
+    return (state.authScreenFocused === authScreenFocused
+      ? { ...state, authScreenFocused }
+      : state
+    );
   },
 
   [ActionConst.BACK_ACTION]: (state) => {
