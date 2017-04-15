@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 
 export default StyleSheet.create({
   container: {
@@ -21,8 +21,15 @@ export default StyleSheet.create({
   },
 
   title: {
-    fontFamily: 'Poppins',
-    fontWeight: 'bold',
+    ...Platform.select({
+      ios: {
+        fontFamily: 'Poppins',
+        fontWeight: 'bold'
+      },
+      android: {
+        fontFamily: 'Poppins-Bold'
+      }
+    }),
     fontSize: 20,
     lineHeight: 33,
     color: '#fff',

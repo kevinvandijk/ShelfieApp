@@ -22,8 +22,15 @@ export default StyleSheet.create({
     color: '#fff',
     fontSize: 20,
     lineHeight: 33,
-    fontFamily: 'Poppins',
-    fontWeight: 'bold',
+    ...Platform.select({
+      ios: {
+        fontFamily: 'Poppins',
+        fontWeight: 'bold'
+      },
+      android: {
+        fontFamily: 'Poppins-Bold'
+      }
+    }),
     textAlign: 'center'
   },
 
