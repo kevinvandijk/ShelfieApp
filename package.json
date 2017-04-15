@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "ios": "node_modules/.bin/react-native run-ios",
+    "android": "node_modules/.bin/react-native run-android",
     "test": "jest",
     "clean": "rm -rf node_modules && watchman watch-del-all && npm install && npm start -- --reset-cache",
     "codepush": "./scripts/code-push.sh"
