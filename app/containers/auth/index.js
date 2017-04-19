@@ -100,6 +100,7 @@ class AuthContainer extends Component {
                 placeholder={ translate('content.email') }
                 placeholderTextColor="rgba(255, 255, 255, .8)"
                 selectionColor="rgba(255, 255, 255, .8)"
+                underlineColorAndroid="transparent"
                 type="email"
                 ref={ (c) => { this.emailInput = c; } }
                 style={ styles.input }
@@ -112,6 +113,7 @@ class AuthContainer extends Component {
                 placeholder={ translate('content.password') }
                 placeholderTextColor="rgba(255, 255, 255, .8)"
                 selectionColor="rgba(255, 255, 255, .8)"
+                underlineColorAndroid="transparent"
                 onReturn="submit"
                 ref={ (c) => { this.passwordInput = c; } }
                 style={ styles.input }

@@ -14,7 +14,7 @@ export async function getRefreshToken() {
 }
 
 export async function setRefreshToken(token) {
-  return Keychain.setInternetCredentials('shelfie-refresh-token', null, token);
+  return Keychain.setInternetCredentials('shelfie-refresh-token', 'shelfie', token);
 }
 
 export async function clearRefreshToken() {

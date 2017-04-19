@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 
 export default StyleSheet.create({
   container: {
@@ -22,8 +22,15 @@ export default StyleSheet.create({
     color: '#fff',
     fontSize: 20,
     lineHeight: 33,
-    fontFamily: 'Poppins',
-    fontWeight: 'bold',
+    ...Platform.select({
+      ios: {
+        fontFamily: 'Poppins',
+        fontWeight: 'bold'
+      },
+      android: {
+        fontFamily: 'Poppins-Bold'
+      }
+    }),
     textAlign: 'center'
   },
 
@@ -54,11 +61,11 @@ export default StyleSheet.create({
 
   input: {
     flex: 1,
-    flexBasis: 34,
+    flexBasis: (Platform.OS === 'ios') ? 34 : 42,
     backgroundColor: 'transparent',
     fontFamily: 'Poppins',
     fontSize: 20,
-    lineHeight: 33,
+    lineHeight: 44,
     color: '#fff'
   },
 

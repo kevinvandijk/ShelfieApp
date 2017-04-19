@@ -1,9 +1,9 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 
 const styles = StyleSheet.create({
   sceneWithNavBar: {
     flex: 1,
-    paddingTop: 64
+    paddingTop: Platform.OS === 'ios' ? 60 : 54
   },
 
   navBar: {
@@ -17,8 +17,15 @@ const styles = StyleSheet.create({
   },
 
   navBarTitle: {
-    fontFamily: 'Poppins',
-    fontWeight: 'bold',
+    ...Platform.select({
+      ios: {
+        fontFamily: 'Poppins',
+        fontWeight: 'bold'
+      },
+      android: {
+        fontFamily: 'Poppins-Bold'
+      }
+    }),
     fontSize: 16,
     color: '#fff'
   }

@@ -68,6 +68,9 @@ class Progress extends React.Component {
           disabled={ disableSeek }
           thumbImage={ require('../../assets/images/progress-bar-thumb.png') }
           trackImage={ require('../../assets/images/line.png') }
+          thumbTintColor="#E96767"
+          maximumTrackTintColor="#333"
+          minimumTrackTintColor="#000"
           maximumValue={ duration }
           value={ currentTime }
           onValueChange={ this.props.onSeek }

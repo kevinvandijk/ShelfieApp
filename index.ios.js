@@ -4,7 +4,7 @@ if (!__DEV__) require('./app/initializers/sentry');
 
 import React from 'react';
 import { AppRegistry } from 'react-native';
-import App from './app';
+import App from './app/index';
 import configureStore from './app/store/configure-store';
 
 // Handling store here to avoid hot-reloading issues

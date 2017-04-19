@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, Platform } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { MAIN_SCENE_DRAWER } from '../../router';
 import I18n from '../../lib/i18n';
@@ -38,8 +37,15 @@ const styles = StyleSheet.create({
 
   contentButtonText: {
     marginLeft: 20,
-    fontFamily: 'Poppins',
-    fontWeight: 'bold',
+    ...Platform.select({
+      ios: {
+        fontFamily: 'Poppins',
+        fontWeight: 'bold'
+      },
+      android: {
+        fontFamily: 'Poppins-Bold'
+      }
+    }),
     color: '#fff'
   },
 
@@ -63,13 +69,20 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: '#fff',
     alignItems: 'center',
-    paddingTop: 27,
-    paddingBottom: 4
+    paddingTop: Platform.OS === 'ios' ? 27 : 10,
+    paddingBottom: Platform.OS === 'ios' ? 4 : 11
   },
 
   titleText: {
-    fontFamily: 'Poppins',
-    fontWeight: 'bold',
+    ...Platform.select({
+      ios: {
+        fontFamily: 'Poppins',
+        fontWeight: 'bold'
+      },
+      android: {
+        fontFamily: 'Poppins-Bold'
+      }
+    }),
     fontSize: 24,
     color: '#fff',
     lineHeight: 33

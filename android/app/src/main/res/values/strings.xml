@@ -1,4 +1,3 @@
 <resources>
-    <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey">eGX3efbIfCMZyA-L6SHFFVqkpeuONJFerph8G</string>
     <string name="app_name">Shelfie</string>
 </resources>

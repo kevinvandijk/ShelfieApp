@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 
 export default StyleSheet.create({
   container: {
@@ -48,8 +48,15 @@ export default StyleSheet.create({
   },
 
   titleText: {
-    fontFamily: 'Poppins',
-    fontWeight: 'bold',
+    ...Platform.select({
+      ios: {
+        fontFamily: 'Poppins',
+        fontWeight: 'bold'
+      },
+      android: {
+        fontFamily: 'Poppins-Bold'
+      }
+    }),
     fontSize: 30,
     color: '#333'
   },
