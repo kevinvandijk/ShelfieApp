@@ -85,9 +85,8 @@ if [[ "$CONFIGURATION" = "Debug" && ! "$PLATFORM_NAME" == *simulator ]]; then
 fi
 
 # For sentry to know where to post errors to
-GIT_REV="$(git rev-parse --short HEAD)"
 REVISION_FILE="./config/revision.json"
-echo "{\"revision\": \"${GIT_REV}\"}" > $REVISION_FILE
+echo "{\"revision\": \"${FULL_GIT_REVISION}\"}" > $REVISION_FILE
 
 cd build
 
