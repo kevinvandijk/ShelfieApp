@@ -85,10 +85,10 @@ if [[ "$CONFIGURATION" = "Debug" && ! "$PLATFORM_NAME" == *simulator ]]; then
 fi
 
 # For sentry to know where to post errors to
-GIT_REV="$(git rev-parse --short HEAD)"
 REVISION_FILE="./config/revision.json"
 echo "{\"revision\": \"${GIT_REV}\"}" > $REVISION_FILE
 
+mkdir -p build
 cd build
 
 BUNDLE_FILE="main.jsbundle"
@@ -104,7 +104,7 @@ $NODE_BINARY "$REACT_NATIVE_DIR/local-cli/cli.js" bundle \
 
 cd ..
 # Clean up because it shouldn't be in git
-echo "{\"revision\": \"\"}" > $REVISION_FILE
+# echo "{\"revision\": \"\"}" > $REVISION_FILE
 
 if [[ ! $DEV && ! -f "./build/$BUNDLE_FILE" ]]; then
   echo "error: File ./build/$BUNDLE_FILE does not exist. This must be a bug with" >&2
