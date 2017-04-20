@@ -114,7 +114,6 @@ fi
 
 cp ./build/main.jsbundle "$DEST/$BUNDLE_FILE"
 mv ./build/main.jsbundle.meta "$DEST/$BUNDLE_FILE.meta"
-rm -rf build
 
 # Replace current working dir with nothing so the root of the app is shown well in Sentry
 CURRENT_DIR=$(pwd)
