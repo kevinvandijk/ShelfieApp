@@ -27,10 +27,12 @@ SOURCEMAP_PATH="$APP_PATH/build/main.jsbundle.map"
 
 if [ ! -f "$BUNDLE_PATH" ]; then
   echo "[ERROR] Javascript bundle not found in build directory"
+  exit 1
 fi
 
 if [ ! -f "$SOURCEMAP_PATH" ]; then
   echo "[ERROR] Sourcemap not found in build directory"
+  exit 1
 fi
 
 echo "[INFO] Creating release $FULL_VERSION on Sentry"
