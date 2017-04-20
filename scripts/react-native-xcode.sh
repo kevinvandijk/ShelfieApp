@@ -88,6 +88,7 @@ fi
 REVISION_FILE="./config/revision.json"
 echo "{\"revision\": \"${FULL_GIT_REVISION}\"}" > $REVISION_FILE
 
+mkdir -p build
 cd build
 
 BUNDLE_FILE="main.jsbundle"
@@ -102,8 +103,9 @@ $NODE_BINARY "$REACT_NATIVE_DIR/local-cli/cli.js" bundle \
   --sourcemap-output "$BUNDLE_FILE.map"
 
 cd ..
+rm -rf build
 # Clean up because it shouldn't be in git
-echo "{\"revision\": \"\"}" > $REVISION_FILE
+# echo "{\"revision\": \"\"}" > $REVISION_FILE
 
 if [[ ! $DEV && ! -f "./build/$BUNDLE_FILE" ]]; then
   echo "error: File ./build/$BUNDLE_FILE does not exist. This must be a bug with" >&2
