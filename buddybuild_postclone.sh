@@ -7,5 +7,4 @@ REVISION_FILE="./config/revision.json"
 echo "{\"revision\": \"${GIT_REV}\"}" > $REVISION_FILE
 
 echo "POST CLONE"
-pwd
 cat ./config/revision.json
