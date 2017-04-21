@@ -13,7 +13,7 @@ cd $APP_PATH
 mkdir -p build
 cd build
 
-BUNDLE_FILE="main.jsbundle"
+BUNDLE_FILE="index.android.bundle"
 
 node "$BUDDYBUILD_WORKSPACE/node_modules/react-native/local-cli/cli.js" bundle \
   --entry-file index.android.js \
@@ -32,7 +32,7 @@ if [[ ! -f "./build/$BUNDLE_FILE" ]]; then
   exit 2
 fi
 
-sed -i.bak "s#$CURRENT_DIR##g" ./build/main.jsbundle.map
+sed -i.bak "s#$BUDDYBUILD_WORKSPACE##g" ./build/index.android.bundle.map
 
 cd $CURRENT_DIR
 
