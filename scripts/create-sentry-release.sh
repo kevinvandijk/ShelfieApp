@@ -17,7 +17,7 @@ fi
 APP_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 # APP_NAME="$(basename $APP_PATH)"
 # APP_NAME="Shelfie" # TODO: Get this from package.json
-# GIT_REV="$(git rev-parse --short HEAD)"
+GIT_REV="$(git rev-parse --short HEAD)"
 FULL_VERSION="$VERSION_NUMBER.$BUILD_NUMBER.$GIT_REV"
 BUNDLE_PATH="$APP_PATH/build/main.jsbundle"
 SOURCEMAP_PATH="$APP_PATH/build/main.jsbundle.map"
