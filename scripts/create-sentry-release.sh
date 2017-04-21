@@ -58,8 +58,8 @@ output="$(curl "$SENTRY_URL/releases/$FULL_VERSION/files/" \
   -s -o /dev/null -w "%{http_code}" \
   -X POST \
   -H "Authorization: Bearer $SENTRY_TOKEN" \
-  -F file="@$APP_PATH/build/main.jsbundle.map" \
-  -F name="/main.jsbundle.map"
+  -F file="@$BUNDLE_PATH.map" \
+  -F name="/$BUNDLE_FILE.map"
 )"
 
 if [[ $output > 299 ]] ;then
@@ -72,8 +72,8 @@ output="$(curl "$SENTRY_URL/releases/$FULL_VERSION/files/" \
   -s -o /dev/null -w "%{http_code}" \
   -X POST \
   -H "Authorization: Bearer $SENTRY_TOKEN" \
-  -F file="@$APP_PATH/build/main.jsbundle" \
-  -F name="/main.jsbundle"
+  -F file="@$BUNDLE_PATH" \
+  -F name="/$BUNDLE_FILE"
 )"
 
 if [[ $output > 299 ]] ;then

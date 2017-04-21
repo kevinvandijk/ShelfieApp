@@ -5,6 +5,6 @@ PLIST="$APP_PATH/ios/Shelfie/Info.plist"
 
 export VERSION_NUMBER="$(defaults read $PLIST CFBundleShortVersionString)"
 export BUILD_NUMBER="$(defaults read $PLIST CFBundleVersion)"
-export BUNDLE_PATH="$APP_PATH/build/main.jsbundle"
+export BUNDLE_FILE="main.jsbundle"
 
 $APP_PATH/scripts/create-sentry-release.sh
