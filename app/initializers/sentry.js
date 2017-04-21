@@ -1,4 +1,4 @@
-import { Platform } from 'react-native';
+import { Platform, Alert } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import config from '../../config';
 
@@ -7,6 +7,7 @@ require('raven-js/plugins/react-native')(Raven);
 const revision = require('../../config/revision.json');
 
 function sentryInitializer() {
+  if (__DEV__) Alert.alert('wtf');
   if (__DEV__ || (process.env && process.env.NODE_ENV === 'development')) return null;
 
 

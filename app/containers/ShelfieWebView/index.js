@@ -4,6 +4,7 @@ import { WebView } from 'react-native';
 const { string } = PropTypes;
 
 const ShelfieWebView = (props) => {
+  throw new Error('webview broken');
   return (
     <WebView
       source={{ uri: props.uri }}
