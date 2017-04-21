@@ -91,8 +91,6 @@ fi
 mkdir -p build
 cd build
 
-BUNDLE_FILE="main.jsbundle"
-
 $NODE_BINARY "$REACT_NATIVE_DIR/local-cli/cli.js" bundle \
   --entry-file "$ENTRY_FILE" \
   --platform ios \
