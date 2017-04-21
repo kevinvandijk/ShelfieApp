@@ -33,7 +33,7 @@ if [[ ! -f "./build/$BUNDLE_FILE" ]]; then
   exit 2
 fi
 
-sed -i.bak "s#$BUDDYBUILD_WORKSPACE##g" ./build/index.android.bundle.map
+sed -i.bak "s#/tmp/sandbox/workspace##g" ./build/index.android.bundle.map
 
 cd $CURRENT_DIR
 
