@@ -11,6 +11,7 @@
   },
 
   "sentry": {
-    "dsn": "https://3942dddabbac457f8103d4e157c9ef9e@sentry.io/102018"
+    "dsn": "https://3942dddabbac457f8103d4e157c9ef9e@sentry.io/102018",
+    "android": "https://583129e6a9d649579c834a0a28467c1c@sentry.io/160346"
   }
 }
