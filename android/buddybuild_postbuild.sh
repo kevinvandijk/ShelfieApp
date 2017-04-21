@@ -13,7 +13,8 @@ cd $APP_PATH
 mkdir -p build
 cd build
 
-export BUNDLE_FILE="index.android.bundle"
+BUNDLE_FILE="index.android.bundle"
+export BUNDLE_PATH="$APP_PATH/build/$BUNDLE_FILE"
 
 node "$BUDDYBUILD_WORKSPACE/node_modules/react-native/local-cli/cli.js" bundle \
   --entry-file index.android.js \
