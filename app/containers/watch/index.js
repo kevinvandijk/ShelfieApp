@@ -20,6 +20,7 @@ class WatchContainer extends Component {
   }
 
   render() {
+    throw new Error('VIDEO BROKEN OH NOES');
     const { video } = this.props;
 
     return (
