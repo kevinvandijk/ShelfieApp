@@ -21,9 +21,17 @@ node "node_modules/react-native/local-cli/cli.js" bundle \
   --dev false \
   --reset-cache \
   --bundle-output "$BUNDLE_FILE" \
-  --assets-dest "$BUDDYBUILD_WORKSPACE/app/build" \
+  --assets-dest "$BUDDYBUILD_WORKSPACE/android/app/build/intermediates/release" \
   --sourcemap-output "$BUNDLE_FILE.map"
 
-  cd $CURRENT_DIR
+cd ..
+
+if [[ ! -f "./build/$BUNDLE_FILE" ]]; then
+  echo "error: File ./build/$BUNDLE_FILE does not exist. This must be a bug with" >&2
+  echo "React Native, please report it here: https://github.com/facebook/react-native/issues"
+  exit 2
+fi
+
+cd $CURRENT_DIR
 
 $APP_PATH/scripts/create-sentry-release.sh
