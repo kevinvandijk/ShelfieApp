@@ -9,6 +9,7 @@ const revision = require('../../config/revision.json');
 function sentryInitializer() {
   if (__DEV__ || (process.env && process.env.NODE_ENV === 'development')) return null;
 
+
   const rev = revision.revision.length ? revision.revision : 'development';
   const release = `${DeviceInfo.getReadableVersion()}.${rev}`;
 
@@ -31,6 +32,8 @@ function sentryInitializer() {
     'Device Unique ID': DeviceInfo.getUniqueID(),
     'Device Name': DeviceInfo.getDeviceName(),
   });
+
+  Raven.captureMessage('HEllo');
 
   return Raven;
 }

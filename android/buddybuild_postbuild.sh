@@ -32,6 +32,9 @@ if [[ ! -f "./build/$BUNDLE_FILE" ]]; then
   exit 2
 fi
 
+CURRENT_DIR=$(pwd)
+sed -i.bak "s#$CURRENT_DIR##g" ./build/main.jsbundle.map
+
 cd $CURRENT_DIR
 
 $APP_PATH/scripts/create-sentry-release.sh

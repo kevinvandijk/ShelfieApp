@@ -14,7 +14,6 @@ import { SAVE_TO_STORAGE } from '../modules/storage';
 let reducer = combinedReducer;
 
 const middlewares = [];
-throw new Error('Test error');
 
 let storage;
 if (config.get('storage.enabled')) {
