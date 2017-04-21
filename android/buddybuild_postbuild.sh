@@ -15,7 +15,7 @@ cd build
 
 BUNDLE_FILE="main.jsbundle"
 
-node "node_modules/react-native/local-cli/cli.js" bundle \
+node "$BUDDYBUILD_WORKSPACE/node_modules/react-native/local-cli/cli.js" bundle \
   --entry-file index.android.js \
   --platform android \
   --dev false \
