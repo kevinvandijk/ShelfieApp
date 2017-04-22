@@ -14,7 +14,7 @@
     "jwt-decode": "^2.1.0",
     "lodash": "^4.17.4",
     "moment": "^2.18.0",
-    "raven-js": "git+https://git@github.com/kevinvandijk/raven-js.git",
+    "raven-js": "^3.14.2",
     "react": "16.0.0-alpha.6",
     "react-native": "0.43.1",
     "react-native-code-push": "^1.16.1-beta",

@@ -1,3 +1,4 @@
+import { Platform } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import config from '../../config';
 
@@ -8,10 +9,13 @@ const revision = require('../../config/revision.json');
 function sentryInitializer() {
   if (__DEV__ || (process.env && process.env.NODE_ENV === 'development')) return null;
 
+
   const rev = revision.revision.length ? revision.revision : 'development';
   const release = `${DeviceInfo.getReadableVersion()}.${rev}`;
+
+  const dsn = config.get(Platform.OS === 'ios' ? 'sentry.ios' : 'sentry.android');
   Raven
-    .config(config.get('sentry.dsn'), { release })
+    .config(dsn, { release })
     .install();
 
   Raven.setTagsContext({

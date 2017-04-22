@@ -16,14 +16,12 @@ fi
 # Script
 APP_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 # APP_NAME="$(basename $APP_PATH)"
-APP_NAME="Shelfie" # TODO: Get this from package.json
-PLIST="$APP_PATH/ios/$APP_NAME/Info.plist"
-VERSION_NUMBER="$(defaults read $PLIST CFBundleShortVersionString)"
-BUILD_NUMBER="$(defaults read $PLIST CFBundleVersion)"
+# APP_NAME="Shelfie" # TODO: Get this from package.json
 GIT_REV="$(git rev-parse --short HEAD)"
 FULL_VERSION="$VERSION_NUMBER.$BUILD_NUMBER.$GIT_REV"
-BUNDLE_PATH="$APP_PATH/build/main.jsbundle"
-SOURCEMAP_PATH="$APP_PATH/build/main.jsbundle.map"
+# BUNDLE_PATH="$APP_PATH/build/$BUNDLE_FILE"
+# SOURCEMAP_PATH="$APP_PATH/build/main.jsbundle.map"
+SOURCEMAP_PATH="$BUNDLE_PATH.map"
 
 if [ ! -f "$BUNDLE_PATH" ]; then
   echo "[ERROR] Javascript bundle not found in build directory"
@@ -60,8 +58,8 @@ output="$(curl "$SENTRY_URL/releases/$FULL_VERSION/files/" \
   -s -o /dev/null -w "%{http_code}" \
   -X POST \
   -H "Authorization: Bearer $SENTRY_TOKEN" \
-  -F file="@$APP_PATH/build/main.jsbundle.map" \
-  -F name="/main.jsbundle.map"
+  -F file="@$BUNDLE_PATH.map" \
+  -F name="/$BUNDLE_FILE.map"
 )"
 
 if [[ $output > 299 ]] ;then
@@ -74,8 +72,8 @@ output="$(curl "$SENTRY_URL/releases/$FULL_VERSION/files/" \
   -s -o /dev/null -w "%{http_code}" \
   -X POST \
   -H "Authorization: Bearer $SENTRY_TOKEN" \
-  -F file="@$APP_PATH/build/main.jsbundle" \
-  -F name="/main.jsbundle"
+  -F file="@$BUNDLE_PATH" \
+  -F name="/$BUNDLE_FILE"
 )"
 
 if [[ $output > 299 ]] ;then

@@ -1,7 +1,13 @@
 #!/usr/bin/env bash
 
-# export SENTRY_URL="https://sentry.io/api/0/projects/shelfie/shelfieapp"
-# export SENTRY_TOKEN="312ee38f31254c9dbb3be6929fa00c569eb16ac6e8dc454eaf3468917c36c60a"
+if [[ "$BUDDYBUILD_BRANCH" = "master" ]]; then
+  APP_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+  PLIST="$APP_PATH/ios/Shelfie/Info.plist"
 
-APP_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-$APP_PATH/scripts/create-sentry-release.sh
+  export VERSION_NUMBER="$(defaults read $PLIST CFBundleShortVersionString)"
+  export BUILD_NUMBER="$(defaults read $PLIST CFBundleVersion)"
+  export BUNDLE_FILE="main.jsbundle"
+  export BUNDLE_PATH="$APP_PATH/build/$BUNDLE_FILE"
+
+  $APP_PATH/scripts/create-sentry-release.sh
+fi
