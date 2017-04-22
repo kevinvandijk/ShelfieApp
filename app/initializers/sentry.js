@@ -14,7 +14,7 @@ function sentryInitializer() {
   const rev = revision.revision.length ? revision.revision : 'development';
   const release = `${DeviceInfo.getReadableVersion()}.${rev}`;
 
-  const dsn = config.get(Platform.OS === 'ios' ? 'sentry.dsn' : 'sentry.android');
+  const dsn = config.get(Platform.OS === 'ios' ? 'sentry.ios' : 'sentry.android');
   Raven
     .config(dsn, { release })
     .install();
