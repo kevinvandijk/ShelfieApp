@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import Raven from 'raven-js';
 import { View, Dimensions, TouchableOpacity, Text, TouchableWithoutFeedback, DeviceEventEmitter } from 'react-native';
 import Video from 'react-native-video';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -128,7 +129,11 @@ class VideoPlayer extends Component {
       this.setState({ chromecastConnected: false, chromecastPlaying: false });
     });
 
-    Chromecast.startScan();
+    try {
+      Chromecast.startScan();
+    } catch (err) {
+      Raven.captureException(err);
+    }
   }
 
   chromecastCastMedia = () => {
