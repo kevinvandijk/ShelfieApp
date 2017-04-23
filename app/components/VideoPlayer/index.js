@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Raven from 'raven-js';
-import { View, TouchableOpacity, Text, TouchableWithoutFeedback, DeviceEventEmitter } from 'react-native';
+import { View, TouchableOpacity, Text, TouchableWithoutFeedback, DeviceEventEmitter, Platform } from 'react-native';
 import Video from 'react-native-video';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Chromecast from 'react-native-google-cast';
@@ -292,17 +292,19 @@ class VideoPlayer extends Component {
                   />
                 </TouchableOpacity>
               }
-              <TouchableOpacity
-                style={ styles.videoButtonTouchable }
-                hitSlop={ calculateHitSlop(30, 44) }
-                onPress={ this.enableFullscreen }
-              >
-                <Icon
-                  name="fullscreen"
-                  size={ 30 }
-                  style={ [styles.videoIcons, { marginTop: -3 }] }
-                />
-              </TouchableOpacity>
+              { Platform.OS === 'ios' &&
+                <TouchableOpacity
+                  style={ styles.videoButtonTouchable }
+                  hitSlop={ calculateHitSlop(30, 44) }
+                  onPress={ this.enableFullscreen }
+                >
+                  <Icon
+                    name="fullscreen"
+                    size={ 30 }
+                    style={ [styles.videoIcons, { marginTop: -3 }] }
+                  />
+                </TouchableOpacity>
+              }
             </View>
           }
         </View>
