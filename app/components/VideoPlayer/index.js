@@ -1,9 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import Raven from 'raven-js';
-import { View, Dimensions, TouchableOpacity, Text, TouchableWithoutFeedback, DeviceEventEmitter } from 'react-native';
+import { View, TouchableOpacity, Text, TouchableWithoutFeedback, DeviceEventEmitter, Platform } from 'react-native';
 import Video from 'react-native-video';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Chromecast from 'react-native-google-cast';
+import KeepAwake from 'react-native-keep-awake';
+
+
 import { calculateHitSlop } from '../../helpers';
 import Controls from './Controls';
 import Progress from './Progress';
@@ -137,7 +140,7 @@ class VideoPlayer extends Component {
   }
 
   chromecastCastMedia = () => {
-    Chromecast.castMedia(this.props.url, this.props.title, "https://www.google.nl/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png", this.state.currentTime);
+    Chromecast.castMedia(this.props.url, this.props.title, "https://shelfie.nl/wp-content/uploads/2016/07/shelfie-logo-footer-v4.png", this.state.currentTime);
   }
 
   chromecastToggle = async () => {
@@ -237,6 +240,13 @@ class VideoPlayer extends Component {
 
   render() {
     const videoPaused = this.state.chromecastConnected || this.state.paused;
+
+    if (videoPaused) {
+      KeepAwake.activate();
+    } else {
+      KeepAwake.deactivate();
+    }
+
     let buttonPaused;
     if (this.state.chromecastConnected) {
       buttonPaused = !this.state.chromecastPlaying;
@@ -282,17 +292,19 @@ class VideoPlayer extends Component {
                   />
                 </TouchableOpacity>
               }
-              <TouchableOpacity
-                style={ styles.videoButtonTouchable }
-                hitSlop={ calculateHitSlop(30, 44) }
-                onPress={ this.enableFullscreen }
-              >
-                <Icon
-                  name="fullscreen"
-                  size={ 30 }
-                  style={ [styles.videoIcons, { marginTop: -3 }] }
-                />
-              </TouchableOpacity>
+              { Platform.OS === 'ios' &&
+                <TouchableOpacity
+                  style={ styles.videoButtonTouchable }
+                  hitSlop={ calculateHitSlop(30, 44) }
+                  onPress={ this.enableFullscreen }
+                >
+                  <Icon
+                    name="fullscreen"
+                    size={ 30 }
+                    style={ [styles.videoIcons, { marginTop: -3 }] }
+                  />
+                </TouchableOpacity>
+              }
             </View>
           }
         </View>
