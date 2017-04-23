@@ -140,7 +140,7 @@ class VideoPlayer extends Component {
   }
 
   chromecastCastMedia = () => {
-    Chromecast.castMedia(this.props.url, this.props.title, "https://www.google.nl/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png", this.state.currentTime);
+    Chromecast.castMedia(this.props.url, this.props.title, "https://shelfie.nl/wp-content/uploads/2016/07/shelfie-logo-footer-v4.png", this.state.currentTime);
   }
 
   chromecastToggle = async () => {
