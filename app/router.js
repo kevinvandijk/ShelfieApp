@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { Platform } from 'react-native';
 import { connect } from 'react-redux';
 import { Scene, Router, Switch, DefaultRenderer, Actions, Modal } from 'react-native-router-flux';
 import ReactNativeDrawer from 'react-native-drawer';
@@ -68,8 +69,12 @@ Drawer.propTypes = {
 };
 
 const AppRouter = () => {
+  // Hide back button on android because androids have a native back button:
+  const routerProps = {};
+  if (Platform.OS === 'android') routerProps.renderBackButton = () => null;
+
   return (
-    <ReduxRouter>
+    <ReduxRouter { ...routerProps }>
       <Scene key="modal" component={ Modal }>
         <Scene
           key="root"
