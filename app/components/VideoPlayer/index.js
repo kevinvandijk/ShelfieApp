@@ -1,9 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import Raven from 'raven-js';
-import { View, Dimensions, TouchableOpacity, Text, TouchableWithoutFeedback, DeviceEventEmitter } from 'react-native';
+import { View, TouchableOpacity, Text, TouchableWithoutFeedback, DeviceEventEmitter } from 'react-native';
 import Video from 'react-native-video';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Chromecast from 'react-native-google-cast';
+import KeepAwake from 'react-native-keep-awake';
+
+
 import { calculateHitSlop } from '../../helpers';
 import Controls from './Controls';
 import Progress from './Progress';
@@ -237,6 +240,13 @@ class VideoPlayer extends Component {
 
   render() {
     const videoPaused = this.state.chromecastConnected || this.state.paused;
+
+    if (videoPaused) {
+      KeepAwake.activate();
+    } else {
+      KeepAwake.deactivate();
+    }
+
     let buttonPaused;
     if (this.state.chromecastConnected) {
       buttonPaused = !this.state.chromecastPlaying;
