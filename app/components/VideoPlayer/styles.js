@@ -11,7 +11,8 @@ export default StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     paddingHorizontal: 74,
-    marginTop: 23
+    marginTop: 23,
+    marginBottom: 20
   },
 
   progressContainer: {
@@ -75,8 +76,6 @@ export default StyleSheet.create({
 
   videoContainer: {
     flex: 1,
-    minHeight: 286,
-    maxHeight: 286,
     shadowColor: '#737373',
     shadowOpacity: 0.5,
     shadowOffset: {
