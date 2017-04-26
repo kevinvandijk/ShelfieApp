@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Platform } from 'react-native';
+import { Platform, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { Scene, Router, Switch, DefaultRenderer, Actions, Modal } from 'react-native-router-flux';
 import ReactNativeDrawer from 'react-native-drawer';
@@ -69,6 +69,33 @@ Drawer.propTypes = {
   navigationState: object.isRequired
 };
 
+// TODO: Fix this hack
+// The default style of doing right to left includes fading which makes the red
+// background on the auth screens look very stupid. So we're doing it with this custom
+// animation function instead
+
+function rightToLeft(props) {
+  const SCREEN_WIDTH = Dimensions.get('window').width;
+  const {
+    position,
+    scene,
+  } = props;
+
+  const index = scene.index;
+  const inputRange = [index - 1, index, index + 1];
+
+  const translateX = position.interpolate({
+    inputRange,
+    outputRange: [SCREEN_WIDTH, 0, 0],
+  });
+
+  return {
+    transform: [
+      { translateX },
+    ],
+  };
+}
+
 const AppRouter = () => {
   // Hide back button on android because androids have a native back button:
   const routerProps = {};
@@ -83,9 +110,6 @@ const AppRouter = () => {
           tabs
           unmountScenes
           selector={ rootSelector }
-          sceneStyle={{
-            backgroundColor: 'rgb(233, 106, 103)'
-          }}
         >
           <Scene
             key={ LOAD_SCENE }
@@ -99,6 +123,7 @@ const AppRouter = () => {
               component={ WelcomeContainer }
               navBar={ () => null }
               initial
+              animationStyle={ rightToLeft }
             />
 
             <Scene
@@ -106,8 +131,8 @@ const AppRouter = () => {
               component={ AuthContainer }
               navigationBarStyle={ styles.navBarWithBackground }
               sceneStyle={ styles.sceneWithNavBar }
-              direction="vertical"
               duration={ 200 }
+              animationStyle={ rightToLeft }
               backButtonImage={ require('./assets/images/back-chevron.png') }
             />
           </Scene>
@@ -115,9 +140,6 @@ const AppRouter = () => {
           <Scene
             key={ MAIN_SCENE_DRAWER }
             component={ Drawer }
-            sceneStyle={{
-              backgroundColor: '#fff'
-            }}
           >
             <Scene
               key={ MAIN_SCENE }
