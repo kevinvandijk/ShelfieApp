@@ -52,6 +52,7 @@ const Drawer = (props) => {
       tapToClose
       openDrawerOffset={ 0.28 }
       panCloseMask={ 0.28 }
+      panOpenMask={ 0.05 }
       negotiatePan
       tweenDuration={ 200 }
       tweenHandler={ (ratio) => ({
@@ -111,7 +112,13 @@ const AppRouter = () => {
             />
           </Scene>
 
-          <Scene key={ MAIN_SCENE_DRAWER } component={ Drawer }>
+          <Scene
+            key={ MAIN_SCENE_DRAWER }
+            component={ Drawer }
+            sceneStyle={{
+              backgroundColor: '#fff'
+            }}
+          >
             <Scene
               key={ MAIN_SCENE }
               navigationBarStyle={ styles.navBar }
