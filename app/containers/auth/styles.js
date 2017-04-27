@@ -1,4 +1,4 @@
-import { StyleSheet, Platform } from 'react-native';
+import { StyleSheet, Platform, Dimensions } from 'react-native';
 
 export default StyleSheet.create({
   container: {
@@ -36,7 +36,7 @@ export default StyleSheet.create({
 
   form: {
     flex: 1,
-    marginTop: 90
+    marginTop: Dimensions.get('window').height < 600 ? 30 : 90
   },
 
   normalText: {
