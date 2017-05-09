@@ -3,6 +3,7 @@ package com.shelfie;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.BV.LinearGradient.LinearGradientPackage;
 import com.corbt.keepawake.KCKeepAwakePackage;
 import com.googlecast.GoogleCastPackage;
 import com.oblador.keychain.KeychainPackage;
@@ -30,6 +31,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new LinearGradientPackage(),
             new KCKeepAwakePackage(),
             new GoogleCastPackage(),
             new KeychainPackage(),

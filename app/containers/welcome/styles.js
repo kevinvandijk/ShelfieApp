@@ -13,9 +13,8 @@ export default StyleSheet.create({
     left: 0
   },
 
-  backgroundImage: {
-    flex: 1,
-    resizeMode: 'cover'
+  backgroundGradient: {
+    flex: 1
   },
 
   logo: {

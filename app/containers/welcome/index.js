@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Image, StatusBar, Dimensions } from 'react-native';
+import { View, Image, StatusBar } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import LinearGradient from 'react-native-linear-gradient';
 
 import { AUTH_SCENE } from '../../router';
 import I18n from '../../lib/i18n';
@@ -17,18 +18,10 @@ function navigateToLogin() {
 const WelcomeContainer = () => {
   StatusBar.setHidden(true);
 
-  const { width } = Dimensions.get('window');
-  const background = width > 375
-    ? require('../../assets/images/background-plus.png') // eslint-disable-line
-    : require('../../assets/images/background.png');
-
   return (
     <View style={ styles.container }>
       <View style={ styles.backgroundContainer }>
-        <Image
-          source={ background }
-          style={ styles.backgroundImage }
-        />
+        <LinearGradient colors={ ['#E96A67', '#FF5757'] } style={ styles.backgroundGradient } />
       </View>
       <View style={ styles.content }>
         <Image

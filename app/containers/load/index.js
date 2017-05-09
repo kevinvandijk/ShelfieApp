@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import { View, Image, StatusBar, Dimensions } from 'react-native';
+import { View, Image, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
+import LinearGradient from 'react-native-linear-gradient';
 
 import styles from './styles';
 import { initialize, getAppLoadedStatus } from '../../modules/boot';
@@ -25,18 +26,10 @@ class LoadContainer extends Component {
   }
 
   render() {
-    const { width } = Dimensions.get('window');
-    const background = width > 375
-      ? require('../../assets/images/background-plus.png') // eslint-disable-line
-      : require('../../assets/images/background.png');
-
     return (
       <View style={ styles.container }>
         <View style={ styles.backgroundContainer }>
-          <Image
-            source={ background }
-            style={ styles.backgroundImage }
-          />
+          <LinearGradient colors={ ['#E96A67', '#FF5757'] } style={ styles.backgroundGradient } />
         </View>
         <View style={ styles.content }>
           <Image
