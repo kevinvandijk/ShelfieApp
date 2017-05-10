@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Image, StatusBar } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import LinearGradient from 'react-native-linear-gradient';
+import DeviceInfo from 'react-native-device-info';
 
 import { AUTH_SCENE } from '../../router';
 import I18n from '../../lib/i18n';
@@ -29,7 +30,7 @@ const WelcomeContainer = () => {
           style={ styles.logo }
         />
         <TextContent
-          i18nKey="containers.welcome.intro"
+          i18nKey={ `containers.welcome.${DeviceInfo.isTablet ? 'introTablet' : 'introPhone'}` }
           style={ styles.introText }
         />
       </View>

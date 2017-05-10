@@ -53,7 +53,8 @@
     },
 
     "welcome": {
-      "intro": "Je videobanden op je smartphone",
+      "introPhone": "Je videobanden op je smartphone",
+      "introTablet": "Je videobanden op je tablet",
       "signIn": "Login"
     },
 
