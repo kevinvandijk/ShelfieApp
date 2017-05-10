@@ -8,14 +8,15 @@ export default StyleSheet.create({
 
   backgroundContainer: {
     position: 'absolute',
+    top: 0,
     right: 0,
     bottom: 0,
-    left: 0
+    left: 0,
+    marginTop: Platform.OS === 'ios' ? -60 : -54
   },
 
-  backgroundImage: {
-    flex: 1,
-    resizeMode: 'cover'
+  backgroundGradient: {
+    flex: 1
   },
 
   leader: {
