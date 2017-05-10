@@ -97,12 +97,8 @@ function rightToLeft(props) {
 }
 
 const AppRouter = () => {
-  // Hide back button on android because androids have a native back button:
-  const routerProps = {};
-  if (Platform.OS === 'android') routerProps.renderBackButton = () => null;
-
   return (
-    <ReduxRouter { ...routerProps }>
+    <ReduxRouter>
       <Scene key="modal" component={ Modal }>
         <Scene
           key="root"
@@ -160,6 +156,7 @@ const AppRouter = () => {
                 title={ I18n.t('containers.watch.title') }
                 component={ WatchContainer }
                 sceneStyle={ styles.sceneWithNavBar }
+                hideBackImage={ Platform.OS === 'android' }
               />
 
               <Scene
@@ -167,6 +164,7 @@ const AppRouter = () => {
                 key="privacyPolicy"
                 component={ ShelfieWebView }
                 uri="https://shelfie.nl/privacy-policy/"
+                hideBackImage={ Platform.OS === 'android' }
               />
 
               <Scene
@@ -174,6 +172,7 @@ const AppRouter = () => {
                 key="termsAndConditions"
                 component={ ShelfieWebView }
                 uri="https://shelfie.nl/algemene-voorwaarden/"
+                hideBackImage={ Platform.OS === 'android' }
               />
             </Scene>
           </Scene>
