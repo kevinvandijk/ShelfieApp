@@ -1,10 +1,10 @@
 export function calculateHitSlop(size, minimalTouchArea) {
   if (size > minimalTouchArea) {
     return {
-      top: size,
-      right: size,
-      bottom: size,
-      left: size
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0
     };
   }
 
