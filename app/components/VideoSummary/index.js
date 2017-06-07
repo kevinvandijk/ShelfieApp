@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { TouchableOpacity, View, Text, Image } from 'react-native';
-import FastImage from 'react-native-fast-image';
 
 import { getAccessToken } from '../../modules/auth';
 
@@ -38,8 +37,7 @@ class VideoSummary extends React.Component {
 
     const source = {
       uri: screenshotUrl,
-      headers: { Authorization: `Bearer ${this.props.accessToken}` },
-      priority: FastImage.priority.normal
+      headers: { Authorization: `Bearer ${this.props.accessToken}` }
     };
 
     return (
@@ -52,8 +50,8 @@ class VideoSummary extends React.Component {
             </Text>
           }
         </View>
-        <FastImage
-          resizeMode={ FastImage.resizeMode.cover }
+        <Image
+          resizeMode="cover"
           source={ source }
           style={ styles.image }
           onLoad={ this.enableOverlay }

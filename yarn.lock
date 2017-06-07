@@ -4414,10 +4414,6 @@ react-native-experimental-navigation@0.26.x:
     fbjs "^0.8.1"
     react-addons-pure-render-mixin "^15.0.2"
 
-react-native-fast-image@^0.0.10:
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/react-native-fast-image/-/react-native-fast-image-0.0.10.tgz#cf99ceb73c11b589eca2f7930399a868437e2e2c"
-
 react-native-google-cast@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/react-native-google-cast/-/react-native-google-cast-1.3.0.tgz#344d8718c76bc75472d73aeeb9113a102720e63b"
