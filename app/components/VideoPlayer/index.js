@@ -82,7 +82,7 @@ class VideoPlayer extends Component {
 
   onOrientationChange = (orientation) => {
     this.setState({
-      fullscreen: orientation === 'LANDSCAPE'
+      fullscreen: orientation !== 'PORTRAIT'
     });
   }
 

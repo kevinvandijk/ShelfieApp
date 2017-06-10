@@ -16,7 +16,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'space-between',
-    backgroundColor: '#EB726F'
+    backgroundColor: '#EB726F',
+    // opacity: 0
   },
 
   content: {
@@ -92,6 +93,7 @@ const styles = StyleSheet.create({
 class SideMenu extends Component {
   static propTypes = {
     logout: func.isRequired,
+    open: PropTypes.bool
   }
 
   onLogoutPress = () => {
@@ -118,6 +120,7 @@ class SideMenu extends Component {
   }
 
   render() {
+    console.log('OPEN?', this.props);
     return (
       <View style={ styles.container }>
         <View style={ styles.titleContainer }>

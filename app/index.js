@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Alert, StatusBar } from 'react-native';
+import { Alert, StatusBar, View } from 'react-native';
 import { Provider } from 'react-redux';
 import Orientation from 'react-native-orientation';
 import Router from './router';

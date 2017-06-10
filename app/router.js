@@ -41,8 +41,8 @@ class OrientationNavbar extends React.Component {
   }
 
   render() {
-    if (this.state.orientation === 'LANDSCAPE') {
-      return <View />
+    if (this.state.orientation !== 'PORTRAIT') {
+      return <NavBar { ...this.props } navigationBarStyle={{ opacity: 0, height: 0 }} />
     }
 
     return (
@@ -75,13 +75,15 @@ const Drawer = (props) => {
       type="displace"
       content={ <SideMenu /> }
       tapToClose
-      openDrawerOffset={ 0.28 }
+      // openDrawerOffset={ 0.28 }
+      openDrawerOffset={ ({ width }) => width - 250 }
       panCloseMask={ 0.28 }
       panOpenMask={ 0.05 }
       negotiatePan
       tweenDuration={ 200 }
       tweenHandler={ (ratio) => ({
-        main: { opacity: Math.max(0.54, 1 - ratio) }
+        main: { opacity: Math.max(0.54, 1 - ratio) },
+        drawer: { opacity: ratio }
       }) }
     >
       <DefaultRenderer navigationState={ children[0] } onNavigate={ props.onNavigate } />
