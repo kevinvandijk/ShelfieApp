@@ -15,6 +15,7 @@ import WatchContainer from './containers/watch';
 import ChangePasswordContainer from './containers/change-password';
 import SideMenu from './containers/SideMenu';
 import ShelfieWebView from './containers/ShelfieWebView';
+import OrientationAwareNavBar from './components/OrientationAwareNavBar';
 
 const { func, object } = PropTypes;
 
@@ -26,30 +27,6 @@ export const WELCOME_SCENE = 'welcome';
 export const UNAUTHENTICATED_SCENE = 'unauthenticated';
 
 const ReduxRouter = connect()(Router);
-
-class OrientationNavbar extends React.Component {
-  state = {
-    orientation: 'PORTRAIT'
-  }
-
-  componentDidMount() {
-    Orientation.addOrientationListener(this.onOrientationChange)
-  }
-
-  onOrientationChange = (orientation) => {
-    this.setState({ orientation })
-  }
-
-  render() {
-    if (this.state.orientation !== 'PORTRAIT') {
-      return <NavBar { ...this.props } navigationBarStyle={{ opacity: 0, height: 0 }} />
-    }
-
-    return (
-      <NavBar { ...this.props } />
-    )
-  }
-}
 
 const rootComponent = connect(state => {
   return {
@@ -183,7 +160,7 @@ const AppRouter = () => {
                 title={ I18n.t('containers.watch.title') }
                 component={ WatchContainer }
                 hideBackImage={ Platform.OS === 'android' }
-                navBar={ OrientationNavbar }
+                navBar={ OrientationAwareNavBar }
               />
 
               <Scene

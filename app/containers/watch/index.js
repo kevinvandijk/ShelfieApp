@@ -4,27 +4,33 @@ import { View, StatusBar } from 'react-native';
 import { getVideo, fetchSignedOutputUrl, getSignedUrlForQuality } from '../../modules/videos';
 import Orientation from 'react-native-orientation';
 
+import { orientationChanged, isWatchingFullscreen } from '../../modules/watch';
 import VideoPlayer from '../../components/VideoPlayer';
 
-const { string, shape, func } = PropTypes;
+const { string, shape, func, bool } = PropTypes;
 
 class WatchContainer extends Component {
   static propTypes = {
     fetchSignedOutputUrl: func.isRequired,
     videoId: string.isRequired,
     video: shape({}).isRequired,
-    videoUrl: string
-  }
-
-  state = {
-    fullscreen: false
+    videoUrl: string,
+    orientationChanged: func.isRequired,
+    fullscreen: bool.isRequired
   }
 
   componentDidMount() {
     Orientation.unlockAllOrientations();
-    Orientation.addOrientationListener(this.onOrientationChange);
+    Orientation.addOrientationListener(this.props.orientationChanged);
+    StatusBar.setHidden(this.props.fullscreen);
 
     this.props.fetchSignedOutputUrl(this.props.videoId, '360p_mp4');
+  }
+
+  componentWillUpdate(nextProps) {
+    if (nextProps.fullscreen !== this.props.fullscreen) {
+      StatusBar.setHidden(!this.props.fullscreen);
+    }
   }
 
   componentWillUnmount() {
@@ -41,18 +47,6 @@ class WatchContainer extends Component {
     Orientation.unlockAllOrientations();
   }
 
-  onOrientationChange = (orientation) => {
-    if (orientation !== 'PORTRAIT') {
-      StatusBar.setHidden(true);
-    } else {
-      StatusBar.setHidden(false);
-    }
-
-    this.setState({
-      fullscreen: orientation !== 'PORTRAIT'
-    });
-  }
-
   render() {
     const { video } = this.props;
 
@@ -62,7 +56,7 @@ class WatchContainer extends Component {
           <VideoPlayer
             title={ video.title }
             url={ this.props.videoUrl }
-            fullscreen={ this.state.fullscreen }
+            fullscreen={ this.props.fullscreen }
             onFullscreenPress={ this.onFullscreenPress }
             onFullscreenExitPress={ this.onFullscreenExitPress }
           />
@@ -74,11 +68,15 @@ class WatchContainer extends Component {
 }
 
 const mapDispatchToProps = {
-  fetchSignedOutputUrl
+  fetchSignedOutputUrl,
+  orientationChanged
 };
 
 const mapStateToProps = (state, ownProps) => {
+  const fullscreen = isWatchingFullscreen(state);
+
   return {
+    fullscreen,
     video: getVideo(state, ownProps.videoId),
     videoUrl: getSignedUrlForQuality(state, ownProps.videoId, '360p_mp4')
   };

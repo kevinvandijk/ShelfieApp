@@ -6,6 +6,7 @@ import auth, { LOGOUT } from './modules/auth';
 import boot from './modules/boot';
 import videos from './modules/videos';
 import timeline from './modules/timeline';
+import watch from './modules/watch';
 
 // TODO: Move this somewhere better:
 const initialRouterState = {
@@ -41,7 +42,8 @@ const appReducer = combineReducers({
   auth,
   boot,
   videos,
-  timeline
+  timeline,
+  watch
 });
 
 export default (state, action) => {
