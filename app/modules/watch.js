@@ -1,12 +1,15 @@
 import { createReducer } from 'reduxsauce';
 import { createAction } from 'redux-actions';
-import { fork, take, put, call, cancel, cancelled } from 'redux-saga/effects';
+import { takeEvery, fork, take, put, call, cancel, cancelled } from 'redux-saga/effects';
 import { eventChannel } from 'redux-saga';
 import Orientation from 'react-native-orientation';
+import { upperFirst } from 'lodash';
 
 export const ORIENTATION_CHANGED = 'shelfie/watch/ORIENTATION_CHANGED';
 export const START_WATCHING_ORIENTATION = 'shelfie/watch/START_WATCHING_ORIENTATION';
 export const STOP_WATCHING_ORIENTATION = 'shelfie/watch/STOP_WATCHING_ORIENTATION';
+export const UNLOCK_ORIENTATION = 'shelfie/watch/UNLOCK_ORIENTATION';
+export const SET_ORIENTATION = 'shelfie/watch/SET_ORIENTATION';
 
 export const INITIAL_STATE = {
   orientation: 'UNKNOWN'
@@ -24,6 +27,13 @@ export default createReducer(INITIAL_STATE, {
 export const orientationChanged = createAction(ORIENTATION_CHANGED);
 export const startWatchingOrientation = createAction(START_WATCHING_ORIENTATION);
 export const stopWatchingOrientation = createAction(STOP_WATCHING_ORIENTATION);
+export const unlockOrientation = createAction(UNLOCK_ORIENTATION);
+export const setOrientation = createAction(SET_ORIENTATION, (orientation, { locked } = {}) => {
+  return {
+    orientation,
+    locked: locked || false
+  };
+});
 
 function local(state) {
   return state.watch;
@@ -76,8 +86,25 @@ function* watchOrientationSaga() {
   }
 }
 
+function* unlockOrientationSaga() {
+  yield call(Orientation.unlockAllOrientations);
+}
+
+function* setOrientationSaga({ payload }) {
+  const orientation = upperFirst(payload.orientation);
+
+  yield call(Orientation[`lockTo${orientation}`]);
+
+  if (!payload.locked) {
+    yield call(Orientation.unlockAllOrientations);
+  }
+}
+
 // FIXME: Terrible naming:
 export function* watchWatchSaga() {
+  yield takeEvery(UNLOCK_ORIENTATION, unlockOrientationSaga);
+  yield takeEvery(SET_ORIENTATION, setOrientationSaga);
+
   while (yield take(START_WATCHING_ORIENTATION)) {
     const watcher = yield fork(watchOrientationSaga);
     yield take(STOP_WATCHING_ORIENTATION);

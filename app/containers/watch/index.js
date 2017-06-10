@@ -4,7 +4,7 @@ import { View, StatusBar } from 'react-native';
 import { getVideo, fetchSignedOutputUrl, getSignedUrlForQuality } from '../../modules/videos';
 import Orientation from 'react-native-orientation';
 
-import { orientationChanged, isWatchingFullscreen, startWatchingOrientation, stopWatchingOrientation } from '../../modules/watch';
+import { orientationChanged, isWatchingFullscreen, startWatchingOrientation, stopWatchingOrientation, unlockOrientation, setOrientation } from '../../modules/watch';
 import VideoPlayer from '../../components/VideoPlayer';
 
 const { string, shape, func, bool } = PropTypes;
@@ -18,11 +18,13 @@ class WatchContainer extends Component {
     orientationChanged: func.isRequired,
     fullscreen: bool.isRequired,
     startWatchingOrientation: func.isRequired,
-    stopWatchingOrientation: func.isRequired
+    stopWatchingOrientation: func.isRequired,
+    unlockOrientation: func.isRequired,
+    setOrientation: func.isRequired
   }
 
   componentDidMount() {
-    Orientation.unlockAllOrientations();
+    this.props.unlockOrientation();
     this.props.startWatchingOrientation();
     StatusBar.setHidden(this.props.fullscreen);
 
@@ -36,18 +38,16 @@ class WatchContainer extends Component {
   }
 
   componentWillUnmount() {
-    Orientation.lockToPortrait();
     this.props.stopWatchingOrientation();
+    this.props.setOrientation('portrait', { locked: true });
   }
 
   onFullscreenPress = () => {
-    Orientation.lockToLandscape();
-    Orientation.unlockAllOrientations();
+    this.props.setOrientation('landscape');
   }
 
   onFullscreenExitPress = () => {
-    Orientation.lockToPortrait();
-    Orientation.unlockAllOrientations();
+    this.props.setOrientation('portrait');
   }
 
   render() {
@@ -74,7 +74,9 @@ const mapDispatchToProps = {
   fetchSignedOutputUrl,
   orientationChanged,
   startWatchingOrientation,
-  stopWatchingOrientation
+  stopWatchingOrientation,
+  unlockOrientation,
+  setOrientation
 };
 
 const mapStateToProps = (state, ownProps) => {
