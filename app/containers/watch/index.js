@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { View } from 'react-native';
+import { View, StatusBar } from 'react-native';
 import { getVideo, fetchSignedOutputUrl, getSignedUrlForQuality } from '../../modules/videos';
+import Orientation from 'react-native-orientation';
 
 import VideoPlayer from '../../components/VideoPlayer';
 
@@ -15,8 +16,41 @@ class WatchContainer extends Component {
     videoUrl: string
   }
 
+  state = {
+    fullscreen: false
+  }
+
   componentDidMount() {
+    Orientation.unlockAllOrientations();
+    Orientation.addOrientationListener(this.onOrientationChange);
+
     this.props.fetchSignedOutputUrl(this.props.videoId, '360p_mp4');
+  }
+
+  componentWillUnmount() {
+    Orientation.lockToPortrait();
+  }
+
+  onFullscreenPress = () => {
+    Orientation.lockToLandscape();
+    Orientation.unlockAllOrientations();
+  }
+
+  onFullscreenExitPress = () => {
+    Orientation.lockToPortrait();
+    Orientation.unlockAllOrientations();
+  }
+
+  onOrientationChange = (orientation) => {
+    if (orientation !== 'PORTRAIT') {
+      StatusBar.setHidden(true);
+    } else {
+      StatusBar.setHidden(false);
+    }
+
+    this.setState({
+      fullscreen: orientation !== 'PORTRAIT'
+    });
   }
 
   render() {
@@ -28,6 +62,9 @@ class WatchContainer extends Component {
           <VideoPlayer
             title={ video.title }
             url={ this.props.videoUrl }
+            fullscreen={ this.state.fullscreen }
+            onFullscreenPress={ this.onFullscreenPress }
+            onFullscreenExitPress={ this.onFullscreenExitPress }
           />
         }
       </View>

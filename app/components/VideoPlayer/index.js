@@ -69,26 +69,8 @@ class VideoPlayer extends Component {
     this.setState({ paused: !this.props.autoStart });
   }
 
-  componentDidMount() {
-    Orientation.unlockAllOrientations();
-    Orientation.addOrientationListener(this.onOrientationChange);
-  }
-
   componentWillUnmount() {
-    Orientation.lockToPortrait();
     Chromecast.stopScan();
-  }
-
-  onOrientationChange = (orientation) => {
-    if (orientation !== 'PORTRAIT') {
-      StatusBar.setHidden(true);
-    } else {
-      StatusBar.setHidden(false);
-    }
-
-    this.setState({
-      fullscreen: orientation !== 'PORTRAIT'
-    });
   }
 
   onPause = () => {
@@ -214,16 +196,6 @@ class VideoPlayer extends Component {
     this.seek(timestamp, false);
   }
 
-  toggleFullscreen = () => {
-    if (!this.state.fullscreen) {
-      Orientation.lockToLandscape();
-      Orientation.unlockAllOrientations();
-    } else {
-      Orientation.lockToPortrait();
-      Orientation.unlockAllOrientations();
-    }
-  }
-
   seek = (seconds, pauseOnSeek = true) => {
     if (pauseOnSeek && !this.state.paused) {
       this.setState({
@@ -265,6 +237,7 @@ class VideoPlayer extends Component {
   }
 
   render() {
+    const { fullscreen } = this.props;
     const videoPaused = this.state.chromecastConnected || this.state.paused;
 
     if (videoPaused) {
@@ -286,7 +259,7 @@ class VideoPlayer extends Component {
           <TouchableWithoutFeedback style={{ borderColor: 'green', borderWidth: 2 }} onPress={ this.toggleVideoButtons }>
             <Video
               source={{ uri: this.props.url }}
-              resizeMode={ this.state.fullscreen ? 'contain' : 'cover' }
+              resizeMode={ fullscreen ? 'contain' : 'cover' }
               rate={ this.props.rate }
               volume={ this.props.volume }
               muted={ this.props.muted }
@@ -323,10 +296,10 @@ class VideoPlayer extends Component {
                 <TouchableOpacity
                   style={ styles.videoButtonTouchable }
                   hitSlop={ calculateHitSlop(30, 44) }
-                  onPress={ this.toggleFullscreen }
+                  onPress={ fullscreen ? this.props.onFullscreenExitPress : this.props.onFullscreenPress }
                 >
                   <Icon
-                    name={ this.state.fullscreen ? 'fullscreen-exit' : 'fullscreen' }
+                    name={ fullscreen ? 'fullscreen-exit' : 'fullscreen' }
                     size={ 30 }
                     style={ [styles.videoIcons, { marginTop: -3 }] }
                   />
@@ -336,7 +309,7 @@ class VideoPlayer extends Component {
           }
         </View>
 
-        { !this.state.fullscreen &&
+        { !fullscreen &&
           <View>
             <View style={ styles.metadataContainer }>
               { this.props.title &&
