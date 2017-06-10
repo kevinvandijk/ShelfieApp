@@ -29,5 +29,13 @@ export function getOrientation(state) {
 
 export function isWatchingFullscreen(state) {
   const orientation = getOrientation(state);
-  return orientation !== 'PORTRAIT' && orientation !== 'UNKNOWN';
+
+  const fullscreen = [
+    'LANDSCAPE',
+    'LANDSCAPE-LEFT',
+    'LANDSCAPE-RIGHT',
+    'PORTRAITUPSIDEDOWN'
+  ].includes(orientation);
+
+  return fullscreen;
 }
