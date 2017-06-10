@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Raven from 'raven-js';
-import { View, TouchableOpacity, Text, TouchableWithoutFeedback, DeviceEventEmitter, Platform } from 'react-native';
+import { View, TouchableOpacity, Text, TouchableWithoutFeedback, DeviceEventEmitter, Platform, StatusBar } from 'react-native';
 import Video from 'react-native-video';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Chromecast from 'react-native-google-cast';
@@ -70,7 +70,6 @@ class VideoPlayer extends Component {
   }
 
   componentDidMount() {
-    // Orientation.unlockAllOrientations();
     Orientation.unlockAllOrientations();
     Orientation.addOrientationListener(this.onOrientationChange);
   }
@@ -81,6 +80,12 @@ class VideoPlayer extends Component {
   }
 
   onOrientationChange = (orientation) => {
+    if (orientation !== 'PORTRAIT') {
+      StatusBar.setHidden(true);
+    } else {
+      StatusBar.setHidden(false);
+    }
+
     this.setState({
       fullscreen: orientation !== 'PORTRAIT'
     });
@@ -209,9 +214,13 @@ class VideoPlayer extends Component {
     this.seek(timestamp, false);
   }
 
-  enableFullscreen = () => {
-    if (this.refs.video) {
-      this.refs.video.presentFullscreenPlayer();
+  toggleFullscreen = () => {
+    if (!this.state.fullscreen) {
+      Orientation.lockToLandscape();
+      Orientation.unlockAllOrientations();
+    } else {
+      Orientation.lockToPortrait();
+      Orientation.unlockAllOrientations();
     }
   }
 
@@ -314,10 +323,10 @@ class VideoPlayer extends Component {
                 <TouchableOpacity
                   style={ styles.videoButtonTouchable }
                   hitSlop={ calculateHitSlop(30, 44) }
-                  onPress={ this.enableFullscreen }
+                  onPress={ this.toggleFullscreen }
                 >
                   <Icon
-                    name="fullscreen"
+                    name={ this.state.fullscreen ? 'fullscreen-exit' : 'fullscreen' }
                     size={ 30 }
                     style={ [styles.videoIcons, { marginTop: -3 }] }
                   />
