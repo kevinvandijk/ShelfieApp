@@ -4,7 +4,7 @@ import { View, StatusBar } from 'react-native';
 import { getVideo, fetchSignedOutputUrl, getSignedUrlForQuality } from '../../modules/videos';
 import Orientation from 'react-native-orientation';
 
-import { orientationChanged, isWatchingFullscreen } from '../../modules/watch';
+import { orientationChanged, isWatchingFullscreen, startWatchingOrientation, stopWatchingOrientation } from '../../modules/watch';
 import VideoPlayer from '../../components/VideoPlayer';
 
 const { string, shape, func, bool } = PropTypes;
@@ -16,12 +16,14 @@ class WatchContainer extends Component {
     video: shape({}).isRequired,
     videoUrl: string,
     orientationChanged: func.isRequired,
-    fullscreen: bool.isRequired
+    fullscreen: bool.isRequired,
+    startWatchingOrientation: func.isRequired,
+    stopWatchingOrientation: func.isRequired
   }
 
   componentDidMount() {
     Orientation.unlockAllOrientations();
-    Orientation.addOrientationListener(this.props.orientationChanged);
+    this.props.startWatchingOrientation();
     StatusBar.setHidden(this.props.fullscreen);
 
     this.props.fetchSignedOutputUrl(this.props.videoId, '360p_mp4');
@@ -35,6 +37,7 @@ class WatchContainer extends Component {
 
   componentWillUnmount() {
     Orientation.lockToPortrait();
+    this.props.stopWatchingOrientation();
   }
 
   onFullscreenPress = () => {
@@ -69,7 +72,9 @@ class WatchContainer extends Component {
 
 const mapDispatchToProps = {
   fetchSignedOutputUrl,
-  orientationChanged
+  orientationChanged,
+  startWatchingOrientation,
+  stopWatchingOrientation
 };
 
 const mapStateToProps = (state, ownProps) => {
