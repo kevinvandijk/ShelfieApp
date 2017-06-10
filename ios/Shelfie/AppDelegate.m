@@ -9,7 +9,7 @@
 
 #import "AppDelegate.h"
 //#import "CodePush.h"
-
+#import "Orientation.h" // <--- import
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import <BuddyBuildSDK/BuddyBuildSDK.h>
@@ -41,6 +41,10 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   return YES;
+}
+
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+  return [Orientation getOrientation];
 }
 
 @end

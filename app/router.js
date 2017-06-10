@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react';
-import { Platform, Dimensions } from 'react-native';
+import { Platform, Dimensions, View } from 'react-native';
 import { connect } from 'react-redux';
-import { Scene, Router, Switch, DefaultRenderer, Actions, Modal } from 'react-native-router-flux';
+import { Scene, Router, Switch, DefaultRenderer, Actions, Modal, NavBar } from 'react-native-router-flux';
 import ReactNativeDrawer from 'react-native-drawer';
+import Orientation from 'react-native-orientation';
 
 import I18n from './lib/i18n';
 import styles from './styles';
@@ -25,6 +26,30 @@ export const WELCOME_SCENE = 'welcome';
 export const UNAUTHENTICATED_SCENE = 'unauthenticated';
 
 const ReduxRouter = connect()(Router);
+
+class OrientationNavbar extends React.Component {
+  state = {
+    orientation: 'PORTRAIT'
+  }
+
+  componentDidMount() {
+    Orientation.addOrientationListener(this.onOrientationChange)
+  }
+
+  onOrientationChange = (orientation) => {
+    this.setState({ orientation })
+  }
+
+  render() {
+    if (this.state.orientation === 'LANDSCAPE') {
+      return <View />
+    }
+
+    return (
+      <NavBar { ...this.props } />
+    )
+  }
+}
 
 const rootComponent = connect(state => {
   return {
@@ -155,8 +180,8 @@ const AppRouter = () => {
                 key="mainWatch"
                 title={ I18n.t('containers.watch.title') }
                 component={ WatchContainer }
-                sceneStyle={ styles.sceneWithNavBar }
                 hideBackImage={ Platform.OS === 'android' }
+                navBar={ OrientationNavbar }
               />
 
               <Scene

@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Alert, StatusBar } from 'react-native';
 import { Provider } from 'react-redux';
+import Orientation from 'react-native-orientation';
 import Router from './router';
 
 // Initializers
@@ -18,6 +19,10 @@ class App extends Component {
     store: PropTypes.object.isRequired
   }
 
+  componentWillMount() {
+    Orientation.lockToPortrait();
+  }
+
   // codePushStatusDidChange(status) {
   //   if (status === codePush.SyncStatus.UPDATE_INSTALLED) {
   //     Alert.alert('App was updated');
@@ -26,6 +31,7 @@ class App extends Component {
 
   render() {
     StatusBar.setHidden(true);
+
 
     return (
       <Provider store={ this.props.store }>

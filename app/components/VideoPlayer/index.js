@@ -5,6 +5,7 @@ import Video from 'react-native-video';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Chromecast from 'react-native-google-cast';
 import KeepAwake from 'react-native-keep-awake';
+import Orientation from 'react-native-orientation';
 
 
 import { calculateHitSlop } from '../../helpers';
@@ -28,6 +29,7 @@ class VideoPlayer extends Component {
     muted: bool,
     volume: number,
     rate: number,
+    fullscreen: bool,
     playInBackground: bool,
     playWhenInactive: bool,
     repeat: bool,
@@ -41,6 +43,7 @@ class VideoPlayer extends Component {
     volume: 1.0,
     rate: 1.0,
     autoStart: false,
+    fullscreen: false,
     getBackwardTime: (currentTime) => {
       const timestamp = currentTime - 10;
       return timestamp > 0 ? timestamp : 0;
@@ -57,7 +60,8 @@ class VideoPlayer extends Component {
     showVideoButtons: false,
     chromecastAvailable: false,
     chromecastConnected: false,
-    chromecastPlaying: false
+    chromecastPlaying: false,
+    fullscreen: false
   }
 
   componentWillMount() {
@@ -65,8 +69,21 @@ class VideoPlayer extends Component {
     this.setState({ paused: !this.props.autoStart });
   }
 
+  componentDidMount() {
+    // Orientation.unlockAllOrientations();
+    Orientation.unlockAllOrientations();
+    Orientation.addOrientationListener(this.onOrientationChange);
+  }
+
   componentWillUnmount() {
+    Orientation.lockToPortrait();
     Chromecast.stopScan();
+  }
+
+  onOrientationChange = (orientation) => {
+    this.setState({
+      fullscreen: orientation === 'LANDSCAPE'
+    });
   }
 
   onPause = () => {
@@ -253,13 +270,14 @@ class VideoPlayer extends Component {
     } else {
       buttonPaused = this.state.paused;
     }
+
     return (
       <View style={ [styles.container, this.props.style] }>
         <View style={ styles.videoContainer }>
-          <TouchableWithoutFeedback onPress={ this.toggleVideoButtons }>
+          <TouchableWithoutFeedback style={{ borderColor: 'green', borderWidth: 2 }} onPress={ this.toggleVideoButtons }>
             <Video
               source={{ uri: this.props.url }}
-              resizeMode="cover"
+              resizeMode={ this.state.fullscreen ? 'contain' : 'cover' }
               rate={ this.props.rate }
               volume={ this.props.volume }
               muted={ this.props.muted }
@@ -309,38 +327,42 @@ class VideoPlayer extends Component {
           }
         </View>
 
-        <View style={ styles.metadataContainer }>
-          { this.props.title &&
-            <Title>{ this.props.title }</Title>
-          }
-          { this.props.description &&
-            <View style={ styles.titleContainer }>
-              <Text style={ styles.descriptionText }>{ this.props.description }</Text>
+        { !this.state.fullscreen &&
+          <View>
+            <View style={ styles.metadataContainer }>
+              { this.props.title &&
+                <Title>{ this.props.title }</Title>
+              }
+              { this.props.description &&
+                <View style={ styles.titleContainer }>
+                  <Text style={ styles.descriptionText }>{ this.props.description }</Text>
+                </View>
+              }
             </View>
-          }
-        </View>
 
-        <Progress
-          duration={ this.state.duration }
-          currentTime={ this.state.currentTime }
-          onSeek={ this.seek }
-          onSeekComplete={ this.seekComplete }
-          // If paused or currentTime is 0, instantly jump the progress bar to correct position:
-          easingDuration={ this.state.paused || this.state.currentTime === 0 ? 0 : undefined }
-          style={ [this.props.progressStyle, styles.progressContainer] }
-        />
+            <Progress
+              duration={ this.state.duration }
+              currentTime={ this.state.currentTime }
+              onSeek={ this.seek }
+              onSeekComplete={ this.seekComplete }
+              // If paused or currentTime is 0, instantly jump the progress bar to correct position:
+              easingDuration={ this.state.paused || this.state.currentTime === 0 ? 0 : undefined }
+              style={ [this.props.progressStyle, styles.progressContainer] }
+            />
 
-        <Controls
-          forward
-          backward
-          paused={ buttonPaused }
-          onPause={ this.onPause }
-          onPlay={ this.onPlay }
-          onBackward={ this.seekBackward }
-          onForward={ this.seekForward }
-          style={ [styles.videoPlayerControls, this.props.controlsStyle] }
-          color="#333"
-        />
+            <Controls
+              forward
+              backward
+              paused={ buttonPaused }
+              onPause={ this.onPause }
+              onPlay={ this.onPlay }
+              onBackward={ this.seekBackward }
+              onForward={ this.seekForward }
+              style={ [styles.videoPlayerControls, this.props.controlsStyle] }
+              color="#333"
+            />
+          </View>
+        }
       </View>
     );
   }
