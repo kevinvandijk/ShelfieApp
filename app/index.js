@@ -30,12 +30,13 @@ class App extends Component {
   // }
 
   render() {
-    StatusBar.setBarStyle('light-content');
-
     return (
-      <Provider store={ this.props.store }>
-        <Router />
-      </Provider>
+      <View style={{ flex: 1 }}>
+        <StatusBar barStyle="light-content" />
+        <Provider store={ this.props.store }>
+          <Router />
+        </Provider>
+      </View>
     );
   }
 }

@@ -4,7 +4,8 @@ import {
   Text,
   TouchableWithoutFeedback,
   DeviceEventEmitter,
-  Platform
+  Platform,
+  StatusBar
 } from 'react-native';
 import Raven from 'raven-js';
 import Video from 'react-native-video';
@@ -246,14 +247,18 @@ class VideoPlayer extends React.Component {
     });
 
     if (newState) {
+      StatusBar.setHidden(false, 'fade');
       this.startOverlayTimer();
     } else {
+      StatusBar.setHidden(true, 'fade');
       this.endOverlayTimer();
     }
   }
 
   startOverlayTimer = () => {
     this._overlayTimer = setTimeout(() => {
+      // FIXME: Needs to be unified function to hide and unhide overlay
+      StatusBar.setHidden(true, 'fade');
       this.setState({ showVideoButtons: false });
     }, 3500);
   }
