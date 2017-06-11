@@ -78,14 +78,18 @@ class VideoPlayer extends React.Component {
   }
 
   onPause = () => {
+    if (this.state.showVideoButtons) this.endOverlayTimer();
     if (this.state.chromecastConnected) return this.chromecastPause();
 
     this.setState({
       paused: true
     });
+
+    if (this.state.showVideoButtons) this.startOverlayTimer();
   }
 
   onPlay = () => {
+    if (this.state.showVideoButtons) this.endOverlayTimer();
     if (this.state.chromecastConnected) return this.chromecastPlay();
 
     const { currentTime, duration } = this.state;
@@ -97,6 +101,8 @@ class VideoPlayer extends React.Component {
     this.setState({
       paused: false
     });
+
+    if (this.state.showVideoButtons) this.startOverlayTimer();
   }
 
   onLoad = (videoProps) => {
@@ -189,15 +195,23 @@ class VideoPlayer extends React.Component {
   }
 
   seekBackward = () => {
+    if (this.state.showVideoButtons) this.endOverlayTimer();
+
     const { currentTime, duration } = this.state;
     const timestamp = this.props.getBackwardTime(currentTime, duration);
     this.seek(timestamp, false);
+
+    if (this.state.showVideoButtons) this.startOverlayTimer();
   }
 
   seekForward = () => {
+    if (this.state.showVideoButtons) this.endOverlayTimer();
+
     const { currentTime, duration } = this.state;
     const timestamp = this.props.getForwardTime(currentTime, duration);
     this.seek(timestamp, false);
+
+    if (this.state.showVideoButtons) this.startOverlayTimer();
   }
 
   seek = (seconds, pauseOnSeek = true) => {
