@@ -233,7 +233,7 @@ class VideoPlayer extends Component {
         this.setState({
           showVideoButtons: false
         });
-      }, 3000);
+      }, 3500);
     }
   }
 
