@@ -96,7 +96,6 @@ export default StyleSheet.create({
   },
 
   videoIcons: {
-    color: '#fff',
     backgroundColor: 'transparent',
     marginRight: 10
   }

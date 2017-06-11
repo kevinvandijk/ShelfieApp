@@ -12,7 +12,7 @@ import { calculateHitSlop } from '../../helpers';
 import Controls from './Controls';
 import Progress from './Progress';
 import Title from './Title';
-import VideoIcon from './VideoIcon';
+import ControlButton from './ControlButton';
 import styles from './styles';
 
 const { func, number, object, oneOfType, bool, string } = PropTypes;
@@ -281,14 +281,14 @@ class VideoPlayer extends Component {
           { this.state.showVideoButtons &&
             <View style={ styles.videoButtons }>
               { this.state.chromecastAvailable &&
-                <VideoIcon
+                <ControlButton
                   size={ 24 }
                   name={ this.state.chromecastConnected ? 'cast-connected' : 'cast' }
                   onPress={ this.chromecastToggle }
                 />
               }
               { Platform.OS === 'ios' &&
-                <VideoIcon
+                <ControlButton
                   size={ 30 }
                   name={ fullscreen ? 'fullscreen-exit' : 'fullscreen' }
                   iconStyle={{ marginTop: -3 }}

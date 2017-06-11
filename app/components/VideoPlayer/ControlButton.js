@@ -5,8 +5,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from './styles';
 import { calculateHitSlop } from '../../helpers';
 
-const VideoIcon = (props) => {
-  const { onPress, name, size, hitSlop, iconStyle } = props;
+const ControlButton = (props) => {
+  const { onPress, name, size, hitSlop, iconStyle, color } = props;
 
   return (
     <TouchableOpacity
@@ -18,22 +18,25 @@ const VideoIcon = (props) => {
         name={ name }
         size={ size }
         style={ [styles.videoIcons, iconStyle] }
+        color={ color }
       />
     </TouchableOpacity>
   );
 };
 
-VideoIcon.propTypes = {
+ControlButton.propTypes = {
   onPress: PropTypes.func,
   name: PropTypes.string.isRequired,
   size: PropTypes.number,
-  hitSlop: PropTypes.number
+  hitSlop: PropTypes.number,
+  color: PropTypes.string
 };
 
-VideoIcon.defaultProps = {
+ControlButton.defaultProps = {
   onPress: null,
   size: 24,
-  hitSlop: 44
+  hitSlop: 44,
+  color: '#FFFFFF'
 };
 
-export default VideoIcon;
+export default ControlButton;
