@@ -17,7 +17,10 @@ export const INITIAL_STATE = {
 
 export default createReducer(INITIAL_STATE, {
   [ORIENTATION_CHANGED]: (state, { payload }) => {
-    if (isFullscreenOrientation(getOrientation(state)) && payload === 'UNKNOWN') {
+    const orientation = getOrientation(state);
+    // Prevent fullscreen mode from switching off when putting the phone
+    // FACEDOWN or FACEUP (which currently triggers an UNKNOWN event in react-native-orientation)
+    if (isFullscreenOrientation(orientation) && payload === 'UNKNOWN') {
       return state;
     }
 
