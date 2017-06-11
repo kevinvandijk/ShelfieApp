@@ -10,7 +10,7 @@ const ControlButton = (props) => {
 
   return (
     <TouchableOpacity
-      style={ styles.videoButtonTouchable }
+      style={ [styles.videoButtonTouchable, props.style] }
       hitSlop={ calculateHitSlop(size, hitSlop) }
       onPress={ onPress }
     >

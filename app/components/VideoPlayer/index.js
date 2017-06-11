@@ -279,22 +279,38 @@ class VideoPlayer extends Component {
           </TouchableWithoutFeedback>
 
           { this.state.showVideoButtons &&
-            <View style={ styles.videoButtons }>
-              { this.state.chromecastAvailable &&
-                <ControlButton
-                  size={ 24 }
-                  name={ this.state.chromecastConnected ? 'cast-connected' : 'cast' }
-                  onPress={ this.chromecastToggle }
+            <View style={ styles.overlay } pointerEvents="box-none">
+              { fullscreen &&
+                <Controls
+                  forward
+                  backward
+                  paused={ buttonPaused }
+                  onPause={ this.onPause }
+                  onPlay={ this.onPlay }
+                  onBackward={ this.seekBackward }
+                  onForward={ this.seekForward }
+                  style={ [styles.videoPlayerControls, this.props.controlsStyle] }
+                  color="#fff"
                 />
               }
-              { Platform.OS === 'ios' &&
-                <ControlButton
-                  size={ 30 }
-                  name={ fullscreen ? 'fullscreen-exit' : 'fullscreen' }
-                  iconStyle={{ marginTop: -3 }}
-                  onPress={ fullscreen ? this.props.onFullscreenExitPress : this.props.onFullscreenPress }
-                />
-              }
+
+              <View style={ styles.videoButtons }>
+                { this.state.chromecastAvailable &&
+                  <ControlButton
+                    size={ 24 }
+                    name={ this.state.chromecastConnected ? 'cast-connected' : 'cast' }
+                    onPress={ this.chromecastToggle }
+                  />
+                }
+                { Platform.OS === 'ios' &&
+                  <ControlButton
+                    size={ 30 }
+                    name={ fullscreen ? 'fullscreen-exit' : 'fullscreen' }
+                    iconStyle={{ marginTop: -3 }}
+                    onPress={ fullscreen ? this.props.onFullscreenExitPress : this.props.onFullscreenPress }
+                  />
+                }
+              </View>
             </View>
           }
         </View>

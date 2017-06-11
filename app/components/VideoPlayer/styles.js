@@ -85,6 +85,13 @@ export default StyleSheet.create({
     shadowRadius: 6
   },
 
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, .2)',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+
   videoButtons: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
