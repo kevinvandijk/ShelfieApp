@@ -1,14 +1,17 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
+import {
+  View,
+  Text,
+  TouchableWithoutFeedback,
+  DeviceEventEmitter,
+  Platform
+} from 'react-native';
 import Raven from 'raven-js';
-import { View, TouchableOpacity, Text, TouchableWithoutFeedback, DeviceEventEmitter, Platform, StatusBar } from 'react-native';
 import Video from 'react-native-video';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import Chromecast from 'react-native-google-cast';
 import KeepAwake from 'react-native-keep-awake';
-import Orientation from 'react-native-orientation';
 
 
-import { calculateHitSlop } from '../../helpers';
 import Controls from './Controls';
 import Progress from './Progress';
 import Title from './Title';
@@ -17,7 +20,7 @@ import styles from './styles';
 
 const { func, number, object, oneOfType, bool, string } = PropTypes;
 
-class VideoPlayer extends Component {
+class VideoPlayer extends React.Component {
   static propTypes = {
     onLoadStart: func,
     onLoad: func,
