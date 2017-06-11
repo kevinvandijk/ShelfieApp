@@ -17,6 +17,10 @@ export const INITIAL_STATE = {
 
 export default createReducer(INITIAL_STATE, {
   [ORIENTATION_CHANGED]: (state, { payload }) => {
+    if (isFullscreenOrientation(getOrientation(state)) && payload === 'UNKNOWN') {
+      return state;
+    }
+
     return {
       ...state,
       orientation: payload
@@ -36,7 +40,17 @@ export const setOrientation = createAction(SET_ORIENTATION, (orientation, { lock
 });
 
 function local(state) {
-  return state.watch;
+  if (state.watch) return state.watch;
+  return state;
+}
+
+function isFullscreenOrientation(orientation) {
+  return [
+    'LANDSCAPE',
+    'LANDSCAPE-LEFT',
+    'LANDSCAPE-RIGHT',
+    'PORTRAITUPSIDEDOWN'
+  ].includes(orientation);
 }
 
 export function getOrientation(state) {
@@ -45,13 +59,7 @@ export function getOrientation(state) {
 
 export function isWatchingFullscreen(state) {
   const orientation = getOrientation(state);
-
-  const fullscreen = [
-    'LANDSCAPE',
-    'LANDSCAPE-LEFT',
-    'LANDSCAPE-RIGHT',
-    'PORTRAITUPSIDEDOWN'
-  ].includes(orientation);
+  const fullscreen = isFullscreenOrientation(orientation);
 
   return fullscreen;
 }
