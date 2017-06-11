@@ -17,6 +17,7 @@ import Controls from './Controls';
 import Progress from './Progress';
 import Title from './Title';
 import ControlButton from './ControlButton';
+import Overlay from '../Overlay';
 import styles from './styles';
 
 const { func, number, object, oneOfType, bool, string } = PropTypes;
@@ -247,10 +248,14 @@ class VideoPlayer extends React.Component {
     });
 
     if (newState) {
-      StatusBar.setHidden(false, 'fade');
+      if (this.props.fullscreen) {
+        StatusBar.setHidden(false, 'fade');
+      }
       this.startOverlayTimer();
     } else {
-      StatusBar.setHidden(true, 'fade');
+      if (this.props.fullscreen) {
+        StatusBar.setHidden(true, 'fade');
+      }
       this.endOverlayTimer();
     }
   }
@@ -258,7 +263,9 @@ class VideoPlayer extends React.Component {
   startOverlayTimer = () => {
     this._overlayTimer = setTimeout(() => {
       // FIXME: Needs to be unified function to hide and unhide overlay
-      StatusBar.setHidden(true, 'fade');
+      if (this.props.fullscreen) {
+        StatusBar.setHidden(true, 'fade');
+      }
       this.setState({ showVideoButtons: false });
     }, 3500);
   }
@@ -310,62 +317,59 @@ class VideoPlayer extends React.Component {
             />
           </TouchableWithoutFeedback>
 
-          { this.state.showVideoButtons &&
-            <View style={ styles.overlay } pointerEvents="box-none">
-              { fullscreen &&
-                <Controls
-                  forward
-                  backward
-                  paused={ buttonPaused }
-                  onPause={ this.onPause }
-                  onPlay={ this.onPlay }
-                  onBackward={ this.seekBackward }
-                  onForward={ this.seekForward }
-                  style={ [styles.videoPlayerControls, this.props.controlsStyle] }
-                  color="#fff"
-                />
-              }
-
-              <View style={ styles.videoButtonsContainer }>
-                <View style={ styles.videoProgress }>
-                  { fullscreen &&
-                    <Progress
-                      duration={ this.state.duration }
-                      currentTime={ this.state.currentTime }
-                      onSeek={ this.seek }
-                      onSeekComplete={ this.seekComplete }
-                      // If paused or currentTime is 0, instantly jump the progress bar to correct position:
-                      easingDuration={ this.state.paused || this.state.currentTime === 0 ? 0 : undefined }
-                      style={ [this.props.progressStyle, styles.overlayProgressContainer] }
-                      minimumTrackColor={ '#E96A67' }
-                      maximumTrackColor={ '#fff' }
-                      trackImage={ null }
-                      textColor="#fff"
-                      onDragStart={ this.endOverlayTimer }
-                      onDragEnd={ this.startOverlayTimer }
-                    />
-                  }
-                </View>
-                <View style={ styles.videoButtons }>
-                  { this.state.chromecastAvailable &&
-                    <ControlButton
-                      size={ 24 }
-                      name={ this.state.chromecastConnected ? 'cast-connected' : 'cast' }
-                      onPress={ this.chromecastToggle }
-                    />
-                  }
-                  { Platform.OS === 'ios' &&
-                    <ControlButton
-                      size={ 30 }
-                      name={ fullscreen ? 'fullscreen-exit' : 'fullscreen' }
-                      iconStyle={{ marginTop: -3 }}
-                      onPress={ fullscreen ? this.props.onFullscreenExitPress : this.props.onFullscreenPress }
-                    />
-                  }
-                </View>
+          <Overlay hidden={ !this.state.showVideoButtons }>
+            { fullscreen &&
+              <Controls
+                forward
+                backward
+                paused={ buttonPaused }
+                onPause={ this.onPause }
+                onPlay={ this.onPlay }
+                onBackward={ this.seekBackward }
+                onForward={ this.seekForward }
+                style={ [styles.videoPlayerControls, this.props.controlsStyle] }
+                color="#fff"
+              />
+            }
+            <View style={ styles.videoButtonsContainer }>
+              <View style={ styles.videoProgress }>
+                { fullscreen &&
+                  <Progress
+                    duration={ this.state.duration }
+                    currentTime={ this.state.currentTime }
+                    onSeek={ this.seek }
+                    onSeekComplete={ this.seekComplete }
+                    // If paused or currentTime is 0, instantly jump the progress bar to correct position:
+                    easingDuration={ this.state.paused || this.state.currentTime === 0 ? 0 : undefined }
+                    style={ [this.props.progressStyle, styles.overlayProgressContainer] }
+                    minimumTrackColor={ '#E96A67' }
+                    maximumTrackColor={ '#fff' }
+                    trackImage={ null }
+                    textColor="#fff"
+                    onDragStart={ this.endOverlayTimer }
+                    onDragEnd={ this.startOverlayTimer }
+                  />
+                }
+              </View>
+              <View style={ styles.videoButtons }>
+                { this.state.chromecastAvailable &&
+                  <ControlButton
+                    size={ 24 }
+                    name={ this.state.chromecastConnected ? 'cast-connected' : 'cast' }
+                    onPress={ this.chromecastToggle }
+                  />
+                }
+                { Platform.OS === 'ios' &&
+                  <ControlButton
+                    size={ 30 }
+                    name={ fullscreen ? 'fullscreen-exit' : 'fullscreen' }
+                    iconStyle={{ marginTop: -3 }}
+                    onPress={ fullscreen ? this.props.onFullscreenExitPress : this.props.onFullscreenPress }
+                  />
+                }
               </View>
             </View>
-          }
+          </Overlay>
         </View>
 
         { !fullscreen &&
