@@ -297,22 +297,41 @@ class VideoPlayer extends React.Component {
                 />
               }
 
-              <View style={ styles.videoButtons }>
-                { this.state.chromecastAvailable &&
-                  <ControlButton
-                    size={ 24 }
-                    name={ this.state.chromecastConnected ? 'cast-connected' : 'cast' }
-                    onPress={ this.chromecastToggle }
-                  />
-                }
-                { Platform.OS === 'ios' &&
-                  <ControlButton
-                    size={ 30 }
-                    name={ fullscreen ? 'fullscreen-exit' : 'fullscreen' }
-                    iconStyle={{ marginTop: -3 }}
-                    onPress={ fullscreen ? this.props.onFullscreenExitPress : this.props.onFullscreenPress }
-                  />
-                }
+              <View style={ styles.videoButtonsContainer }>
+                <View style={ styles.videoProgress }>
+                  { fullscreen &&
+                    <Progress
+                      duration={ this.state.duration }
+                      currentTime={ this.state.currentTime }
+                      onSeek={ this.seek }
+                      onSeekComplete={ this.seekComplete }
+                      // If paused or currentTime is 0, instantly jump the progress bar to correct position:
+                      easingDuration={ this.state.paused || this.state.currentTime === 0 ? 0 : undefined }
+                      style={ [this.props.progressStyle, styles.overlayProgressContainer] }
+                      minimumTrackColor={ '#E96A67' }
+                      maximumTrackColor={ '#fff' }
+                      trackImage={ null }
+                      textColor="#fff"
+                    />
+                  }
+                </View>
+                <View style={ styles.videoButtons }>
+                  { this.state.chromecastAvailable &&
+                    <ControlButton
+                      size={ 24 }
+                      name={ this.state.chromecastConnected ? 'cast-connected' : 'cast' }
+                      onPress={ this.chromecastToggle }
+                    />
+                  }
+                  { Platform.OS === 'ios' &&
+                    <ControlButton
+                      size={ 30 }
+                      name={ fullscreen ? 'fullscreen-exit' : 'fullscreen' }
+                      iconStyle={{ marginTop: -3 }}
+                      onPress={ fullscreen ? this.props.onFullscreenExitPress : this.props.onFullscreenPress }
+                    />
+                  }
+                </View>
               </View>
             </View>
           }

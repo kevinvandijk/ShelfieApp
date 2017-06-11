@@ -92,13 +92,31 @@ export default StyleSheet.create({
     justifyContent: 'center'
   },
 
+  overlayProgressContainer: {
+    marginTop: -22,
+    marginHorizontal: 20
+  },
+
+  videoButtonsContainer: {
+    flexDirection: 'row',
+    // justifyContent: 'space-between',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 10,
+    height: 24
+  },
+
   videoButtons: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    position: 'absolute',
-    right: 0,
-    bottom: 10,
+  },
+
+  videoProgress: {
+    flex: 1,
     height: 24
   },
 
