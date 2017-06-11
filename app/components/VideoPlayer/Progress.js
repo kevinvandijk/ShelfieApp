@@ -29,7 +29,9 @@ class Progress extends React.Component {
     maximumTrackColor: PropTypes.string,
     minimumTrackColor: PropTypes.string,
     trackImage: PropTypes.any,
-    textColor: PropTypes.string
+    textColor: PropTypes.string,
+    onDragStart: PropTypes.func,
+    onDragEnd: PropTypes.func
   }
 
   static defaultProps = {
@@ -37,7 +39,9 @@ class Progress extends React.Component {
     duration: 0,
     maximumTrackColor: '#333',
     minimumTrackColor: '#000',
-    trackImage: require('../../assets/images/line.png')
+    trackImage: require('../../assets/images/line.png'),
+    onDragStart: null,
+    onEndStart: null
   }
 
   formatSeconds(seconds) {
@@ -84,6 +88,8 @@ class Progress extends React.Component {
           onValueChange={ this.props.onSeek }
           onSlidingComplete={ this.props.onSeekComplete }
           style={ styles.slider }
+          onResponderGrant={ this.props.onDragStart }
+          onResponderRelease={ this.props.onDragEnd }
         />
       </View>
     );

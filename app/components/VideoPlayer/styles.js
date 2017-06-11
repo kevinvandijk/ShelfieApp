@@ -99,7 +99,6 @@ export default StyleSheet.create({
 
   videoButtonsContainer: {
     flexDirection: 'row',
-    // justifyContent: 'space-between',
     justifyContent: 'flex-end',
     alignItems: 'center',
     position: 'absolute',

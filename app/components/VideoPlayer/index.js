@@ -232,11 +232,21 @@ class VideoPlayer extends React.Component {
     });
 
     if (newState) {
-      setTimeout(() => {
-        this.setState({
-          showVideoButtons: false
-        });
-      }, 3500);
+      this.startOverlayTimer();
+    } else {
+      this.endOverlayTimer();
+    }
+  }
+
+  startOverlayTimer = () => {
+    this._overlayTimer = setTimeout(() => {
+      this.setState({ showVideoButtons: false });
+    }, 3500);
+  }
+
+  endOverlayTimer = () => {
+    if (this._overlayTimer) {
+      clearTimeout(this._overlayTimer);
     }
   }
 
@@ -312,6 +322,8 @@ class VideoPlayer extends React.Component {
                       maximumTrackColor={ '#fff' }
                       trackImage={ null }
                       textColor="#fff"
+                      onDragStart={ this.endOverlayTimer }
+                      onDragEnd={ this.startOverlayTimer }
                     />
                   }
                 </View>
