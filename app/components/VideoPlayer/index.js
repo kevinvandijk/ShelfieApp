@@ -256,7 +256,7 @@ class VideoPlayer extends Component {
     return (
       <View style={ [styles.container, this.props.style] }>
         <View style={ styles.videoContainer }>
-          <TouchableWithoutFeedback style={{ borderColor: 'green', borderWidth: 2 }} onPress={ this.toggleVideoButtons }>
+          <TouchableWithoutFeedback onPress={ this.toggleVideoButtons }>
             <Video
               source={{ uri: this.props.url }}
               resizeMode={ fullscreen ? 'contain' : 'cover' }
