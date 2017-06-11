@@ -30,8 +30,7 @@ class App extends Component {
   // }
 
   render() {
-    StatusBar.setHidden(true);
-
+    StatusBar.setBarStyle('light-content');
 
     return (
       <Provider store={ this.props.store }>
