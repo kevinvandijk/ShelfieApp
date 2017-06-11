@@ -12,6 +12,7 @@ import { calculateHitSlop } from '../../helpers';
 import Controls from './Controls';
 import Progress from './Progress';
 import Title from './Title';
+import VideoIcon from './VideoIcon';
 import styles from './styles';
 
 const { func, number, object, oneOfType, bool, string } = PropTypes;
@@ -280,30 +281,19 @@ class VideoPlayer extends Component {
           { this.state.showVideoButtons &&
             <View style={ styles.videoButtons }>
               { this.state.chromecastAvailable &&
-                <TouchableOpacity
-                  style={ styles.videoButtonTouchable }
-                  hitSlop={ calculateHitSlop(32, 44) }
+                <VideoIcon
+                  size={ 24 }
+                  name={ this.state.chromecastConnected ? 'cast-connected' : 'cast' }
                   onPress={ this.chromecastToggle }
-                >
-                  <Icon
-                    name={ this.state.chromecastConnected ? 'cast-connected' : 'cast' }
-                    size={ 24 }
-                    style={ styles.videoIcons }
-                  />
-                </TouchableOpacity>
+                />
               }
               { Platform.OS === 'ios' &&
-                <TouchableOpacity
-                  style={ styles.videoButtonTouchable }
-                  hitSlop={ calculateHitSlop(30, 44) }
+                <VideoIcon
+                  size={ 30 }
+                  name={ fullscreen ? 'fullscreen-exit' : 'fullscreen' }
+                  iconStyle={{ marginTop: -3 }}
                   onPress={ fullscreen ? this.props.onFullscreenExitPress : this.props.onFullscreenPress }
-                >
-                  <Icon
-                    name={ fullscreen ? 'fullscreen-exit' : 'fullscreen' }
-                    size={ 30 }
-                    style={ [styles.videoIcons, { marginTop: -3 }] }
-                  />
-                </TouchableOpacity>
+                />
               }
             </View>
           }
