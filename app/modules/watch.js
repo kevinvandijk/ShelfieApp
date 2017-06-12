@@ -83,7 +83,7 @@ function createOrientationChannel() {
 }
 
 function* delayedOrientationChangeSaga(orientation) {
-  yield delay(300);
+  yield delay(200);
   yield put(orientationChanged(orientation));
 }
 
