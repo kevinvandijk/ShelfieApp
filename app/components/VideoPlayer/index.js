@@ -85,19 +85,22 @@ class VideoPlayer extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const { fullscreen, orientation } = nextProps;
+    const duration = 400;
 
     if (!fullscreen) {
       Animated.parallel([
         Animated.timing(
           this.state.fullscreenRotate,
           {
-            toValue: 0
+            toValue: 0,
+            duration
           }
         ),
         Animated.timing(
           this.state.fullscreenAnimation,
           {
-            toValue: 0
+            toValue: 0,
+            duration
           }
         )
       ]).start();
@@ -106,13 +109,15 @@ class VideoPlayer extends React.Component {
         Animated.timing(
           this.state.fullscreenRotate,
           {
-            toValue: 1
+            toValue: 1,
+            duration
           }
         ),
         Animated.timing(
           this.state.fullscreenAnimation,
           {
-            toValue: 1
+            toValue: 1,
+            duration
           }
         )
       ]).start();
@@ -121,13 +126,15 @@ class VideoPlayer extends React.Component {
         Animated.timing(
           this.state.fullscreenRotate,
           {
-            toValue: -1
+            toValue: -1,
+            duration
           }
         ),
         Animated.timing(
           this.state.fullscreenAnimation,
           {
-            toValue: 1
+            toValue: 1,
+            duration
           }
         )
       ]).start();
