@@ -5,7 +5,9 @@ import {
   TouchableWithoutFeedback,
   DeviceEventEmitter,
   Platform,
-  StatusBar
+  StatusBar,
+  Dimensions,
+  Animated
 } from 'react-native';
 import Raven from 'raven-js';
 import Video from 'react-native-video';
@@ -67,7 +69,9 @@ class VideoPlayer extends React.Component {
     chromecastAvailable: false,
     chromecastConnected: false,
     chromecastPlaying: false,
-    fullscreen: false
+    fullscreen: false,
+    fullscreenAnimation: new Animated.Value(0),
+    fullscreenVideoRotate: new Animated.Value(0)
   }
 
   componentWillMount() {
@@ -77,6 +81,19 @@ class VideoPlayer extends React.Component {
 
   componentWillUnmount() {
     Chromecast.stopScan();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.fullscreen !== this.props.fullscreen) {
+      if (nextProps.fullscreen) {
+        Animated.timing(
+          this.state.fullscreenAnimation,
+          {
+            toValue: -1
+          }
+        ).start();
+      }
+    }
   }
 
   onPause = () => {
@@ -276,6 +293,13 @@ class VideoPlayer extends React.Component {
     }
   }
 
+  measureVideo = ({ nativeEvent }) => {
+    if (!this.videoWidth || !this.videoHeight) {
+      this.videoWidth = nativeEvent.layout.width;
+      this.videoHeight = nativeEvent.layout.height;
+    }
+  }
+
   render() {
     const { fullscreen } = this.props;
     const videoPaused = this.state.chromecastConnected || this.state.paused;
@@ -293,9 +317,56 @@ class VideoPlayer extends React.Component {
       buttonPaused = this.state.paused;
     }
 
+    let fullscreenStyle;
+
+    if (fullscreen) {
+      const inputRange = [-1, 0];
+      const { height: windowHeight, width: windowWidth } = Dimensions.get('window');
+      const rotate = this.state.fullscreenAnimation.interpolate({
+        inputRange,
+        outputRange: ['-90deg', '0deg']
+      });
+
+      const width = this.state.fullscreenAnimation.interpolate({
+        inputRange,
+        outputRange: [windowHeight, this.videoWidth]
+      });
+
+      const height = this.state.fullscreenAnimation.interpolate({
+        inputRange,
+        outputRange: [windowWidth, this.videoHeight]
+      });
+
+
+      const heightTranslate = (windowHeight - windowWidth) / 2;
+      const translateX = this.state.fullscreenAnimation.interpolate({
+        inputRange,
+        outputRange: [-heightTranslate, 0]
+      });
+
+
+      const widthTranslate = windowHeight - this.videoHeight - heightTranslate;
+      const translateY = this.state.fullscreenAnimation.interpolate({
+        inputRange,
+        outputRange: [widthTranslate, 0]
+      });
+
+      fullscreenStyle = {
+        minWidth: width,
+        minHeight: height,
+        width,
+        height,
+        zIndex: 2,
+        transform: [
+          { translateX },
+          { translateY },
+          { rotate }
+        ]
+      };
+    }
     return (
       <View style={ [styles.container, this.props.style] }>
-        <View style={ styles.videoContainer }>
+        <Animated.View style={ [styles.videoContainer, fullscreenStyle] } ref={ (r) => { this.videoContainer = r; } } onLayout={ this.measureVideo }>
           <TouchableWithoutFeedback onPress={ this.toggleVideoButtons }>
             <Video
               source={{ uri: this.props.url }}
@@ -370,44 +441,42 @@ class VideoPlayer extends React.Component {
               </View>
             </View>
           </Overlay>
-        </View>
+        </Animated.View>
 
-        { !fullscreen &&
-          <View>
-            <View style={ styles.metadataContainer }>
-              { this.props.title &&
-                <Title>{ this.props.title }</Title>
-              }
-              { this.props.description &&
-                <View style={ styles.titleContainer }>
-                  <Text style={ styles.descriptionText }>{ this.props.description }</Text>
-                </View>
-              }
-            </View>
-
-            <Progress
-              duration={ this.state.duration }
-              currentTime={ this.state.currentTime }
-              onSeek={ this.seek }
-              onSeekComplete={ this.seekComplete }
-              // If paused or currentTime is 0, instantly jump the progress bar to correct position:
-              easingDuration={ this.state.paused || this.state.currentTime === 0 ? 0 : undefined }
-              style={ [this.props.progressStyle, styles.progressContainer] }
-            />
-
-            <Controls
-              forward
-              backward
-              paused={ buttonPaused }
-              onPause={ this.onPause }
-              onPlay={ this.onPlay }
-              onBackward={ this.seekBackward }
-              onForward={ this.seekForward }
-              style={ [styles.videoPlayerControls, this.props.controlsStyle] }
-              color="#333"
-            />
+        <View>
+          <View style={ styles.metadataContainer }>
+            { this.props.title &&
+              <Title>{ this.props.title }</Title>
+            }
+            { this.props.description &&
+              <View style={ styles.titleContainer }>
+                <Text style={ styles.descriptionText }>{ this.props.description }</Text>
+              </View>
+            }
           </View>
-        }
+
+          <Progress
+            duration={ this.state.duration }
+            currentTime={ this.state.currentTime }
+            onSeek={ this.seek }
+            onSeekComplete={ this.seekComplete }
+            // If paused or currentTime is 0, instantly jump the progress bar to correct position:
+            easingDuration={ this.state.paused || this.state.currentTime === 0 ? 0 : undefined }
+            style={ [this.props.progressStyle, styles.progressContainer] }
+          />
+
+          <Controls
+            forward
+            backward
+            paused={ buttonPaused }
+            onPause={ this.onPause }
+            onPlay={ this.onPlay }
+            onBackward={ this.seekBackward }
+            onForward={ this.seekForward }
+            style={ [styles.videoPlayerControls, this.props.controlsStyle] }
+            color="#333"
+          />
+        </View>
       </View>
     );
   }

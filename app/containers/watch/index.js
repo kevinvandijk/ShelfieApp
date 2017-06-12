@@ -24,7 +24,7 @@ class WatchContainer extends Component {
   }
 
   componentDidMount() {
-    this.props.unlockOrientation();
+    // this.props.unlockOrientation();
     this.props.startWatchingOrientation();
     StatusBar.setHidden(this.props.fullscreen);
 
