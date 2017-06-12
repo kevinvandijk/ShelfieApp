@@ -39,15 +39,14 @@ class WatchContainer extends Component {
 
   componentWillUnmount() {
     this.props.stopWatchingOrientation();
-    this.props.setOrientation('portrait', { locked: true });
   }
 
   onFullscreenPress = () => {
-    this.props.setOrientation('landscape');
+    this.props.setOrientation('LANDSCAPE-LEFT');
   }
 
   onFullscreenExitPress = () => {
-    this.props.setOrientation('portrait');
+    this.props.setOrientation('PORTRAIT');
   }
 
   render() {

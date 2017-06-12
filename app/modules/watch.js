@@ -109,13 +109,14 @@ function* unlockOrientationSaga() {
 }
 
 function* setOrientationSaga({ payload }) {
-  const orientation = upperFirst(payload.orientation);
+  yield put(orientationChanged(payload.orientation));
+  // const orientation = upperFirst(payload.orientation);
 
-  yield call(Orientation[`lockTo${orientation}`]);
+  // yield call(Orientation[`lockTo${orientation}`]);
 
-  if (!payload.locked) {
-    yield call(Orientation.unlockAllOrientations);
-  }
+  // if (!payload.locked) {
+  //   yield call(Orientation.unlockAllOrientations);
+  // }
 }
 
 // FIXME: Terrible naming:
