@@ -71,7 +71,7 @@ class VideoPlayer extends React.Component {
     chromecastPlaying: false,
     fullscreen: false,
     fullscreenAnimation: new Animated.Value(0),
-    fullscreenVideoRotate: new Animated.Value(0)
+    fullscreenRotate: new Animated.Value(0)
   }
 
   componentWillMount() {
@@ -84,15 +84,53 @@ class VideoPlayer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.fullscreen !== this.props.fullscreen) {
-      if (nextProps.fullscreen) {
+    const { fullscreen, orientation } = nextProps;
+
+    if (!fullscreen) {
+      Animated.parallel([
+        Animated.timing(
+          this.state.fullscreenRotate,
+          {
+            toValue: 0
+          }
+        ),
         Animated.timing(
           this.state.fullscreenAnimation,
           {
+            toValue: 0
+          }
+        )
+      ]).start();
+    } else if (orientation === 'LANDSCAPE-LEFT') {
+      Animated.parallel([
+        Animated.timing(
+          this.state.fullscreenRotate,
+          {
+            toValue: 1
+          }
+        ),
+        Animated.timing(
+          this.state.fullscreenAnimation,
+          {
+            toValue: 1
+          }
+        )
+      ]).start();
+    } else if (orientation === 'LANDSCAPE-RIGHT') {
+      Animated.parallel([
+        Animated.timing(
+          this.state.fullscreenRotate,
+          {
             toValue: -1
           }
-        ).start();
-      }
+        ),
+        Animated.timing(
+          this.state.fullscreenAnimation,
+          {
+            toValue: 1
+          }
+        )
+      ]).start();
     }
   }
 
@@ -266,12 +304,12 @@ class VideoPlayer extends React.Component {
 
     if (newState) {
       if (this.props.fullscreen) {
-        StatusBar.setHidden(false, 'fade');
+        // StatusBar.setHidden(false, 'fade');
       }
       this.startOverlayTimer();
     } else {
       if (this.props.fullscreen) {
-        StatusBar.setHidden(true, 'fade');
+        // StatusBar.setHidden(true, 'fade');
       }
       this.endOverlayTimer();
     }
@@ -281,7 +319,7 @@ class VideoPlayer extends React.Component {
     this._overlayTimer = setTimeout(() => {
       // FIXME: Needs to be unified function to hide and unhide overlay
       if (this.props.fullscreen) {
-        StatusBar.setHidden(true, 'fade');
+        // StatusBar.setHidden(true, 'fade');
       }
       this.setState({ showVideoButtons: false });
     }, 3500);
@@ -319,36 +357,33 @@ class VideoPlayer extends React.Component {
 
     let fullscreenStyle;
 
-    if (fullscreen) {
-      const inputRange = [-1, 0];
+    if (this.videoWidth && this.videoHeight) {
       const { height: windowHeight, width: windowWidth } = Dimensions.get('window');
-      const rotate = this.state.fullscreenAnimation.interpolate({
-        inputRange,
-        outputRange: ['-90deg', '0deg']
+      const rotate = this.state.fullscreenRotate.interpolate({
+        inputRange: [-1, 0, 1],
+        outputRange: ['-90deg', '0deg', '90deg']
       });
-
-      const width = this.state.fullscreenAnimation.interpolate({
-        inputRange,
-        outputRange: [windowHeight, this.videoWidth]
-      });
-
-      const height = this.state.fullscreenAnimation.interpolate({
-        inputRange,
-        outputRange: [windowWidth, this.videoHeight]
-      });
-
 
       const heightTranslate = (windowHeight - windowWidth) / 2;
       const translateX = this.state.fullscreenAnimation.interpolate({
-        inputRange,
-        outputRange: [-heightTranslate, 0]
+        inputRange: [0, 1],
+        outputRange: [0, -heightTranslate]
       });
-
 
       const widthTranslate = windowHeight - this.videoHeight - heightTranslate;
       const translateY = this.state.fullscreenAnimation.interpolate({
-        inputRange,
-        outputRange: [widthTranslate, 0]
+        inputRange: [0, 1],
+        outputRange: [0, widthTranslate]
+      });
+
+      const width = this.state.fullscreenAnimation.interpolate({
+        inputRange: [0, 1],
+        outputRange: [this.videoWidth, windowHeight]
+      });
+
+      const height = this.state.fullscreenAnimation.interpolate({
+        inputRange: [0, 1],
+        outputRange: [this.videoHeight, windowWidth]
       });
 
       fullscreenStyle = {

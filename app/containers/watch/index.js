@@ -4,7 +4,7 @@ import { View, StatusBar } from 'react-native';
 import { getVideo, fetchSignedOutputUrl, getSignedUrlForQuality } from '../../modules/videos';
 import Orientation from 'react-native-orientation';
 
-import { orientationChanged, isWatchingFullscreen, startWatchingOrientation, stopWatchingOrientation, unlockOrientation, setOrientation } from '../../modules/watch';
+import { orientationChanged, isWatchingFullscreen, getOrientation, startWatchingOrientation, stopWatchingOrientation, unlockOrientation, setOrientation } from '../../modules/watch';
 import VideoPlayer from '../../components/VideoPlayer';
 
 const { string, shape, func, bool } = PropTypes;
@@ -51,7 +51,7 @@ class WatchContainer extends Component {
   }
 
   render() {
-    const { video } = this.props;
+    const { video, orientation } = this.props;
 
     return (
       <View style={{ flex: 1, backgroundColor: 'transparent' }}>
@@ -62,6 +62,7 @@ class WatchContainer extends Component {
             fullscreen={ this.props.fullscreen }
             onFullscreenPress={ this.onFullscreenPress }
             onFullscreenExitPress={ this.onFullscreenExitPress }
+            orientation={ orientation }
           />
         }
       </View>
@@ -84,6 +85,7 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     fullscreen,
+    orientation: getOrientation(state),
     video: getVideo(state, ownProps.videoId),
     videoUrl: getSignedUrlForQuality(state, ownProps.videoId, '360p_mp4')
   };

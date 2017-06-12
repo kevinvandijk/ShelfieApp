@@ -1,7 +1,7 @@
 import { createReducer } from 'reduxsauce';
 import { createAction } from 'redux-actions';
-import { takeEvery, fork, take, put, call, cancel, cancelled } from 'redux-saga/effects';
-import { eventChannel } from 'redux-saga';
+import { takeEvery, takeLatest, fork, take, put, call, cancel, cancelled } from 'redux-saga/effects';
+import { delay, eventChannel } from 'redux-saga';
 import Orientation from 'react-native-orientation';
 import { upperFirst } from 'lodash';
 
@@ -82,13 +82,20 @@ function createOrientationChannel() {
   });
 }
 
+function* delayedOrientationChangeSaga(orientation) {
+  yield delay(300);
+  yield put(orientationChanged(orientation));
+}
+
 function* watchOrientationSaga() {
   const channel = yield call(createOrientationChannel);
 
   try {
+    let task;
     while (true) {
       const orientation = yield take(channel);
-      yield put(orientationChanged(orientation));
+      if (task) yield cancel(task);
+      task = yield fork(delayedOrientationChangeSaga, orientation);
     }
   } finally {
     if (yield cancelled()) {
