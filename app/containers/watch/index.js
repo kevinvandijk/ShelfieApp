@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { View, StatusBar } from 'react-native';
+import { View, StatusBar, Platform } from 'react-native';
 import { getVideo, fetchSignedOutputUrl, getSignedUrlForQuality } from '../../modules/videos';
 import Orientation from 'react-native-orientation';
 
@@ -24,7 +24,6 @@ class WatchContainer extends Component {
   }
 
   componentDidMount() {
-    // this.props.unlockOrientation();
     this.props.startWatchingOrientation();
     StatusBar.setHidden(this.props.fullscreen);
 
@@ -39,6 +38,7 @@ class WatchContainer extends Component {
 
   componentWillUnmount() {
     this.props.stopWatchingOrientation();
+    if (Platform.OS === 'android') this.props.setOrientation('PORTRAIT', { locked: true });
   }
 
   onFullscreenPress = () => {
@@ -47,6 +47,10 @@ class WatchContainer extends Component {
 
   onFullscreenExitPress = () => {
     this.props.setOrientation('PORTRAIT');
+  }
+
+  androidUnlock = () => {
+    if (Platform.OS === 'android') this.props.unlockOrientation();
   }
 
   render() {
@@ -59,6 +63,7 @@ class WatchContainer extends Component {
             title={ video.title }
             url={ this.props.videoUrl }
             fullscreen={ this.props.fullscreen }
+            onLoad={ this.androidUnlock }
             onFullscreenPress={ this.onFullscreenPress }
             onFullscreenExitPress={ this.onFullscreenExitPress }
             orientation={ orientation }

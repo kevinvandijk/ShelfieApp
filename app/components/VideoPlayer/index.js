@@ -88,6 +88,8 @@ class VideoPlayer extends React.Component {
 
     if (!fullscreen) {
       this.animateFullscreen('PORTRAIT');
+    } else if (Platform.OS === 'android' && orientation === 'LANDSCAPE') {
+      this.animateFullscreen(orientation);
     } else if (orientation === 'LANDSCAPE-LEFT') {
       this.animateFullscreen(orientation);
     } else if (orientation === 'LANDSCAPE-RIGHT') {
@@ -128,6 +130,8 @@ class VideoPlayer extends React.Component {
       duration: videoProps.duration,
       currentTime: videoProps.currentTime
     });
+
+    if (this.props.onLoad) this.props.onLoad(videoProps);
   }
 
   onProgress = (progress) => {
@@ -151,7 +155,7 @@ class VideoPlayer extends React.Component {
     let rotateValue = 0;
     if (orientation === 'LANDSCAPE-LEFT') rotateValue = 1;
     if (orientation === 'LANDSCAPE-RIGHT') rotateValue = -1;
-    const animationValue = ['LANDSCAPE-LEFT', 'LANDSCAPE-RIGHT'].includes(orientation) ? 1 : 0;
+    const animationValue = ['LANDSCAPE-LEFT', 'LANDSCAPE-RIGHT', 'LANDSCAPE'].includes(orientation) ? 1 : 0;
 
     return Animated.parallel([
       Animated.timing(
@@ -323,6 +327,12 @@ class VideoPlayer extends React.Component {
     }
   }
 
+  measureControls = ({ nativeEvent }) => {
+    if (!this.controlsHeight) {
+      this.controlsHeight = nativeEvent.layout.height;
+    }
+  }
+
   render() {
     const { fullscreen } = this.props;
     const videoPaused = this.state.chromecastConnected || this.state.paused;
@@ -341,8 +351,9 @@ class VideoPlayer extends React.Component {
     }
 
     let fullscreenStyle;
+    let androidFullscreenControls;
 
-    if (this.videoWidth && this.videoHeight) {
+    if (this.videoWidth && this.videoHeight && Platform.OS === 'ios') {
       const { height: windowHeight, width: windowWidth } = Dimensions.get('window');
       const rotate = this.state.fullscreenRotate.interpolate({
         inputRange: [-1, 0, 1],
@@ -383,6 +394,15 @@ class VideoPlayer extends React.Component {
           { rotate }
         ]
       };
+    } else if (Platform.OS === 'android' && this.controlsHeight) {
+      const marginBottom = this.state.fullscreenAnimation.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, -this.controlsHeight]
+      });
+
+      androidFullscreenControls = {
+        marginBottom
+      };
     }
     return (
       <View style={ [styles.container, this.props.style] }>
@@ -403,7 +423,7 @@ class VideoPlayer extends React.Component {
               onProgress={ this.onProgress }
               onEnd={ this.onEnd }
               onError={ this.onError }
-              style={ [styles.video, this.props.videoStyle] }
+              style={ [styles.video, this.props.videoStyle, { backgroundColor: 'black' }] }
               ref="video"
             />
           </TouchableWithoutFeedback>
@@ -433,8 +453,9 @@ class VideoPlayer extends React.Component {
                     // If paused or currentTime is 0, instantly jump the progress bar to correct position:
                     easingDuration={ this.state.paused || this.state.currentTime === 0 ? 0 : undefined }
                     style={ [this.props.progressStyle, styles.overlayProgressContainer] }
-                    minimumTrackColor={ '#E96A67' }
-                    maximumTrackColor={ '#fff' }
+                    // Android switches these:
+                    minimumTrackColor={ Platform.OS === 'ios' ? '#E96A67' : '#fff' }
+                    maximumTrackColor={ Platform.OS === 'ios' ? '#fff' : '#E96A67' }
                     trackImage={ null }
                     textColor="#fff"
                     onDragStart={ this.endOverlayTimer }
@@ -463,7 +484,7 @@ class VideoPlayer extends React.Component {
           </Overlay>
         </Animated.View>
 
-        <View>
+        <Animated.View style={ androidFullscreenControls } onLayout={ this.measureControls }>
           <View style={ styles.metadataContainer }>
             { this.props.title &&
               <Title>{ this.props.title }</Title>
@@ -496,7 +517,7 @@ class VideoPlayer extends React.Component {
             style={ [styles.videoPlayerControls, this.props.controlsStyle] }
             color="#333"
           />
-        </View>
+        </Animated.View>
       </View>
     );
   }

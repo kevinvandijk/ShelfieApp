@@ -2,6 +2,7 @@ import { createReducer } from 'reduxsauce';
 import { createAction } from 'redux-actions';
 import { takeEvery, takeLatest, fork, take, put, call, cancel, cancelled } from 'redux-saga/effects';
 import { delay, eventChannel } from 'redux-saga';
+import { Platform } from 'react-native';
 import Orientation from 'react-native-orientation';
 import { upperFirst } from 'lodash';
 
@@ -73,7 +74,12 @@ function createOrientationChannel() {
       emit(orientation);
     };
 
-    Orientation.addSpecificOrientationListener(orientationHandler);
+    // No Android support for this yet:
+    if (Platform.OS === 'ios') {
+      Orientation.addSpecificOrientationListener(orientationHandler);
+    } else {
+      Orientation.addOrientationListener(orientationHandler);
+    }
 
     // Unsubscriber:
     return () => {
