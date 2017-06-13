@@ -85,59 +85,13 @@ class VideoPlayer extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const { fullscreen, orientation } = nextProps;
-    const duration = 400;
 
     if (!fullscreen) {
-      Animated.parallel([
-        Animated.timing(
-          this.state.fullscreenRotate,
-          {
-            toValue: 0,
-            duration
-          }
-        ),
-        Animated.timing(
-          this.state.fullscreenAnimation,
-          {
-            toValue: 0,
-            duration
-          }
-        )
-      ]).start();
+      this.animateFullscreen('PORTRAIT');
     } else if (orientation === 'LANDSCAPE-LEFT') {
-      Animated.parallel([
-        Animated.timing(
-          this.state.fullscreenRotate,
-          {
-            toValue: 1,
-            duration
-          }
-        ),
-        Animated.timing(
-          this.state.fullscreenAnimation,
-          {
-            toValue: 1,
-            duration
-          }
-        )
-      ]).start();
+      this.animateFullscreen(orientation);
     } else if (orientation === 'LANDSCAPE-RIGHT') {
-      Animated.parallel([
-        Animated.timing(
-          this.state.fullscreenRotate,
-          {
-            toValue: -1,
-            duration
-          }
-        ),
-        Animated.timing(
-          this.state.fullscreenAnimation,
-          {
-            toValue: 1,
-            duration
-          }
-        )
-      ]).start();
+      this.animateFullscreen(orientation);
     }
   }
 
@@ -191,6 +145,30 @@ class VideoPlayer extends React.Component {
 
   onError = () => {
     console.error('Error playing video, not handled');
+  }
+
+  animateFullscreen(orientation, duration = 400) {
+    let rotateValue = 0;
+    if (orientation === 'LANDSCAPE-LEFT') rotateValue = 1;
+    if (orientation === 'LANDSCAPE-RIGHT') rotateValue = -1;
+    const animationValue = ['LANDSCAPE-LEFT', 'LANDSCAPE-RIGHT'].includes(orientation) ? 1 : 0;
+
+    return Animated.parallel([
+      Animated.timing(
+        this.state.fullscreenRotate,
+        {
+          toValue: rotateValue,
+          duration
+        }
+      ),
+      Animated.timing(
+        this.state.fullscreenAnimation,
+        {
+          toValue: animationValue,
+          duration
+        }
+      )
+    ]).start();
   }
 
   initializeChromecast() {
