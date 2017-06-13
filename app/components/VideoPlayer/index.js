@@ -471,14 +471,12 @@ class VideoPlayer extends React.Component {
                     onPress={ this.chromecastToggle }
                   />
                 }
-                { Platform.OS === 'ios' &&
-                  <ControlButton
-                    size={ 30 }
-                    name={ fullscreen ? 'fullscreen-exit' : 'fullscreen' }
-                    iconStyle={{ marginTop: -3 }}
-                    onPress={ fullscreen ? this.props.onFullscreenExitPress : this.props.onFullscreenPress }
-                  />
-                }
+                <ControlButton
+                  size={ 30 }
+                  name={ fullscreen ? 'fullscreen-exit' : 'fullscreen' }
+                  iconStyle={{ marginTop: -3 }}
+                  onPress={ fullscreen ? this.props.onFullscreenExitPress : this.props.onFullscreenPress }
+                />
               </View>
             </View>
           </Overlay>
