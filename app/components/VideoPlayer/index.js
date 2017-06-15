@@ -97,20 +97,27 @@ class VideoPlayer extends React.Component {
     } else if (orientation === 'LANDSCAPE-RIGHT') {
       this.animateFullscreen(orientation);
     }
+
+    const videoPaused = this.state.chromecastConnected || this.state.paused;
+    if (fullscreen && videoPaused) {
+      this.setState({
+        showVideoButtons: true
+      });
+    }
   }
 
-  onPause = () => {
+  onPause = async () => {
     if (this.state.showVideoButtons) this.endOverlayTimer();
     if (this.state.chromecastConnected) return this.chromecastPause();
 
-    this.setState({
+    await this.setState({
       paused: true
     });
 
     if (this.state.showVideoButtons) this.startOverlayTimer();
   }
 
-  onPlay = () => {
+  onPlay = async () => {
     if (this.state.showVideoButtons) this.endOverlayTimer();
     if (this.state.chromecastConnected) return this.chromecastPlay();
 
@@ -120,7 +127,7 @@ class VideoPlayer extends React.Component {
       this.refs.video.seek(0);
     }
 
-    this.setState({
+    await this.setState({
       paused: false
     });
 
@@ -307,6 +314,8 @@ class VideoPlayer extends React.Component {
   }
 
   startOverlayTimer = () => {
+    if (this.props.fullscreen && this.state.paused) return;
+
     this._overlayTimer = setTimeout(() => {
       // FIXME: Needs to be unified function to hide and unhide overlay
       if (this.props.fullscreen) {
