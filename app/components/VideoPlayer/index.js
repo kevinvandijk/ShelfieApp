@@ -114,7 +114,7 @@ class VideoPlayer extends React.Component {
       paused: true
     });
 
-    if (this.state.showVideoButtons) this.startOverlayTimer();
+    if (this.state.showVideoButtons && !this.props.fullscreen) this.startOverlayTimer();
   }
 
   onPlay = async () => {
