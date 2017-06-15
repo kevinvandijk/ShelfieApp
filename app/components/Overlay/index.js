@@ -33,6 +33,7 @@ class Overlay extends React.Component {
         this.state.opacity,
         {
           toValue: nextProps.hidden ? 0 : 1,
+          duration: 400,
           useNativeDriver: true
         }
       ).start();
