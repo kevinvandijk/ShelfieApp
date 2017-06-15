@@ -77,6 +77,7 @@ export default StyleSheet.create({
 
   videoContainer: {
     flex: 1,
+    backgroundColor: '#000',
     shadowColor: '#737373',
     shadowOpacity: 0.5,
     shadowOffset: {

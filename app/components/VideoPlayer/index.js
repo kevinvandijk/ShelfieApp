@@ -13,7 +13,7 @@ import Raven from 'raven-js';
 import Video from 'react-native-video';
 import Chromecast from 'react-native-google-cast';
 import KeepAwake from 'react-native-keep-awake';
-
+import Immersive from 'react-native-immersive'
 
 import Controls from './Controls';
 import Progress from './Progress';
@@ -88,7 +88,9 @@ class VideoPlayer extends React.Component {
 
     if (!fullscreen) {
       this.animateFullscreen('PORTRAIT');
+      if (Platform.OS === 'android') Immersive.setImmersive(false);
     } else if (Platform.OS === 'android' && orientation === 'LANDSCAPE') {
+      Immersive.setImmersive(true)
       this.animateFullscreen(orientation);
     } else if (orientation === 'LANDSCAPE-LEFT') {
       this.animateFullscreen(orientation);
