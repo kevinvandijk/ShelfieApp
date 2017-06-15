@@ -43,10 +43,30 @@ class WatchContainer extends Component {
 
   onFullscreenPress = () => {
     this.props.setOrientation('LANDSCAPE-LEFT');
+    if (Platform.OS === 'android') {
+      // Force the screen in landscape mode
+      // TODO: Move somewhere better
+      Orientation.lockToLandscapeLeft();
+      // Unlock again after 5 seconds, if the user didn't rotate the screen then yet it's kinda pointless
+      // Best effort kind of thing:
+      setTimeout(() => {
+        Orientation.unlockAllOrientations();
+      }, 5000);
+    }
   }
 
   onFullscreenExitPress = () => {
     this.props.setOrientation('PORTRAIT');
+    if (Platform.OS === 'android') {
+      // Force the screen back in portrait mode
+      // TODO: Move somewhere better
+      Orientation.lockToPortrait();
+      // Unlock again after 5 seconds, if the user didn't rotate the screen then yet it's kinda pointless
+      // Best effort kind of thing:
+      setTimeout(() => {
+        Orientation.unlockAllOrientations();
+      }, 5000);
+    }
   }
 
   androidUnlock = () => {
