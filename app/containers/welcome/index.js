@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, StatusBar } from 'react-native';
+import { View, Image } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import LinearGradient from 'react-native-linear-gradient';
 import DeviceInfo from 'react-native-device-info';
@@ -17,8 +17,6 @@ function navigateToLogin() {
 }
 
 const WelcomeContainer = () => {
-  StatusBar.setHidden(true);
-
   return (
     <View style={ styles.container }>
       <View style={ styles.backgroundContainer }>

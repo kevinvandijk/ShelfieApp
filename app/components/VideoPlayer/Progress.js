@@ -25,12 +25,23 @@ class Progress extends React.Component {
     disablePlayed: bool,
     disableSeek: bool,
     onSeek: validateOnSeekProp,
-    onSeekComplete: func
+    onSeekComplete: func,
+    maximumTrackColor: PropTypes.string,
+    minimumTrackColor: PropTypes.string,
+    trackImage: PropTypes.any,
+    textColor: PropTypes.string,
+    onDragStart: PropTypes.func,
+    onDragEnd: PropTypes.func
   }
 
   static defaultProps = {
     currentTime: 0,
-    duration: 0
+    duration: 0,
+    maximumTrackColor: '#333',
+    minimumTrackColor: '#000',
+    trackImage: require('../../assets/images/line.png'),
+    onDragStart: null,
+    onEndStart: null
   }
 
   formatSeconds(seconds) {
@@ -44,20 +55,21 @@ class Progress extends React.Component {
   }
 
   render() {
-    const { disableTotal, disablePlayed, currentTime, duration, style, disableSeek } = this.props;
+    const { textColor, disableTotal, disablePlayed, currentTime, duration, style, disableSeek } = this.props;
+    const textStyle = textColor ? { color: textColor } : null;
 
     return (
       <View style={ style }>
         { !(disableTotal && disablePlayed) &&
           <View style={ styles.progressTextContainer }>
             { !disablePlayed &&
-              <Text style={ styles.progressText }>
+              <Text style={ [styles.progressText, textStyle] }>
                 { this.formatSeconds(currentTime) }
               </Text>
             }
 
             { !disableTotal &&
-              <Text style={ styles.progressText }>
+              <Text style={ [styles.progressText, textStyle] }>
                 { this.formatSeconds(duration) }
               </Text>
             }
@@ -67,15 +79,17 @@ class Progress extends React.Component {
         <Slider
           disabled={ disableSeek }
           thumbImage={ require('../../assets/images/progress-bar-thumb.png') }
-          trackImage={ require('../../assets/images/line.png') }
+          trackImage={ this.props.trackImage ? this.props.trackImage : null }
           thumbTintColor="#E96767"
-          maximumTrackTintColor="#333"
-          minimumTrackTintColor="#000"
+          maximumTrackTintColor={ this.props.maximumTrackColor }
+          minimumTrackTintColor={ this.props.minimumTrackColor }
           maximumValue={ duration }
           value={ currentTime }
           onValueChange={ this.props.onSeek }
           onSlidingComplete={ this.props.onSeekComplete }
           style={ styles.slider }
+          onResponderGrant={ this.props.onDragStart }
+          onResponderRelease={ this.props.onDragEnd }
         />
       </View>
     );

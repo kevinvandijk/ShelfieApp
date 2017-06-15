@@ -20,9 +20,14 @@ class LoadContainer extends Component {
 
   componentWillMount() {
     StatusBar.setHidden(true);
+//
     if (!this.props.appLoaded) {
       this.props.initialize();
     }
+  }
+
+  componentWillUnmount() {
+    StatusBar.setHidden(false);
   }
 
   render() {

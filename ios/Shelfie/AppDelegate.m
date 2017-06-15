@@ -9,7 +9,7 @@
 
 #import "AppDelegate.h"
 //#import "CodePush.h"
-
+#import "Orientation.h" // <--- import
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import <BuddyBuildSDK/BuddyBuildSDK.h>
@@ -34,6 +34,7 @@
                                                initialProperties:nil
                                                    launchOptions:launchOptions];
   rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
+//  rootView.backgroundColor = [UIColor blackColor];
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
@@ -41,6 +42,10 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   return YES;
+}
+
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+  return [Orientation getOrientation];
 }
 
 @end

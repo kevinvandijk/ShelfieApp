@@ -3,6 +3,7 @@ import { StyleSheet, Platform } from 'react-native';
 export default StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'flex-end',
     backgroundColor: '#fff'
   },
 
@@ -76,6 +77,7 @@ export default StyleSheet.create({
 
   videoContainer: {
     flex: 1,
+    backgroundColor: '#000',
     shadowColor: '#737373',
     shadowOpacity: 0.5,
     shadowOffset: {
@@ -85,18 +87,34 @@ export default StyleSheet.create({
     shadowRadius: 6
   },
 
-  videoButtons: {
+  overlayProgressContainer: {
+    marginTop: -22,
+    marginHorizontal: 20
+  },
+
+  videoButtonsContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
     position: 'absolute',
+    left: 0,
     right: 0,
     bottom: 10,
     height: 24
   },
 
+  videoButtons: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+
+  videoProgress: {
+    flex: 1,
+    height: 24
+  },
+
   videoIcons: {
-    color: '#fff',
     backgroundColor: 'transparent',
     marginRight: 10
   }

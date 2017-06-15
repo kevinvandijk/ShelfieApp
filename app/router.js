@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react';
-import { Platform, Dimensions } from 'react-native';
+import { Platform, Dimensions, View } from 'react-native';
 import { connect } from 'react-redux';
-import { Scene, Router, Switch, DefaultRenderer, Actions, Modal } from 'react-native-router-flux';
+import { Scene, Router, Switch, DefaultRenderer, Actions, Modal, NavBar } from 'react-native-router-flux';
 import ReactNativeDrawer from 'react-native-drawer';
+import Orientation from 'react-native-orientation';
 
 import I18n from './lib/i18n';
 import styles from './styles';
@@ -14,6 +15,7 @@ import WatchContainer from './containers/watch';
 import ChangePasswordContainer from './containers/change-password';
 import SideMenu from './containers/SideMenu';
 import ShelfieWebView from './containers/ShelfieWebView';
+import OrientationAwareNavBar from './components/OrientationAwareNavBar';
 
 const { func, object } = PropTypes;
 
@@ -50,13 +52,15 @@ const Drawer = (props) => {
       type="displace"
       content={ <SideMenu /> }
       tapToClose
-      openDrawerOffset={ 0.28 }
+      // openDrawerOffset={ 0.28 }
+      openDrawerOffset={ ({ width }) => width - 250 }
       panCloseMask={ 0.28 }
       panOpenMask={ 0.05 }
       negotiatePan
       tweenDuration={ 200 }
       tweenHandler={ (ratio) => ({
-        main: { opacity: Math.max(0.54, 1 - ratio) }
+        main: { opacity: Math.max(0.54, 1 - ratio) },
+        drawer: { opacity: ratio }
       }) }
     >
       <DefaultRenderer navigationState={ children[0] } onNavigate={ props.onNavigate } />
@@ -155,8 +159,8 @@ const AppRouter = () => {
                 key="mainWatch"
                 title={ I18n.t('containers.watch.title') }
                 component={ WatchContainer }
-                sceneStyle={ styles.sceneWithNavBar }
                 hideBackImage={ Platform.OS === 'android' }
+                navBar={ OrientationAwareNavBar }
               />
 
               <Scene

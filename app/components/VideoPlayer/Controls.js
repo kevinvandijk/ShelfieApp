@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { calculateHitSlop } from '../../helpers';
+import ControlButton from './ControlButton';
 
 const { number, string, bool, object, oneOfType, func, array } = PropTypes;
 
@@ -9,55 +10,31 @@ const Controls = (props) => {
   return (
     <View style={ props.style }>
       { props.backward &&
-        <TouchableOpacity
-          hitSlop={ calculateHitSlop(props.normalButtonSize, props.minimalTouchArea) }
+        <ControlButton
+          size={ props.normalButtonSize }
+          hitSlop={ props.minimalTouchArea }
           onPress={ props.onBackward }
-        >
-          <Icon
-            name="replay-10"
-            size={ props.normalButtonSize }
-            color={ props.color }
-          />
-        </TouchableOpacity>
+          name="replay-10"
+          color={ props.color }
+        />
       }
 
-      { !props.paused &&
-        <TouchableOpacity
-          hitSlop={ calculateHitSlop(props.mainButtonSize, props.minimalTouchArea) }
-          onPress={ props.onPause }
-        >
-          <Icon
-            name="pause"
-            size={ props.mainButtonSize }
-            color={ props.color }
-          />
-        </TouchableOpacity>
-      }
-
-      { props.paused &&
-        <TouchableOpacity
-          hitSlop={ calculateHitSlop(props.mainButtonSize, props.minimalTouchArea) }
-          onPress={ props.onPlay }
-        >
-          <Icon
-            name="play-arrow"
-            size={ props.mainButtonSize }
-            color={ props.color }
-          />
-        </TouchableOpacity>
-      }
+      <ControlButton
+        size={ props.mainButtonSize }
+        hitSlop={ props.minimalTouchArea }
+        onPress={ props.paused ? props.onPlay : props.onPause }
+        name={ props.paused ? 'play-arrow' : 'pause' }
+        color={ props.color }
+      />
 
       { props.forward &&
-        <TouchableOpacity
-          hitSlop={ calculateHitSlop(props.normalButtonSize, props.minimalTouchArea) }
+        <ControlButton
+          size={ props.normalButtonSize }
+          hitSlop={ props.minimalTouchArea }
           onPress={ props.onForward }
-        >
-          <Icon
-            name="forward-10"
-            size={ props.normalButtonSize }
-            color={ props.color }
-          />
-        </TouchableOpacity>
+          name="forward-10"
+          color={ props.color }
+        />
       }
     </View>
   );
@@ -83,7 +60,15 @@ Controls.defaultProps = {
   color: '#B2B2B2',
   normalButtonSize: 45,
   mainButtonSize: 92,
-  minimalTouchArea: 44
+  minimalTouchArea: 44,
+  forward: true,
+  backward: true,
+  paused: false,
+  onBackward: null,
+  onPause: null,
+  onForward: null,
+  onPlay: null,
+  style: null
 };
 
 export default Controls;

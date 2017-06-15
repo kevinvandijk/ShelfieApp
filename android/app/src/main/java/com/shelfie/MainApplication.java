@@ -3,6 +3,8 @@ package com.shelfie;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.rnimmersive.RNImmersivePackage;
+import com.github.yamill.orientation.OrientationPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.corbt.keepawake.KCKeepAwakePackage;
 import com.googlecast.GoogleCastPackage;
@@ -31,6 +33,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNImmersivePackage(),
+            new OrientationPackage(),
             new LinearGradientPackage(),
             new KCKeepAwakePackage(),
             new GoogleCastPackage(),

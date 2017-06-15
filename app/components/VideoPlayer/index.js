@@ -1,21 +1,30 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
+import {
+  View,
+  Text,
+  TouchableWithoutFeedback,
+  DeviceEventEmitter,
+  Platform,
+  StatusBar,
+  Dimensions,
+  Animated
+} from 'react-native';
 import Raven from 'raven-js';
-import { View, TouchableOpacity, Text, TouchableWithoutFeedback, DeviceEventEmitter, Platform } from 'react-native';
 import Video from 'react-native-video';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import Chromecast from 'react-native-google-cast';
 import KeepAwake from 'react-native-keep-awake';
+import Immersive from 'react-native-immersive'
 
-
-import { calculateHitSlop } from '../../helpers';
 import Controls from './Controls';
 import Progress from './Progress';
 import Title from './Title';
+import ControlButton from './ControlButton';
+import Overlay from '../Overlay';
 import styles from './styles';
 
 const { func, number, object, oneOfType, bool, string } = PropTypes;
 
-class VideoPlayer extends Component {
+class VideoPlayer extends React.Component {
   static propTypes = {
     onLoadStart: func,
     onLoad: func,
@@ -28,6 +37,7 @@ class VideoPlayer extends Component {
     muted: bool,
     volume: number,
     rate: number,
+    fullscreen: bool,
     playInBackground: bool,
     playWhenInactive: bool,
     repeat: bool,
@@ -41,6 +51,7 @@ class VideoPlayer extends Component {
     volume: 1.0,
     rate: 1.0,
     autoStart: false,
+    fullscreen: false,
     getBackwardTime: (currentTime) => {
       const timestamp = currentTime - 10;
       return timestamp > 0 ? timestamp : 0;
@@ -57,7 +68,10 @@ class VideoPlayer extends Component {
     showVideoButtons: false,
     chromecastAvailable: false,
     chromecastConnected: false,
-    chromecastPlaying: false
+    chromecastPlaying: false,
+    fullscreen: false,
+    fullscreenAnimation: new Animated.Value(0),
+    fullscreenRotate: new Animated.Value(0)
   }
 
   componentWillMount() {
@@ -69,15 +83,42 @@ class VideoPlayer extends Component {
     Chromecast.stopScan();
   }
 
-  onPause = () => {
-    if (this.state.chromecastConnected) return this.chromecastPause();
+  componentWillReceiveProps(nextProps) {
+    const { fullscreen, orientation } = nextProps;
 
-    this.setState({
-      paused: true
-    });
+    if (!fullscreen) {
+      this.animateFullscreen('PORTRAIT');
+      if (Platform.OS === 'android') Immersive.setImmersive(false);
+    } else if (Platform.OS === 'android' && orientation === 'LANDSCAPE') {
+      Immersive.setImmersive(true)
+      this.animateFullscreen(orientation);
+    } else if (orientation === 'LANDSCAPE-LEFT') {
+      this.animateFullscreen(orientation);
+    } else if (orientation === 'LANDSCAPE-RIGHT') {
+      this.animateFullscreen(orientation);
+    }
+
+    const videoPaused = this.state.chromecastConnected || this.state.paused;
+    if (fullscreen && videoPaused) {
+      this.setState({
+        showVideoButtons: true
+      });
+    }
   }
 
-  onPlay = () => {
+  onPause = async () => {
+    if (this.state.showVideoButtons) this.endOverlayTimer();
+    if (this.state.chromecastConnected) return this.chromecastPause();
+
+    await this.setState({
+      paused: true
+    });
+
+    if (this.state.showVideoButtons && !this.props.fullscreen) this.startOverlayTimer();
+  }
+
+  onPlay = async () => {
+    if (this.state.showVideoButtons) this.endOverlayTimer();
     if (this.state.chromecastConnected) return this.chromecastPlay();
 
     const { currentTime, duration } = this.state;
@@ -86,9 +127,11 @@ class VideoPlayer extends Component {
       this.refs.video.seek(0);
     }
 
-    this.setState({
+    await this.setState({
       paused: false
     });
+
+    if (this.state.showVideoButtons) this.startOverlayTimer();
   }
 
   onLoad = (videoProps) => {
@@ -96,6 +139,8 @@ class VideoPlayer extends Component {
       duration: videoProps.duration,
       currentTime: videoProps.currentTime
     });
+
+    if (this.props.onLoad) this.props.onLoad(videoProps);
   }
 
   onProgress = (progress) => {
@@ -113,6 +158,30 @@ class VideoPlayer extends Component {
 
   onError = () => {
     console.error('Error playing video, not handled');
+  }
+
+  animateFullscreen(orientation, duration = 400) {
+    let rotateValue = 0;
+    if (orientation === 'LANDSCAPE-LEFT') rotateValue = 1;
+    if (orientation === 'LANDSCAPE-RIGHT') rotateValue = -1;
+    const animationValue = ['LANDSCAPE-LEFT', 'LANDSCAPE-RIGHT', 'LANDSCAPE'].includes(orientation) ? 1 : 0;
+
+    return Animated.parallel([
+      Animated.timing(
+        this.state.fullscreenRotate,
+        {
+          toValue: rotateValue,
+          duration
+        }
+      ),
+      Animated.timing(
+        this.state.fullscreenAnimation,
+        {
+          toValue: animationValue,
+          duration
+        }
+      )
+    ]).start();
   }
 
   initializeChromecast() {
@@ -181,21 +250,23 @@ class VideoPlayer extends Component {
   }
 
   seekBackward = () => {
+    if (this.state.showVideoButtons) this.endOverlayTimer();
+
     const { currentTime, duration } = this.state;
     const timestamp = this.props.getBackwardTime(currentTime, duration);
     this.seek(timestamp, false);
+
+    if (this.state.showVideoButtons) this.startOverlayTimer();
   }
 
   seekForward = () => {
+    if (this.state.showVideoButtons) this.endOverlayTimer();
+
     const { currentTime, duration } = this.state;
     const timestamp = this.props.getForwardTime(currentTime, duration);
     this.seek(timestamp, false);
-  }
 
-  enableFullscreen = () => {
-    if (this.refs.video) {
-      this.refs.video.presentFullscreenPlayer();
-    }
+    if (this.state.showVideoButtons) this.startOverlayTimer();
   }
 
   seek = (seconds, pauseOnSeek = true) => {
@@ -230,15 +301,51 @@ class VideoPlayer extends Component {
     });
 
     if (newState) {
-      setTimeout(() => {
-        this.setState({
-          showVideoButtons: false
-        });
-      }, 3000);
+      if (this.props.fullscreen) {
+        // StatusBar.setHidden(false, 'fade');
+      }
+      this.startOverlayTimer();
+    } else {
+      if (this.props.fullscreen) {
+        // StatusBar.setHidden(true, 'fade');
+      }
+      this.endOverlayTimer();
+    }
+  }
+
+  startOverlayTimer = () => {
+    if (this.props.fullscreen && this.state.paused) return;
+
+    this._overlayTimer = setTimeout(() => {
+      // FIXME: Needs to be unified function to hide and unhide overlay
+      if (this.props.fullscreen) {
+        // StatusBar.setHidden(true, 'fade');
+      }
+      this.setState({ showVideoButtons: false });
+    }, 3500);
+  }
+
+  endOverlayTimer = () => {
+    if (this._overlayTimer) {
+      clearTimeout(this._overlayTimer);
+    }
+  }
+
+  measureVideo = ({ nativeEvent }) => {
+    if (!this.videoWidth || !this.videoHeight) {
+      this.videoWidth = nativeEvent.layout.width;
+      this.videoHeight = nativeEvent.layout.height;
+    }
+  }
+
+  measureControls = ({ nativeEvent }) => {
+    if (!this.controlsHeight) {
+      this.controlsHeight = nativeEvent.layout.height;
     }
   }
 
   render() {
+    const { fullscreen } = this.props;
     const videoPaused = this.state.chromecastConnected || this.state.paused;
 
     if (videoPaused) {
@@ -253,13 +360,68 @@ class VideoPlayer extends Component {
     } else {
       buttonPaused = this.state.paused;
     }
+
+    let fullscreenStyle;
+    let androidFullscreenControls;
+
+    if (this.videoWidth && this.videoHeight && Platform.OS === 'ios') {
+      const { height: windowHeight, width: windowWidth } = Dimensions.get('window');
+      const rotate = this.state.fullscreenRotate.interpolate({
+        inputRange: [-1, 0, 1],
+        outputRange: ['-90deg', '0deg', '90deg']
+      });
+
+      const heightTranslate = (windowHeight - windowWidth) / 2;
+      const translateX = this.state.fullscreenAnimation.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, -heightTranslate]
+      });
+
+      const widthTranslate = windowHeight - this.videoHeight - heightTranslate;
+      const translateY = this.state.fullscreenAnimation.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, widthTranslate]
+      });
+
+      const width = this.state.fullscreenAnimation.interpolate({
+        inputRange: [0, 1],
+        outputRange: [this.videoWidth, windowHeight]
+      });
+
+      const height = this.state.fullscreenAnimation.interpolate({
+        inputRange: [0, 1],
+        outputRange: [this.videoHeight, windowWidth]
+      });
+
+      fullscreenStyle = {
+        minWidth: width,
+        minHeight: height,
+        width,
+        height,
+        zIndex: 2,
+        transform: [
+          { translateX },
+          { translateY },
+          { rotate }
+        ]
+      };
+    } else if (Platform.OS === 'android' && this.controlsHeight) {
+      const marginBottom = this.state.fullscreenAnimation.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, -this.controlsHeight]
+      });
+
+      androidFullscreenControls = {
+        marginBottom
+      };
+    }
     return (
       <View style={ [styles.container, this.props.style] }>
-        <View style={ styles.videoContainer }>
+        <Animated.View style={ [styles.videoContainer, fullscreenStyle] } ref={ (r) => { this.videoContainer = r; } } onLayout={ this.measureVideo }>
           <TouchableWithoutFeedback onPress={ this.toggleVideoButtons }>
             <Video
               source={{ uri: this.props.url }}
-              resizeMode="cover"
+              resizeMode={ fullscreen ? 'contain' : 'cover' }
               rate={ this.props.rate }
               volume={ this.props.volume }
               muted={ this.props.muted }
@@ -272,75 +434,99 @@ class VideoPlayer extends Component {
               onProgress={ this.onProgress }
               onEnd={ this.onEnd }
               onError={ this.onError }
-              style={ [styles.video, this.props.videoStyle] }
+              style={ [styles.video, this.props.videoStyle, { backgroundColor: 'black' }] }
               ref="video"
             />
           </TouchableWithoutFeedback>
 
-          { this.state.showVideoButtons &&
-            <View style={ styles.videoButtons }>
-              { this.state.chromecastAvailable &&
-                <TouchableOpacity
-                  style={ styles.videoButtonTouchable }
-                  hitSlop={ calculateHitSlop(32, 44) }
-                  onPress={ this.chromecastToggle }
-                >
-                  <Icon
-                    name={ this.state.chromecastConnected ? 'cast-connected' : 'cast' }
+          <Overlay hidden={ !this.state.showVideoButtons }>
+            { fullscreen &&
+              <Controls
+                forward
+                backward
+                paused={ buttonPaused }
+                onPause={ this.onPause }
+                onPlay={ this.onPlay }
+                onBackward={ this.seekBackward }
+                onForward={ this.seekForward }
+                style={ [styles.videoPlayerControls, this.props.controlsStyle] }
+                color="#fff"
+              />
+            }
+            <View style={ styles.videoButtonsContainer }>
+              <View style={ styles.videoProgress }>
+                { fullscreen &&
+                  <Progress
+                    duration={ this.state.duration }
+                    currentTime={ this.state.currentTime }
+                    onSeek={ this.seek }
+                    onSeekComplete={ this.seekComplete }
+                    // If paused or currentTime is 0, instantly jump the progress bar to correct position:
+                    easingDuration={ this.state.paused || this.state.currentTime === 0 ? 0 : undefined }
+                    style={ [this.props.progressStyle, styles.overlayProgressContainer] }
+                    // Android switches these:
+                    minimumTrackColor={ Platform.OS === 'ios' ? '#E96A67' : '#fff' }
+                    maximumTrackColor={ Platform.OS === 'ios' ? '#fff' : '#E96A67' }
+                    trackImage={ null }
+                    textColor="#fff"
+                    onDragStart={ this.endOverlayTimer }
+                    onDragEnd={ this.startOverlayTimer }
+                  />
+                }
+              </View>
+              <View style={ styles.videoButtons }>
+                { this.state.chromecastAvailable &&
+                  <ControlButton
                     size={ 24 }
-                    style={ styles.videoIcons }
+                    name={ this.state.chromecastConnected ? 'cast-connected' : 'cast' }
+                    onPress={ this.chromecastToggle }
                   />
-                </TouchableOpacity>
-              }
-              { Platform.OS === 'ios' &&
-                <TouchableOpacity
-                  style={ styles.videoButtonTouchable }
-                  hitSlop={ calculateHitSlop(30, 44) }
-                  onPress={ this.enableFullscreen }
-                >
-                  <Icon
-                    name="fullscreen"
-                    size={ 30 }
-                    style={ [styles.videoIcons, { marginTop: -3 }] }
-                  />
-                </TouchableOpacity>
-              }
+                }
+                <ControlButton
+                  size={ 30 }
+                  name={ fullscreen ? 'fullscreen-exit' : 'fullscreen' }
+                  iconStyle={{ marginTop: -3 }}
+                  onPress={ fullscreen ? this.props.onFullscreenExitPress : this.props.onFullscreenPress }
+                />
+              </View>
             </View>
-          }
-        </View>
+          </Overlay>
+        </Animated.View>
 
-        <View style={ styles.metadataContainer }>
-          { this.props.title &&
-            <Title>{ this.props.title }</Title>
-          }
-          { this.props.description &&
-            <View style={ styles.titleContainer }>
-              <Text style={ styles.descriptionText }>{ this.props.description }</Text>
-            </View>
-          }
-        </View>
+        <Animated.View style={ androidFullscreenControls } onLayout={ this.measureControls }>
+          <View style={ styles.metadataContainer }>
+            { this.props.title &&
+              <Title>{ this.props.title }</Title>
+            }
+            { this.props.description &&
+              <View style={ styles.titleContainer }>
+                <Text style={ styles.descriptionText }>{ this.props.description }</Text>
+              </View>
+            }
+          </View>
 
-        <Progress
-          duration={ this.state.duration }
-          currentTime={ this.state.currentTime }
-          onSeek={ this.seek }
-          onSeekComplete={ this.seekComplete }
-          // If paused or currentTime is 0, instantly jump the progress bar to correct position:
-          easingDuration={ this.state.paused || this.state.currentTime === 0 ? 0 : undefined }
-          style={ [this.props.progressStyle, styles.progressContainer] }
-        />
+          <Progress
+            duration={ this.state.duration }
+            currentTime={ this.state.currentTime }
+            onSeek={ this.seek }
+            onSeekComplete={ this.seekComplete }
+            // If paused or currentTime is 0, instantly jump the progress bar to correct position:
+            easingDuration={ this.state.paused || this.state.currentTime === 0 ? 0 : undefined }
+            style={ [this.props.progressStyle, styles.progressContainer] }
+          />
 
-        <Controls
-          forward
-          backward
-          paused={ buttonPaused }
-          onPause={ this.onPause }
-          onPlay={ this.onPlay }
-          onBackward={ this.seekBackward }
-          onForward={ this.seekForward }
-          style={ [styles.videoPlayerControls, this.props.controlsStyle] }
-          color="#333"
-        />
+          <Controls
+            forward
+            backward
+            paused={ buttonPaused }
+            onPause={ this.onPause }
+            onPlay={ this.onPlay }
+            onBackward={ this.seekBackward }
+            onForward={ this.seekForward }
+            style={ [styles.videoPlayerControls, this.props.controlsStyle] }
+            color="#333"
+          />
+        </Animated.View>
       </View>
     );
   }
