@@ -7,7 +7,14 @@ const { string, number, object, array, oneOfType } = PropTypes;
 const Title = (props) => {
   return (
     <View style={ [styles.titleContainer, props.style] }>
-      <Text style={ styles.titleText }>{ props.children }</Text>
+      <Text
+        numberOfLines={ 1 }
+        ellipsizeMode="middle"
+        adjustsFontSizeToFit
+        style={ styles.titleText }
+      >
+        { props.children }
+      </Text>
     </View>
   );
 };

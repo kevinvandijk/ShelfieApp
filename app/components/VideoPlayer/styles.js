@@ -51,8 +51,9 @@ export default StyleSheet.create({
   },
 
   titleContainer: {
-    alignItems: 'center',
-    justifyContent: 'center'
+    alignItems: 'baseline',
+    justifyContent: 'center',
+    paddingHorizontal: 15
   },
 
   titleText: {
@@ -66,7 +67,13 @@ export default StyleSheet.create({
       }
     }),
     fontSize: 30,
-    color: '#333'
+    padding: 0,
+    color: '#333',
+    height: 40,
+    lineHeight: 40,
+    width: '100%',
+    textAlign: 'center',
+    textAlignVertical: 'center'
   },
 
   descriptionText: {
