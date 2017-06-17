@@ -147,7 +147,6 @@ class VideoPlayer extends React.Component {
   }
 
   onLoad = (videoProps) => {
-    console.log('trigger');
     this.setState({
       duration: videoProps.duration,
       currentTime: videoProps.currentTime,
