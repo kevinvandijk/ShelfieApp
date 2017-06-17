@@ -9,7 +9,7 @@
       "enterEmail": "Voer je Email in om\nverder te gaan.",
       "title": "Aanmelden",
       "errors": {
-        "missingEmail": "Geen email adres ingvoerd",
+        "missingEmail": "Geen email adres ingevoerd",
         "missingEmailDescription": "Voer je email adres in om in te loggen",
         "missingPassword": "Geen wachtwoord ingevoerd",
         "missingPasswordDescription": "Voer je wachtwoord in om in te loggen"
