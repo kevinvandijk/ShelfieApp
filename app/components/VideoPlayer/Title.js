@@ -9,7 +9,7 @@ const Title = (props) => {
     <View style={ [styles.titleContainer, props.style] }>
       <Text
         numberOfLines={ 1 }
-        ellipsizeMode="middle"
+        ellipsizeMode="tail"
         adjustsFontSizeToFit
         style={ styles.titleText }
       >

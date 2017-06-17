@@ -51,7 +51,7 @@ export default StyleSheet.create({
   },
 
   titleContainer: {
-    alignItems: 'baseline',
+    alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 15
   },
@@ -60,18 +60,20 @@ export default StyleSheet.create({
     ...Platform.select({
       ios: {
         fontFamily: 'Poppins',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        padding: 0,
+        height: 40,
+        lineHeight: 40,
+        width: '100%',
       },
       android: {
-        fontFamily: 'Poppins-Bold'
+        fontFamily: 'Poppins-Bold',
+        paddingLeft: 8,
+        paddingRight: 10
       }
     }),
     fontSize: 30,
-    padding: 0,
     color: '#333',
-    height: 40,
-    lineHeight: 40,
-    width: '100%',
     textAlign: 'center',
     textAlignVertical: 'center'
   },
