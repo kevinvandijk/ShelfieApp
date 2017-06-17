@@ -125,7 +125,6 @@ class SideMenu extends Component {
   }
 
   render() {
-    console.log('OPEN?', this.props);
     return (
       <View style={ styles.container }>
         <View style={ styles.titleContainer }>
