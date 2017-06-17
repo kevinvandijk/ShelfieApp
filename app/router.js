@@ -176,6 +176,7 @@ const AppRouter = () => {
             <Scene
               sceneStyle={ styles.sceneWithNavBar }
               key="privacyPolicy"
+              title="Privacy Policy"
               component={ ShelfieWebView }
               uri="https://shelfie.nl/privacy-policy/"
               hideBackImage={ Platform.OS === 'android' }
@@ -184,6 +185,7 @@ const AppRouter = () => {
             <Scene
               sceneStyle={ styles.sceneWithNavBar }
               key="termsAndConditions"
+              title="Algemene Voorwaarden"
               component={ ShelfieWebView }
               uri="https://shelfie.nl/algemene-voorwaarden/"
               hideBackImage={ Platform.OS === 'android' }
