@@ -110,17 +110,14 @@ class SideMenu extends Component {
   }
 
   openPrivacyPolicy = async () => {
-    await Actions.refresh({ key: 'drawer', open: false });
     Actions.privacyPolicy();
   }
 
   openTermsAndConditions = async () => {
-    await Actions.refresh({ key: 'drawer', open: false });
     Actions.termsAndConditions();
   }
 
   openContactForm = async () => {
-    await Actions.refresh({ key: 'drawer', open: false });
     Actions.contactForm();
   }
 

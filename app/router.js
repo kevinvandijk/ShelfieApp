@@ -37,7 +37,7 @@ const rootComponent = connect(state => {
 
 const rootSelector = (state) => {
   if (!state.isLoaded) return LOAD_SCENE;
-  return state.isAuthenticated ? MAIN_SCENE_DRAWER : UNAUTHENTICATED_SCENE;
+  return state.isAuthenticated ? MAIN_SCENE : UNAUTHENTICATED_SCENE;
 };
 
 const Drawer = (props) => {
@@ -138,55 +138,64 @@ const AppRouter = () => {
           </Scene>
 
           <Scene
-            key={ MAIN_SCENE_DRAWER }
-            component={ Drawer }
+            key={ MAIN_SCENE }
+            navigationBarStyle={ styles.navBar }
+            titleStyle={ styles.navBarTitle }
+            backButtonImage={ require('./assets/images/back-chevron.png') }
+            drawerImage={ require('./assets/images/burger.png') }
           >
             <Scene
-              key={ MAIN_SCENE }
-              navigationBarStyle={ styles.navBar }
-              titleStyle={ styles.navBarTitle }
-              backButtonImage={ require('./assets/images/back-chevron.png') }
-              drawerImage={ require('./assets/images/burger.png') }
+              key={ MAIN_SCENE_DRAWER }
+              component={ Drawer }
             >
               <Scene
-                key="main-timeline"
-                title={ I18n.t('containers.timeline.title') }
-                component={ TimelineContainer }
-                sceneStyle={ styles.sceneWithNavBar }
-              />
-
-              <Scene
-                key="mainWatch"
-                title={ I18n.t('containers.watch.title') }
-                component={ WatchContainer }
-                hideBackImage={ Platform.OS === 'android' }
-                navBar={ OrientationAwareNavBar }
-              />
-
-              <Scene
-                sceneStyle={ styles.sceneWithNavBar }
-                key="privacyPolicy"
-                component={ ShelfieWebView }
-                uri="https://shelfie.nl/privacy-policy/"
-                hideBackImage={ Platform.OS === 'android' }
-              />
-
-              <Scene
-                sceneStyle={ styles.sceneWithNavBar }
-                key="termsAndConditions"
-                component={ ShelfieWebView }
-                uri="https://shelfie.nl/algemene-voorwaarden/"
-                hideBackImage={ Platform.OS === 'android' }
-              />
-
-              <Scene
-                sceneStyle={ styles.sceneWithNavBar }
-                key="contactForm"
-                component={ ShelfieWebView }
-                uri="https://shelfie.nl/contactmobile/"
-                hideBackImage={ Platform.OS === 'android' }
-              />
+                key="drawerContainer"
+                navigationBarStyle={ styles.navBar }
+                titleStyle={ styles.navBarTitle }
+                backButtonImage={ require('./assets/images/back-chevron.png') }
+                drawerImage={ require('./assets/images/burger.png') }
+              >
+                <Scene
+                  key="main-timeline"
+                  title={ I18n.t('containers.timeline.title') }
+                  component={ TimelineContainer }
+                  sceneStyle={ styles.sceneWithNavBar }
+                />
+              </Scene>
             </Scene>
+
+            <Scene
+              key="mainWatch"
+              title={ I18n.t('containers.watch.title') }
+              component={ WatchContainer }
+              hideBackImage={ Platform.OS === 'android' }
+              navBar={ OrientationAwareNavBar }
+            />
+
+            <Scene
+              sceneStyle={ styles.sceneWithNavBar }
+              key="privacyPolicy"
+              component={ ShelfieWebView }
+              uri="https://shelfie.nl/privacy-policy/"
+              hideBackImage={ Platform.OS === 'android' }
+            />
+
+            <Scene
+              sceneStyle={ styles.sceneWithNavBar }
+              key="termsAndConditions"
+              component={ ShelfieWebView }
+              uri="https://shelfie.nl/algemene-voorwaarden/"
+              hideBackImage={ Platform.OS === 'android' }
+            />
+
+            <Scene
+              sceneStyle={ styles.sceneWithNavBar }
+              key="contactForm"
+              title="Contact"
+              component={ ShelfieWebView }
+              uri="https://shelfie.nl/contactmobile/"
+              hideBackImage={ Platform.OS === 'android' }
+            />
           </Scene>
         </Scene>
         <Scene
