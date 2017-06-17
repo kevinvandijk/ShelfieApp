@@ -13,6 +13,8 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import <BuddyBuildSDK/BuddyBuildSDK.h>
+#import "MediaPlayer/MPVolumeView.h"
+#import <AVFoundation/AVFoundation.h>
 
 @implementation AppDelegate
 
@@ -39,6 +41,17 @@
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = rootView;
+  
+  // Hide the volume icon when changing volume
+  MPVolumeView *volumeView = [[MPVolumeView alloc] initWithFrame: CGRectZero];
+  [self.window addSubview: volumeView];
+  
+  // Ignore the silent switch, do nothing if it fails
+  NSError *error = nil;
+  [[AVAudioSession sharedInstance]
+    setCategory:AVAudioSessionCategoryPlayback
+    error:&error];
+  
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   return YES;

@@ -117,5 +117,22 @@ export default StyleSheet.create({
   videoIcons: {
     backgroundColor: 'transparent',
     marginRight: 10
+  },
+
+  volumeSliderContainer: {
+    top: 0,
+    left: 0,
+    right: 0,
+    paddingHorizontal: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    zIndex: 100
+  },
+
+  volumeSlider: {
+    height: 30,
+    marginTop: 8,
+    marginLeft: 5,
+    flex: 1
   }
 });

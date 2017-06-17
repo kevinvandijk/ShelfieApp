@@ -4468,6 +4468,10 @@ react-native-vector-icons@^4.0.1:
     keymirror "0.1.1"
     react-native-windows "0.41.0-rc.0"
 
+react-native-volume-slider@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/react-native-volume-slider/-/react-native-volume-slider-0.5.0.tgz#60a5b2222bf77d7a7754c3bba75f3f9ad7dde4b6"
+
 react-native-windows@0.41.0-rc.0:
   version "0.41.0-rc.0"
   resolved "https://registry.yarnpkg.com/react-native-windows/-/react-native-windows-0.41.0-rc.0.tgz#d70a36f546d8d448d875a9d69bd2c42fc671065c"
