@@ -28,7 +28,7 @@ const WelcomeContainer = () => {
           style={ styles.logo }
         />
         <TextContent
-          i18nKey={ `containers.welcome.${DeviceInfo.isTablet ? 'introTablet' : 'introPhone'}` }
+          i18nKey={ `containers.welcome.${DeviceInfo.isTablet() ? 'introTablet' : 'introPhone'}` }
           style={ styles.introText }
         />
       </View>
