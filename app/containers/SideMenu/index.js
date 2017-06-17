@@ -119,6 +119,11 @@ class SideMenu extends Component {
     Actions.termsAndConditions();
   }
 
+  openContactForm = async () => {
+    await Actions.refresh({ key: 'drawer', open: false });
+    Actions.contactForm();
+  }
+
   render() {
     console.log('OPEN?', this.props);
     return (
@@ -140,6 +145,13 @@ class SideMenu extends Component {
           >
             { I18n.t('containers.changePassword.title') }
           </HugeButton> */}
+          <HugeButton
+            style={ styles.hugeButton }
+            textStyle={ styles.hugeButtonText }
+            onPress={ this.openContactForm }
+          >
+            { translate('contact') }
+          </HugeButton>
           <HugeButton
             style={ styles.hugeButton }
             textStyle={ styles.hugeButtonText }

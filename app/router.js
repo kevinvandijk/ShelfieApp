@@ -178,6 +178,14 @@ const AppRouter = () => {
                 uri="https://shelfie.nl/algemene-voorwaarden/"
                 hideBackImage={ Platform.OS === 'android' }
               />
+
+              <Scene
+                sceneStyle={ styles.sceneWithNavBar }
+                key="contactForm"
+                component={ ShelfieWebView }
+                uri="https://shelfie.nl/contactmobile/"
+                hideBackImage={ Platform.OS === 'android' }
+              />
             </Scene>
           </Scene>
         </Scene>
