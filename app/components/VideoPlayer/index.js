@@ -14,6 +14,9 @@ import Video from 'react-native-video';
 import Chromecast from 'react-native-google-cast';
 import KeepAwake from 'react-native-keep-awake';
 import Immersive from 'react-native-immersive'
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import VolumeSlider from 'react-native-volume-slider';
+
 
 import Controls from './Controls';
 import Progress from './Progress';
@@ -71,7 +74,16 @@ class VideoPlayer extends React.Component {
     chromecastPlaying: false,
     fullscreen: false,
     fullscreenAnimation: new Animated.Value(0),
-    fullscreenRotate: new Animated.Value(0)
+    fullscreenRotate: new Animated.Value(0),
+    volumeIcon: 'volume-up',
+    volumeBarOpacity: new Animated.Value(0),
+    loaded: false
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.statusbarHeight = Platform.OS === 'ios' ? 64 : 54;
   }
 
   componentWillMount() {
@@ -135,9 +147,11 @@ class VideoPlayer extends React.Component {
   }
 
   onLoad = (videoProps) => {
+    console.log('trigger');
     this.setState({
       duration: videoProps.duration,
-      currentTime: videoProps.currentTime
+      currentTime: videoProps.currentTime,
+      loaded: true
     });
 
     if (this.props.onLoad) this.props.onLoad(videoProps);
@@ -344,6 +358,37 @@ class VideoPlayer extends React.Component {
     }
   }
 
+  onVolumeChange = (value) => {
+    clearTimeout(this._volumeTimer);
+    // Temporary hack to prevent it from showing because of double render
+    if (!this.state.loaded) {
+      return;
+    }
+
+    const duration = 250;
+    this.setState({
+      volumeIcon: value ? 'volume-up' : 'volume-off'
+    });
+
+    Animated.timing(
+      this.state.volumeBarOpacity,
+      {
+        toValue: 1,
+        duration
+      }
+    ).start();
+
+    this._volumeTimer = setTimeout(() => {
+      Animated.timing(
+        this.state.volumeBarOpacity,
+        {
+          toValue: 0,
+          duration
+        }
+      ).start();
+    }, 3500);
+  }
+
   render() {
     const { fullscreen } = this.props;
     const videoPaused = this.state.chromecastConnected || this.state.paused;
@@ -362,6 +407,7 @@ class VideoPlayer extends React.Component {
     }
 
     let fullscreenStyle;
+    let fakenavbarStyle;
     let androidFullscreenControls;
 
     if (this.videoWidth && this.videoHeight && Platform.OS === 'ios') {
@@ -377,7 +423,7 @@ class VideoPlayer extends React.Component {
         outputRange: [0, -heightTranslate]
       });
 
-      const widthTranslate = windowHeight - this.videoHeight - heightTranslate;
+      const widthTranslate = windowHeight - this.videoHeight - heightTranslate - this.statusbarHeight;
       const translateY = this.state.fullscreenAnimation.interpolate({
         inputRange: [0, 1],
         outputRange: [0, widthTranslate]
@@ -405,6 +451,17 @@ class VideoPlayer extends React.Component {
           { rotate }
         ]
       };
+
+      const navbarTranslate = this.state.fullscreenAnimation.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, this.statusbarHeight]
+      });
+
+      fakenavbarStyle = {
+        transform: [
+          { translateY: navbarTranslate }
+        ]
+      };
     } else if (Platform.OS === 'android' && this.controlsHeight) {
       const marginBottom = this.state.fullscreenAnimation.interpolate({
         inputRange: [0, 1],
@@ -415,9 +472,23 @@ class VideoPlayer extends React.Component {
         marginBottom
       };
     }
+
     return (
       <View style={ [styles.container, this.props.style] }>
+        <Animated.View style={ [{ height: this.statusbarHeight, backgroundColor: '#E96A67' }, fakenavbarStyle] } />
         <Animated.View style={ [styles.videoContainer, fullscreenStyle] } ref={ (r) => { this.videoContainer = r; } } onLayout={ this.measureVideo }>
+          <Animated.View style={ [styles.volumeSliderContainer, { opacity: this.state.volumeBarOpacity }] }>
+            <Icon name={ this.state.volumeIcon } color="#fff" size={ 12 } style={{ backgroundColor: 'transparent' }} />
+            <VolumeSlider
+              style={ styles.volumeSlider }
+              thumbSize={{ width: 1, height: 1 }}
+              thumbTintColor="rgba(255, 255, 255, 0)"
+              minimumTrackTintColor="#fff"
+              maximumTrackTintColor="rgba(255,255,255, 0.5)"
+              showsRouteButton={ false }
+              onValueChange={ this.onVolumeChange }
+            />
+          </Animated.View>
           <TouchableWithoutFeedback onPress={ this.toggleVideoButtons }>
             <Video
               source={{ uri: this.props.url }}
@@ -439,7 +510,7 @@ class VideoPlayer extends React.Component {
             />
           </TouchableWithoutFeedback>
 
-          <Overlay hidden={ !this.state.showVideoButtons }>
+          <Overlay hidden={ false }>
             { fullscreen &&
               <Controls
                 forward

@@ -62,6 +62,7 @@
 		D3849B2FAD53425AB8806CB7 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 88A37660D0C9439C84625D97 /* Poppins-Bold.ttf */; };
 		D9FFEC911BC74EA5860BE55C /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9F9034917C914D2C90F023D2 /* Zocial.ttf */; };
 		DA4B9D2E6CA745228ED842EA /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FBDD0BD2E0554739825A5DE1 /* Poppins-Medium.ttf */; };
+		DAF26B7AE7484BB0948AABA6 /* libRNVolumeSlider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B1372D8944D491D8E3AFEE2 /* libRNVolumeSlider.a */; };
 		EA4EDC036364431D8131F596 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C40FE84E68D4A52B915E0AC /* libRNVectorIcons.a */; };
 		ED4E18F384F1262630779493 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1351252772A78418D4306E91 /* AssetsLibrary.framework */; };
 		EFA6C2EE2EFE4D8094EA015A /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AF24855620AB4C1CA7214644 /* libRNDeviceInfo.a */; };
@@ -155,6 +156,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = D42CB3511B2538DE00FD0AE2;
 			remoteInfo = RNSpinkit;
+		};
+		0A62ADE31EF4A2AC000381D5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C41D8CB5B68148179E02A4DB /* RNVolumeSlider.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B15A785B1C561BA20027C1CE;
+			remoteInfo = RNVolumeSlider;
 		};
 		0A7E7BF31EEB57EC00B2F0DF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -374,6 +382,7 @@
 		645F8C6BE500B230A18F4D9D /* libPods-ShelfieTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ShelfieTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		64A4CC78FFB61E58C9018F0D /* Pods-Shelfie.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shelfie.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Shelfie/Pods-Shelfie.debug.xcconfig"; sourceTree = "<group>"; };
 		6AEC3B2482D448928A6FF06E /* Lato-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Regular.ttf"; path = "../app/assets/fonts/Lato-Regular.ttf"; sourceTree = "<group>"; };
+		6B1372D8944D491D8E3AFEE2 /* libRNVolumeSlider.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVolumeSlider.a; sourceTree = "<group>"; };
 		6D6C76D9665E469F9398FEB2 /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = "<group>"; };
 		6E17BAAE4A8C44FF49993592 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
@@ -390,6 +399,7 @@
 		B9BA6FBC46224A0E8A668FE4 /* RCTVideo.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTVideo.xcodeproj; path = "../node_modules/react-native-video/ios/RCTVideo.xcodeproj"; sourceTree = "<group>"; };
 		BC76618435F38C6174B42FFE /* Pods-ShelfieTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShelfieTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ShelfieTests/Pods-ShelfieTests.release.xcconfig"; sourceTree = "<group>"; };
 		BD31FB73D21A0196C45D899D /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		C41D8CB5B68148179E02A4DB /* RNVolumeSlider.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVolumeSlider.xcodeproj; path = "../node_modules/react-native-volume-slider/ios/RNVolumeSlider.xcodeproj"; sourceTree = "<group>"; };
 		D61100E7B65E4FB48015F60C /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		D8AEB57294AB442342C2FCD0 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		DC85D3F3690B0FC921E8DBC1 /* Pods-ShelfieTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShelfieTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShelfieTests/Pods-ShelfieTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -444,6 +454,7 @@
 				30FA1CEEF8744BDD9C7392B8 /* libKCKeepAwake.a in Frameworks */,
 				67B28983094F4913B6A838FE /* libBVLinearGradient.a in Frameworks */,
 				3D96D4B94D0F4053A080DB9E /* libRCTOrientation.a in Frameworks */,
+				DAF26B7AE7484BB0948AABA6 /* libRNVolumeSlider.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -575,6 +586,14 @@
 			isa = PBXGroup;
 			children = (
 				0A43436A1EA114AB0076191D /* libRNSpinkit.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0A62ADBE1EF4A2AC000381D5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0A62ADE41EF4A2AC000381D5 /* libRNVolumeSlider.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -720,6 +739,7 @@
 				5C2944FF756D4CEAB6E609BB /* KCKeepAwake.xcodeproj */,
 				60D94636203349A2A232842A /* BVLinearGradient.xcodeproj */,
 				8B09114EF99F4186BD1D2FE4 /* RCTOrientation.xcodeproj */,
+				C41D8CB5B68148179E02A4DB /* RNVolumeSlider.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -876,7 +896,7 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 3F2E38V2SB;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
 								enabled = 1;
@@ -986,6 +1006,10 @@
 					ProductGroup = 0A4342FE1EA113640076191D /* Products */;
 					ProjectRef = 1B82E3830FD242FF905F5E4E /* RNVectorIcons.xcodeproj */;
 				},
+				{
+					ProductGroup = 0A62ADBE1EF4A2AC000381D5 /* Products */;
+					ProjectRef = C41D8CB5B68148179E02A4DB /* RNVolumeSlider.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -1073,6 +1097,13 @@
 			fileType = archive.ar;
 			path = libRNSpinkit.a;
 			remoteRef = 0A4343691EA114AB0076191D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0A62ADE41EF4A2AC000381D5 /* libRNVolumeSlider.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNVolumeSlider.a;
+			remoteRef = 0A62ADE31EF4A2AC000381D5 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		0A7E7BF41EEB57EC00B2F0DF /* libRCTOrientation.a */ = {
@@ -1477,12 +1508,14 @@
 					"$(SRCROOT)/../node_modules/react-native-keep-awake/ios",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 					"$(SRCROOT)/../node_modules/react-native-orientation/iOS/RCTOrientation/**",
+					"$(SRCROOT)/../node_modules/react-native-volume-slider/ios/RNVolumeSlider",
 				);
 				INFOPLIST_FILE = ShelfieTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1514,12 +1547,14 @@
 					"$(SRCROOT)/../node_modules/react-native-keep-awake/ios",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 					"$(SRCROOT)/../node_modules/react-native-orientation/iOS/RCTOrientation/**",
+					"$(SRCROOT)/../node_modules/react-native-volume-slider/ios/RNVolumeSlider",
 				);
 				INFOPLIST_FILE = ShelfieTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1541,10 +1576,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Shelfie/Shelfie.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = 3F2E38V2SB;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1560,6 +1595,7 @@
 					"$(SRCROOT)/../node_modules/react-native-keep-awake/ios",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 					"$(SRCROOT)/../node_modules/react-native-orientation/iOS/RCTOrientation/**",
+					"$(SRCROOT)/../node_modules/react-native-volume-slider/ios/RNVolumeSlider",
 				);
 				INFOPLIST_FILE = Shelfie/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1571,8 +1607,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = nl.shelfie.shelfieapp;
 				PRODUCT_NAME = Shelfie;
-				PROVISIONING_PROFILE = "ead7575e-5a5b-499a-a709-55d2716d0b53";
-				PROVISIONING_PROFILE_SPECIFIER = "match AppStore nl.shelfie.shelfieapp";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1585,9 +1621,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Shelfie/Shelfie.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 3F2E38V2SB;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1603,6 +1639,7 @@
 					"$(SRCROOT)/../node_modules/react-native-keep-awake/ios",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 					"$(SRCROOT)/../node_modules/react-native-orientation/iOS/RCTOrientation/**",
+					"$(SRCROOT)/../node_modules/react-native-volume-slider/ios/RNVolumeSlider",
 				);
 				INFOPLIST_FILE = Shelfie/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1614,8 +1651,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = nl.shelfie.shelfieapp;
 				PRODUCT_NAME = Shelfie;
-				PROVISIONING_PROFILE = "ead7575e-5a5b-499a-a709-55d2716d0b53";
-				PROVISIONING_PROFILE_SPECIFIER = "match AppStore nl.shelfie.shelfieapp";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1644,11 +1681,13 @@
 					"$(SRCROOT)/../node_modules/react-native-keep-awake/ios",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 					"$(SRCROOT)/../node_modules/react-native-orientation/iOS/RCTOrientation/**",
+					"$(SRCROOT)/../node_modules/react-native-volume-slider/ios/RNVolumeSlider",
 				);
 				INFOPLIST_FILE = "Shelfie-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1689,11 +1728,13 @@
 					"$(SRCROOT)/../node_modules/react-native-keep-awake/ios",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 					"$(SRCROOT)/../node_modules/react-native-orientation/iOS/RCTOrientation/**",
+					"$(SRCROOT)/../node_modules/react-native-volume-slider/ios/RNVolumeSlider",
 				);
 				INFOPLIST_FILE = "Shelfie-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1730,6 +1771,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.Shelfie-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1754,6 +1796,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
