@@ -14,7 +14,7 @@ const Controls = (props) => {
           size={ props.normalButtonSize }
           hitSlop={ props.minimalTouchArea }
           onPress={ props.onBackward }
-          name="replay-10"
+          name="fast-rewind"
           color={ props.color }
         />
       }
@@ -32,7 +32,7 @@ const Controls = (props) => {
           size={ props.normalButtonSize }
           hitSlop={ props.minimalTouchArea }
           onPress={ props.onForward }
-          name="forward-10"
+          name="fast-forward"
           color={ props.color }
         />
       }

@@ -526,7 +526,7 @@ class VideoPlayer extends React.Component {
                 onPlay={ this.onPlay }
                 onBackward={ this.seekBackward }
                 onForward={ this.seekForward }
-                style={ [styles.videoPlayerControls, this.props.controlsStyle] }
+                style={ [styles.videoPlayerControls, styles.fullscreenControls, this.props.controlsStyle] }
                 color="#fff"
               />
             }

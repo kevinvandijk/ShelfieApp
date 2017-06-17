@@ -16,6 +16,12 @@ export default StyleSheet.create({
     marginBottom: 20
   },
 
+  fullscreenControls: {
+    minWidth: 250,
+    paddingRight: 0,
+    paddingLeft: 0
+  },
+
   progressContainer: {
     marginHorizontal: 20,
     marginTop: 34
