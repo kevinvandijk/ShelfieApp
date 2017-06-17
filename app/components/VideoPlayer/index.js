@@ -463,6 +463,10 @@ class VideoPlayer extends React.Component {
         ]
       };
     } else if (Platform.OS === 'android' && this.controlsHeight) {
+      fakenavbarStyle = {
+        height: 0
+      };
+
       const marginBottom = this.state.fullscreenAnimation.interpolate({
         inputRange: [0, 1],
         outputRange: [0, -this.controlsHeight]
@@ -477,18 +481,20 @@ class VideoPlayer extends React.Component {
       <View style={ [styles.container, this.props.style] }>
         <Animated.View style={ [{ height: this.statusbarHeight, backgroundColor: '#E96A67' }, fakenavbarStyle] } />
         <Animated.View style={ [styles.videoContainer, fullscreenStyle] } ref={ (r) => { this.videoContainer = r; } } onLayout={ this.measureVideo }>
-          <Animated.View style={ [styles.volumeSliderContainer, { opacity: this.state.volumeBarOpacity }] }>
-            <Icon name={ this.state.volumeIcon } color="#fff" size={ 12 } style={{ backgroundColor: 'transparent' }} />
-            <VolumeSlider
-              style={ styles.volumeSlider }
-              thumbSize={{ width: 1, height: 1 }}
-              thumbTintColor="rgba(255, 255, 255, 0)"
-              minimumTrackTintColor="#fff"
-              maximumTrackTintColor="rgba(255,255,255, 0.5)"
-              showsRouteButton={ false }
-              onValueChange={ this.onVolumeChange }
-            />
-          </Animated.View>
+          { Platform.OS === 'ios' &&
+            <Animated.View style={ [styles.volumeSliderContainer, { opacity: this.state.volumeBarOpacity }] }>
+              <Icon name={ this.state.volumeIcon } color="#fff" size={ 12 } style={{ backgroundColor: 'transparent' }} />
+              <VolumeSlider
+                style={ styles.volumeSlider }
+                thumbSize={{ width: 1, height: 1 }}
+                thumbTintColor="rgba(255, 255, 255, 0)"
+                minimumTrackTintColor="#fff"
+                maximumTrackTintColor="rgba(255,255,255, 0.5)"
+                showsRouteButton={ false }
+                onValueChange={ this.onVolumeChange }
+              />
+            </Animated.View>
+          }
           <TouchableWithoutFeedback onPress={ this.toggleVideoButtons }>
             <Video
               source={{ uri: this.props.url }}
