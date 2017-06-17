@@ -510,7 +510,7 @@ class VideoPlayer extends React.Component {
             />
           </TouchableWithoutFeedback>
 
-          <Overlay hidden={ false }>
+          <Overlay hidden={ !this.state.showVideoButtons }>
             { fullscreen &&
               <Controls
                 forward
