@@ -134,6 +134,7 @@ const AppRouter = () => {
               duration={ 200 }
               animationStyle={ rightToLeft }
               backButtonImage={ require('./assets/images/back-chevron.png') }
+              hideBackImage={ Platform.OS === 'android' }
             />
           </Scene>
 
