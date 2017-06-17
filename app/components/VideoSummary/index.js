@@ -41,7 +41,7 @@ class VideoSummary extends React.Component {
     };
 
     return (
-      <TouchableOpacity style={ styles.container } onPress={ onPress }>
+      <TouchableOpacity style={ styles.container } onPress={ onPress } activeOpacity={ 0.75 }>
         <View style={ styles.metaInfo }>
           <Text style={ styles.title }>{ title }</Text>
           { description &&
