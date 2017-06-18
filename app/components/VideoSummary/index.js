@@ -61,7 +61,7 @@ class VideoSummary extends React.Component {
           }}
           resizeMode="cover"
           source={ source }
-          style={ styles.image }
+          style={ [styles.image, { backgroundColor: '#efefef' }] }
           onLoad={ this.enableOverlay }
           mutable
         />
