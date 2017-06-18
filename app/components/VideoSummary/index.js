@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { TouchableOpacity, View, Text, Image } from 'react-native';
+import { CachedImage } from 'react-native-img-cache';
 
 import { getAccessToken } from '../../modules/auth';
 
@@ -50,11 +51,12 @@ class VideoSummary extends React.Component {
             </Text>
           }
         </View>
-        <Image
+        <CachedImage
           resizeMode="cover"
           source={ source }
           style={ styles.image }
           onLoad={ this.enableOverlay }
+          mutable
         />
         { this.state.showOverlay &&
           <Image
