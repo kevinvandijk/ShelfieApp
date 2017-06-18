@@ -3,6 +3,7 @@ import { createAction } from 'redux-actions';
 import { omit, keyBy, mapValues } from 'lodash';
 import { API_REQUEST } from './api';
 import { getVideosUrl, getOutputUrl } from '../services/api';
+import config from '../../config';
 
 export const INITIAL_STATE = {
   total: 0,
@@ -31,6 +32,7 @@ export default createReducer(INITIAL_STATE, {
         [video.id]: {
           id: video.id,
           ...omit(video.attributes, ['_user', 'input', '_uploader', 'outputs']),
+          screenshotUrl: `${config.get('api.baseURL')}/v1/videos/${video.id}/thumbnail`,
           outputs
         }
       };
