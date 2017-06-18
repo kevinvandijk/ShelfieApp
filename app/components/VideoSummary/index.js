@@ -1,7 +1,9 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { TouchableOpacity, View, Text, Image } from 'react-native';
+import { TouchableOpacity, View, Text } from 'react-native';
 import { CachedImage } from 'react-native-img-cache';
+import Image from 'react-native-image-progress';
+import Progress from 'react-native-progress/Pie';
 
 import { getAccessToken } from '../../modules/auth';
 
@@ -51,8 +53,12 @@ class VideoSummary extends React.Component {
             </Text>
           }
         </View>
-        <CachedImage
+        <Image
           resizeMode="cover"
+          indicator={ Progress }
+          indicatorProps={{
+            color: '#E96A67'
+          }}
           source={ source }
           style={ styles.image }
           onLoad={ this.enableOverlay }
