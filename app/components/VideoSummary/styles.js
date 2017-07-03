@@ -3,7 +3,10 @@ import { StyleSheet, Dimensions, Platform } from 'react-native';
 export default StyleSheet.create({
   container: {
     height: 285,
-    marginBottom: 10,
+    marginBottom: 10
+  },
+
+  containerLoaded: {
     shadowColor: '#737373',
     shadowOpacity: 0.5,
     shadowOffset: {

@@ -5,7 +5,6 @@ import { Actions } from 'react-native-router-flux';
 import Spinner from 'react-native-spinkit';
 import { debounce, defer } from 'lodash';
 
-import config from '../../../config';
 import authenticatedComponent from '../../decorators/AuthenticatedComponent';
 import { fetchVideos, getVideosByYear } from '../../modules/videos';
 import { setActiveTimelineSection, getActiveTimelineSection } from '../../modules/timeline';
@@ -51,7 +50,7 @@ class TimelineContainer extends Component {
       title: rowData.title,
       description: rowData.description,
       id: rowData.id,
-      screenshotUrl: `${config.get('api.baseURL')}/v1/videos/${rowData.id}/thumbnail`
+      screenshotUrl: rowData.screenshotUrl
     };
   }
 
