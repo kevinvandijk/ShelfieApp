@@ -4,6 +4,7 @@ import { TouchableOpacity, View, Text } from 'react-native';
 import { CustomCachedImage } from 'react-native-img-cache';
 import Image from 'react-native-image-progress';
 
+import ThumbnailLoader from '../../components/ThumbnailLoader';
 import { getAccessToken } from '../../modules/auth';
 
 import styles from './styles';
@@ -49,12 +50,10 @@ class VideoSummary extends React.Component {
       <TouchableOpacity style={ containerStyle } onPress={ onPress } activeOpacity={ 0.75 }>
         <CustomCachedImage
           component={ Image }
-          indicatorProps={{
-            color: 'transparent'
-          }}
+          indicator={ ThumbnailLoader }
           resizeMode="cover"
           source={ source }
-          style={ [styles.image, { backgroundColor: 'rgba(0, 0, 0, .1)' }] }
+          style={ styles.image }
           onLoad={ this.setImageLoaded }
           mutable
         />
