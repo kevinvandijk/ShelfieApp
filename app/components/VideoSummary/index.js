@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { TouchableOpacity, View, Text } from 'react-native';
 import { CustomCachedImage } from 'react-native-img-cache';
 import Image from 'react-native-image-progress';
-import Progress from 'react-native-progress/Pie';
 
 import { getAccessToken } from '../../modules/auth';
 
@@ -26,12 +25,12 @@ class VideoSummary extends React.Component {
   }
 
   state = {
-    showOverlay: false
+    imageLoaded: false
   }
 
-  enableOverlay = () => {
+  setImageLoaded = () => {
     this.setState({
-      showOverlay: true
+      imageLoaded: true
     });
   }
 
@@ -43,33 +42,37 @@ class VideoSummary extends React.Component {
       headers: { Authorization: `Bearer ${this.props.accessToken}` }
     };
 
+    const containerStyle = [styles.container];
+    if (this.state.imageLoaded) containerStyle.push(styles.containerLoaded);
+
     return (
-      <TouchableOpacity style={ styles.container } onPress={ onPress } activeOpacity={ 0.75 }>
-        <View style={ styles.metaInfo }>
-          <Text style={ styles.title }>{ title }</Text>
-          { description &&
-            <Text style={ styles.description }>
-              { description }
-            </Text>
-          }
-        </View>
+      <TouchableOpacity style={ containerStyle } onPress={ onPress } activeOpacity={ 0.75 }>
         <CustomCachedImage
           component={ Image }
-          indicator={ Progress }
           indicatorProps={{
-            color: '#E96A67'
+            color: 'transparent'
           }}
           resizeMode="cover"
           source={ source }
-          style={ [styles.image, { backgroundColor: '#efefef' }] }
-          onLoad={ this.enableOverlay }
+          style={ [styles.image, { backgroundColor: 'rgba(0, 0, 0, .1)' }] }
+          onLoad={ this.setImageLoaded }
           mutable
         />
-        { this.state.showOverlay &&
+        { this.state.imageLoaded &&
           <Image
             source={ require('../../assets/images/timeline-overlay.png') }
             style={ styles.overlay }
           />
+        }
+        { this.state.imageLoaded &&
+          <View style={ styles.metaInfo }>
+            <Text style={ styles.title }>{ title }</Text>
+            { description &&
+              <Text style={ styles.description }>
+                { description }
+              </Text>
+            }
+          </View>
         }
       </TouchableOpacity>
     );
