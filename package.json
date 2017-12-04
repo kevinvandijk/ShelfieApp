@@ -32,7 +32,7 @@
     "react-native-progress": "^3.2.1",
     "react-native-router-flux": "^3.37.0",
     "react-native-spinkit": "^1.0.2",
-    "react-native-vector-icons": "^4.0.1",
+    "react-native-vector-icons": "4.4.2",
     "react-native-video": "git+https://git@github.com/react-native-community/react-native-video#6e43701092f5f480eab8ae005a4bc729bb21b5c1",
     "react-native-volume-slider": "https://github.com/ifours/react-native-volume-slider",
     "react-redux": "^5.0.2",

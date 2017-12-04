@@ -9,6 +9,8 @@ target 'Shelfie' do
   pod 'google-cast-sdk'
 
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'ShelfieTests' do
     inherit! :search_paths
     # Pods for testing

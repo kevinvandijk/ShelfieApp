@@ -3,6 +3,7 @@ package com.shelfie;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.oblador.vectoricons.VectorIconsPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.rnimmersive.RNImmersivePackage;
 import com.github.yamill.orientation.OrientationPackage;
@@ -10,7 +11,6 @@ import com.BV.LinearGradient.LinearGradientPackage;
 import com.corbt.keepawake.KCKeepAwakePackage;
 import com.googlecast.GoogleCastPackage;
 import com.oblador.keychain.KeychainPackage;
-import com.oblador.vectoricons.VectorIconsPackage;
 import com.react.rnspinkit.RNSpinkitPackage;
 import com.brentvatne.react.ReactVideoPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
@@ -34,6 +34,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new VectorIconsPackage(),
             new RNFetchBlobPackage(),
             new RNImmersivePackage(),
             new OrientationPackage(),
@@ -41,7 +42,6 @@ public class MainApplication extends Application implements ReactApplication {
             new KCKeepAwakePackage(),
             new GoogleCastPackage(),
             new KeychainPackage(),
-            new VectorIconsPackage(),
             new RNSpinkitPackage(),
             new ReactVideoPackage(),
             new RNDeviceInfo()
