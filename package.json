@@ -46,8 +46,8 @@
     "seamless-immutable": "^7.0.1"
   },
   "devDependencies": {
-    "babel-eslint": "^7.1.1",
-    "babel-jest": "18.0.0",
+    "babel-eslint": "^8.0.3",
+    "babel-jest": "21.2.0",
     "babel-preset-react-native-stage-0": "^1.0.1",
     "eslint": "^3.13.1",
     "eslint-config-airbnb": "^14.0.0",
