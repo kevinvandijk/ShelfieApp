@@ -16,7 +16,7 @@ import Chromecast from 'react-native-google-cast';
 import KeepAwake from 'react-native-keep-awake';
 import Immersive from 'react-native-immersive'
 import Icon from 'react-native-vector-icons/MaterialIcons';
-// import VolumeSlider from 'react-native-volume-slider';
+import VolumeSlider from 'react-native-volume-slider';
 
 
 import Controls from './Controls';
@@ -482,7 +482,7 @@ class VideoPlayer extends React.Component {
           { Platform.OS === 'ios' &&
             <Animated.View style={ [styles.volumeSliderContainer, { opacity: this.state.volumeBarOpacity }] }>
               <Icon name={ this.state.volumeIcon } color="#fff" size={ 12 } style={{ backgroundColor: 'transparent' }} />
-              {/* <VolumeSlider
+              <VolumeSlider
                 style={ styles.volumeSlider }
                 thumbSize={{ width: 1, height: 1 }}
                 thumbTintColor="rgba(255, 255, 255, 0)"
@@ -490,7 +490,7 @@ class VideoPlayer extends React.Component {
                 maximumTrackTintColor="rgba(255,255,255, 0.5)"
                 showsRouteButton={ false }
                 onValueChange={ this.onVolumeChange }
-              /> */}
+              />
             </Animated.View>
           }
           <TouchableWithoutFeedback onPress={ this.toggleVideoButtons }>

@@ -3884,19 +3884,19 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.0.0, prop-types@^15.5.8:
-  version "15.5.8"
-  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.5.8.tgz#6b7b2e141083be38c8595aa51fc55775c7199394"
-  dependencies:
-    fbjs "^0.8.9"
-
-prop-types@^15.5.10, prop-types@^15.6.0:
+prop-types@15.6.0, prop-types@^15.5.10, prop-types@^15.6.0:
   version "15.6.0"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.0.tgz#ceaf083022fc46b4a35f69e13ef75aed0d639856"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.3.1"
     object-assign "^4.1.1"
+
+prop-types@^15.0.0, prop-types@^15.5.8:
+  version "15.5.8"
+  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.5.8.tgz#6b7b2e141083be38c8595aa51fc55775c7199394"
+  dependencies:
+    fbjs "^0.8.9"
 
 prr@~0.0.0:
   version "0.0.0"
@@ -4093,6 +4093,12 @@ react-native-vector-icons@^4.0.1:
 react-native-volume-slider@^0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/react-native-volume-slider/-/react-native-volume-slider-0.5.0.tgz#60a5b2222bf77d7a7754c3bba75f3f9ad7dde4b6"
+
+"react-native-volume-slider@https://github.com/ifours/react-native-volume-slider":
+  version "0.5.0"
+  resolved "https://github.com/ifours/react-native-volume-slider#82af17556a953884ee634532043fe86de34aa6da"
+  dependencies:
+    prop-types "15.6.0"
 
 react-native@0.50.4:
   version "0.50.4"
