@@ -1,11 +1,10 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import { string, bool } from 'prop-types';
 import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
 
 import styles from './styles';
 import { getActiveTimelineSection, getPreviousTimelineSection } from '../../modules/timeline';
-
-const { string, bool } = PropTypes;
 
 class TimelineHeader extends React.Component {
   static propTypes = {

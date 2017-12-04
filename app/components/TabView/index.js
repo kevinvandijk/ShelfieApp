@@ -1,9 +1,8 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import { func, shape, string, arrayOf } from 'prop-types';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { partial } from 'lodash';
 import styles from './styles';
-
-const { func, shape, string, arrayOf } = PropTypes;
 
 function TabView(props) {
   const tabs = props.tabs.map(tab => {

@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import { object } from 'prop-types';
 import { Alert, StatusBar, View } from 'react-native';
 import { Provider } from 'react-redux';
 import Orientation from 'react-native-orientation';
@@ -16,7 +17,7 @@ i18nInitializer();
 
 class App extends Component {
   static propTypes = {
-    store: PropTypes.object.isRequired
+    store: object.isRequired
   }
 
   componentWillMount() {

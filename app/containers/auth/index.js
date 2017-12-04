@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import { func, bool } from 'prop-types';
 import { connect } from 'react-redux';
 import { View, Alert } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
@@ -11,8 +12,6 @@ import Input from '../../components/Form/Input';
 import SubmitButton from '../../components/Form/SubmitButton';
 import HugeButton from '../../components/HugeButton';
 import { login, authScreenIsFocused, loginFailed } from '../../modules/auth';
-
-const { func, bool } = PropTypes;
 
 const translate = I18n.namespace('containers.auth');
 

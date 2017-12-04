@@ -1,10 +1,9 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import { number, string, bool, object, oneOfType, func, array } from 'prop-types';
 import { View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { calculateHitSlop } from '../../helpers';
 import ControlButton from './ControlButton';
-
-const { number, string, bool, object, oneOfType, func, array } = PropTypes;
 
 const Controls = (props) => {
   return (

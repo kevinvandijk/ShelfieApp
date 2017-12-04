@@ -1,11 +1,10 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import { func, shape, bool, instanceOf, oneOfType } from 'prop-types';
 import { ListView, RefreshControl } from 'react-native';
 import { partial, noop } from 'lodash';
 
 import Row from './Row';
 import Separator from './Separator';
-
-const { func, shape, bool, instanceOf, oneOfType } = PropTypes;
 
 export default class List extends Component {
   static propTypes = {

@@ -1,16 +1,15 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import { oneOfType, bool, number, object, node } from 'prop-types';
 import { Animated } from 'react-native';
 import { omit } from 'lodash';
 
 import styles from './styles';
 
-const { oneOfType, bool, number, object } = PropTypes;
-
 class Overlay extends React.Component {
   static propTypes = {
     hidden: bool,
     style: oneOfType([number, object]),
-    children: PropTypes.node.isRequired
+    children: node.isRequired
   }
 
   static defaultProps = {

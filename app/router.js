@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import { func, object } from 'prop-types';
 import { Platform, Dimensions, View } from 'react-native';
 import { connect } from 'react-redux';
 import { Scene, Router, Switch, DefaultRenderer, Actions, Modal, NavBar } from 'react-native-router-flux';
@@ -16,8 +17,6 @@ import ChangePasswordContainer from './containers/change-password';
 import SideMenu from './containers/SideMenu';
 import ShelfieWebView from './containers/ShelfieWebView';
 import OrientationAwareNavBar from './components/OrientationAwareNavBar';
-
-const { func, object } = PropTypes;
 
 export const MAIN_SCENE_DRAWER = 'drawer';
 export const LOAD_SCENE = 'load';

@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import { func, shape } from 'prop-types';
 import { View, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
@@ -11,8 +12,6 @@ import { setActiveTimelineSection, getActiveTimelineSection } from '../../module
 import List from '../../components/List';
 import TimelineHeader from '../../components/TimelineHeader';
 import VideoSummary from '../../components/VideoSummary';
-
-const { func, shape } = PropTypes;
 
 @authenticatedComponent()
 class TimelineContainer extends Component {

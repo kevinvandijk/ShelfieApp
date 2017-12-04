@@ -1,9 +1,8 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import { oneOfType, string, object, number } from 'prop-types';
 import { Text } from 'react-native';
 import I18n from '../../lib/i18n';
 import styles from './styles';
-
-const { oneOfType, string, object, number } = PropTypes;
 
 const TextContent = (props) => {
   const text = (props.i18nKey

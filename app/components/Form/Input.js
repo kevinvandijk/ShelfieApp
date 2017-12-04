@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import { object, number, oneOfType, func, string, bool } from 'prop-types';
 import { TextInput, StyleSheet } from 'react-native';
 import { noop } from 'lodash';
 
@@ -16,9 +17,6 @@ const styles = StyleSheet.create({
     // fontFamily: 'Lato-Regular'
   }
 });
-
-
-const { object, number, oneOfType, func, string, bool } = PropTypes;
 
 class Input extends Component {
   static propTypes = {

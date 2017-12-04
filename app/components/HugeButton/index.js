@@ -1,8 +1,7 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import { oneOfType, object, number, func, node, bool, array } from 'prop-types';
 import { Text, TouchableOpacity } from 'react-native';
 import styles from './styles';
-
-const { oneOfType, object, number, func, node, bool, array } = PropTypes;
 
 const HugeButton = (props) => {
   let childComponents;
