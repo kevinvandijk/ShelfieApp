@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import { func, number, object, oneOfType, bool, string } from 'prop-types';
 import {
   View,
   Text,
@@ -24,8 +25,6 @@ import Title from './Title';
 import ControlButton from './ControlButton';
 import Overlay from '../Overlay';
 import styles from './styles';
-
-const { func, number, object, oneOfType, bool, string } = PropTypes;
 
 class VideoPlayer extends React.Component {
   static propTypes = {

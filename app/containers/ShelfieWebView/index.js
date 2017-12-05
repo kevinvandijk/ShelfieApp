@@ -1,7 +1,6 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import { string } from 'prop-types';
 import { WebView } from 'react-native';
-
-const { string } = PropTypes;
 
 const ShelfieWebView = (props) => {
   return (

@@ -18,7 +18,7 @@ if [[ "$BUDDYBUILD_BRANCH" = "master" ]]; then
   export BUNDLE_PATH="$APP_PATH/build/$BUNDLE_FILE"
 
   node "$BUDDYBUILD_WORKSPACE/node_modules/react-native/local-cli/cli.js" bundle \
-    --entry-file index.android.js \
+    --entry-file index.js \
     --platform android \
     --dev false \
     --reset-cache \

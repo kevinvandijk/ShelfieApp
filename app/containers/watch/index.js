@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import { string, shape, func, bool } from 'prop-types';
 import { connect } from 'react-redux';
 import { View, StatusBar, Platform } from 'react-native';
 import { getVideo, fetchSignedOutputUrl, getSignedUrlForQuality } from '../../modules/videos';
@@ -6,8 +7,6 @@ import Orientation from 'react-native-orientation';
 
 import { orientationChanged, isWatchingFullscreen, getOrientation, startWatchingOrientation, stopWatchingOrientation, unlockOrientation, setOrientation } from '../../modules/watch';
 import VideoPlayer from '../../components/VideoPlayer';
-
-const { string, shape, func, bool } = PropTypes;
 
 class WatchContainer extends Component {
   static propTypes = {

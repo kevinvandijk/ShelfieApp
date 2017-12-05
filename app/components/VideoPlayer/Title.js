@@ -1,8 +1,7 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import { string, number, object, array, oneOfType } from 'prop-types';
 import { View, Text } from 'react-native';
 import styles from './styles';
-
-const { string, number, object, array, oneOfType } = PropTypes;
 
 const Title = (props) => {
   return (

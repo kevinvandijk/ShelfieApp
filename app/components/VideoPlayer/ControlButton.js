@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import { func, string, number } from 'prop-types';
 import { TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -25,11 +26,11 @@ const ControlButton = (props) => {
 };
 
 ControlButton.propTypes = {
-  onPress: PropTypes.func,
-  name: PropTypes.string.isRequired,
-  size: PropTypes.number,
-  hitSlop: PropTypes.number,
-  color: PropTypes.string
+  onPress: func,
+  name: string.isRequired,
+  size: number,
+  hitSlop: number,
+  color: string
 };
 
 ControlButton.defaultProps = {

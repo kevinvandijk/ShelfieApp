@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import { func } from 'prop-types';
 import { View, Text, StyleSheet, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
@@ -9,8 +10,6 @@ import Input from '../../components/Form/Input';
 import SubmitButton from '../../components/Form/SubmitButton';
 import HugeButton from '../../components/HugeButton';
 import { changePassword } from '../../modules/auth';
-
-const { func } = PropTypes;
 
 const translate = I18n.namespace('containers.changePassword');
 

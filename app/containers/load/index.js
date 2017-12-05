@@ -1,12 +1,11 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import { func, bool } from 'prop-types';
 import { View, Image, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient';
 
 import styles from './styles';
 import { initialize, getAppLoadedStatus } from '../../modules/boot';
-
-const { func, bool } = PropTypes;
 
 class LoadContainer extends Component {
   static propTypes = {

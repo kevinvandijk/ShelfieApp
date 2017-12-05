@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import { bool } from 'prop-types';
 import { connect } from 'react-redux';
 import { NavBar } from 'react-native-router-flux';
 
@@ -15,7 +16,7 @@ const OrientationAwareNavBar = (props) => {
 };
 
 OrientationAwareNavBar.propTypes = {
-  fullscreen: PropTypes.bool.isRequired
+  fullscreen: bool.isRequired
 };
 
 const mapStateToProps = (state) => {

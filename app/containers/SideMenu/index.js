@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import { func, bool } from 'prop-types';
 import { connect } from 'react-redux';
 import { View, StyleSheet, Text, Platform } from 'react-native';
 import { Actions } from 'react-native-router-flux';
@@ -7,8 +8,6 @@ import { MAIN_SCENE_DRAWER } from '../../router';
 import I18n from '../../lib/i18n';
 import { logout } from '../../modules/auth';
 import HugeButton from '../../components/HugeButton';
-
-const { func } = PropTypes;
 
 const translate = I18n.namespace('containers.sideMenu');
 
@@ -93,7 +92,7 @@ const styles = StyleSheet.create({
 class SideMenu extends Component {
   static propTypes = {
     logout: func.isRequired,
-    open: PropTypes.bool
+    open: bool
   }
 
   onLogoutPress = () => {

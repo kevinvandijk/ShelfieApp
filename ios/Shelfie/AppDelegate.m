@@ -21,15 +21,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   [BuddyBuildSDK setup];
-  
+
   NSURL *jsCodeLocation;
 
-  
-//#ifdef DEBUG
-    jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
-//#else
-//    jsCodeLocation = [CodePush bundleURL];
-//#endif
+  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"Shelfie"
@@ -41,17 +36,17 @@
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = rootView;
-  
+
   // Hide the volume icon when changing volume
   MPVolumeView *volumeView = [[MPVolumeView alloc] initWithFrame: CGRectZero];
   [self.window addSubview: volumeView];
-  
+
   // Ignore the silent switch, do nothing if it fails
   NSError *error = nil;
   [[AVAudioSession sharedInstance]
     setCategory:AVAudioSessionCategoryPlayback
     error:&error];
-  
+
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   return YES;

@@ -1,8 +1,7 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import { number, oneOfType, object, func, array, bool, string, any } from 'prop-types';
 import { View, StyleSheet, Text, Slider } from 'react-native';
 import styles from './styles';
-
-const { number, oneOfType, object, func, array, bool } = PropTypes;
 
 const validateOnSeekProp = (props) => {
   if (!props.disableSeek && !props.onSeek) {
@@ -26,12 +25,12 @@ class Progress extends React.Component {
     disableSeek: bool,
     onSeek: validateOnSeekProp,
     onSeekComplete: func,
-    maximumTrackColor: PropTypes.string,
-    minimumTrackColor: PropTypes.string,
-    trackImage: PropTypes.any,
-    textColor: PropTypes.string,
-    onDragStart: PropTypes.func,
-    onDragEnd: PropTypes.func
+    maximumTrackColor: string,
+    minimumTrackColor: string,
+    trackImage: any,
+    textColor: string,
+    onDragStart: func,
+    onDragEnd: func
   }
 
   static defaultProps = {

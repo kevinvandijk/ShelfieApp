@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import { string, func } from 'prop-types';
 import { connect } from 'react-redux';
 import { TouchableOpacity, View, Text } from 'react-native';
 import { CustomCachedImage } from 'react-native-img-cache';
@@ -8,8 +9,6 @@ import ThumbnailLoader from '../../components/ThumbnailLoader';
 import { getAccessToken } from '../../modules/auth';
 
 import styles from './styles';
-
-const { string, func } = PropTypes;
 
 class VideoSummary extends React.Component {
   static propTypes = {
